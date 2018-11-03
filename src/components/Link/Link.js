@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { blue, montserrat } from '../../styles/css-variables';
+import { colors, montserrat } from '../../styles/css-variables';
 import { Link as RouterLink } from 'react-router-dom';
 
 const StyledLink  = styled(RouterLink)`
 	font-size: 16px;
-	color: ${blue};
+	color: ${colors.blue};
 	font-family: ${montserrat};
 	border: none;
 	font-weight: 900;
@@ -23,7 +23,6 @@ const StyledLink  = styled(RouterLink)`
 class Link extends Component {
 	render() {
 		const { children, to } = this.props;
-
 		return  <StyledLink to={to} {...this.props}>{children}</StyledLink>
 	}
 }

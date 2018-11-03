@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { blue, white, montserrat, phoneMediaQuery } from '../../styles/css-variables';
+import { colors,  montserrat, phoneMediaQuery } from '../../styles/css-variables';
 
 const StyledButton = styled.button`
-	background: ${white};
-	color: ${blue};
+	background: ${colors.white};
+	color: ${colors.blue};
 	font-weight: 400;
 	height: 40px;
 	font-size: 14px;
@@ -18,19 +18,19 @@ const StyledButton = styled.button`
 	padding: 10px 20px;
 	border-radius: 3px;
 	cursor: pointer;
-	border: solid 1px ${blue};
+	border: solid 1px ${colors.blue};
 	border-radius: 5px;
 	& > span {
-		color: ${blue};
+		color: ${colors.blue};
 		font-weight: 400;
 		font-size: 1rem;
 	}
 	&:hover {
-		border: solid 1px ${blue};
-		background: ${blue};
+		border: solid 1px ${colors.blue};
+		background: ${colors.blue};
 	}
 	&:hover > span {
-		color: ${white};
+		color: ${colors.white};
 	}
 	@media ${`(${phoneMediaQuery})`} {
 		width: 100%;
@@ -39,7 +39,7 @@ const StyledButton = styled.button`
 
 const ButtonAsLink = styled.button`
 	font-size: 16px;
-	color: ${blue};
+	color: ${colors.blue};
 	font-family: ${montserrat};
 	border: none;
 	font-weight: 900;
