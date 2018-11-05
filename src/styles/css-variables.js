@@ -2,6 +2,7 @@ import { css } from 'styled-components'
 import cols from './colors';
 // Fonts
 export const montserrat = "'Montserrat', sans-serif";
+export const sourceSans = "'Source Sans Pro', sans-serif"	
 export const lato = "'Lato', sans-serif";
 export const colors = cols;
 // Responsive design
