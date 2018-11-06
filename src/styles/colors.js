@@ -7,6 +7,7 @@ export const darkBlue = '#00578B';
 
 // Whites
 export const white = '#ffffff';
+export const offWhite = '#ECEDEE'
 
 // Grays
 export const darkGray = '#848586';
@@ -35,6 +36,8 @@ export default {
 	darkGreen,
 	blue, 
 	darkBlue,
+	white,
+	offWhite,
 	mutedGray, 
 	lightGray, 
 	darkGray,
