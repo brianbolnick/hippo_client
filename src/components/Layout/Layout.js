@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { colors } from '../../styles/css-variables';
 import Logo from '../../img/hippo-logo.png';
+
 const Sidebar = styled.div`
 	width: 300px;
 	height: 100%;
@@ -13,6 +14,19 @@ const Sidebar = styled.div`
 `
 
 const SidebarLink = styled(Link)`
+	color: ${colors.white};
+	text-decoration: none;
+	text-transform: uppercase;
+	font-size: 21px;
+	height: 48px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-radius: 2px;
+
+	&:hover {
+			background-color: #8485863d;
+	}
 `
 
 const ChildrenWrapper = styled.div`
@@ -33,8 +47,24 @@ const Brand = styled.div`
 	margin-top: 24px;
 `
 
-
-
+const LinkGroup = styled.div`
+	margin-top: 40px;
+	text-align: center;
+	display: flex;
+	flex-flow: column;
+	justify-content: space-between;
+	height: 300px;
+`
+const Footer = styled.div`
+	position: absolute;
+	bottom: 0;
+	height: 64px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 225px;
+	color: ${colors.lightGray};
+`
 const Layout = ({children}) => {
 	return (
 		<Page>
@@ -42,6 +72,16 @@ const Layout = ({children}) => {
 				<Brand>
 					<img src={Logo} style={{width: '100%'}}/>
 				</Brand>
+				<LinkGroup>
+					<SidebarLink to='/'>Dashboard</SidebarLink>
+					<SidebarLink to='/sign_in'>Sign In</SidebarLink>
+					<SidebarLink to='/'>Projects</SidebarLink>
+					<SidebarLink to='/'>Analytics</SidebarLink>
+					<SidebarLink to='/'>Support</SidebarLink>
+				</LinkGroup>
+				<Footer>
+					&copy; 2018
+				</Footer>
 			</Sidebar>
 			<ChildrenWrapper>
 				{children}
