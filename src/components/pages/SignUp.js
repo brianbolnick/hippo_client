@@ -2,11 +2,12 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Input from "../Input/Input";
 import styled from "styled-components";
-import Button from "../Button/Button";
 import { API_URL } from "../../utils";
 import axios from "axios";
 import jwtDecode from "jwt-decode";
+import Button from "../Button/Button";
 const config = { headers: {} };
+
 const FormContainer = styled.form`
 	width: 50%;
 	height: 100%
@@ -14,6 +15,7 @@ const FormContainer = styled.form`
 	justify-content: center;
 	flex-flow: column;
 `;
+
 const PageWrapper = styled.div`
   height: 100%;
   width: 100%;
@@ -22,28 +24,43 @@ const PageWrapper = styled.div`
   align-items: center;
 `;
 
-class SignIn extends React.Component {
+class SignUp extends React.Component {
   state = {
     email: "",
     password: "",
-    error: "",
-    loading: false
+    passwordConfirmation: "",
+    loading: false,
+    error: {}
   };
 
   handleFormSubmit = e => {
     e.preventDefault();
+    console.log("submitting");
+    if (this.state.password !== this.state.passwordConfirmation) {
+      this.setState({
+        error: {
+          message: "Passwords should match",
+          field: "password_confirmation"
+        }
+      });
+      return;
+    }
     this.setState({ loading: true });
     const data = {
-      email: this.state.email,
-      password: this.state.password
+      user: {
+        email: this.state.email,
+        password: this.state.password,
+        password_confirmation: this.state.passwordConfirmation
+      }
     };
     axios
-      .post(`${API_URL}/sign_in`, data, config)
+      .post(`${API_URL}/sign_up`, data, config)
       .then(resp => {
         this.setState({ loading: false }, () => {
-          if (resp.error) {
-            const message = resp.error;
-            this.setState({ loading: false, error: message });
+          if (resp.errors) {
+            const field = Object.keys(resp.data.errors)[0];
+            const message = resp.data.errors[field][0];
+            this.setState({ loading: false, error: { field, message } });
           } else {
             const jwt = jwtDecode(resp.data.jwt);
             console.log(jwt);
@@ -55,15 +72,19 @@ class SignIn extends React.Component {
       })
       .catch(err => {
         console.log(err);
-        const message = err.response.data.error;
-        this.setState({ loading: false, error: message });
+        const field = Object.keys(err.response.data.errors)[0];
+        const message = err.response.data.errors[field][0];
+        this.setState({ loading: false, error: { field, message } });
       });
   };
   render() {
+    const { loading, error } = this.state;
     return (
       <PageWrapper>
         <FormContainer onSubmit={this.handleFormSubmit}>
+          {error.message && <div>{error.message}</div>}
           <Input
+            inputState={error.field === "email" && "is-danger"}
             type="text"
             label="Email"
             icon="envelope"
@@ -71,15 +92,26 @@ class SignIn extends React.Component {
             onChange={e => this.setState({ email: e.target.value })}
           />
           <Input
+            inputState={error.field === "password" && "is-danger"}
             type="password"
             label="Password"
             icon="lock"
             placeholder="Password"
             onChange={e => this.setState({ password: e.target.value })}
           />
+          <Input
+            inputState={error.field === "password_confirmation" && "is-danger"}
+            type="password"
+            label="Confirm Password"
+            icon="lock"
+            placeholder="Confirm Password"
+            onChange={e =>
+              this.setState({ passwordConfirmation: e.target.value })
+            }
+          />
           <Button type="submit">Submit</Button>
           <p>
-            Need an account? <Link to="/sign_up">Sign up now!</Link>
+            Already have an account? <Link to="/sign_in">Sign In</Link> instead.{" "}
           </p>
         </FormContainer>
       </PageWrapper>
@@ -87,4 +119,4 @@ class SignIn extends React.Component {
   }
 }
 
-export default SignIn;
+export default SignUp;
