@@ -6,6 +6,7 @@ import Button from "../Button/Button";
 import { API_URL } from "../../utils";
 import axios from "axios";
 import jwtDecode from "jwt-decode";
+import { media } from "../../styles/css-variables";
 const config = { headers: {} };
 const FormContainer = styled.form`
 	width: 50%;
@@ -13,6 +14,7 @@ const FormContainer = styled.form`
 	display: flex;
 	justify-content: center;
 	flex-flow: column;
+	${media.phone` width: 90%;`};
 `;
 const PageWrapper = styled.div`
   height: 100%;
