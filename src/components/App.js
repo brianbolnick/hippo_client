@@ -4,7 +4,7 @@ import HomePage from "./pages/HomePage";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import NotFound from "./pages/NotFound";
-import NoAuth from "./pages/NoAuth";
+import NoAuth from "./pages/NoAuth/NoAuth";
 import { jwt } from "../utils";
 
 const HiddenRoute = ({ component: Component, isAuthenticated, ...rest }) => {

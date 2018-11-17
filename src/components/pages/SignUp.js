@@ -80,7 +80,7 @@ class SignUp extends React.Component {
       });
   };
   render() {
-    const { loading, error } = this.state;
+    const { error } = this.state;
     return (
       <PageWrapper>
         <FormContainer onSubmit={this.handleFormSubmit}>
