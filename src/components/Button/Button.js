@@ -65,10 +65,6 @@ const StyledButton = styled.button`
 
 	& > span::before {
 		${({ loading }) => loading && loadingStyles}
-
-		@media ${`(${phoneMediaQuery})`} {
-			width: 100%;
-		}
 		`;
 
 const ButtonAsLink = styled.button`
