@@ -1,6 +1,28 @@
 import styled from "styled-components";
 import { media, tienne, sourceSans } from "../../../styles/css-variables";
 
+export const Actions = styled.div`
+  margin-top: 16px;
+  width: 375px;
+  display: flex;
+  justify-content: space-evenly;
+  ${media.phone`
+	`};
+`;
+
+export const DemoContainer = styled.div`
+  height: 600px;
+  width: 60%;
+  background: white;
+  margin: 0 auto;
+  border-radius: 8px;
+  box-shadow: 0px 2px 8px 1px #31363896;
+  ${media.phone`
+		width: 90%;
+    height: 280px;
+	`};
+`;
+
 export const Curve = styled.div`
   position: relative;
   background-image: linear-gradient(to top left, #d44b92, #f0617d, #f3874a);
@@ -44,6 +66,7 @@ export const Header = styled.div`
   align-items: center;
   padding: 0 25%;
   text-align: center;
+  margin-top: 80px;
   ${media.phone`
 	padding: 5% 0;
 	`};

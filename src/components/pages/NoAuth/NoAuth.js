@@ -3,15 +3,19 @@ import { phoneMediaQuery } from "../../../styles/css-variables";
 import MediaQuery from "../../MediaQuery/MediaQuery";
 import {
   Description,
+  Actions,
   Hero,
   Curve,
   Block,
   Content,
   Header,
-  Title
+  Title,
+  DemoContainer
 } from "./Styles";
 import Nav from "../../Nav/Nav";
 import MobileNav from "../../Nav/MobileNav";
+import Button from "../../Button/Button";
+import { Link } from "react-router-dom";
 
 class NoAuth extends React.Component {
   state = {
@@ -39,8 +43,26 @@ class NoAuth extends React.Component {
                 With this app, you can do anything and everything. Yup, even
                 that too. Get started today.
               </Description>
+              <Actions>
+                <Button secondary onClick={() => console.log("click")}>
+                  Request Demo
+                </Button>
+                <Link to="/sign_up">
+                  <Button onClick={() => console.log("click")}>
+                    Sign Up Free
+                  </Button>
+                </Link>
+              </Actions>
             </Header>
           </Hero>
+          <section
+            style={{
+              background:
+                "linear-gradient(to bottom, #F5F6F7 0%, #F5F6F7 50%, #fff 50%)"
+            }}
+          >
+            <DemoContainer />
+          </section>
           <section style={{ marginTop: "200px" }}>
             <Curve>
               <svg
@@ -76,10 +98,10 @@ class NoAuth extends React.Component {
               </svg>
             </Curve>
           </section>
-          <section style={{ position: "relative", top: "1200px" }}>
+          <section style={{ position: "relative", top: "200px" }}>
             <Block left />
           </section>
-          <section style={{ position: "relative", top: "2200px" }}>
+          <section style={{ position: "relative", top: "1200px" }}>
             <Block />
           </section>
         </Content>

@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { sourceSans, media } from "../../styles/css-variables";
+import { colors, sourceSans, media } from "../../styles/css-variables";
 import Icon from "../Icon/Icon";
 
 export const Navbar = styled.div`
@@ -12,29 +12,23 @@ export const Navbar = styled.div`
   font-size: 1rem;
   z-index: 9500;
   transition: 0.2s ease;
-  padding: 24px;
+  padding: 16px 5%;
   box-shadow: rgba(0, 0, 0, 0) 0px 0px 0px;
 `;
 
-export const Brand = styled.div`
-  color: #414141;
-  font-weight: 400;
-  font-size: 1.2rem;
-  text-transform: uppercase;
-`;
+export const Brand = styled.div``;
 
 export const NavLinks = styled.div`
   display: flex;
-  width: 25%;
-  justify-content: space-around;
+  justify-content: space-between;
 `;
 
 export const NavLinkMobile = styled(Link)`
-  color: #414141;
-  font-size: 1.2rem;
+  color: ${colors.black};
+  font-size: 1rem;
   transition: all 0.2s ease;
   margin: 10px 0;
-
+  text-decoration: none;
   &:hover {
     opacity: 0.5;
     transition: all 0.2s ease;
@@ -42,11 +36,13 @@ export const NavLinkMobile = styled(Link)`
 `;
 
 export const NavLink = styled(Link)`
-  color: #414141;
+  color: ${colors.black};
   transition: all 0.2s ease;
   text-decoration: none;
+  margin-left: 32px;
+  font-weight: 600;
   &:hover {
-    opacity: 0.5;
+    color: ${colors.red};
     transition: all 0.2s ease;
   }
 `;
