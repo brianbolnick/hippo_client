@@ -1,5 +1,10 @@
 import styled from "styled-components";
-import { media, tienne, sourceSans } from "../../../styles/css-variables";
+import {
+  colors,
+  media,
+  tienne,
+  sourceSans
+} from "../../../styles/css-variables";
 
 export const Actions = styled.div`
   margin-top: 16px;
@@ -30,6 +35,11 @@ export const Curve = styled.div`
   margin-top: 200px;
 `;
 
+export const Footer = styled.div`
+  height: 400px;
+  background: ${colors.lightGray};
+  margin-top: 200px;
+`;
 export const Block = styled.div`
   width: 1500px;
   height: 1500px;
@@ -53,6 +63,7 @@ export const Content = styled.div`
   position: relative;
   width: 100%;
   overflow-x: hidden;
+  color: ${colors.black};
 `;
 
 export const Hero = styled.div`

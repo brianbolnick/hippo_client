@@ -6,7 +6,7 @@ import {
   Actions,
   Hero,
   Curve,
-  Block,
+  Footer,
   Content,
   Header,
   Title,
@@ -98,12 +98,13 @@ class NoAuth extends React.Component {
               </svg>
             </Curve>
           </section>
-          <section style={{ position: "relative", top: "200px" }}>
+          {/*          <section style={{ position: "relative", top: "200px" }}>
             <Block left />
           </section>
           <section style={{ position: "relative", top: "1200px" }}>
             <Block />
-          </section>
+					</section> */}
+          <Footer />
         </Content>
       </div>
     );

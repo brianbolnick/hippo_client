@@ -19,7 +19,7 @@ const StyledButton = styled.button`
   padding: 12px 16px;
   cursor: pointer;
   box-shadow: ${({ secondary }) =>
-    secondary ? "inset 0 0 0 2px #F8598B" : "none"};
+    secondary ? `inset 0 0 0 2px ${colors.red}` : "none"};
   border: none;
   border-radius: 8px;
   max-width: 180px;
