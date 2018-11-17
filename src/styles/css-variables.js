@@ -1,4 +1,4 @@
-import { css } from "styled-components";
+import { css, keyframes } from "styled-components";
 import cols from "./colors";
 // Fonts
 export const montserrat = "'Montserrat', sans-serif";
@@ -17,3 +17,16 @@ export const media = {
     }
   `
 };
+
+export const spinAround = keyframes`
+	from {
+		-webkit-transform: rotate(0);
+		transform: rotate(0)
+	}
+
+	to {
+		-webkit-transform: rotate(359deg);
+		transform: rotate(359deg)
+	}
+
+`;

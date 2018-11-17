@@ -62,6 +62,7 @@ class SignIn extends React.Component {
       });
   };
   render() {
+    const { loading } = this.state;
     return (
       <PageWrapper>
         <FormContainer onSubmit={this.handleFormSubmit}>
@@ -79,7 +80,9 @@ class SignIn extends React.Component {
             placeholder="Password"
             onChange={e => this.setState({ password: e.target.value })}
           />
-          <Button type="submit">Submit</Button>
+          <Button type="submit" loading={loading}>
+            Submit
+          </Button>
           <p>
             Need an account? <Link to="/sign_up">Sign up now!</Link>
           </p>

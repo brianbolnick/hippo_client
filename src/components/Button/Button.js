@@ -5,28 +5,55 @@ import {
   colors,
   montserrat,
   tienne,
-  phoneMediaQuery
+  phoneMediaQuery,
+  spinAround
 } from "../../styles/css-variables";
+import { css } from "styled-components";
+
+const loadingStyles = css`
+  animation: ${spinAround} 0.5s infinite linear;
+  border: 2px solid ${colors.white};
+  border-radius: 290486px;
+  border-right-color: transparent;
+  border-top-color: transparent;
+  content: "";
+  display: block;
+  height: 1em;
+  position: relative;
+  width: 1em;
+  position: relative;
+  left: calc(50% - (1em / 2));
+  top: calc(50% - (1em / 2));
+  position: relative;
+`;
 
 const StyledButton = styled.button`
-  background: ${({ secondary }) =>
+	background: ${({ secondary }) =>
     secondary ? "transparent" : "linear-gradient(to right, #ff416c, #F9665E)"};
-  color: ${({ secondary }) => (secondary ? colors.black : colors.white)};
-  font-size: 14px;
-  font-family: ${tienne};
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  padding: 12px 16px;
-  cursor: pointer;
-  box-shadow: ${({ secondary }) =>
+	color: ${({ secondary }) => (secondary ? colors.black : colors.white)};
+	font-size: 14px;
+	font-family: ${tienne};
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	padding: 12px 16px;
+	cursor: pointer;
+	box-shadow: ${({ secondary }) =>
     secondary ? `inset 0 0 0 2px ${colors.red}` : "none"};
-  border: none;
-  border-radius: 8px;
-  max-width: 180px;
-  font-weight: ${({ secondary }) => (secondary ? "800" : "")};
+	border: none;
+	border-radius: 8px;
+	max-width: 180px;
+	font-weight: ${({ secondary }) => (secondary ? "800" : "")};
 
-  &:hover {
-    ${({ secondary }) =>
+	${({ loading }) =>
+    loading &&
+    `
+	color: transparent;
+	line-height: 0;
+	pointer-events: none;
+	`};
+
+	&:hover {
+		${({ secondary }) =>
       secondary
         ? `
 		background: white;
@@ -34,13 +61,15 @@ const StyledButton = styled.button`
         : `
 		box-shadow: 0 3px 25px rgba(0,0,0,0.15), 0 8px 10px -6px rgba(0,0,0,0.3); 
 		`};
-  }
-  &:hover > span {
-  }
-  @media ${`(${phoneMediaQuery})`} {
-    width: 100%;
-  }
-`;
+	}
+
+	& > span::before {
+		${({ loading }) => loading && loadingStyles}
+
+		@media ${`(${phoneMediaQuery})`} {
+			width: 100%;
+		}
+		`;
 
 const ButtonAsLink = styled.button`
   font-size: 16px;
