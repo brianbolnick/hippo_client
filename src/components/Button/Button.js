@@ -4,7 +4,6 @@ import PropTypes from "prop-types";
 import {
   colors,
   montserrat,
-  tienne,
   phoneMediaQuery,
   spinAround
 } from "../../styles/css-variables";
@@ -32,7 +31,7 @@ const StyledButton = styled.button`
     secondary ? "transparent" : "linear-gradient(to right, #ff416c, #F9665E)"};
 	color: ${({ secondary }) => (secondary ? colors.black : colors.white)};
 	font-size: 14px;
-	font-family: ${tienne};
+	font-family: ${montserrat};
 	text-transform: uppercase;
 	letter-spacing: 1px;
 	padding: 12px 16px;
@@ -42,7 +41,7 @@ const StyledButton = styled.button`
 	border: none;
 	border-radius: 8px;
 	max-width: 180px;
-	font-weight: ${({ secondary }) => (secondary ? "800" : "")};
+	font-weight: 700;
 
 	${({ loading }) =>
     loading &&

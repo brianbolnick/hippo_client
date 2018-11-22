@@ -2,7 +2,7 @@ import styled from "styled-components";
 import {
   colors,
   media,
-  tienne,
+  montserrat,
   sourceSans
 } from "../../../styles/css-variables";
 
@@ -31,8 +31,10 @@ export const DemoContainer = styled.div`
 export const Curve = styled.div`
   position: relative;
   background-image: linear-gradient(to top left, #d44b92, #f0617d, #f3874a);
+  //background: linear-gradient(to left, #00b4db, #0083b0);
   height: 1000px;
-  margin-top: 200px;
+  z-index: -1;
+  bottom: 500px;
 `;
 
 export const Footer = styled.div`
@@ -67,7 +69,7 @@ export const Content = styled.div`
 `;
 
 export const Hero = styled.div`
-  background: linear-gradient(to bottom, #f5f6f7 0%, #f5f6f7 100%, #fff 50%);
+  //background: linear-gradient(to bottom, #f5f6f7 0%, #f5f6f7 100%, #fff 50%);
   padding-bottom: 100px;
 `;
 
@@ -84,7 +86,7 @@ export const Header = styled.div`
 `;
 export const Title = styled.div`
   font-size: 3rem;
-  font-family: ${tienne};
+  font-family: ${montserrat};
   text-transform: uppercase;
   font-weight: 800;
   letter-spacing: -0.1rem;
@@ -93,4 +95,31 @@ export const Title = styled.div`
 export const Description = styled.div`
   font-family: ${sourceSans};
   font-size: 1.5rem;
+`;
+
+export const SubDescriptionContainer = styled.div`
+  position: absolute;
+  bottom: 32%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  flex-flow: column;
+`;
+
+export const DescriptionTitle = styled.div`
+  font-size: 2.5rem;
+  font-family: ${montserrat};
+  text-transform: uppercase;
+  font-weight: 800;
+  letter-spacing: -0.1rem;
+  color: ${colors.white};
+`;
+
+export const DescriptionText = styled.div`
+  font-size: 1.5rem;
+  font-family: ${sourceSans};
+  color: ${colors.lightGray};
+  width: 75%;
+  margin-top: 10px;
 `;

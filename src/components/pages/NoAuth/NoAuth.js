@@ -10,7 +10,10 @@ import {
   Content,
   Header,
   Title,
-  DemoContainer
+  DemoContainer,
+  SubDescriptionContainer,
+  DescriptionTitle,
+  DescriptionText
 } from "./Styles";
 import Nav from "../../Nav/Nav";
 import MobileNav from "../../Nav/MobileNav";
@@ -55,15 +58,10 @@ class NoAuth extends React.Component {
               </Actions>
             </Header>
           </Hero>
-          <section
-            style={{
-              background:
-                "linear-gradient(to bottom, #F5F6F7 0%, #F5F6F7 50%, #fff 50%)"
-            }}
-          >
+          <section>
             <DemoContainer />
           </section>
-          <section style={{ marginTop: "200px" }}>
+          <section style={{ zIndex: "-1" }}>
             <Curve>
               <svg
                 viewBox="0 0 1200 53"
@@ -96,6 +94,15 @@ class NoAuth extends React.Component {
                   d="M0-7h1200v53H0V-7zm0 30.113V-7h1200v43.495c-37.762 7.58-155.36 7.58-352.791 0C721.412 31.665 480.68.297 248.535.355 197.087.368 114.242 7.955 0 23.113z"
                 />
               </svg>
+              <SubDescriptionContainer>
+                <DescriptionTitle>THIS IS ANOTHER THING</DescriptionTitle>
+                <DescriptionText>
+                  Yeah, this app is really freakin' sweet. It will do all the
+                  stuff you want it too without even having to say anything.
+                  Just think about it, and it shall be done. Pretty sweet right?
+                  Yeah we know. It is ballin'.
+                </DescriptionText>
+              </SubDescriptionContainer>
             </Curve>
           </section>
           {/*          <section style={{ position: "relative", top: "200px" }}>
