@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
-import { colors, sourceSans } from "../../styles/css-variables";
+import { colors, varela } from "../../styles/css-variables";
 import Icon from "../Icon/Icon";
 
 const StyledInput = styled.input`
@@ -26,7 +26,7 @@ const StyledInput = styled.input`
 
   &:focus {
     outline: none;
-    border-color: ${colors.blue};
+    border-color: ${colors.red};
     background-color: ${colors.white};
   }
 `;
@@ -47,14 +47,13 @@ const StyledIcon = styled(Icon)`
   left: 8px;
   width: 20px;
   height: 20px;
-  ${({ focus }) => focus && `path {fill: ${colors.blue};}`};
+  ${({ focus }) => focus && `path {fill: ${colors.red};}`};
 `;
 
 const Wrapper = styled.div``;
 
 const Label = styled.label`
-  font-weight: 600;
-  font-family: ${sourceSans};
+  font-family: ${varela};
 `;
 
 class Input extends React.Component {

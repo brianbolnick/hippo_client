@@ -1,7 +1,7 @@
 import React from "react";
-import Logo from "../../img/hippo-text.svg";
 import { Navbar, Brand, BrandImage, NavLinks, NavLink } from "./NavStyles";
 import { Link } from "react-router-dom";
+import { Logo } from 'styles/css-variables.js';
 
 const Nav = () => {
   return (

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { colors, montserrat, spinAround } from "../../styles/css-variables";
+import { colors, varela, spinAround } from "../../styles/css-variables";
 import { css } from "styled-components";
 
 const loadingStyles = css`
@@ -26,7 +26,7 @@ const StyledButton = styled.button`
     secondary ? "transparent" : "linear-gradient(to right, #ff416c, #F9665E)"};
 	color: ${({ secondary }) => (secondary ? colors.black : colors.white)};
 	font-size: 14px;
-	font-family: ${montserrat};
+	font-family: ${varela};
 	text-transform: uppercase;
 	letter-spacing: 1px;
 	padding: 12px 16px;
@@ -64,7 +64,7 @@ const StyledButton = styled.button`
 const ButtonAsLink = styled.button`
   font-size: 16px;
   color: ${colors.blue};
-  font-family: ${montserrat};
+  font-family: ${varela};
   border: none;
   font-weight: 900;
 

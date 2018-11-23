@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { colors, sourceSans, media } from "../../styles/css-variables";
+import { colors, varela, media } from "../../styles/css-variables";
 import Icon from "../Icon/Icon";
 
 export const Navbar = styled.div`
@@ -8,7 +8,7 @@ export const Navbar = styled.div`
   align-items: center;
   justify-content: space-between;
   background-color: transparent;
-  font-family: ${sourceSans};
+  font-family: ${varela};
   font-size: 1rem;
   z-index: 9500;
   transition: 0.2s ease;
