@@ -1,12 +1,15 @@
 import React from "react";
 import Logo from "../../img/hippo-text.svg";
 import { Navbar, Brand, BrandImage, NavLinks, NavLink } from "./NavStyles";
+import { Link } from "react-router-dom";
 
 const Nav = () => {
   return (
     <Navbar>
       <Brand>
-        <BrandImage src={Logo} alt="" />
+        <Link to="/">
+          <BrandImage src={Logo} alt="" />
+        </Link>
       </Brand>
       <NavLinks>
         <NavLink to="/">About</NavLink>

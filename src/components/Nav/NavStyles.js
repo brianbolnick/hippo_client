@@ -25,12 +25,15 @@ export const NavLinks = styled.div`
 
 export const NavLinkMobile = styled(Link)`
   color: ${colors.black};
-  font-size: 1rem;
+  font-size: 1.7rem;
   transition: all 0.2s ease;
   margin: 10px 0;
   text-decoration: none;
+  width: 100%;
+  text-align: center;
+  font-weight: 600;
   &:hover {
-    opacity: 0.5;
+    color: ${colors.red};
     transition: all 0.2s ease;
   }
 `;
@@ -55,17 +58,29 @@ export const BrandImage = styled.img`
 `;
 
 export const MobileNavLinks = styled.div`
-  flex-flow: column;
-  align-items: flex-start;
   width: 100%;
-  position: absolute;
-  top: 100px;
+  position: fixed;
+  height: 300px;
+  background-color: white;
+  box-shadow: rgba(61, 60, 60, 0.58) 0px 7px 11px -5px;
+  top: 88px;
   left: 0;
+  transition: transform 0.3s cubic-bezier(0, 0.52, 0, 1);
+  overflow: scroll;
+  z-index: 1000;
   display: flex;
-  box-sizing: border-box;
-  padding: 10px;
-  background: white;
-  box-shadow: 0px 2px 6px 1px #3d3c3ca1;
+  flex-flow: column;
+  align-items: center;
+  justify-content: space-evenly;
+  ${({ visible }) =>
+    visible
+      ? `
+  transform: translate3d(0vw, 0, 0);
+	overflow: hidden;
+	`
+      : `
+	transform: translate3d(-100vw, 0, 0);
+	`};
 `;
 
 export const NavMobile = styled.div`
@@ -79,6 +94,10 @@ export const NavMobile = styled.div`
   box-shadow: rgba(0, 0, 0, 0) 0px 0px 0px;
   flex-flow: row wrap;
   padding: 10px 5%;
+  position: fixed;
+  top: 0;
+  width: 90%;
+  background: white;
 `;
 
 export const StyledIcon = styled(Icon)`

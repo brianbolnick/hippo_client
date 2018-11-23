@@ -32,3 +32,11 @@ export const spinAround = keyframes`
 	}
 
 `;
+
+export const slideInLeft = keyframes`
+	100% { left: 0; }
+`;
+
+export const slideOutLeft = keyframes`
+
+`;

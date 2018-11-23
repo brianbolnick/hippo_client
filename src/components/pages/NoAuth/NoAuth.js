@@ -12,8 +12,7 @@ import {
   Title,
   DemoContainer,
   SubDescriptionContainer,
-  DescriptionTitle,
-  DescriptionText
+  DescriptionTitle
 } from "./Styles";
 import Nav from "../../Nav/Nav";
 import MobileNav from "../../Nav/MobileNav";
@@ -95,13 +94,9 @@ class NoAuth extends React.Component {
                 />
               </svg>
               <SubDescriptionContainer>
-                <DescriptionTitle>THIS IS ANOTHER THING</DescriptionTitle>
-                <DescriptionText>
-                  Yeah, this app is really freakin' sweet. It will do all the
-                  stuff you want it too without even having to say anything.
-                  Just think about it, and it shall be done. Pretty sweet right?
-                  Yeah we know. It is ballin'.
-                </DescriptionText>
+                <DescriptionTitle>
+                  do everything you need in seconds!
+                </DescriptionTitle>
               </SubDescriptionContainer>
             </Curve>
           </section>

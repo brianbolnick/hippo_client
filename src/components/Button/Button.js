@@ -1,12 +1,7 @@
 import styled from "styled-components";
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import {
-  colors,
-  montserrat,
-  phoneMediaQuery,
-  spinAround
-} from "../../styles/css-variables";
+import { colors, montserrat, spinAround } from "../../styles/css-variables";
 import { css } from "styled-components";
 
 const loadingStyles = css`

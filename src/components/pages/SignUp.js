@@ -6,7 +6,11 @@ import { API_URL } from "../../utils";
 import axios from "axios";
 import jwtDecode from "jwt-decode";
 import Button from "../Button/Button";
-import { media } from "../../styles/css-variables";
+import MediaQuery from "../MediaQuery/MediaQuery";
+import { media, phoneMediaQuery } from "../../styles/css-variables";
+import Nav from "../Nav/Nav";
+import MobileNav from "../Nav/MobileNav";
+
 const config = { headers: {} };
 
 const FormContainer = styled.form`
@@ -32,7 +36,12 @@ class SignUp extends React.Component {
     password: "",
     passwordConfirmation: "",
     loading: false,
-    error: {}
+    error: {},
+    showMobile: window.matchMedia("(" + phoneMediaQuery + ")").matches
+  };
+
+  handleMediaQueryChange = ({ matches }) => {
+    this.setState({ showMobile: matches });
   };
 
   handleFormSubmit = e => {
@@ -80,43 +89,62 @@ class SignUp extends React.Component {
       });
   };
   render() {
-    const { error } = this.state;
+    const { error, showMobile } = this.state;
     return (
-      <PageWrapper>
-        <FormContainer onSubmit={this.handleFormSubmit}>
-          {error.message && <div>{error.message}</div>}
-          <Input
-            inputState={error.field === "email" && "is-danger"}
-            type="text"
-            label="Email"
-            icon="envelope"
-            placeholder="Email Address"
-            onChange={e => this.setState({ email: e.target.value })}
-          />
-          <Input
-            inputState={error.field === "password" && "is-danger"}
-            type="password"
-            label="Password"
-            icon="lock"
-            placeholder="Password"
-            onChange={e => this.setState({ password: e.target.value })}
-          />
-          <Input
-            inputState={error.field === "password_confirmation" && "is-danger"}
-            type="password"
-            label="Confirm Password"
-            icon="lock"
-            placeholder="Confirm Password"
-            onChange={e =>
-              this.setState({ passwordConfirmation: e.target.value })
-            }
-          />
-          <Button type="submit">Submit</Button>
-          <p>
-            Already have an account? <Link to="/sign_in">Sign In</Link> instead.{" "}
-          </p>
-        </FormContainer>
-      </PageWrapper>
+      <div style={{ height: "100%" }}>
+        <MediaQuery
+          query={phoneMediaQuery}
+          onChange={this.handleMediaQueryChange}
+        />
+        <div
+          style={{
+            position: "absolute",
+            top: "0",
+            width: "100%"
+          }}
+        >
+          {showMobile ? <MobileNav /> : <Nav />}
+        </div>
+
+        <PageWrapper>
+          <FormContainer onSubmit={this.handleFormSubmit}>
+            {error.message && <div>{error.message}</div>}
+            <Input
+              inputState={error.field === "email" && "is-danger"}
+              type="text"
+              label="Email"
+              icon="envelope"
+              placeholder="Email Address"
+              onChange={e => this.setState({ email: e.target.value })}
+            />
+            <Input
+              inputState={error.field === "password" && "is-danger"}
+              type="password"
+              label="Password"
+              icon="lock"
+              placeholder="Password"
+              onChange={e => this.setState({ password: e.target.value })}
+            />
+            <Input
+              inputState={
+                error.field === "password_confirmation" && "is-danger"
+              }
+              type="password"
+              label="Confirm Password"
+              icon="lock"
+              placeholder="Confirm Password"
+              onChange={e =>
+                this.setState({ passwordConfirmation: e.target.value })
+              }
+            />
+            <Button type="submit">Submit</Button>
+            <p>
+              Already have an account? <Link to="/sign_in">Sign In</Link>{" "}
+              instead.{" "}
+            </p>
+          </FormContainer>
+        </PageWrapper>
+      </div>
     );
   }
 }

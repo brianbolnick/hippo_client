@@ -32,9 +32,13 @@ export const Curve = styled.div`
   position: relative;
   background-image: linear-gradient(to top left, #d44b92, #f0617d, #f3874a);
   //background: linear-gradient(to left, #00b4db, #0083b0);
-  height: 1000px;
+  height: 775px;
   z-index: -1;
   bottom: 500px;
+
+  ${media.phone`
+		bottom: 255px;
+	`};
 `;
 
 export const Footer = styled.div`
@@ -81,7 +85,7 @@ export const Header = styled.div`
   text-align: center;
   margin-top: 80px;
   ${media.phone`
-	padding: 5% 0;
+	padding: 5% 16px;
 	`};
 `;
 export const Title = styled.div`
@@ -99,12 +103,17 @@ export const Description = styled.div`
 
 export const SubDescriptionContainer = styled.div`
   position: absolute;
-  bottom: 32%;
+  bottom: 20%;
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
   flex-flow: column;
+
+  text-align: center;
+  ${media.phone`
+	bottom: 35%;
+	`};
 `;
 
 export const DescriptionTitle = styled.div`

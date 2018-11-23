@@ -6,8 +6,13 @@ import Button from "../Button/Button";
 import { API_URL } from "../../utils";
 import axios from "axios";
 import jwtDecode from "jwt-decode";
-import { media } from "../../styles/css-variables";
+import MediaQuery from "../MediaQuery/MediaQuery";
+import { media, phoneMediaQuery } from "../../styles/css-variables";
+import Nav from "../Nav/Nav";
+import MobileNav from "../Nav/MobileNav";
+
 const config = { headers: {} };
+
 const FormContainer = styled.form`
 	width: 50%;
 	height: 100%
@@ -16,6 +21,7 @@ const FormContainer = styled.form`
 	flex-flow: column;
 	${media.phone` width: 90%;`};
 `;
+
 const PageWrapper = styled.div`
   height: 100%;
   width: 100%;
@@ -29,7 +35,12 @@ class SignIn extends React.Component {
     email: "",
     password: "",
     error: "",
-    loading: false
+    loading: false,
+    showMobile: window.matchMedia("(" + phoneMediaQuery + ")").matches
+  };
+
+  handleMediaQueryChange = ({ matches }) => {
+    this.setState({ showMobile: matches });
   };
 
   handleFormSubmit = e => {
@@ -39,6 +50,7 @@ class SignIn extends React.Component {
       email: this.state.email,
       password: this.state.password
     };
+
     axios
       .post(`${API_URL}/sign_in`, data, config)
       .then(resp => {
@@ -61,33 +73,49 @@ class SignIn extends React.Component {
         this.setState({ loading: false, error: message });
       });
   };
+
   render() {
-    const { loading } = this.state;
+    const { loading, showMobile } = this.state;
     return (
-      <PageWrapper>
-        <FormContainer onSubmit={this.handleFormSubmit}>
-          <Input
-            type="text"
-            label="Email"
-            icon="envelope"
-            placeholder="Email Address"
-            onChange={e => this.setState({ email: e.target.value })}
-          />
-          <Input
-            type="password"
-            label="Password"
-            icon="lock"
-            placeholder="Password"
-            onChange={e => this.setState({ password: e.target.value })}
-          />
-          <Button type="submit" loading={loading}>
-            Submit
-          </Button>
-          <p>
-            Need an account? <Link to="/sign_up">Sign up now!</Link>
-          </p>
-        </FormContainer>
-      </PageWrapper>
+      <div style={{ height: "100%" }}>
+        <MediaQuery
+          query={phoneMediaQuery}
+          onChange={this.handleMediaQueryChange}
+        />
+        <div
+          style={{
+            position: "absolute",
+            top: "0",
+            width: "100%"
+          }}
+        >
+          {showMobile ? <MobileNav /> : <Nav />}
+        </div>
+        <PageWrapper>
+          <FormContainer onSubmit={this.handleFormSubmit}>
+            <Input
+              type="text"
+              label="Email"
+              icon="envelope"
+              placeholder="Email Address"
+              onChange={e => this.setState({ email: e.target.value })}
+            />
+            <Input
+              type="password"
+              label="Password"
+              icon="lock"
+              placeholder="Password"
+              onChange={e => this.setState({ password: e.target.value })}
+            />
+            <Button type="submit" loading={loading}>
+              Submit
+            </Button>
+            <p>
+              Need an account? <Link to="/sign_up">Sign up now!</Link>
+            </p>
+          </FormContainer>
+        </PageWrapper>
+      </div>
     );
   }
 }
