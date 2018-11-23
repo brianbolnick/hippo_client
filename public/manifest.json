@@ -1,6 +1,6 @@
 {
-	"short_name": "New App",
-	"name": "Some New App!",
+	"short_name": "Hippo",
+	"name": "Hungry Hippo Recipes",
 	"icons": [
 		{
 			"src": "/android-chrome-192x192.png",

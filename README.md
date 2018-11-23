@@ -1,4 +1,4 @@
-# New App (Client)
+# Hippo (Client)
 
 
 ##Installation
