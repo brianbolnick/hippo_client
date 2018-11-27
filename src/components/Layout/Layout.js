@@ -1,110 +1,46 @@
 import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
-import { colors } from "../../styles/css-variables";
-import Logo from "../../img/hippo-logo.png";
-import { signOut } from "../../utils";
-const Sidebar = styled.div`
-  width: 300px;
-  height: 100%;
-  background-color: ${colors.black};
-  padding: 16px;
-  box-sizing: border-box;
+import {  phoneMediaQuery, media } from "styles/css-variables";
+import Nav from 'components/Nav/Nav';
+import MobileNav from 'components/Nav/MobileNav';
+import MediaQuery from 'components/MediaQuery/MediaQuery';
+
+const Content = styled.div`
+	width: 90%;
+	margin: 0 auto;
+	margin-top: 10px;
+	${media.phone`
+	margin-top: 100px;
+	`};
 `;
 
-const SignOutLink = styled.div`
-  color: ${colors.white};
-  text-decoration: none;
-  text-transform: uppercase;
-  font-size: 21px;
-  height: 48px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 2px;
+class Layout extends React.Component {
+	state = {
+		showMobile: window.matchMedia("(" + phoneMediaQuery + ")").matches
+	};
 
-  &:hover {
-    background-color: #8485863d;
-    cursor: pointer;
-  }
-`;
+	handleMediaQueryChange = ({ matches }) => {
+		this.setState({ showMobile: matches });
+	};
 
-const SidebarLink = styled(Link)`
-  color: ${colors.white};
-  text-decoration: none;
-  text-transform: uppercase;
-  font-size: 21px;
-  height: 48px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 2px;
-
-  &:hover {
-    background-color: #8485863d;
-  }
-`;
-
-const ChildrenWrapper = styled.div`
-  padding: 25px;
-  width: 100%;
-  box-sizing: border-box;
-  box-shadow: 4px 0px 4px 5px ${colors.offWhite};
-`;
-
-const Page = styled.div`
-  height: 100%;
-  background-color: ${colors.white};
-  display: flex;
-`;
-const Brand = styled.div`
-  padding: 0 5rem;
-  margin-bottom: 32px;
-  margin-top: 24px;
-`;
-
-const LinkGroup = styled.div`
-  margin-top: 40px;
-  text-align: center;
-  display: flex;
-  flex-flow: column;
-  justify-content: space-between;
-  height: 300px;
-`;
-const Footer = styled.div`
-  position: absolute;
-  bottom: 0;
-  height: 64px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 225px;
-  color: ${colors.lightGray};
-`;
-const Layout = ({ children }) => {
-  return (
-    <Page>
-      <Sidebar>
-        <Brand>
-          <img src={Logo} style={{ width: "100%" }} alt="" />
-        </Brand>
-        <LinkGroup>
-          <SidebarLink to="/">Dashboard</SidebarLink>
-          <SidebarLink to="/">Projects</SidebarLink>
-          <SidebarLink to="/">Analytics</SidebarLink>
-          <SidebarLink to="/">Support</SidebarLink>
-          <SignOutLink onClick={signOut}>Sign Out</SignOutLink>
-        </LinkGroup>
-        <Footer>&copy; 2018</Footer>
-      </Sidebar>
-      <ChildrenWrapper>{children}</ChildrenWrapper>
-    </Page>
-  );
-};
+	render () {
+		const { showMobile } = this.state;
+		return (
+			<>
+			<MediaQuery
+				query={phoneMediaQuery}
+				onChange={this.handleMediaQueryChange}
+			/>
+			{ showMobile ? <MobileNav /> : <Nav /> }
+			<Content>{this.props.children}</Content>
+			</>
+		);
+	}
+}
 
 Layout.propTypes = {
-  children: PropTypes.any
+	children: PropTypes.any
 };
 
 export default Layout;

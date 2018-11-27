@@ -62,16 +62,22 @@ const StyledButton = styled.button`
 		`;
 
 const ButtonAsLink = styled.button`
-  font-size: 16px;
-  color: ${colors.blue};
+ color: ${colors.black};
+  transition: all 0.2s ease;
+  text-decoration: none;
+  margin-left: 32px;
+  font-weight: 600;
+  &:hover {
+    color: ${colors.red};
+    transition: all 0.2s ease;
+  }
+ font-size: 16px;
   font-family: ${varela};
   border: none;
-  font-weight: 900;
 
   cursor: pointer;
   &:hover {
     outline: none;
-    text-decoration: underline;
   }
   &:focus {
     outline: none;

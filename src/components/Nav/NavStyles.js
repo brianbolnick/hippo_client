@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { colors, varela, media } from "../../styles/css-variables";
 import Icon from "../Icon/Icon";
+import Button from 'components/Button/Button';
 
 export const Navbar = styled.div`
   display: flex;
@@ -25,6 +26,21 @@ export const NavLinks = styled.div`
 
 export const NavLinkMobile = styled(Link)`
   color: ${colors.black};
+  font-size: 1.7rem;
+  transition: all 0.2s ease;
+  margin: 10px 0;
+  text-decoration: none;
+  width: 100%;
+  text-align: center;
+  font-weight: 600;
+  &:hover {
+    color: ${colors.red};
+    transition: all 0.2s ease;
+  }
+`;
+
+export const NavLinkButton = styled(Button)`
+ color: ${colors.black};
   font-size: 1.7rem;
   transition: all 0.2s ease;
   margin: 10px 0;

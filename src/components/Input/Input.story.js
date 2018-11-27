@@ -12,7 +12,18 @@ storiesOf("Input", module)
       />
     </div>
   ))
-  .add("Icon", () => (
+   .add("Error", () => (
+    <div style={{ width: "300px" }}>
+      <Input
+        type="text"
+        placeholder="Email Address"
+				inputState="error"
+				icon="envelope"
+        onChange={() => console.log("changing")}
+      />
+    </div>
+  ))
+ .add("Icon", () => (
     <div style={{ width: "300px" }}>
       <Input
         type="text"

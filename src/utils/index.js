@@ -11,6 +11,7 @@ if (hostname === "localhost") {
 
 export const API_URL = `${backendHost}/api/${apiVersion}`;
 export const jwt = JSON.parse(localStorage.getItem("jwt"));
+export const token = localStorage.getItem("auth_token");
 export const signOut = () => {
   localStorage.removeItem("jwt");
   localStorage.removeItem("auth_token");
