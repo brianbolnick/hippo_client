@@ -14,7 +14,7 @@ const Nav = () => {
 				</Link>
 			</Brand>
 			<NavLinks>
-				<NavLink to="/">About</NavLink>
+				<NavLink to="/about">About</NavLink>
 				{!token && <NavLink to="/sign_in">Sign In</NavLink>}
 				{token && 
 						<>

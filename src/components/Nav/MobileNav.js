@@ -59,7 +59,7 @@ class MobileNav extends React.Component {
 					visible={showMenu}
 					ref={node => (this.wrapperRef = node)}
 				>
-					<NavLinkMobile to="/">About</NavLinkMobile>
+					<NavLinkMobile to="/about">About</NavLinkMobile>
 			{!token && <NavLinkMobile to="/sign_in">Sign In</NavLinkMobile>}
 			{token && 
 					<>

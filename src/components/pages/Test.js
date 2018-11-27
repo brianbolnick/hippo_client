@@ -8,12 +8,15 @@ import jwtDecode from "jwt-decode";
 import Button from "../Button/Button";
 import { media, phoneMediaQuery, colors } from "styles/css-variables";
 import MediaQuery from "../MediaQuery/MediaQuery";
-const config = { headers: {} };
 
+const config = { headers: {} };
 const HelpText = styled.div`
   font-size: 0.9rem;
   margin-top: -8px;
   color: ${colors.darkGray};
+  ${media.phone`
+		color: white 
+	`};
 `;
 
 const Divider = styled.hr`
@@ -27,6 +30,10 @@ const Divider = styled.hr`
     rgba(0, 0, 0, 0)
   );
   margin: 40px 0;
+  ${media.phone`
+		height: 2px;
+		background: linear-gradient( to right, rgba(0,0,0,0), rgb(255, 255, 255), rgb(255, 255, 255), rgba(0,0,0,0) );
+	`};
 `;
 
 const FormContainer = styled.form`
@@ -35,14 +42,7 @@ const FormContainer = styled.form`
 	display: flex;
 	justify-content: center;
 	flex-flow: column;
-	${media.phone` 
-	width: 90%;
-	height: 90%;
-	border: solid 4px #F9665E;
-	border-radius: 2px;
-	padding: 10px 32px;
-	box-sizing: border-box;
-`};
+	${media.phone` width: 90%;`};
 `;
 
 const PageWrapper = styled.div`
@@ -56,7 +56,9 @@ const InfoScreen = styled.div`
   width: 45%;
   height: 100%;
   background: linear-gradient(to top left, #d44b92, #f0617d, #f3874a);
-  ${media.phone` display: none;`};
+  ${media.phone`
+		display: none;
+	`};
 `;
 
 const FormScreen = styled.div`
@@ -66,7 +68,9 @@ const FormScreen = styled.div`
   justify-content: center;
   height: 100%;
   ${media.phone`
-	width: 100%;
+		width: 100%;
+		background: linear-gradient(to bottom left, #d44b92, #f0617d, #f3874a);
+		label { color: white; }
 	`};
 `;
 
@@ -192,10 +196,10 @@ class SignUp extends React.Component {
                   this.setState({ passwordConfirmation: e.target.value })
                 }
               />
-              <Button tertiary={showMobile} type="submit">
+              <Button secondary={showMobile} type="submit">
                 Submit
               </Button>
-              <p>
+              <p style={{ color: "white" }}>
                 Already have an account? <Link to="/sign_in">Sign In</Link>{" "}
                 instead.
               </p>

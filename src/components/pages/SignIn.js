@@ -8,8 +8,6 @@ import axios from "axios";
 import jwtDecode from "jwt-decode";
 import MediaQuery from "../MediaQuery/MediaQuery";
 import { media, phoneMediaQuery } from "../../styles/css-variables";
-import Nav from "../Nav/Nav";
-import MobileNav from "../Nav/MobileNav";
 
 const config = { headers: {} };
 
@@ -19,15 +17,39 @@ const FormContainer = styled.form`
 	display: flex;
 	justify-content: center;
 	flex-flow: column;
-	${media.phone` width: 90%;`};
+	${media.phone` 
+	width: 90%;
+	height: 90%;
+	border: solid 4px #F9665E;
+	border-radius: 2px;
+	padding: 10px 32px;
+	box-sizing: border-box;
+`};
 `;
 
 const PageWrapper = styled.div`
   height: 100%;
   width: 100%;
   display: flex;
-  flex-flow: column;
+  flex-flow: row;
+`;
+
+const InfoScreen = styled.div`
+  width: 45%;
+  height: 100%;
+  background: linear-gradient(to top left, #d44b92, #f0617d, #f3874a);
+  ${media.phone` display: none;`};
+`;
+
+const FormScreen = styled.div`
+  width: 65%;
+  display: flex;
   align-items: center;
+  justify-content: center;
+  height: 100%;
+  ${media.phone`
+	width: 100%;
+	`};
 `;
 
 class SignIn extends React.Component {
@@ -35,12 +57,7 @@ class SignIn extends React.Component {
     email: "",
     password: "",
     error: "",
-    loading: false,
-    showMobile: window.matchMedia("(" + phoneMediaQuery + ")").matches
-  };
-
-  handleMediaQueryChange = ({ matches }) => {
-    this.setState({ showMobile: matches });
+    loading: false
   };
 
   handleFormSubmit = e => {
@@ -75,45 +92,39 @@ class SignIn extends React.Component {
   };
 
   render() {
-    const { loading, showMobile } = this.state;
+    const { loading } = this.state;
     return (
       <div style={{ height: "100%" }}>
         <MediaQuery
           query={phoneMediaQuery}
           onChange={this.handleMediaQueryChange}
         />
-        <div
-          style={{
-            position: "absolute",
-            top: "0",
-            width: "100%"
-          }}
-        >
-          {showMobile ? <MobileNav /> : <Nav />}
-        </div>
         <PageWrapper>
-          <FormContainer onSubmit={this.handleFormSubmit}>
-            <Input
-              type="text"
-              label="Email"
-              icon="envelope"
-              placeholder="Email Address"
-              onChange={e => this.setState({ email: e.target.value })}
-            />
-            <Input
-              type="password"
-              label="Password"
-              icon="lock"
-              placeholder="Password"
-              onChange={e => this.setState({ password: e.target.value })}
-            />
-            <Button type="submit" loading={loading}>
-              Submit
-            </Button>
-            <p>
-              Need an account? <Link to="/sign_up">Sign up now!</Link>
-            </p>
-          </FormContainer>
+          <InfoScreen />
+          <FormScreen>
+            <FormContainer onSubmit={this.handleFormSubmit}>
+              <Input
+                type="text"
+                label="Email"
+                icon="envelope"
+                placeholder="Email Address"
+                onChange={e => this.setState({ email: e.target.value })}
+              />
+              <Input
+                type="password"
+                label="Password"
+                icon="lock"
+                placeholder="Password"
+                onChange={e => this.setState({ password: e.target.value })}
+              />
+              <Button type="submit" loading={loading}>
+                Submit
+              </Button>
+              <p>
+                Need an account? <Link to="/sign_up">Sign up now!</Link>
+              </p>
+            </FormContainer>
+          </FormScreen>
         </PageWrapper>
       </div>
     );

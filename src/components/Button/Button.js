@@ -22,47 +22,62 @@ const loadingStyles = css`
 `;
 
 const StyledButton = styled.button`
-	background: ${({ secondary }) =>
-    secondary ? "transparent" : "linear-gradient(to right, #ff416c, #F9665E)"};
-	color: ${({ secondary }) => (secondary ? colors.black : colors.white)};
-	font-size: 14px;
-	font-family: ${varela};
-	text-transform: uppercase;
-	letter-spacing: 1px;
-	padding: 12px 16px;
-	cursor: pointer;
-	box-shadow: ${({ secondary }) =>
-    secondary ? `inset 0 0 0 2px ${colors.red}` : "none"};
-	border: none;
-	border-radius: 8px;
-	max-width: 180px;
-	font-weight: 700;
+  background: linear-gradient(to right, #ff416c, #f9665e);
+  color: ${colors.white};
+  font-size: 14px;
+  font-family: ${varela};
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 12px 16px;
+  cursor: pointer;
+  border: none;
+  border-radius: 8px;
+  max-width: 180px;
+  font-weight: 700;
 
-	${({ loading }) =>
-    loading &&
+  &:hover {
+    box-shadow: 0 3px 25px rgba(0, 0, 0, 0.15),
+      0 8px 10px -6px rgba(0, 0, 0, 0.3);
+  }
+
+  ${({ secondary }) =>
+    secondary &&
     `
-	color: transparent;
-	line-height: 0;
-	pointer-events: none;
+		background:  transparent;
+		border: solid 2px ${colors.red};
+		color: ${colors.black};
+		:hover { 
+			background: white;
+			border: solid 2px ${colors.red};
+		}
 	`};
 
-	&:hover {
-		${({ secondary }) =>
-      secondary
-        ? `
-		background: white;
-		`
-        : `
-		box-shadow: 0 3px 25px rgba(0,0,0,0.15), 0 8px 10px -6px rgba(0,0,0,0.3); 
-		`};
-	}
+  ${({ tertiary }) =>
+    tertiary &&
+    `
+		background:  transparent;
+		border:  solid 2px ${colors.white};
+		color: ${colors.white};
+		:hover { 
+			border: solid 2px ${colors.white};
+		}
+	`};
 
-	& > span::before {
-		${({ loading }) => loading && loadingStyles}
-		`;
+  ${({ loading }) =>
+    loading &&
+    `
+		color: transparent;
+		line-height: 0;
+		pointer-events: none;
+	`};
+
+  & > span::before {
+    ${({ loading }) => loading && loadingStyles};
+  }
+`;
 
 const ButtonAsLink = styled.button`
- color: ${colors.black};
+  color: ${colors.black};
   transition: all 0.2s ease;
   text-decoration: none;
   margin-left: 32px;
@@ -71,7 +86,7 @@ const ButtonAsLink = styled.button`
     color: ${colors.red};
     transition: all 0.2s ease;
   }
- font-size: 16px;
+  font-size: 16px;
   font-family: ${varela};
   border: none;
 
@@ -108,7 +123,8 @@ Button.propTypes = {
   onClick: PropTypes.func,
   children: PropTypes.any,
   asLink: PropTypes.bool,
-  secondary: PropTypes.bool
+  secondary: PropTypes.bool,
+  tertiary: PropTypes.bool
 };
 
 export default Button;
