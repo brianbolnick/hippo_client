@@ -2,19 +2,28 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { colors, varela, media } from "../../styles/css-variables";
 import Icon from "../Icon/Icon";
-import Button from 'components/Button/Button';
+import Button from "components/Button/Button";
 
 export const Navbar = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: transparent;
   font-family: ${varela};
   font-size: 1rem;
   z-index: 9500;
   transition: 0.2s ease;
   padding: 16px 5%;
   box-shadow: rgba(0, 0, 0, 0) 0px 0px 0px;
+
+  ${({ auth }) =>
+    auth &&
+    `
+	    padding: 16px 0%;
+	    box-shadow: rgba(0,0,0,0) 0px 0px 0px;
+	    position: absolute;
+	    top: 0;
+	    width: 80%;
+	`};
 `;
 
 export const Brand = styled.div``;
@@ -35,12 +44,13 @@ export const NavLinkMobile = styled(Link)`
   font-weight: 600;
   &:hover {
     color: ${colors.red};
+    ${({ auth }) => auth && `color: ${colors.white} `};
     transition: all 0.2s ease;
   }
 `;
 
 export const NavLinkButton = styled(Button)`
- color: ${colors.black};
+  color: ${colors.black};
   font-size: 1.7rem;
   transition: all 0.2s ease;
   margin: 10px 0;
@@ -50,6 +60,7 @@ export const NavLinkButton = styled(Button)`
   font-weight: 600;
   &:hover {
     color: ${colors.red};
+    ${({ auth }) => auth && `color: ${colors.white} `};
     transition: all 0.2s ease;
   }
 `;
@@ -62,6 +73,7 @@ export const NavLink = styled(Link)`
   font-weight: 600;
   &:hover {
     color: ${colors.red};
+    ${({ auth }) => auth && `color: ${colors.white} `};
     transition: all 0.2s ease;
   }
 `;
@@ -113,7 +125,17 @@ export const NavMobile = styled.div`
   position: fixed;
   top: 0;
   width: 90%;
-	background: ${({transparent}) => transparent ? 'transparent' : 'white'};
+  background: white;
+
+  ${({ auth }) =>
+    auth &&
+    `
+	background: transparent;
+	    padding: 16px 0%;
+	    box-shadow: rgba(0,0,0,0) 0px 0px 0px;
+	    position: absolute;
+	    top: 0;
+	`};
 `;
 
 export const StyledIcon = styled(Icon)`

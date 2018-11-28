@@ -25,7 +25,8 @@ const iconList = [
   "lock",
   "checkOpenCircle",
   "closeOpenCircle",
-  "menu"
+  "menu",
+  "utensils"
 ];
 
 const IconLabel = styled.span`

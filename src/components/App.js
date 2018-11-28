@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { Route, withRouter, Switch, Redirect } from "react-router-dom";
 import HomePage from "./pages/HomePage";
-import SignIn from "./pages/SignIn";
-import SignUp from "./pages/SignUp";
+import SignIn from "./pages/Auth/SignIn";
+import SignUp from "./pages/Auth/SignUp";
 import Recipes from "./pages/Recipes";
 import About from "./pages/About";
 import Family from "./pages/Family/Family";
@@ -27,12 +27,16 @@ const AuthRoute = ({ component: Component, isAuthenticated, ...rest }) => {
     <Route
       {...rest}
       render={props =>
-        isAuthenticated ? <Component {...props} /> : <Redirect
+        isAuthenticated ? (
+          <Component {...props} />
+        ) : (
+          <Redirect
             to={{
               pathname: "/sign_in",
               state: { from: props.location }
             }}
           />
+        )
       }
     />
   );
