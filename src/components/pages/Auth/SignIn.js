@@ -24,6 +24,7 @@ import {
 } from "./Styles";
 
 const config = { headers: {} };
+
 class SignIn extends React.Component {
   state = {
     email: "",
@@ -114,7 +115,7 @@ class SignIn extends React.Component {
                 Hungry Hippo makes it easy to create, keep, and share your
                 family recipes
               </InfoDescription>
-              <InfoLink to="/">
+              <InfoLink to="/about">
                 <Button>Learn More</Button>
               </InfoLink>
             </InfoBox>
