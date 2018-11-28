@@ -5,6 +5,8 @@ import {
 	varela,
 	rufina
 } from "styles/css-variables";
+import Nav from "components/Nav/Nav";
+import MobileNav from "components/Nav/MobileNav";
 
 export const Actions = styled.div`
 	margin-top: 16px;

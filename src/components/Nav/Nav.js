@@ -5,9 +5,9 @@ import { Logo } from 'styles/css-variables.js';
 import { token, signOut } from 'utils';
 import Button from 'components/Button/Button';
 
-const Nav = () => {
+const Nav = (props) => {
 	return (
-		<Navbar>
+		<Navbar transparent={props.transparent}>
 			<Brand>
 				<Link to="/">
 					<BrandImage src={Logo} alt="" />

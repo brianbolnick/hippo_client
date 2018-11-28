@@ -43,7 +43,7 @@ class MobileNav extends React.Component {
 	render() {
 		const { showMenu } = this.state;
 		return (
-			<NavMobile>
+			<NavMobile transparent={this.props.transparent}>
 				<Link to='/'>
 				<Brand>
 					<BrandImage src={Logo} />

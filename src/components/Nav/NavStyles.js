@@ -113,7 +113,7 @@ export const NavMobile = styled.div`
   position: fixed;
   top: 0;
   width: 90%;
-  background: white;
+	background: ${({transparent}) => transparent ? 'transparent' : 'white'};
 `;
 
 export const StyledIcon = styled(Icon)`
