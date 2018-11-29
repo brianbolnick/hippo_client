@@ -9,10 +9,13 @@ const StyledInput = styled.input`
   border-style: solid;
   padding: 0 1rem;
   transition: background-color 0.15s, border-color 0.15s;
-	border: ${({inputState}) => inputState === 'error' ?  `solid 2px ${colors.darkRed}` : `solid 2px ${colors.lightGray}`};
-  height: 2.25em;
+  border: ${({ inputState }) =>
+    inputState === "error"
+      ? `solid 2px ${colors.darkRed}`
+      : `solid 2px ${colors.lightGray}`};
+  height: 2.75em;
   line-height: 2.4em;
-  border-radius: 2px;
+  border-radius: 4px;
   font-size: 1em;
   background-color: #fff;
   max-width: 100%;
@@ -42,7 +45,7 @@ const Container = styled.div`
 const StyledIcon = styled(Icon)`
   pointer-events: none;
   position: absolute;
-  top: 5px;
+  top: 9px;
   z-index: 4;
   left: 8px;
   width: 20px;
@@ -72,7 +75,7 @@ class Input extends React.Component {
             <StyledIcon
               label={label}
               focus={this.state.focus}
-							color={inputState === 'error' ? colors.darkRed : "#dbdbdb"}
+              color={inputState === "error" ? colors.darkRed : "#dbdbdb"}
               name={icon}
             />
           )}
@@ -80,7 +83,7 @@ class Input extends React.Component {
             type={type}
             onChange={onChange}
             placeholder={placeholder}
-						inputState={inputState}
+            inputState={inputState}
             icon={icon}
             onFocus={() => this.setState({ focus: true })}
             onBlur={() => this.setState({ focus: false })}
@@ -96,8 +99,8 @@ Input.propTypes = {
   onChange: PropTypes.func,
   placeholder: PropTypes.string,
   label: PropTypes.string,
-	icon: PropTypes.string,
-	inputState: PropTypes.string
+  icon: PropTypes.string,
+  inputState: PropTypes.string
 };
 
 export default Input;

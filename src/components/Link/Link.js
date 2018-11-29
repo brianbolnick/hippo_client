@@ -1,35 +1,31 @@
-import styled from 'styled-components';
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import { colors, montserrat } from '../../styles/css-variables';
-import { Link as RouterLink } from 'react-router-dom';
+import styled from "styled-components";
+import React from "react";
+import PropTypes from "prop-types";
+import { colors, varela } from "../../styles/css-variables";
+import { Link as RouterLink } from "react-router-dom";
 
-const StyledLink  = styled(RouterLink)`
-	font-size: 16px;
-	color: ${colors.blue};
-	font-family: ${montserrat};
-	border: none;
-	font-weight: 900;
+const StyledLink = styled(RouterLink)`
+  color: ${colors.black};
+  transition: all 0.2s ease;
+  text-decoration: none;
+  font-weight: 600;
+  font-family: ${varela};
+  &:hover {
+    color: ${colors.red};
+    ${({ auth }) => auth && `color: ${colors.white} `};
+    transition: all 0.2s ease;
+  }
 
-	cursor: pointer;
-	&:hover {
-		outline: none;
-		text-decoration: underline;
-	}
-	&:focus {
-		outline: none;
-	}
-`
-class Link extends Component {
-	render() {
-		const { children, to } = this.props;
-		return  <StyledLink to={to} {...this.props}>{children}</StyledLink>
-	}
-}
+  &:focus {
+    outline: none;
+  }
+`;
+
+const Link = ({ children, to }) => <StyledLink to={to}>{children}</StyledLink>;
 
 Link.propTypes = {
-	children: PropTypes.any,
-	to: PropTypes.string.isRequired
-}
+  children: PropTypes.any,
+  to: PropTypes.string.isRequired
+};
 
 export default Link;

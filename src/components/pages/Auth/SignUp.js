@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import Link from "components/Link/Link";
 import Input from "components/Input/Input";
 import Button from "components/Button/Button";
 import { API_URL } from "utils";
