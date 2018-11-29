@@ -6,7 +6,7 @@ const hostname = window && window.location && window.location.hostname;
 if (hostname === "localhost") {
   backendHost = "http://localhost:3001";
 } else {
-  backendHost = "https://thenewappapi.herokuapp.com";
+  backendHost = "https://hungryhippo-api.herokuapp.com";
 }
 
 export const API_URL = `${backendHost}/api/${apiVersion}`;
