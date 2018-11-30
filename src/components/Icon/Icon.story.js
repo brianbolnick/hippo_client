@@ -26,7 +26,8 @@ const iconList = [
   "checkOpenCircle",
   "closeOpenCircle",
   "menu",
-  "utensils"
+  "utensils",
+  "addRecipe"
 ];
 
 const IconLabel = styled.span`
