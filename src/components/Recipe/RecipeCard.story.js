@@ -27,7 +27,8 @@ const data = {
     name: "Italian",
     id: 1
   },
-  calories: "343"
+	calories: "343",
+	rating: 3.4
 };
 
 storiesOf("RecipeCard", module).add("Card", () => <RecipeCard data={data} />);

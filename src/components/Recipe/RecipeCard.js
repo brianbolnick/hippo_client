@@ -6,17 +6,12 @@ import {
   MetaData,
   Footer,
   Content,
-  AddIcon
+  RatingCount
 } from "./Styles";
-import Icon from "../Icon/Icon";
 
 const RecipeCard = ({ data }) => {
   const renderRecipeAddedIcon = () => {
-    return (
-      <AddIcon onClick={() => console.log("clicked", data.id)}>
-        <Icon name="addRecipe" />
-      </AddIcon>
-    );
+    return <RatingCount>{data.rating}</RatingCount>;
   };
 
   return (
