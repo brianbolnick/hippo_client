@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { colors, varela, rufina } from "../../styles/css-variables";
 
-export const AddIcon = styled.div`
+export const RatingCount = styled.div`
   position: absolute;
   right: 0;
   display: flex;
@@ -16,11 +16,7 @@ export const AddIcon = styled.div`
   box-shadow: 0 2px 9px 0px rgba(0, 0, 0, 0.24);
   right: 8px;
   bottom: -18px;
-  :hover {
-    box-shadow: 0px 2px 9px 2px rgba(0, 0, 0, 0.5);
-    cursor: pointer;
-  }
-`;
+  `;
 
 export const Card = styled.div`
   width: 275px;
