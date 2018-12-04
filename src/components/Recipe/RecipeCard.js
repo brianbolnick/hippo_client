@@ -11,7 +11,7 @@ import {
 
 const RecipeCard = ({ data }) => {
   const renderRecipeAddedIcon = () => {
-    return <RatingCount>{data.rating}</RatingCount>;
+    return <RatingCount>{data.rating || "-"}</RatingCount>;
   };
 
   return (
