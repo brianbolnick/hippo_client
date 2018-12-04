@@ -6,42 +6,27 @@ import { API_URL } from "utils";
 import axios from "axios";
 import jwtDecode from "jwt-decode";
 import MediaQuery from "components/MediaQuery/MediaQuery";
-import { colors, phoneMediaQuery } from "styles/css-variables";
+import { phoneMediaQuery } from "styles/css-variables";
 import Nav from "components/Nav/Nav";
 import MobileNav from "components/Nav/MobileNav";
-import Icon from "components/Icon/Icon";
+import Checkbox from "components/Checkbox/Checkbox";
+import styled from "styled-components";
 import {
-  InfoTitle,
-  InfoDescription,
-  InfoLink,
-  InfoBox,
   FormWrapper,
   ActionsWrapper,
   FadedBlock,
   Block,
   FormContainer,
-  PageWrapper
+  PageWrapper,
+  InfoBoxComponent
 } from "./Styles";
-import styled from "styled-components";
+import Modal from "components/Modal/Modal";
+
 const config = { headers: {} };
 
-const HelpText = styled.div`
-  font-size: 0.9rem;
-  margin-top: -8px;
-  color: ${colors.darkGray};
-`;
-
-const Divider = styled.hr`
-  border: 0;
-  height: 1px;
-  background: linear-gradient(
-    to right,
-    rgba(0, 0, 0, 0),
-    rgb(255, 65, 108),
-    rgb(249, 102, 94),
-    rgba(0, 0, 0, 0)
-  );
-  margin: 40px 0;
+const ModalContent = styled.div`
+  background: white;
+  padding: 48px;
 `;
 
 class SignUp extends React.Component {
@@ -51,10 +36,14 @@ class SignUp extends React.Component {
     password: "",
     passwordConfirmation: "",
     joinCode: "",
+    familyName: "",
+    showFamilyModal: false,
     loading: false,
+    hasJoinCode: false,
     error: {},
     showMobile: window.matchMedia("(" + phoneMediaQuery + ")").matches
   };
+
   handleMediaQueryChange = ({ matches }) => {
     this.setState({ showMobile: matches });
   };
@@ -70,16 +59,25 @@ class SignUp extends React.Component {
       });
       return;
     }
+
+    if (!this.state.joinCode) {
+      this.setState({ showFamilyModal: true });
+      return;
+    }
+
     this.setState({ loading: true });
+
     const data = {
       user: {
         name: this.state.name,
         email: this.state.email,
         password: this.state.password,
         password_confirmation: this.state.passwordConfirmation,
-        join_code: this.state.joinCode
+        join_code: this.state.joinCode,
+        family_name: this.state.familyName
       }
     };
+
     axios
       .post(`${API_URL}/sign_up`, data, config)
       .then(resp => {
@@ -104,7 +102,13 @@ class SignUp extends React.Component {
       });
   };
   render() {
-    const { error, showMobile } = this.state;
+    const {
+      error,
+      showMobile,
+      hasJoinCode,
+      showFamilyModal,
+      loading
+    } = this.state;
     return (
       <div style={{ height: "100%" }}>
         <MediaQuery
@@ -119,19 +123,6 @@ class SignUp extends React.Component {
             <FormWrapper>
               <FormContainer onSubmit={this.handleFormSubmit}>
                 {error.message && <div>{error.message}</div>}
-                <Input
-                  inputState={error.field === "join_code" ? "error" : ""}
-                  type="text"
-                  label="Family Join Code"
-                  icon="users"
-                  placeholder="Shared Family Code"
-                  onChange={e => this.setState({ joinCode: e.target.value })}
-                />
-                <HelpText>
-                  No join code? No problem. Add a new code and your family will
-                  be created automatically.{" "}
-                </HelpText>
-                <Divider />
                 <Input
                   inputState={error.field === "email" ? "error" : ""}
                   type="text"
@@ -169,7 +160,28 @@ class SignUp extends React.Component {
                     this.setState({ passwordConfirmation: e.target.value })
                   }
                 />
-                <Button tertiary={showMobile} type="submit">
+                <Checkbox
+                  onChange={e =>
+                    this.setState({
+                      hasJoinCode: e.target.checked
+                    })
+                  }
+                  checked={hasJoinCode}
+                >
+                  I have a family join code
+                </Checkbox>
+
+                {hasJoinCode && (
+                  <Input
+                    inputState={error.field === "join_code" ? "error" : ""}
+                    type="text"
+                    label="Family Join Code"
+                    icon="users"
+                    placeholder="Shared Family Code"
+                    onChange={e => this.setState({ joinCode: e.target.value })}
+                  />
+                )}
+                <Button type="submit" loading={loading}>
                   Submit
                 </Button>
                 <p>
@@ -178,23 +190,48 @@ class SignUp extends React.Component {
                 </p>
               </FormContainer>
             </FormWrapper>
-            <InfoBox>
-              <Icon
-                name="utensils"
-                color={colors.black}
-                style={{ width: "80px", height: "80px" }}
-              />
-              <InfoTitle> Your Recipes Are Just Clicks Away.</InfoTitle>
-              <InfoDescription>
-                Hungry Hippo makes it easy to create, keep, and share your
-                family recipes
-              </InfoDescription>
-              <InfoLink to="/about">
-                <Button>Learn More</Button>
-              </InfoLink>
-            </InfoBox>
+            <InfoBoxComponent />
           </ActionsWrapper>
         </PageWrapper>
+
+        {showFamilyModal && (
+          <Modal
+            onCloseRequest={() => this.setState({ showFamilyModal: false })}
+          >
+            <ModalContent>
+              <p style={{ textAlign: "center" }}>
+                You need to join a family in order to create and view recipes.
+                Create one now!
+              </p>
+              <FormWrapper>
+                <FormContainer onSubmit={this.handleFormSubmit}>
+                  {error.message && <div>{error.message}</div>}
+                  <Input
+                    inputState={error.field === "join_code" ? "error" : ""}
+                    type="text"
+                    label="Family Join Code"
+                    icon="users"
+                    placeholder="Shared Family Code"
+                    onChange={e => this.setState({ joinCode: e.target.value })}
+                  />
+                  <Input
+                    inputState={error.field === "family_name" ? "error" : ""}
+                    type="text"
+                    label="Family Display Name"
+                    icon="users"
+                    placeholder="Family Name"
+                    onChange={e =>
+                      this.setState({ familyName: e.target.value })
+                    }
+                  />
+                  <Button loading={loading} type="submit">
+                    Submit
+                  </Button>
+                </FormContainer>
+              </FormWrapper>
+            </ModalContent>
+          </Modal>
+        )}
       </div>
     );
   }

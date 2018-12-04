@@ -62,7 +62,7 @@ const Checkmark = styled.span`
 
 const StyledLabel = styled.span`
   font-family: ${varela};
-  color: ${props => (props.disabled ? colors.gray : colors.darkGray)};
+  color: ${props => (props.disabled ? colors.gray : colors.black)};
   font-size: 16px;
 
   &:hover {

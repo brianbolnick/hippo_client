@@ -1,6 +1,26 @@
+import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { rufina, media, varela } from "styles/css-variables";
+import { colors, rufina, media, varela } from "styles/css-variables";
+import Button from "components/Button/Button";
+import Icon from "components/Icon/Icon";
+
+export const InfoBoxComponent = () => (
+  <InfoBox>
+    <Icon
+      name="utensils"
+      color={colors.black}
+      style={{ width: "80px", height: "80px" }}
+    />
+    <InfoTitle> Your Recipes Are Just Clicks Away.</InfoTitle>
+    <InfoDescription>
+      Hungry Hippo makes it easy to create, keep, and share your family recipes
+    </InfoDescription>
+    <InfoLink to="/about">
+      <Button>Learn More</Button>
+    </InfoLink>
+  </InfoBox>
+);
 
 export const InfoTitle = styled.div`
   font-size: 2.5rem;
@@ -36,7 +56,7 @@ export const InfoBox = styled.div`
   align-items: center;
   flex-flow: column;
   ${media.phone`
-		display: none;
+	display: none;
 	`};
 `;
 
@@ -46,7 +66,7 @@ export const FormWrapper = styled.div`
   align-items: center;
   justify-content: center;
   ${media.phone`
-		width: 100%;
+	width: 100%;
 	`};
 `;
 
@@ -57,7 +77,7 @@ export const ActionsWrapper = styled.div`
   align-items: center;
 
   ${media.phone`
-		justify-content: center;
+	justify-content: center;
 	`};
 `;
 
@@ -86,17 +106,17 @@ export const Block = styled.div`
 `;
 
 export const FormContainer = styled.form`
-  width: 400px;
+  width: 485px;
   display: flex;
   justify-content: center;
   flex-flow: column;
   ${media.phone` 
-	    box-sizing: border-box;
-	    background: #ffffff;
-	    border-radius: 4px;
-	    width: 100%;
-	    box-shadow: 0 0 12px 3px #21212170;
-			padding: 16px;
+	box-sizing: border-box;
+	background: #ffffff;
+	border-radius: 4px;
+	width: 100%;
+	box-shadow: 0 0 12px 3px #21212170;
+	padding: 16px;
 	`};
 `;
 
@@ -110,6 +130,6 @@ export const PageWrapper = styled.div`
   box-sizing: border-box;
 
   ${media.phone`
-		padding: 5%;
+	padding: 5%;
 	`};
 `;

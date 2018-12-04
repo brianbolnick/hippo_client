@@ -6,21 +6,17 @@ import { API_URL } from "utils";
 import axios from "axios";
 import jwtDecode from "jwt-decode";
 import MediaQuery from "components/MediaQuery/MediaQuery";
-import { colors, phoneMediaQuery } from "styles/css-variables";
+import { phoneMediaQuery } from "styles/css-variables";
 import Nav from "components/Nav/Nav";
 import MobileNav from "components/Nav/MobileNav";
-import Icon from "components/Icon/Icon";
 import {
-  InfoTitle,
-  InfoDescription,
-  InfoLink,
-  InfoBox,
   FormWrapper,
   ActionsWrapper,
   FadedBlock,
   Block,
   FormContainer,
-  PageWrapper
+  PageWrapper,
+  InfoBoxComponent
 } from "./Styles";
 
 const config = { headers: {} };
@@ -104,21 +100,7 @@ class SignIn extends React.Component {
                 </p>
               </FormContainer>
             </FormWrapper>
-            <InfoBox>
-              <Icon
-                name="utensils"
-                color={colors.black}
-                style={{ width: "80px", height: "80px" }}
-              />
-              <InfoTitle> Your Recipes Are Just Clicks Away.</InfoTitle>
-              <InfoDescription>
-                Hungry Hippo makes it easy to create, keep, and share your
-                family recipes
-              </InfoDescription>
-              <InfoLink to="/about">
-                <Button>Learn More</Button>
-              </InfoLink>
-            </InfoBox>
+            <InfoBoxComponent />
           </ActionsWrapper>
         </PageWrapper>
       </div>
