@@ -5,29 +5,30 @@ import styled from "styled-components";
 import { openSans, colors } from "../../styles/css-variables";
 
 const iconList = [
+  "addRecipe",
+  "checkOpenCircle",
   "chevronDown",
   "chevronLeft",
   "chevronRight",
   "chevronUp",
+  "closeOpenCircle",
   "edit",
   "envelope",
   "filter",
   "home",
   "info",
+  "lock",
+  "menu",
   "message",
   "new",
   "profile",
   "search",
   "signin",
+  "star",
+  "unlock",
   "user",
   "users",
-  "unlock",
-  "lock",
-  "checkOpenCircle",
-  "closeOpenCircle",
-  "menu",
-  "utensils",
-  "addRecipe"
+  "utensils"
 ];
 
 const IconLabel = styled.span`

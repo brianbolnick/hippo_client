@@ -66,38 +66,6 @@ const CloseButton = styled.button`
   }
 `;
 
-const TargetContainer = styled.div``;
-class Target extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      showModal: false
-    };
-  }
-
-  handleToggleModal() {
-    this.setState({ showModal: !this.state.showModal });
-  }
-  render() {
-    const { children, target } = this.props;
-    const { showModal } = this.state;
-
-    return (
-      <div>
-        <TargetContainer onClick={() => this.handleToggleModal()}>
-          {target}
-        </TargetContainer>
-
-        {showModal && (
-          <Modal onCloseRequest={() => this.handleToggleModal()}>
-            {children}
-          </Modal>
-        )}
-      </div>
-    );
-  }
-}
-
 class Modal extends Component {
   constructor(props) {
     super(props);

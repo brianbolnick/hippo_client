@@ -2,6 +2,23 @@ import React from "react";
 import styled from "styled-components";
 import { colors, varela } from "../../styles/css-variables";
 
+const Checkmark = styled.span`
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 15px;
+  width: 16px;
+  border: ${({ disabled }) =>
+    disabled ? `solid 2px ${colors.mutedGray}` : `solid 2px ${colors.red}`};
+  border-radius: 4px;
+  background-color: ${props => (props.disabled ? colors.lightGray : "white")};
+  &:after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+`;
+
 const Container = styled.label`
   display: block;
   position: relative;
@@ -40,23 +57,6 @@ const Container = styled.label`
     &:hover {
       cursor: ${props => (props.disabled ? "initial" : "")};
     }
-  }
-`;
-
-const Checkmark = styled.span`
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 15px;
-  width: 16px;
-  border: ${({ disabled }) =>
-    disabled ? `solid 2px ${colors.mutedGray}` : `solid 2px ${colors.red}`};
-  border-radius: 4px;
-  background-color: ${props => (props.disabled ? colors.lightGray : "white")};
-  &:after {
-    content: "";
-    position: absolute;
-    display: none;
   }
 `;
 

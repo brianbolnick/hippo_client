@@ -11,9 +11,9 @@ if (hostname === "localhost") {
 
 export const API_URL = `${backendHost}/api/${apiVersion}`;
 export const jwt = JSON.parse(localStorage.getItem("jwt"));
-const sub = JSON.parse(jwt.sub);
-export const userId = sub.id;
-export const familyId = sub.family_id;
+const sub = jwt && JSON.parse(jwt.sub);
+export const userId = jwt && sub.id;
+export const familyId = jwt && sub.family_id;
 export const token = localStorage.getItem("auth_token");
 export const signOut = () => {
   localStorage.removeItem("jwt");

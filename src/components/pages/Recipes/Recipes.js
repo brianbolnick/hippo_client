@@ -1,8 +1,9 @@
 import React from "react";
 import Layout from "components/Layout/Layout";
 import RecipeCard from "components/Recipe/RecipeCard";
-import { API_URL, token, userId, familyId } from "utils";
+import { API_URL, token, familyId } from "utils";
 import axios from "axios";
+import { RecipeList } from "./styles";
 
 class Recipe extends React.Component {
   state = { recipes: [] };
@@ -27,12 +28,17 @@ class Recipe extends React.Component {
     return (
       recipes.length &&
       recipes.map(recipe => {
-        return <RecipeCard data={recipe} />;
+        return <RecipeCard key={recipe.id} data={recipe} />;
       })
     );
   };
+
   render() {
-    return <Layout>{this.renderRecipes()}</Layout>;
+    return (
+      <Layout>
+        <RecipeList>{this.renderRecipes()}</RecipeList>
+      </Layout>
+    );
   }
 }
 

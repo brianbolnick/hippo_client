@@ -1,6 +1,7 @@
 import React from "react";
 import RecipeCard from "./RecipeCard";
 import { storiesOf } from "@storybook/react";
+import { MemoryRouter } from "react-router";
 
 const data = {
   user: {
@@ -27,8 +28,12 @@ const data = {
     name: "Italian",
     id: 1
   },
-	calories: "343",
-	rating: 3.4
+  calories: "343",
+  rating: 3.4
 };
 
-storiesOf("RecipeCard", module).add("Card", () => <RecipeCard data={data} />);
+storiesOf("RecipeCard", module)
+  .addDecorator(story => (
+    <MemoryRouter initialEntries={["/"]}>{story()}</MemoryRouter>
+  ))
+  .add("Card", () => <RecipeCard data={data} />);

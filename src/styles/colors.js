@@ -1,5 +1,5 @@
 //Yellows
-export const yellow = "#EDD382";
+export const yellow = "#FFD23F";
 
 //Blues
 //export const blue = '	#009FFD';

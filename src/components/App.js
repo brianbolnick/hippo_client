@@ -4,6 +4,7 @@ import HomePage from "./pages/HomePage";
 import SignIn from "./pages/Auth/SignIn";
 import SignUp from "./pages/Auth/SignUp";
 import Recipes from "./pages/Recipes";
+import Recipe from "./pages/Recipes/Recipe";
 import About from "./pages/About";
 import Family from "./pages/Family/Family";
 import NotFound from "./pages/NotFound";
@@ -55,8 +56,24 @@ class App extends Component {
           isAuthenticated={this.isLoggedIn()}
         />
         <Route path="/sign_in" exact component={SignIn} />
-        <Route path="/recipes" exact component={Recipes} />
-        <AuthRoute path="/family" exact component={Family} />
+        <AuthRoute
+          path="/recipes"
+          exact
+          component={Recipes}
+          isAuthenticated={this.isLoggedIn()}
+        />
+        <AuthRoute
+          path="/recipes/:id"
+          isAuthenticated={this.isLoggedIn()}
+          exact
+          component={Recipe}
+        />
+        <AuthRoute
+          path="/family"
+          exact
+          component={Family}
+          isAuthenticated={this.isLoggedIn()}
+        />
         <Route path="/sign_up" exact component={SignUp} />
         <Route path="/about" exact component={About} />
         <Route path="/test" exact component={Test} />
