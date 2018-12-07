@@ -31,6 +31,7 @@ export const ImageBlock = styled.div`
 			background-repeat: no-repeat;
 	`};
 `;
+
 export const Title = styled.div`
   font-size: 2rem;
   letter-spacing: 1px;
@@ -40,7 +41,7 @@ export const Title = styled.div`
   overflow: hidden;
 `;
 
-export const Category = styled.div`
+export const FamilyName = styled.div`
   color: #969595;
   text-transform: uppercase;
   font-size: 0.9rem;
@@ -49,11 +50,14 @@ export const Category = styled.div`
   margin-bottom: 10px;
 `;
 
-export const Meta = styled.div`
-  font-size: 2rem;
-  letter-spacing: 1px;
-  font-weight: 700;
-`;
+export const MetaContainer = styled.div``;
+export const IngredientsContainer = styled.div``;
+export const Ingredient = styled.div``;
+export const DirectionsContainer = styled.div``;
+export const Direction = styled.div``;
+export const SubTitle = styled.div``;
+
+export const Meta = styled.div``;
 
 export const RecipeList = styled.div`
   display: flex;
