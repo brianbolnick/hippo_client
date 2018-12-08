@@ -7,30 +7,27 @@ import Button from "components/Button/Button";
 
 const Nav = props => {
   return (
-    <Navbar auth={props.auth}>
+    <Navbar recipe={props.recipe} auth={props.auth}>
       <Brand>
         <Link to="/">
           <BrandImage src={Logo} alt="" />
         </Link>
       </Brand>
       <NavLinks>
-        <NavLink auth={props.auth} to="/about">
+        <NavLink auth={props.auth} recipe={props.recipe} to="/about">
           About
         </NavLink>
         {!token && (
-          <NavLink auth={props.auth} to="/sign_in">
+          <NavLink auth={props.auth} recipe={props.recipe} to="/sign_in">
             Sign In
           </NavLink>
         )}
         {token && (
           <>
-            <NavLink auth={props.auth} to="/recipes">
+            <NavLink auth={props.auth} recipe={props.recipe} to="/recipes">
               Recipes
             </NavLink>
-            <NavLink auth={props.auth} to="/family">
-              Family
-            </NavLink>
-            <Button asLink onClick={signOut}>
+            <Button asLink onClick={signOut} transparentBackground>
               Sign Out
             </Button>
           </>

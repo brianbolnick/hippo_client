@@ -15,6 +15,15 @@ export const Navbar = styled.div`
   padding: 16px 5%;
   box-shadow: rgba(0, 0, 0, 0) 0px 0px 0px;
 
+  ${({ recipe }) =>
+    recipe &&
+    `
+		position: absolute;
+	width: 100%;
+	box-sizing: border-box;
+	    padding-right: 32px;
+	`};
+
   ${({ auth }) =>
     auth &&
     `
@@ -73,7 +82,7 @@ export const NavLink = styled(Link)`
   font-weight: 600;
   &:hover {
     color: ${colors.red};
-    ${({ auth }) => auth && `color: ${colors.white} `};
+    ${({ auth, recipe }) => (auth || recipe) && `color: ${colors.white} `};
     transition: all 0.2s ease;
   }
 `;

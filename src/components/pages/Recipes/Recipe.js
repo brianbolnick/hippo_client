@@ -9,13 +9,18 @@ import {
   Title,
   FamilyName,
   Meta,
-  MetaContainer,
+  Footer,
   IngredientsContainer,
   Ingredient,
   DirectionsContainer,
   Direction,
-  SubTitle
+  SubTitle,
+  Details,
+  IconContainer,
+  MetaDetails
 } from "./styles";
+import Icon from "components/Icon/Icon";
+import { colors } from "styles/css-variables";
 class Recipe extends React.Component {
   state = { recipe: {} };
 
@@ -43,7 +48,7 @@ class Recipe extends React.Component {
     return (
       ingredients &&
       ingredients.map((ing, index) => {
-        return <Ingredient key={`ingredient|${index}`}>{ing}</Ingredient>;
+        return <Ingredient key={`ingredient|${index}`}>- {ing}</Ingredient>;
       })
     );
   };
@@ -56,7 +61,11 @@ class Recipe extends React.Component {
     return (
       steps &&
       steps.map((step, index) => {
-        return <Direction key={`dir|${index}`}>{step}</Direction>;
+        return (
+          <Direction key={`dir|${index}`}>
+            {index + 1}. {step}
+          </Direction>
+        );
       })
     );
   };
@@ -72,32 +81,61 @@ class Recipe extends React.Component {
     const { recipe } = this.state;
     console.log(recipe);
     return (
-      <Layout>
+      <Layout recipe>
         <ShowContainer>
           <ImageBlock url={recipe.image_url} />
           <DetailsContainer>
-            <Title>{recipe.title}</Title>
-            <FamilyName>{this.renderFamilyName()}</FamilyName>
-            <MetaContainer>
-              <Meta>
-                <span>Prep Time:</span> {recipe.prep_time}
-              </Meta>
-              <Meta>
-                <span>Servings:</span> {recipe.servings}
-              </Meta>
-              <Meta>
-                <span>Cook Time:</span> {recipe.cook_time}
-              </Meta>
-              <Meta>
-                <span>Calories:</span> {recipe.calories}
-              </Meta>
-            </MetaContainer>
-            <SubTitle>Ingredients</SubTitle>
+            <Details>
+              <Title>{recipe.title}</Title>
+              <FamilyName>{this.renderFamilyName()}</FamilyName>
+              <SubTitle>Directions</SubTitle>
+              <DirectionsContainer>
+                {this.renderDirections()}
+              </DirectionsContainer>
+            </Details>
             <IngredientsContainer>
+              <SubTitle>Ingredients</SubTitle>
               {this.renderIngredients()}
             </IngredientsContainer>
-            <SubTitle>Directions</SubTitle>
-            <DirectionsContainer>{this.renderDirections()}</DirectionsContainer>
+            <Footer>
+              <Meta>
+                <IconContainer>
+                  <Icon name="clock" color={colors.darkGray} />
+                </IconContainer>
+                <MetaDetails>
+                  <div>{recipe.prep_time || "-"}</div>
+                  <span>Prep Time</span>
+                </MetaDetails>
+              </Meta>
+              <Meta>
+                <IconContainer>
+                  <Icon name="clockAlarm" color={colors.darkGray} />
+                </IconContainer>
+                <MetaDetails>
+                  <div>{recipe.cook_time || "-"}</div>
+                  <span>Cook Time</span>
+                </MetaDetails>
+              </Meta>
+
+              <Meta>
+                <IconContainer>
+                  <Icon name="utensils" color={colors.darkGray} />
+                </IconContainer>
+                <MetaDetails>
+                  <div>{recipe.servings || "-"}</div>
+                  <span>Servings</span>
+                </MetaDetails>
+              </Meta>
+              <Meta>
+                <IconContainer>
+                  <Icon name="heartbeat" color={colors.darkGray} />
+                </IconContainer>
+                <MetaDetails>
+                  <div>{recipe.calories || "-"}</div>
+                  <span>Calories</span>
+                </MetaDetails>
+              </Meta>
+            </Footer>
           </DetailsContainer>
         </ShowContainer>
       </Layout>

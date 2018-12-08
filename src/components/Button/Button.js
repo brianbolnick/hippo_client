@@ -89,10 +89,20 @@ const ButtonAsLink = styled.button`
   font-size: 16px;
   font-family: ${varela};
   border: none;
+  ${({ transparentBackground }) =>
+    transparentBackground &&
+    `
+		background: transparent
+	`};
 
   cursor: pointer;
   &:hover {
     outline: none;
+    ${({ transparentBackground }) =>
+      transparentBackground &&
+      `
+		color: white;
+	`};
   }
   &:focus {
     outline: none;
