@@ -8,6 +8,7 @@ export const darkBlue = "#00578B";
 
 // Whites
 export const white = "#ffffff";
+export const whiteSmoke = "#F5F5F6";
 export const offWhite = "#ECEDEE";
 
 // Grays
@@ -30,19 +31,20 @@ export const orange = "#E9724C";
 export const green = "#59CD90";
 export const darkGreen = "#49A876";
 export default {
-  darkRed,
-  red,
-  orange,
-  yellow,
-  green,
-  darkGreen,
+  whiteSmoke,
+  black,
   blue,
   darkBlue,
-  white,
-  offWhite,
-  mutedGray,
-  lightGray,
   darkGray,
+  darkGreen,
+  darkRed,
+  green,
+  lightGray,
+  mutedGray,
   offGray,
-  black
+  offWhite,
+  orange,
+  red,
+  white,
+  yellow
 };

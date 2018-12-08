@@ -98,11 +98,6 @@ const ButtonAsLink = styled.button`
   cursor: pointer;
   &:hover {
     outline: none;
-    ${({ transparentBackground }) =>
-      transparentBackground &&
-      `
-		color: white;
-	`};
   }
   &:focus {
     outline: none;

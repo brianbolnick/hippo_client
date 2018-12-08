@@ -1,6 +1,7 @@
 import { css, keyframes } from "styled-components";
 import cols from "./colors";
 import TextLogo from "../img/hippo-text.svg";
+import WhiteLogo from "../img/hippo-text-white.svg";
 
 // Fonts
 export const sourceSans = "'Source Sans Pro', sans-serif";
@@ -12,6 +13,7 @@ export const colors = cols;
 export const phoneMediaQuery = "max-width: 768px";
 
 export const Logo = TextLogo;
+export const LogoWhite = WhiteLogo;
 
 export const media = {
   phone: (...args) => css`

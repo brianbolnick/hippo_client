@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { colors, media, varela, rufina } from "styles/css-variables";
+import DemoPic from "img/demo-pic.png";
 
 export const Actions = styled.div`
   margin-top: 16px;
@@ -11,15 +12,20 @@ export const Actions = styled.div`
 `;
 
 export const DemoContainer = styled.div`
-  height: 600px;
+  height: 550px;
   width: 60%;
   background: white;
   margin: 0 auto;
   border-radius: 8px;
   box-shadow: 0px 2px 8px 1px #31363896;
+  background: url(${DemoPic});
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
   ${media.phone`
-	width: 90%;
+	width: 96%;
 	height: 280px;
+	background-position: initial;
 	`};
 `;
 

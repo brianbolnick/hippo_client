@@ -21,6 +21,7 @@ export const Navbar = styled.div`
 		position: absolute;
 	width: 100%;
 	box-sizing: border-box;
+	padding: 0 5%;
 	    padding-right: 32px;
 	`};
 
@@ -35,7 +36,12 @@ export const Navbar = styled.div`
 	`};
 `;
 
-export const Brand = styled.div``;
+export const Brand = styled.div`
+  ${({ recipe }) =>
+    recipe &&
+    `    position: relative;
+	    top: 16px;`};
+`;
 
 export const NavLinks = styled.div`
   display: flex;
@@ -82,7 +88,7 @@ export const NavLink = styled(Link)`
   font-weight: 600;
   &:hover {
     color: ${colors.red};
-    ${({ auth, recipe }) => (auth || recipe) && `color: ${colors.white} `};
+    ${({ auth }) => auth && `color: ${colors.white} `};
     transition: all 0.2s ease;
   }
 `;
@@ -139,7 +145,7 @@ export const NavMobile = styled.div`
   ${({ auth }) =>
     auth &&
     `
-	background: transparent;
+		background: transparent;
 	    padding: 16px 0%;
 	    box-shadow: rgba(0,0,0,0) 0px 0px 0px;
 	    position: absolute;

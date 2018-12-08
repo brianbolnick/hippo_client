@@ -118,7 +118,7 @@ class Modal extends Component {
     return (
       <Overlay>
         <StyledModal>
-          <ModalContent innerRef={this.setWrapperRef}>{children}</ModalContent>
+          <ModalContent ref={this.setWrapperRef}>{children}</ModalContent>
         </StyledModal>
 
         <CloseButton type="button" onClick={onCloseRequest} />

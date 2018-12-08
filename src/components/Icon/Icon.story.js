@@ -2,7 +2,7 @@ import React from "react";
 import { storiesOf } from "@storybook/react";
 import Icon from "./Icon";
 import styled from "styled-components";
-import { openSans, colors } from "../../styles/css-variables";
+import { varela, colors } from "../../styles/css-variables";
 
 const iconList = [
   "addRecipe",
@@ -28,6 +28,7 @@ const iconList = [
   "search",
   "signin",
   "star",
+  "tags",
   "unlock",
   "user",
   "users",
@@ -36,7 +37,7 @@ const iconList = [
 
 const IconLabel = styled.span`
   margin: 0 0 10px 0;
-  font-family: ${openSans};
+  font-family: ${varela};
 `;
 
 const StyledContainer = styled.div`

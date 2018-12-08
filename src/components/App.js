@@ -52,7 +52,7 @@ class App extends Component {
         <HiddenRoute
           path="/"
           exact
-          component={HomePage}
+          component={Recipes}
           isAuthenticated={this.isLoggedIn()}
         />
         <Route path="/sign_in" exact component={SignIn} />

@@ -2,27 +2,39 @@ import React from "react";
 import Layout from "components/Layout/Layout";
 import { API_URL, token } from "utils";
 import axios from "axios";
+import moment from "moment";
+import ShareModal from "./ShareModal";
 import {
-  DetailsContainer,
-  ShowContainer,
-  ImageBlock,
-  Title,
-  FamilyName,
-  Meta,
-  Footer,
-  IngredientsContainer,
-  Ingredient,
-  DirectionsContainer,
-  Direction,
-  SubTitle,
+  CategoryContainer,
+  RecipeHeader,
+  ShareIcon,
+  Category,
+  Date,
   Details,
+  DetailsContainer,
+  Direction,
+  Divider,
+  DirectionsContainer,
+  FamilyName,
+  Footer,
   IconContainer,
-  MetaDetails
+  ImageBlock,
+  Ingredient,
+  IngredientsContainer,
+  Meta,
+  MetaDetails,
+  ShowContainer,
+  SubTitle,
+  Title,
+  HeaderGroup,
+  RatingContainer,
+  RatingCount
 } from "./styles";
 import Icon from "components/Icon/Icon";
+import Rating from "components/Rating/Rating";
 import { colors } from "styles/css-variables";
 class Recipe extends React.Component {
-  state = { recipe: {} };
+  state = { recipe: {}, showShareModal: false };
 
   componentDidMount = () => {
     const authToken = `Bearer ${token}`;
@@ -63,7 +75,7 @@ class Recipe extends React.Component {
       steps.map((step, index) => {
         return (
           <Direction key={`dir|${index}`}>
-            {index + 1}. {step}
+            <span>{index + 1}.</span> {step}
           </Direction>
         );
       })
@@ -77,17 +89,59 @@ class Recipe extends React.Component {
     return family && family.display_name;
   };
 
+  renderCategoryName = () => {
+    const {
+      recipe: { category }
+    } = this.state;
+    return category && category.name;
+  };
+
+  renderDate = () => {
+    const {
+      recipe: { created_at }
+    } = this.state;
+    return created_at && moment(created_at).format("MMM Do, YYYY");
+  };
+
   render() {
-    const { recipe } = this.state;
+    const { recipe, showShareModal } = this.state;
     console.log(recipe);
     return (
       <Layout recipe>
+        {showShareModal && (
+          <ShareModal
+            onCloseRequest={() => this.setState({ showShareModal: false })}
+          />
+        )}
         <ShowContainer>
-          <ImageBlock url={recipe.image_url} />
+          <ImageBlock url={recipe.image_url}>
+            <Title>{recipe.title}</Title>
+            <Divider>
+              <hr />
+            </Divider>
+            <FamilyName>{this.renderFamilyName()}</FamilyName>
+          </ImageBlock>
           <DetailsContainer>
             <Details>
-              <Title>{recipe.title}</Title>
-              <FamilyName>{this.renderFamilyName()}</FamilyName>
+              <RecipeHeader>
+                <IconContainer>
+                  <Icon name="tags" color={colors.black} />
+                </IconContainer>
+                <HeaderGroup>
+                  <CategoryContainer>
+                    <Category>{this.renderCategoryName()}</Category>
+                    <Date>{this.renderDate()}</Date>
+                  </CategoryContainer>
+                  <RatingContainer>
+                    <Rating value={recipe.rating} />
+                    <RatingCount>
+                      {recipe.rating_count || 0} Reviews
+                    </RatingCount>
+                  </RatingContainer>
+                </HeaderGroup>
+              </RecipeHeader>
+              <SubTitle>Notes</SubTitle>
+              <DirectionsContainer>{recipe.notes}</DirectionsContainer>
               <SubTitle>Directions</SubTitle>
               <DirectionsContainer>
                 {this.renderDirections()}
@@ -97,10 +151,13 @@ class Recipe extends React.Component {
               <SubTitle>Ingredients</SubTitle>
               {this.renderIngredients()}
             </IngredientsContainer>
+            <ShareIcon onClick={() => this.setState({ showShareModal: true })}>
+              <Icon name="share" />
+            </ShareIcon>
             <Footer>
               <Meta>
                 <IconContainer>
-                  <Icon name="clock" color={colors.darkGray} />
+                  <Icon name="clock" color={colors.white} />
                 </IconContainer>
                 <MetaDetails>
                   <div>{recipe.prep_time || "-"}</div>
@@ -109,7 +166,7 @@ class Recipe extends React.Component {
               </Meta>
               <Meta>
                 <IconContainer>
-                  <Icon name="clockAlarm" color={colors.darkGray} />
+                  <Icon name="clockAlarm" color={colors.white} />
                 </IconContainer>
                 <MetaDetails>
                   <div>{recipe.cook_time || "-"}</div>
@@ -119,7 +176,7 @@ class Recipe extends React.Component {
 
               <Meta>
                 <IconContainer>
-                  <Icon name="utensils" color={colors.darkGray} />
+                  <Icon name="utensils" color={colors.white} />
                 </IconContainer>
                 <MetaDetails>
                   <div>{recipe.servings || "-"}</div>
@@ -128,7 +185,7 @@ class Recipe extends React.Component {
               </Meta>
               <Meta>
                 <IconContainer>
-                  <Icon name="heartbeat" color={colors.darkGray} />
+                  <Icon name="heartbeat" color={colors.white} />
                 </IconContainer>
                 <MetaDetails>
                   <div>{recipe.calories || "-"}</div>
