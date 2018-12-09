@@ -37,7 +37,7 @@ class SignIn extends React.Component {
     e.preventDefault();
     this.setState({ loading: true });
     const data = {
-      email: this.state.email,
+      email: this.state.email.toLowerCase(),
       password: this.state.password
     };
 
@@ -46,9 +46,6 @@ class SignIn extends React.Component {
       .then(resp => {
         this.setState({ loading: false }, () => {
           if (resp.error) {
-            //debugger;
-            //const message = resp.error;
-            //this.setState({ loading: false, error: message });
             const message = handleNetworkErrors(500);
             this.setState({ loading: false, error: { message } });
           } else {
@@ -62,9 +59,6 @@ class SignIn extends React.Component {
       })
       .catch(err => {
         console.log(err);
-        //debugger;
-        //const message = err.response.data.error;
-        //this.setState({ loading: false, error: message });
         const message = handleNetworkErrors(err);
         this.setState({ loading: false, error: { message } });
       });
@@ -83,8 +77,8 @@ class SignIn extends React.Component {
           <FadedBlock />
           <ActionsWrapper>
             <FormWrapper>
-          {error.message && <div>{error.message}</div>}
               <FormContainer onSubmit={this.handleFormSubmit}>
+                {error.message && <div>{error.message}</div>}
                 <Input
                   type="text"
                   label="Email"

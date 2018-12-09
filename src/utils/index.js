@@ -28,5 +28,7 @@ const errorMap = {
 };
 
 export const handleNetworkErrors = err => {
-  return errorMap[err.response.status];
+  return (
+    errorMap[err.response.status] || `Something unexpected occurred: ${err}`
+  );
 };
