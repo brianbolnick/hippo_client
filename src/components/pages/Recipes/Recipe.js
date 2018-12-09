@@ -33,8 +33,19 @@ import {
 import Icon from "components/Icon/Icon";
 import Rating from "components/Rating/Rating";
 import { colors } from "styles/css-variables";
+import MediaQuery from "components/MediaQuery/MediaQuery";
+import { phoneMediaQuery } from "styles/css-variables";
+
 class Recipe extends React.Component {
-  state = { recipe: {}, showShareModal: false };
+  state = {
+    recipe: {},
+    showShareModal: false,
+    showMobile: window.matchMedia("(" + phoneMediaQuery + ")").matches
+  };
+
+  handleMediaQueryChange = ({ matches }) => {
+    this.setState({ showMobile: matches });
+  };
 
   componentDidMount = () => {
     const authToken = `Bearer ${token}`;
@@ -104,10 +115,14 @@ class Recipe extends React.Component {
   };
 
   render() {
-    const { recipe, showShareModal } = this.state;
+    const { recipe, showShareModal, showMobile } = this.state;
     console.log(recipe);
     return (
       <Layout recipe>
+        <MediaQuery
+          query={phoneMediaQuery}
+          onChange={this.handleMediaQueryChange}
+        />
         {showShareModal && (
           <ShareModal
             onCloseRequest={() => this.setState({ showShareModal: false })}
@@ -123,23 +138,25 @@ class Recipe extends React.Component {
           </ImageBlock>
           <DetailsContainer>
             <Details>
-              <RecipeHeader>
-                <IconContainer>
-                  <Icon name="tags" color={colors.black} />
-                </IconContainer>
-                <HeaderGroup>
-                  <CategoryContainer>
-                    <Category>{this.renderCategoryName()}</Category>
-                    <Date>{this.renderDate()}</Date>
-                  </CategoryContainer>
-                  <RatingContainer>
-                    <Rating value={recipe.rating} />
-                    <RatingCount>
-                      {recipe.rating_count || 0} Reviews
-                    </RatingCount>
-                  </RatingContainer>
-                </HeaderGroup>
-              </RecipeHeader>
+              {!showMobile && (
+                <RecipeHeader>
+                  <IconContainer>
+                    <Icon name="tags" color={colors.black} />
+                  </IconContainer>
+                  <HeaderGroup>
+                    <CategoryContainer>
+                      <Category>{this.renderCategoryName()}</Category>
+                      <Date>{this.renderDate()}</Date>
+                    </CategoryContainer>
+                    <RatingContainer>
+                      <Rating value={recipe.rating} />
+                      <RatingCount>
+                        {recipe.rating_count || 0} Reviews
+                      </RatingCount>
+                    </RatingContainer>
+                  </HeaderGroup>
+                </RecipeHeader>
+              )}
               <SubTitle>Notes</SubTitle>
               <DirectionsContainer>{recipe.notes}</DirectionsContainer>
               <SubTitle>Directions</SubTitle>
@@ -148,51 +165,73 @@ class Recipe extends React.Component {
               </DirectionsContainer>
             </Details>
             <IngredientsContainer>
+              {showMobile && (
+                <RecipeHeader>
+                  <IconContainer>
+                    <Icon name="tags" color={colors.black} />
+                  </IconContainer>
+                  <HeaderGroup>
+                    <CategoryContainer>
+                      <Category>{this.renderCategoryName()}</Category>
+                      <Date>{this.renderDate()}</Date>
+                    </CategoryContainer>
+                    <RatingContainer>
+                      <Rating value={recipe.rating} />
+                      <RatingCount>
+                        {recipe.rating_count || 0} Reviews
+                      </RatingCount>
+                    </RatingContainer>
+                  </HeaderGroup>
+                </RecipeHeader>
+              )}
+
               <SubTitle>Ingredients</SubTitle>
               {this.renderIngredients()}
             </IngredientsContainer>
             <ShareIcon onClick={() => this.setState({ showShareModal: true })}>
               <Icon name="share" />
             </ShareIcon>
-            <Footer>
-              <Meta>
-                <IconContainer>
-                  <Icon name="clock" color={colors.white} />
-                </IconContainer>
-                <MetaDetails>
-                  <div>{recipe.prep_time || "-"}</div>
-                  <span>Prep Time</span>
-                </MetaDetails>
-              </Meta>
-              <Meta>
-                <IconContainer>
-                  <Icon name="clockAlarm" color={colors.white} />
-                </IconContainer>
-                <MetaDetails>
-                  <div>{recipe.cook_time || "-"}</div>
-                  <span>Cook Time</span>
-                </MetaDetails>
-              </Meta>
+            {!showMobile && (
+              <Footer>
+                <Meta>
+                  <IconContainer>
+                    <Icon name="clock" color={colors.white} />
+                  </IconContainer>
+                  <MetaDetails>
+                    <div>{recipe.prep_time || "-"}</div>
+                    <span>Prep Time</span>
+                  </MetaDetails>
+                </Meta>
+                <Meta>
+                  <IconContainer>
+                    <Icon name="clockAlarm" color={colors.white} />
+                  </IconContainer>
+                  <MetaDetails>
+                    <div>{recipe.cook_time || "-"}</div>
+                    <span>Cook Time</span>
+                  </MetaDetails>
+                </Meta>
 
-              <Meta>
-                <IconContainer>
-                  <Icon name="utensils" color={colors.white} />
-                </IconContainer>
-                <MetaDetails>
-                  <div>{recipe.servings || "-"}</div>
-                  <span>Servings</span>
-                </MetaDetails>
-              </Meta>
-              <Meta>
-                <IconContainer>
-                  <Icon name="heartbeat" color={colors.white} />
-                </IconContainer>
-                <MetaDetails>
-                  <div>{recipe.calories || "-"}</div>
-                  <span>Calories</span>
-                </MetaDetails>
-              </Meta>
-            </Footer>
+                <Meta>
+                  <IconContainer>
+                    <Icon name="utensils" color={colors.white} />
+                  </IconContainer>
+                  <MetaDetails>
+                    <div>{recipe.servings || "-"}</div>
+                    <span>Servings</span>
+                  </MetaDetails>
+                </Meta>
+                <Meta>
+                  <IconContainer>
+                    <Icon name="heartbeat" color={colors.white} />
+                  </IconContainer>
+                  <MetaDetails>
+                    <div>{recipe.calories || "-"}</div>
+                    <span>Calories</span>
+                  </MetaDetails>
+                </Meta>
+              </Footer>
+            )}
           </DetailsContainer>
         </ShowContainer>
       </Layout>

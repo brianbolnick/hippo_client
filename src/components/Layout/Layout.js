@@ -21,6 +21,7 @@ const Content = styled.div`
 
   ${media.phone`
 	margin-top: 100px;
+    overflow: auto;
 	`};
 `;
 

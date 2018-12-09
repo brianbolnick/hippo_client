@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { colors, rufina } from "styles/css-variables";
+import { colors, rufina, media } from "styles/css-variables";
 import Button from "components/Button/Button";
 export const ShowContainer = styled.div`
   height: 100%;
@@ -9,6 +9,10 @@ export const ShowContainer = styled.div`
   display: flex;
   flex-flow: row;
   position: absolute;
+
+  ${media.phone`
+		flex-flow: column;
+	`};
 `;
 
 export const DetailsContainer = styled.div`
@@ -16,6 +20,11 @@ export const DetailsContainer = styled.div`
   width: 55%;
   position: relative;
   box-sizing: border-box;
+  ${media.phone`
+		width:100%;
+		display: flex;
+		flex-flow: column;
+	`};
 `;
 
 export const ImageBlock = styled.div`
@@ -36,6 +45,9 @@ export const ImageBlock = styled.div`
 			url(${url});
 			background-repeat: no-repeat;
 	`};
+  ${media.phone`
+		width: 100%;
+	`};
 `;
 
 export const Title = styled.div`
@@ -50,6 +62,12 @@ export const Title = styled.div`
   font-family: ${rufina};
   padding: 0 80px;
   box-sizing: border-box;
+
+  ${media.phone`
+    padding: 0 16px;
+	text-align: center;
+		font-size: 4rem;
+	`};
 `;
 
 export const FamilyName = styled.div`
@@ -80,6 +98,11 @@ export const Footer = styled.div`
   bottom: 0;
   justify-content: space-around;
   align-items: center;
+
+  ${media.phone`
+		position: initial;
+		order: 3;
+	`};
 `;
 
 export const IngredientsContainer = styled.div`
@@ -93,6 +116,15 @@ export const IngredientsContainer = styled.div`
   padding-top: calc(8px + 101px);
   box-sizing: border-box;
   overflow-y: scroll;
+
+  ${media.phone`
+	overflow-y: visible;
+	position: initial;
+	height: auto;
+	width: 100%;
+	order: 1;
+padding: 8px 16px;
+	`};
 `;
 
 export const Ingredient = styled.div`
@@ -106,8 +138,16 @@ export const Details = styled.div`
   height: calc(100% - 64px);
   padding: 32px 64px;
   box-sizing: border-box;
-
   overflow-y: scroll;
+
+  ${media.phone`
+		position: initial;
+	width: 100%;
+	height: auto;
+	order: 2;
+	overflow-y: visible;
+	padding: 8px 16px;
+	`};
 `;
 
 export const DirectionsContainer = styled.div``;
@@ -215,6 +255,11 @@ export const ShareIcon = styled(Button)`
   * > &:hover {
     box-shadow: 0px 0px 6px 2px ${colors.offGray};
   }
+
+  ${media.phone`
+	top: -32px;
+	left: calc(50% - 36px);
+	`};
 
   div {
     width: 100%;

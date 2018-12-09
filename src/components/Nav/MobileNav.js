@@ -1,5 +1,5 @@
 import React from "react";
-import Logo from "../../img/hippo-text.svg";
+import { Logo } from "styles/css-variables";
 import ReactDOM from "react-dom";
 import {
   NavMobile,
