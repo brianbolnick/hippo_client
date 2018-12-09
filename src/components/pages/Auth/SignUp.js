@@ -2,7 +2,7 @@ import React from "react";
 import Link from "components/Link/Link";
 import Input from "components/Input/Input";
 import Button from "components/Button/Button";
-import { API_URL } from "utils";
+import { API_URL, handleNetworkErrors } from "utils";
 import axios from "axios";
 import jwtDecode from "jwt-decode";
 import MediaQuery from "components/MediaQuery/MediaQuery";
@@ -83,6 +83,7 @@ class SignUp extends React.Component {
       .then(resp => {
         this.setState({ loading: false }, () => {
           if (resp.errors) {
+            debugger;
             const field = Object.keys(resp.data.errors)[0];
             const message = resp.data.errors[field][0];
             this.setState({ loading: false, error: { field, message } });
@@ -96,9 +97,11 @@ class SignUp extends React.Component {
       })
       .catch(err => {
         console.log(err);
-        const field = Object.keys(err.response.data.errors)[0];
-        const message = err.response.data.errors[field][0];
-        this.setState({ loading: false, error: { field, message } });
+        debugger;
+        //const field = Object.keys(err.response.data.errors)[0];
+        //const message = err.response.data.errors[field][0];
+        const message = handleNetworkErrors(err);
+        this.setState({ loading: false, error: { message } });
       });
   };
   render() {

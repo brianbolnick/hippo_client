@@ -2,7 +2,7 @@ import React from "react";
 import Link from "components/Link/Link";
 import Input from "components/Input/Input";
 import Button from "components/Button/Button";
-import { API_URL } from "utils";
+import { API_URL, handleNetworkErrors } from "utils";
 import axios from "axios";
 import jwtDecode from "jwt-decode";
 import MediaQuery from "components/MediaQuery/MediaQuery";
@@ -46,8 +46,11 @@ class SignIn extends React.Component {
       .then(resp => {
         this.setState({ loading: false }, () => {
           if (resp.error) {
-            const message = resp.error;
-            this.setState({ loading: false, error: message });
+            //debugger;
+            //const message = resp.error;
+            //this.setState({ loading: false, error: message });
+            const message = handleNetworkErrors(500);
+            this.setState({ loading: false, error: { message } });
           } else {
             const jwt = jwtDecode(resp.data.jwt);
             console.log(jwt);
@@ -59,12 +62,15 @@ class SignIn extends React.Component {
       })
       .catch(err => {
         console.log(err);
-        const message = err.response.data.error;
-        this.setState({ loading: false, error: message });
+        //debugger;
+        //const message = err.response.data.error;
+        //this.setState({ loading: false, error: message });
+        const message = handleNetworkErrors(err);
+        this.setState({ loading: false, error: { message } });
       });
   };
   render() {
-    const { loading, showMobile } = this.state;
+    const { loading, showMobile, error } = this.state;
     return (
       <div style={{ height: "100%" }}>
         <MediaQuery
@@ -77,6 +83,7 @@ class SignIn extends React.Component {
           <FadedBlock />
           <ActionsWrapper>
             <FormWrapper>
+          {error.message && <div>{error.message}</div>}
               <FormContainer onSubmit={this.handleFormSubmit}>
                 <Input
                   type="text"

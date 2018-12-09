@@ -20,3 +20,13 @@ export const signOut = () => {
   localStorage.removeItem("auth_token");
   window.location.replace("/");
 };
+
+const errorMap = {
+  401: "Invalid credentials.",
+  400: "User not found.",
+  500: "Something went wrong. Please try again."
+};
+
+export const handleNetworkErrors = err => {
+  return errorMap[err.response.status];
+};
