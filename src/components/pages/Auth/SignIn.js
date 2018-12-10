@@ -9,6 +9,7 @@ import MediaQuery from "components/MediaQuery/MediaQuery";
 import { phoneMediaQuery } from "styles/css-variables";
 import Nav from "components/Nav/Nav";
 import MobileNav from "components/Nav/MobileNav";
+import FlashMessage from "components/FlashMessage/FlashMessage";
 import {
   FormWrapper,
   ActionsWrapper,
@@ -78,7 +79,9 @@ class SignIn extends React.Component {
           <ActionsWrapper>
             <FormWrapper>
               <FormContainer onSubmit={this.handleFormSubmit}>
-                {error.message && <div>{error.message}</div>}
+                {error.message && (
+                  <FlashMessage error>{error.message}</FlashMessage>
+                )}
                 <Input
                   type="text"
                   label="Email"

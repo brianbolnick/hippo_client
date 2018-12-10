@@ -13,6 +13,7 @@ const iconList = [
   "chevronUp",
   "clock",
   "clockAlarm",
+  "close",
   "closeOpenCircle",
   "edit",
   "envelope",

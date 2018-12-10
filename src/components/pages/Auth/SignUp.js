@@ -11,6 +11,7 @@ import Nav from "components/Nav/Nav";
 import MobileNav from "components/Nav/MobileNav";
 import Checkbox from "components/Checkbox/Checkbox";
 import styled from "styled-components";
+import FlashMessage from "components/FlashMessage/FlashMessage";
 import {
   FormWrapper,
   ActionsWrapper,
@@ -70,10 +71,10 @@ class SignUp extends React.Component {
     const data = {
       user: {
         name: this.state.name,
-        email: this.state.email,
+        email: this.state.email.toLowerCase(),
         password: this.state.password,
         password_confirmation: this.state.passwordConfirmation,
-        join_code: this.state.joinCode,
+        join_code: this.state.joinCode.toLowerCase(),
         family_name: this.state.familyName
       }
     };
@@ -83,7 +84,6 @@ class SignUp extends React.Component {
       .then(resp => {
         this.setState({ loading: false }, () => {
           if (resp.errors) {
-            debugger;
             const field = Object.keys(resp.data.errors)[0];
             const message = resp.data.errors[field][0];
             this.setState({ loading: false, error: { field, message } });
@@ -97,9 +97,6 @@ class SignUp extends React.Component {
       })
       .catch(err => {
         console.log(err);
-        debugger;
-        //const field = Object.keys(err.response.data.errors)[0];
-        //const message = err.response.data.errors[field][0];
         const message = handleNetworkErrors(err);
         this.setState({ loading: false, error: { message } });
       });
@@ -125,7 +122,9 @@ class SignUp extends React.Component {
           <ActionsWrapper>
             <FormWrapper>
               <FormContainer onSubmit={this.handleFormSubmit}>
-                {error.message && <div>{error.message}</div>}
+                {error.message && (
+                  <FlashMessage error>{error.message}</FlashMessage>
+                )}
                 <Input
                   inputState={error.field === "email" ? "error" : ""}
                   type="text"
