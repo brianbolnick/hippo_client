@@ -79,9 +79,9 @@ class SignIn extends React.Component {
           <ActionsWrapper>
             <FormWrapper>
               <FormContainer onSubmit={this.handleFormSubmit}>
-                {error.message && (
-                  <FlashMessage error>{error.message}</FlashMessage>
-                )}
+                <FlashMessage visible={!!error.message} error>
+                  {error.message}
+                </FlashMessage>
                 <Input
                   type="text"
                   label="Email"

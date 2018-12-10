@@ -197,6 +197,8 @@ export const MetaDetails = styled.div`
 export const RecipeList = styled.div`
   display: flex;
   flex-flow: row;
+  flex-wrap: wrap;
+  justify-content: center;
 `;
 
 export const RecipeHeader = styled.div`

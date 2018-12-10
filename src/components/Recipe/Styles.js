@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { colors, varela, rufina } from "../../styles/css-variables";
+import { colors, varela, rufina, media } from "../../styles/css-variables";
 import { Link } from "react-router-dom";
 
 export const LinkWrapper = styled(Link)`
@@ -35,8 +35,11 @@ export const Card = styled.div`
   overflow: hidden;
   color: ${colors.black};
   font-family: ${varela};
-
   transition: 0.2s;
+
+  ${media.phone`
+		width: 100%;
+	`};
   &:hover {
     box-shadow: 0px 0px 20px 5px #2121213d;
     transition: 0.2s;

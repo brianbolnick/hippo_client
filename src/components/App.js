@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Route, withRouter, Switch, Redirect } from "react-router-dom";
-import HomePage from "./pages/HomePage";
 import SignIn from "./pages/Auth/SignIn";
 import SignUp from "./pages/Auth/SignUp";
 import Recipes from "./pages/Recipes";

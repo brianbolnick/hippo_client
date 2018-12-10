@@ -1,12 +1,12 @@
 import React from "react";
 import styled from "styled-components";
 import Icon from "../Icon/Icon";
-import { colors, varela } from "../../styles/css-variables";
+import { colors, varela, media } from "../../styles/css-variables";
 
 const FlashContainer = styled.div`
   min-width: 500px;
   margin-left: -250px;
-  background-color: ${({ error }) => (error ? colors.red : colors.black)};
+  background-color: ${({ error }) => (error ? colors.darkRed : colors.black)};
   color: ${colors.white};
   font-family: ${varela};
   text-align: center;
@@ -19,6 +19,22 @@ const FlashContainer = styled.div`
   font-size: 1.1rem;
   display: flex;
   align-items: center;
+
+  transition: transform 0.3s cubic-bezier(0, 0.52, 0, 1);
+  ${media.phone`
+	min-width: 250px;
+	margin-left: -135px;
+	`};
+
+  ${({ visible }) =>
+    visible
+      ? `
+  transform: translate3d(0, 0vh, 0);
+	overflow: hidden;
+	`
+      : `
+	transform: translate3d(0, 100vh, 0);
+	`};
 `;
 
 const CloseIcon = styled(Icon)`
@@ -33,9 +49,9 @@ const CloseIcon = styled(Icon)`
 		border-radius: 50%;
 `;
 
-const FlashMessage = ({ children, error, closeable }) => {
+const FlashMessage = ({ children, error, closeable, visible }) => {
   return (
-    <FlashContainer error={error}>
+    <FlashContainer error={error} visible={visible}>
       {children}
       {closeable && (
         <CloseIcon name="close" onClick={() => console.log("clicked")} />
