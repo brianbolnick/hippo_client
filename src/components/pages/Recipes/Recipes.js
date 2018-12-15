@@ -25,7 +25,7 @@ class Recipe extends React.Component {
         headers: { Authorization: authToken }
       })
       .then(({ data }) => {
-				this.setState({ recipes: data.data });
+				this.setState({ recipes: data.data }, () => setTimeout(() => this.setState({loading: false}), 3000));
       })
       .catch(err => {
         console.log(err);

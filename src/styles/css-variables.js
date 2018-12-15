@@ -5,6 +5,8 @@ import WhiteLogo from "../img/hippo-text-white.svg";
 
 // Fonts
 export const sourceSans = "'Source Sans Pro', sans-serif";
+export const workSans = "'Work Sans', sans-serif";
+
 export const varela = "'Varela Round', sans-serif";
 export const rufina = "'Rufina', serif";
 export const colors = cols;

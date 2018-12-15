@@ -86,7 +86,7 @@ class Recipe extends React.Component {
       steps.map((step, index) => {
         return (
           <Direction key={`dir|${index}`}>
-            <span>{index + 1}.</span> {step}
+            <span>{index + 1}</span> {step}
           </Direction>
         );
       })

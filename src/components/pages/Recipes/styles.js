@@ -9,6 +9,7 @@ export const ShowContainer = styled.div`
   display: flex;
   flex-flow: row;
   position: absolute;
+	color: ${colors.black};
 
   ${media.phone`
 		flex-flow: column;
@@ -136,7 +137,7 @@ export const Details = styled.div`
   position: absolute;
   width: calc(100% - 340px);
   height: calc(100% - 64px);
-  padding: 32px 64px;
+  padding: 32px 48px;
   box-sizing: border-box;
   overflow-y: scroll;
 
@@ -158,9 +159,18 @@ export const HeaderGroup = styled.div`
   align-items: center;
 `;
 export const Direction = styled.div`
-  margin: 32px 0;
+    margin: 24px 0;
+    letter-spacing: 1px;
+    padding: 16px;
+    width: 100%;
+    display: flex;
+    box-sizing: border-box;
+		border: solid 2px ${colors.red};
+	border-radius: 2px;
   span {
     font-weight: 600;
+    margin-right: 16px;
+    color: #FE4969;
   }
 `;
 export const SubTitle = styled.div`
@@ -246,7 +256,7 @@ export const ShareIcon = styled(Button)`
   display: flex;
   align-items: center;
   justify-content: center;
-  background: ${colors.darkGreen};
+  background: ${colors.blue};
 
   position: absolute;
   left: -28px;

@@ -1,10 +1,10 @@
 //Yellows
-export const yellow = "#FFD23F";
+export const yellow = "#F9DC5C";
 
 //Blues
 //export const blue = '	#009FFD';
-export const blue = "#41A7EF";
-export const darkBlue = "#00578B";
+export const blue = "#3FA7D6";
+export const darkBlue = "#3489B0";
 
 // Whites
 export const white = "#ffffff";
@@ -18,14 +18,14 @@ export const mutedGray = "rgb(0,0,0,.15)";
 export const offGray = "rgb(0,0,0,.30)";
 
 //Reds
-export const red = "#F9665E";
-export const darkRed = "#CC544D";
+export const red = "#FE4969";
+export const darkRed = "#D03C56";
 
 // Blacks
-export const black = "#313638";
+export const black = "#2F2D2E";
 
 //Orange
-export const orange = "#E9724C";
+export const orange = "#F9665E";
 
 //Greens
 export const green = "#59CD90";
