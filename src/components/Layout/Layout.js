@@ -10,6 +10,7 @@ const Content = styled.div`
   width: ${({ recipe }) => (recipe ? "100%" : "90%")};
   margin: 0 auto;
   margin-top: ${({ recipe }) => (recipe ? "0" : "10px")};
+    height: calc(100% - 111px);
 
   ${({ recipe }) =>
     recipe &&

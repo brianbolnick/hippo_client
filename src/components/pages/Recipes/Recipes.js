@@ -4,9 +4,19 @@ import RecipeCard from "components/Recipe/RecipeCard";
 import { API_URL, token, familyId } from "utils";
 import axios from "axios";
 import { RecipeList } from "./styles";
+import Loader from 'img/loader.gif';
+import styled from 'styled-components';
+
+const LoadContainer = styled.div`
+	display: flex;
+	height: 100%;
+	width: 100%;
+	justify-content: center;
+	align-items: center;
+`
 
 class Recipe extends React.Component {
-  state = { recipes: [] };
+	state = { recipes: [], loading: true };
 
   componentDidMount = () => {
     const authToken = `Bearer ${token}`;
@@ -15,7 +25,7 @@ class Recipe extends React.Component {
         headers: { Authorization: authToken }
       })
       .then(({ data }) => {
-        this.setState({ recipes: data.data });
+				this.setState({ recipes: data.data });
       })
       .catch(err => {
         console.log(err);
@@ -23,7 +33,7 @@ class Recipe extends React.Component {
   };
 
   renderRecipes = () => {
-    const { recipes } = this.state;
+    const { recipes} = this.state;
 
     return (
       recipes.length &&
@@ -36,7 +46,11 @@ class Recipe extends React.Component {
   render() {
     return (
       <Layout>
+				{this.state.loading ? 
+						<LoadContainer><img src={Loader} style={{height: '300px', width: '300px'}}/></LoadContainer>
+				:
         <RecipeList>{this.renderRecipes()}</RecipeList>
+				}
       </Layout>
     );
   }
