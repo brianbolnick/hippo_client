@@ -9,7 +9,7 @@ export const ShowContainer = styled.div`
   display: flex;
   flex-flow: row;
   position: absolute;
-	color: ${colors.black};
+  color: ${colors.black};
 
   ${media.phone`
 		flex-flow: column;
@@ -99,6 +99,7 @@ export const Footer = styled.div`
   bottom: 0;
   justify-content: space-around;
   align-items: center;
+  box-shadow: 0px -1px 12px 1px rgb(0, 0, 0, 0.2);
 
   ${media.phone`
 		position: initial;
@@ -159,18 +160,18 @@ export const HeaderGroup = styled.div`
   align-items: center;
 `;
 export const Direction = styled.div`
-    margin: 24px 0;
-    letter-spacing: 1px;
-    padding: 16px;
-    width: 100%;
-    display: flex;
-    box-sizing: border-box;
-		border: solid 2px ${colors.red};
-	border-radius: 2px;
+  margin: 24px 0;
+  letter-spacing: 1px;
+  padding: 16px;
+  width: 100%;
+  display: flex;
+  box-sizing: border-box;
+  border: solid 2px ${colors.red};
+  border-radius: 2px;
   span {
     font-weight: 600;
     margin-right: 16px;
-    color: #FE4969;
+    color: #fe4969;
   }
 `;
 export const SubTitle = styled.div`
