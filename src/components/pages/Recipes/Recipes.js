@@ -6,6 +6,8 @@ import axios from "axios";
 import { RecipeList } from "./styles";
 import Loader from 'img/loader.gif';
 import styled from 'styled-components';
+import Button from 'components/Button/Button';
+import { Link } from 'react-router-dom';
 
 const LoadContainer = styled.div`
 	display: flex;
@@ -36,10 +38,10 @@ class Recipe extends React.Component {
     const { recipes} = this.state;
 
     return (
-      recipes.length &&
+      recipes.length ?
       recipes.map(recipe => {
         return <RecipeCard key={recipe.id} data={recipe} />;
-      })
+			}) : <div>Nothing here yet! Create something new!</div>
     );
   };
 
@@ -51,6 +53,9 @@ class Recipe extends React.Component {
 				:
         <RecipeList>{this.renderRecipes()}</RecipeList>
 				}
+				<Link to='/recipes/new'>
+					<Button fixed icon='addRecipe'>Add New Recipe</Button>
+				</Link>
       </Layout>
     );
   }

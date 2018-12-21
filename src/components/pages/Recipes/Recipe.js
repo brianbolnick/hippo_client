@@ -234,7 +234,7 @@ class Recipe extends React.Component {
             )}
           </DetailsContainer>
         </ShowContainer>
-      </Layout>
+				      </Layout>
     );
   }
 }

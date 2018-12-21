@@ -7,5 +7,5 @@ storiesOf("Button", module)
   .add("Secondary", () => <Button secondary>Secondary</Button>)
   .add("Tertiary", () => <Button tertiary>Tertiary</Button>)
   .add("Loading", () => <Button loading>Secondary</Button>)
-
-  .add("As Link", () => <Button asLink>Button Link</Button>);
+  .add("As Link", () => <Button asLink>Button Link</Button>)
+  .add("Fixed CTA", () => <Button fixed icon='addRecipe'>Do something special!</Button>);

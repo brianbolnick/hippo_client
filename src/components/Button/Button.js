@@ -1,8 +1,9 @@
 import styled from "styled-components";
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { colors, varela, spinAround } from "../../styles/css-variables";
+import { media, colors, varela, spinAround } from "../../styles/css-variables";
 import { css } from "styled-components";
+import Icon from "../Icon/Icon";
 
 const loadingStyles = css`
   animation: ${spinAround} 0.5s infinite linear;
@@ -76,6 +77,14 @@ const StyledButton = styled.button`
   }
 `;
 
+const ActionIcon = styled(Icon)`
+  position: absolute;
+  right: 16px;
+	padding: 5px;
+	width: 24px;
+	height: 24px;
+`;
+
 const ButtonAsLink = styled.button`
   color: ${colors.black};
   transition: all 0.2s ease;
@@ -110,13 +119,45 @@ const Children = styled.span`
   margin: 0;
 `;
 
+const FixedButton = styled.button`
+	min-width: 250px;
+	margin-left: -125px;
+	background-color: ${colors.blue};
+	color: ${colors.white};
+	font-family: ${varela};
+	text-align: center;
+	border-radius: 8px 8px 0 0;
+	padding: 16px;
+	position: fixed;
+	z-index: 1;
+	left: 50%;
+	bottom: 0;
+	font-size: 1.1rem;
+	display: flex;
+	align-items: center;
+	transition: transform 0.3s cubic-bezier(0,0.52,0,1);
+	transform: translate3d(0,0vh,0);
+	overflow: hidden;
+	cursor: pointer;
+
+	&:hover {
+		box-shadow: 0 0 14px 2px ${colors.mutedGray};
+	}
+`;
+
 class Button extends Component {
   render() {
-    const { children, asLink } = this.props;
+    const { children, asLink, fixed, icon } = this.props;
 
     return asLink ? (
       <ButtonAsLink {...this.props}>{children}</ButtonAsLink>
-    ) : (
+		) : fixed ? ( 
+				<FixedButton {...this.props}>
+					<Children>{children}</Children>
+					<ActionIcon name={icon} />
+				</FixedButton>
+				)
+			: (
       <StyledButton {...this.props}>
         <Children>{children}</Children>
       </StyledButton>
@@ -129,7 +170,8 @@ Button.propTypes = {
   children: PropTypes.any,
   asLink: PropTypes.bool,
   secondary: PropTypes.bool,
-  tertiary: PropTypes.bool
+	tertiary: PropTypes.bool,
+	fixed: PropTypes.bool
 };
 
 export default Button;
