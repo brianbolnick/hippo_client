@@ -30,7 +30,8 @@ const iconList = [
   "signin",
   "star",
   "tags",
-  "unlock",
+	"unlock",
+	"upload",
   "user",
   "users",
   "utensils"
