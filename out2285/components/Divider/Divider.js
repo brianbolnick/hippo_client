@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import line from "img/divider.png";
 import { colors, varela } from "styles/css-variables";
 
 const StyledDivider = styled.hr`
