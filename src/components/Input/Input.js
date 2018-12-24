@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
-import { colors, varela } from "../../styles/css-variables";
+import { colors, varela } from "styles/css-variables";
 import Icon from "../Icon/Icon";
 
 const StyledInput = styled.input`

@@ -36,6 +36,8 @@ export const Form = styled.form`
 
 export const InputArea = styled.div`
   width: 50%;
+  padding: 72px;
+  box-sizing: border-box;
 `;
 
 export const ImageBlock = styled.div`

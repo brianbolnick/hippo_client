@@ -11,6 +11,7 @@ const iconList = [
   "chevronLeft",
   "chevronRight",
   "chevronUp",
+  "checkCircle",
   "clock",
   "clockAlarm",
   "close",
@@ -30,8 +31,8 @@ const iconList = [
   "signin",
   "star",
   "tags",
-	"unlock",
-	"upload",
+  "unlock",
+  "upload",
   "user",
   "users",
   "utensils"

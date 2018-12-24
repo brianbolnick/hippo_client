@@ -5,6 +5,7 @@ import axios from "axios";
 import FileInput from "components/FileInput/FileInput";
 import { Form, InputArea } from "./styles";
 import Input from "components/Input/Input";
+import Select from "components/Select/Select";
 import FlashMessage from "components/FlashMessage/FlashMessage";
 import Button from "components/Button/Button";
 
@@ -119,11 +120,14 @@ class NewRecipe extends Component {
               placeholder="Title"
               onChange={e => this.setState({ title: e.target.value })}
             />
-            <select
+            <Select
               onChange={e => this.setState({ category_id: e.target.value })}
+              icon="tags"
+              label="Category"
+              placeholder="Category"
             >
               {this.renderCategories()}
-            </select>
+            </Select>
 
             <Button type="submit" loading={loading}>
               Create

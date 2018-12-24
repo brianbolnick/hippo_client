@@ -115,22 +115,22 @@ const FileInput = ({ onChange, label, fileName, onClear }, ...props) => {
   return (
     <Container>
       <StyledButton>
-        <DropBox>
-          <StyledIcon name="upload" color={colors.darkGray} />
-          <Description>Drag and drop an image here!</Description>
-          <Divider>OR</Divider>
-          <UploadButton secondary>Click to Browse</UploadButton>
-        </DropBox>
-      </StyledButton>
-      <FileBox>
         {fileName ? (
-          <span>
-            {fileName} <CloseIcon onClick={onClear} name="close" />
-          </span>
+          <DropBox>
+            <StyledIcon name="checkCircle" color={colors.green} />
+            <Description>{fileName}</Description>
+            <Divider />
+            <UploadButton secondary>Reselect</UploadButton>
+          </DropBox>
         ) : (
-          <span>.png, .jpg</span>
+          <DropBox>
+            <StyledIcon name="upload" color={colors.darkGray} />
+            <Description>Drag and drop an image here!</Description>
+            <Divider>OR</Divider>
+            <UploadButton secondary>Click to Browse</UploadButton>
+          </DropBox>
         )}
-      </FileBox>
+      </StyledButton>
       <input onChange={onChange} type="file" accept="image/*" {...props} />
     </Container>
   );
