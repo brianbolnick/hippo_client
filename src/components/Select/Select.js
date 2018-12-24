@@ -14,7 +14,7 @@ const Control = styled.div`
 `;
 
 const SelectWrapper = styled.div`
-  height: 2.25em;
+  height: 2.75em;
   display: inline-block;
   max-width: 100%;
   width: 100%;
@@ -59,10 +59,6 @@ const StyledSelect = styled.select`
   font-family: ${varela};
   align-items: center;
   justify-content: flex-start;
-  padding-bottom: calc(0.375em - 1px);
-  padding-left: calc(0.625em - 1px);
-  padding-right: calc(0.625em - 1px);
-  padding-top: calc(0.375em - 1px);
   position: relative;
   vertical-align: top;
   border-color: #dbdbdb;
@@ -79,14 +75,14 @@ const StyledSelect = styled.select`
       ? `solid 2px ${colors.darkRed}`
       : `solid 2px ${colors.lightGray}`};
 
-  height: 2.75em;
+  height: 48px;
   line-height: 2.4em;
   border-radius: 4px;
   font-size: 1em;
   background-color: #fff;
   max-width: 100%;
   width: 100%;
-
+  padding-top: 2px;
   /* for Firefox */
   -moz-appearance: none;
   /* for Chrome */
@@ -124,7 +120,6 @@ class Select extends React.Component {
 
   render() {
     const {
-      type,
       children,
       onChange,
       placeholder,

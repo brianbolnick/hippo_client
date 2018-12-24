@@ -20,7 +20,7 @@ const Container = styled.div`
     top: 0;
     opacity: 0;
     height: 48px;
-    height: 90%;
+    height: 100%;
     width: 100%;
     cursor: pointer;
     &:hover {
@@ -46,47 +46,9 @@ const StyledButton = styled.div`
   align-items: center;
   width: 100%;
   box-sizing: border-box;
-  height: 90%;
+  height: 100%;
   padding: 72px;
   width: 100%;
-`;
-
-const FileBox = styled.div`
-  color: ${colors.offGray};
-  font-family: ${varela};
-  font-size: 14px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  padding: 8px 12px;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  box-sizing: border-box;
-  display: flex;
-  align-items: center;
-  border: none;
-  height: 10%;
-  width: 100%;
-  justify-content: center;
-
-  span {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-  }
-`;
-
-const CloseIcon = styled(Icon)`
-  heigh: 14px;
-  width: 14px;
-
-  &:hover {
-    path {
-      fill: ${colors.darkGray};
-    }
-    cursor: pointer;
-  }
 `;
 
 const DropBox = styled.div`

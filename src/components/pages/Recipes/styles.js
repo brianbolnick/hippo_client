@@ -34,6 +34,18 @@ export const Form = styled.form`
   display: flex;
 `;
 
+export const FormRow = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+
+  &&& {
+    & > * {
+      width: 32%;
+    }
+  }
+`;
+
 export const InputArea = styled.div`
   width: 50%;
   padding: 72px;

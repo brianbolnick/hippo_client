@@ -6,6 +6,7 @@ import { varela, colors } from "../../styles/css-variables";
 
 const iconList = [
   "addRecipe",
+  "book",
   "checkOpenCircle",
   "chevronDown",
   "chevronLeft",

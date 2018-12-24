@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import Layout from "components/Layout/Layout";
-import { token, userId, familyId, API_URL, handleNetworkErrors } from "utils";
+import { token, userId, familyId, API_URL } from "utils";
 import axios from "axios";
 import FileInput from "components/FileInput/FileInput";
-import { Form, InputArea } from "./styles";
+import { Form, InputArea, FormRow } from "./styles";
 import Input from "components/Input/Input";
 import Select from "components/Select/Select";
 import FlashMessage from "components/FlashMessage/FlashMessage";
@@ -18,7 +18,7 @@ class NewRecipe extends Component {
       title: "",
       prep_time: "5 Mins",
       cook_time: "20 Mins",
-      calories: "123",
+      calories: "",
       servings: 4,
       ingredients: ["Salt", "Pepper"],
       steps: ["Cook it all", "Eat it all!"],
@@ -58,6 +58,16 @@ class NewRecipe extends Component {
         );
       })
     );
+  };
+
+  renderServings = () => {
+    return [...Array(10).keys()].map(x => {
+      return (
+        <option key={`serving|${x + 1}`} value={x + 1}>
+          {x + 1}
+        </option>
+      );
+    });
   };
 
   handleSubmit = e => {
@@ -113,21 +123,38 @@ class NewRecipe extends Component {
         <Form onSubmit={this.handleSubmit}>
           <InputArea>
             <Input
-              inputState={error.field === "email" ? "error" : ""}
               type="text"
               label="Recipe Title"
-              icon="utensils"
+              icon="book"
               placeholder="Title"
               onChange={e => this.setState({ title: e.target.value })}
             />
-            <Select
-              onChange={e => this.setState({ category_id: e.target.value })}
-              icon="tags"
-              label="Category"
-              placeholder="Category"
-            >
-              {this.renderCategories()}
-            </Select>
+            <FormRow>
+              <Select
+                onChange={e => this.setState({ category_id: e.target.value })}
+                icon="tags"
+                label="Category"
+                placeholder="Category"
+              >
+                {this.renderCategories()}
+              </Select>
+              <Input
+                type="text"
+                label="Calories"
+                icon="heartbeat"
+                placeholder="Calories"
+                onChange={e => this.setState({ calories: e.target.value })}
+              />
+
+              <Select
+                onChange={e => this.setState({ servings: e.target.value })}
+                icon="utensils"
+                label="Servings"
+                placeholder="Serving Size"
+              >
+                {this.renderServings()}
+              </Select>
+            </FormRow>
 
             <Button type="submit" loading={loading}>
               Create
