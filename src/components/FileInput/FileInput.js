@@ -1,22 +1,18 @@
 import React from "react";
 import styled from "styled-components";
 import Icon from "components/Icon/Icon";
+import Button from "components/Button/Button";
+import Divider from "components/Divider/Divider";
 import { colors, varela } from "styles/css-variables";
-//const Input = styled.input`
-//width: 0.1px;
-//height: 0.1px;
-//opacity: 0;
-//overflow: hidden;
-//position: absolute;
-//z-index: -1;
-//`;
 
 const Container = styled.div`
   position: relative;
   overflow: hidden;
   display: flex;
   align-items: center;
-  height: 48px;
+  flex-flow: column;
+  width: 50%;
+  cursor: pointer;
 
   input[type="file"] {
     position: absolute;
@@ -24,7 +20,8 @@ const Container = styled.div`
     top: 0;
     opacity: 0;
     height: 48px;
-    width: 178px;
+    height: 90%;
+    width: 100%;
     cursor: pointer;
     &:hover {
       div {
@@ -36,53 +33,41 @@ const Container = styled.div`
 `;
 
 const StyledIcon = styled(Icon)`
-  height: 16px;
-  width: 16px;
-  margin-right: 8px;
+  height: 80px;
+  width: 80px;
+  margin-bottom: 64px;
 `;
 
 const StyledButton = styled.div`
   display: flex;
-  background: ${colors.red};
   color: ${colors.white};
-  font-size: 14px;
-  font-family: ${varela};
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  padding: 8px 12px;
   cursor: pointer;
   border: none;
-  max-width: 180px;
-  font-weight: 700;
   align-items: center;
-  justify-content: space-between;
-  border-radius: 3px 0px 0px 3px;
-
-  span {
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-  }
+  width: 100%;
+  box-sizing: border-box;
+  height: 90%;
+  padding: 72px;
+  width: 100%;
 `;
 
 const FileBox = styled.div`
   color: ${colors.offGray};
-  font-size: 14px;
   font-family: ${varela};
+  font-size: 14px;
   text-transform: uppercase;
   letter-spacing: 1px;
   padding: 8px 12px;
-  border: solid 1px ${colors.mutedGray};
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-  height: calc(100% - 6px);
   box-sizing: border-box;
   display: flex;
   align-items: center;
-  min-width: 250px;
-  border-left: none;
-  border-radius: 0px 3px 3px 0px;
+  border: none;
+  height: 10%;
+  width: 100%;
+  justify-content: center;
 
   span {
     display: flex;
@@ -104,12 +89,38 @@ const CloseIcon = styled(Icon)`
   }
 `;
 
+const DropBox = styled.div`
+  height: 100%;
+  width: 100%;
+  border: dashed 2px ${colors.darkGray};
+  display: flex;
+  align-items: center;
+  flex-flow: column;
+  justify-content: center;
+  border-radius: 3px;
+`;
+
+const Description = styled.div`
+  font-family: ${varela};
+  font-weight: 700;
+  font-size: 18px;
+  color: ${colors.darkGray};
+`;
+
+const UploadButton = styled(Button)`
+  max-width: 100%;
+`;
+
 const FileInput = ({ onChange, label, fileName, onClear }, ...props) => {
   return (
     <Container>
       <StyledButton>
-        <StyledIcon name="upload" color={colors.white} />
-        <span>image</span>
+        <DropBox>
+          <StyledIcon name="upload" color={colors.darkGray} />
+          <Description>Drag and drop an image here!</Description>
+          <Divider>OR</Divider>
+          <UploadButton secondary>Click to Browse</UploadButton>
+        </DropBox>
       </StyledButton>
       <FileBox>
         {fileName ? (

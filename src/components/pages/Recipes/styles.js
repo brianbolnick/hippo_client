@@ -28,6 +28,16 @@ export const DetailsContainer = styled.div`
 	`};
 `;
 
+export const Form = styled.form`
+  height: 100%;
+  width: 100%;
+  display: flex;
+`;
+
+export const InputArea = styled.div`
+  width: 50%;
+`;
+
 export const ImageBlock = styled.div`
   ${({ url }) =>
     url &&

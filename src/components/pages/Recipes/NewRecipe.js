@@ -3,6 +3,10 @@ import Layout from "components/Layout/Layout";
 import { token, userId, familyId, API_URL, handleNetworkErrors } from "utils";
 import axios from "axios";
 import FileInput from "components/FileInput/FileInput";
+import { Form, InputArea } from "./styles";
+import Input from "components/Input/Input";
+import FlashMessage from "components/FlashMessage/FlashMessage";
+import Button from "components/Button/Button";
 
 class NewRecipe extends Component {
   constructor(props) {
@@ -10,7 +14,7 @@ class NewRecipe extends Component {
     this.handleUploadImage = this.handleUploadImage.bind(this);
 
     this.state = {
-      title: "Spaghetti",
+      title: "",
       prep_time: "5 Mins",
       cook_time: "20 Mins",
       calories: "123",
@@ -19,17 +23,51 @@ class NewRecipe extends Component {
       steps: ["Cook it all", "Eat it all!"],
       family_id: familyId,
       user_id: userId,
-      category_id: 1
+      category_id: 1,
+      error: "",
+      loading: false
     };
   }
 
+  componentDidMount = () => {
+    const authToken = `Bearer ${token}`;
+    axios
+      .get(`${API_URL}/categories`, {
+        headers: { Authorization: authToken }
+      })
+      .then(({ data }) => {
+        this.setState({ categories: data.data }, () =>
+          console.log(this.state.categories)
+        );
+      })
+      .catch(err => {
+        console.log(err);
+        this.setState({ error: { message: "Something went wrong." } });
+      });
+  };
+
+  renderCategories = () => {
+    return (
+      this.state.categories &&
+      this.state.categories.map(category => {
+        return (
+          <option key={`category|${category.id}`} value={category.id}>
+            {category.name}
+          </option>
+        );
+      })
+    );
+  };
+
   handleSubmit = e => {
     e.preventDefault();
-    console.log(this.state);
 
     const data = new FormData();
 
     const stateData = { ...this.state };
+    delete stateData.loading;
+    delete stateData.error;
+    delete stateData.categories;
     Object.keys(stateData).forEach(obj => {
       const val = stateData[obj];
       if (val instanceof Array) {
@@ -59,22 +97,44 @@ class NewRecipe extends Component {
     });
   };
 
-	removeImage = () => {
-		this.setState({image: null})
-	}
+  removeImage = () => {
+    this.setState({ image: null });
+  };
 
   render() {
+    const { loading, error } = this.state;
     return (
       <Layout>
-        <form onSubmit={this.handleSubmit}>
+        <FlashMessage visible={!!error.message} error>
+          {error.message}
+        </FlashMessage>
+
+        <Form onSubmit={this.handleSubmit}>
+          <InputArea>
+            <Input
+              inputState={error.field === "email" ? "error" : ""}
+              type="text"
+              label="Recipe Title"
+              icon="utensils"
+              placeholder="Title"
+              onChange={e => this.setState({ title: e.target.value })}
+            />
+            <select
+              onChange={e => this.setState({ category_id: e.target.value })}
+            >
+              {this.renderCategories()}
+            </select>
+
+            <Button type="submit" loading={loading}>
+              Create
+            </Button>
+          </InputArea>
           <FileInput
             fileName={this.state.image && this.state.image.name}
             onChange={this.handleUploadImage}
-						onClear={this.removeImage}
+            onClear={this.removeImage}
           />
-
-          <button type="submit">Submit</button>
-        </form>
+        </Form>
       </Layout>
     );
   }
