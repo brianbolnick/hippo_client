@@ -16,9 +16,9 @@ const options = optionsMap.map(opt => {
 
 storiesOf("ControlledInput", module)
   .add("Default", () => (
-    <div style={{ width: "500px" }}>
+    <div style={{ width: "350px" }}>
       <ControlledInput
-        placeholder="Preparation Time"
+        placeholder="Prep Time"
         onChange={action("change")}
         defaultSelectValue="Seconds"
       >
@@ -28,9 +28,9 @@ storiesOf("ControlledInput", module)
   ))
 
   .add("Labeled", () => (
-    <div style={{ width: "500px" }}>
+    <div style={{ width: "350px" }}>
       <ControlledInput
-        placeholder="Preparation Time"
+        placeholder="Prep Time"
         label="Prep Time"
         onChange={action("change")}
         defaultSelectValue="Seconds"
@@ -41,9 +41,9 @@ storiesOf("ControlledInput", module)
   ))
 
   .add("Icon", () => (
-    <div style={{ width: "500px" }}>
+    <div style={{ width: "350px" }}>
       <ControlledInput
-        placeholder="Preparation Time"
+        placeholder="Prep Time"
         onChange={action("change")}
         defaultSelectValue="Seconds"
         icon="clock"
@@ -54,9 +54,9 @@ storiesOf("ControlledInput", module)
   ))
 
   .add("Labeled + Icon", () => (
-    <div style={{ width: "500px" }}>
+    <div style={{ width: "350px" }}>
       <ControlledInput
-        placeholder="Preparation Time"
+        placeholder="Prep Time"
         onChange={action("change")}
         defaultSelectValue="Seconds"
         label="Prep Time"
