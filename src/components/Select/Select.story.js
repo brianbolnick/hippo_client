@@ -1,6 +1,7 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
 import Select from "./Select";
+import { action } from "@storybook/addon-actions";
 
 const optionsMap = [
   { id: 1, value: "American" },
@@ -20,7 +21,7 @@ const options = optionsMap.map(opt => {
 storiesOf("Select", module)
   .add("Default", () => (
     <div style={{ width: "300px" }}>
-      <Select placeholder="Category" onChange={() => console.log("changing")}>
+      <Select placeholder="Category" onChange={action("change")}>
         {options}
       </Select>
     </div>
@@ -31,7 +32,7 @@ storiesOf("Select", module)
       <Select
         inputState="error"
         placeholder="Category"
-        onChange={() => console.log("changing")}
+        onChange={action("change")}
       >
         {options}
       </Select>
@@ -42,7 +43,7 @@ storiesOf("Select", module)
     <div style={{ width: "300px" }}>
       <Select
         placeholder="Category"
-        onChange={() => console.log("changing")}
+        onChange={action("change")}
         icon="utensils"
       >
         {options}
@@ -54,7 +55,7 @@ storiesOf("Select", module)
       <Select
         label="Category"
         placeholder="Category"
-        onChange={() => console.log("changing")}
+        onChange={action("change")}
       >
         {options}
       </Select>
@@ -65,7 +66,7 @@ storiesOf("Select", module)
       <Select
         label="Category"
         placeholder="Category"
-        onChange={() => console.log("changing")}
+        onChange={action("change")}
         icon="utensils"
       >
         {options}

@@ -1,6 +1,7 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
 import Input from "./Input";
+import { action } from "@storybook/addon-actions";
 
 storiesOf("Input", module)
   .add("Default", () => (
@@ -8,27 +9,27 @@ storiesOf("Input", module)
       <Input
         type="text"
         placeholder="Email Address"
-        onChange={() => console.log("changing")}
+        onChange={action("change")}
       />
     </div>
   ))
-   .add("Error", () => (
+  .add("Error", () => (
     <div style={{ width: "300px" }}>
       <Input
         type="text"
         placeholder="Email Address"
-				inputState="error"
-				icon="envelope"
-        onChange={() => console.log("changing")}
+        inputState="error"
+        icon="envelope"
+        onChange={action("change")}
       />
     </div>
   ))
- .add("Icon", () => (
+  .add("Icon", () => (
     <div style={{ width: "300px" }}>
       <Input
         type="text"
         placeholder="Email Address"
-        onChange={() => console.log("changing")}
+        onChange={action("change")}
         icon="envelope"
       />
     </div>
@@ -38,7 +39,7 @@ storiesOf("Input", module)
       <Input
         type="text"
         placeholder="Email Address"
-        onChange={() => console.log("changing")}
+        onChange={action("change")}
         label="Email"
       />
     </div>
@@ -48,7 +49,7 @@ storiesOf("Input", module)
       <Input
         type="text"
         placeholder="Email Address"
-        onChange={() => console.log("changing")}
+        onChange={action("change")}
         label="Email"
         icon="envelope"
       />

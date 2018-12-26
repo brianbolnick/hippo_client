@@ -1,8 +1,9 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
+import { action } from "@storybook/addon-actions";
 import Icon from "./Icon";
 import styled from "styled-components";
-import { varela, colors } from "../../styles/css-variables";
+import { varela, colors } from "styles/css-variables";
 
 const iconList = [
   "addRecipe",
@@ -62,7 +63,7 @@ const IconWrapper = styled.div`
 const icons = iconList.map(icon => {
   return (
     <IconWrapper>
-      <Icon name={icon} />
+      <Icon name={icon} onClick={action("click")} />
       <IconLabel>{icon}</IconLabel>
     </IconWrapper>
   );
@@ -72,12 +73,6 @@ const IconList = () => <StyledContainer>{icons}</StyledContainer>;
 
 storiesOf("Icon", module)
   .add("default", () => <IconList />)
-  .add("colored", () => <Icon name="home" color={colors.green} />)
-  .add("filter", () => (
-    <Icon
-      name="home"
-      filter
-      color="#02C285"
-      onClick={() => console.log("clicked!")}
-    />
+  .add("colored", () => (
+    <Icon name="home" onClick={action("click")} color={colors.red} />
   ));
