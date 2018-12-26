@@ -129,7 +129,7 @@ class Select extends React.Component {
     } = this.props;
 
     return (
-      <Control>
+      <Control {...this.props}>
         {label && <Label>{label}</Label>}
         <Container icon={icon}>
           <SelectWrapper icon={icon}>

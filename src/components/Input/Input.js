@@ -68,7 +68,7 @@ class Input extends React.Component {
     const { type, onChange, placeholder, label, icon, inputState } = this.props;
 
     return (
-      <Wrapper>
+      <Wrapper {...this.props}>
         {label && <Label>{label}</Label>}
         <Container>
           {icon && (
