@@ -5,9 +5,12 @@ import axios from "axios";
 import FileInput from "components/FileInput/FileInput";
 import { Form, InputArea, FormRow } from "./styles";
 import Input from "components/Input/Input";
+import ControlledInput from "components/ControlledInput/ControlledInput";
 import Select from "components/Select/Select";
 import FlashMessage from "components/FlashMessage/FlashMessage";
 import Button from "components/Button/Button";
+
+const AVAILABLE_TIMES = ["Minutes", "Hours", "Days"];
 
 class NewRecipe extends Component {
   constructor(props) {
@@ -16,8 +19,8 @@ class NewRecipe extends Component {
 
     this.state = {
       title: "",
-      prep_time: "5 Mins",
-      cook_time: "20 Mins",
+      prep_time: "",
+      cook_time: "",
       calories: "",
       servings: 4,
       ingredients: ["Salt", "Pepper"],
@@ -58,6 +61,12 @@ class NewRecipe extends Component {
         );
       })
     );
+  };
+
+  renderTimes = () => {
+    return AVAILABLE_TIMES.map(time => {
+      return <option value={time}> {time} </option>;
+    });
   };
 
   renderServings = () => {
@@ -129,7 +138,7 @@ class NewRecipe extends Component {
               placeholder="Title"
               onChange={e => this.setState({ title: e.target.value })}
             />
-            <FormRow>
+            <FormRow three>
               <Select
                 onChange={e => this.setState({ category_id: e.target.value })}
                 icon="tags"
@@ -156,6 +165,26 @@ class NewRecipe extends Component {
               </Select>
             </FormRow>
 
+            <FormRow>
+              <ControlledInput
+                onChange={e => this.setState({ prep_time: e })}
+                defaultSelectValue="Minutes"
+                placeholder="Prep"
+                label="Prep Time"
+                icon="clock"
+              >
+                {this.renderTimes()}
+              </ControlledInput>
+              <ControlledInput
+                onChange={e => this.setState({ cook_time: e })}
+                defaultSelectValue="Minutes"
+                placeholder="Cook"
+                label="Cook Time"
+                icon="clockAlarm"
+              >
+                {this.renderTimes()}
+              </ControlledInput>
+            </FormRow>
             <Button type="submit" loading={loading}>
               Create
             </Button>

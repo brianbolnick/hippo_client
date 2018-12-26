@@ -124,17 +124,12 @@ const InputContainer = styled.div`
 `;
 
 const StyledSelect = styled(Select)`
-  flex: 1;
-
   select {
     border-radius: 0 4px 4px 0;
-    //border-color: ${colors.red};
   }
 `;
 
 const StyledInput = styled(Input)`
-  flex: 3;
-
   input {
     border-radius: 4px 0px 0px 4px;
     border-right: none;
@@ -186,12 +181,16 @@ class ControlledInput extends React.Component {
 
 ControlledInput.propTypes = {
   type: PropTypes.string,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node
+  ]).isRequired,
   onChange: PropTypes.func,
   placeholder: PropTypes.string,
   label: PropTypes.string,
   icon: PropTypes.string,
   inputState: PropTypes.string,
-  defaultSelectValue: PropTypes.string
+  defaultSelectValue: PropTypes.string.isRequired
 };
 
 export default ControlledInput;

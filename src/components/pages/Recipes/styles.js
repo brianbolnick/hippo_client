@@ -41,7 +41,7 @@ export const FormRow = styled.div`
 
   &&& {
     & > * {
-      width: 32%;
+      width: ${({ three }) => (three ? "32%" : "48%")};
     }
   }
 `;
