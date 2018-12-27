@@ -3,6 +3,7 @@ import Link from "components/Link/Link";
 import Input from "components/Input/Input";
 import Button from "components/Button/Button";
 import { API_URL, handleNetworkErrors } from "utils";
+import { getRecipeArgs } from "./helper";
 import axios from "axios";
 import jwtDecode from "jwt-decode";
 import MediaQuery from "components/MediaQuery/MediaQuery";
@@ -91,7 +92,32 @@ class SignUp extends React.Component {
             const jwt = jwtDecode(resp.data.jwt);
             localStorage.setItem("auth_token", resp.data.jwt);
             localStorage.setItem("jwt", JSON.stringify(jwt));
-            window.location.replace("/");
+            const sub = JSON.parse(jwt.sub);
+            const familyId = sub.family_id;
+            const userId = sub.id;
+            const data = new FormData();
+            const recipeData = getRecipeArgs(familyId, userId);
+            Object.keys(recipeData).forEach(obj => {
+              const val = recipeData[obj];
+              if (val instanceof Array) {
+                data.append(obj, JSON.stringify(val));
+              } else {
+                data.append(obj, val);
+              }
+            });
+
+            axios
+              .post(`${API_URL}/recipes`, data, {
+                headers: { Authorization: `Bearer ${resp.data.jwt}` }
+              })
+              .then(resp => {
+                window.location.replace("/");
+              })
+              .catch(err => {
+                console.log(err);
+                const message = handleNetworkErrors(err);
+                this.setState({ loading: false, error: { message } });
+              });
           }
         });
       })

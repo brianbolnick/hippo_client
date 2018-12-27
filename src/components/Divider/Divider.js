@@ -13,7 +13,7 @@ const StyledDivider = styled.hr`
   text-align: center;
   height: 1.5em;
   opacity: 0.5;
-	width: ${({full}) => full ? '100%' : '50%'};
+  width: ${({ full }) => (full ? "100%" : "50%")};
   margin: 16px;
 
   &:before {

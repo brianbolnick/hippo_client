@@ -23,6 +23,7 @@ import Select from "components/Select/Select";
 import FlashMessage from "components/FlashMessage/FlashMessage";
 import Button from "components/Button/Button";
 import Divider from "components/Divider/Divider";
+import Textarea from "components/Textarea/Textarea";
 
 const AVAILABLE_TIMES = ["Mins", "Hrs", "Days"];
 
@@ -42,6 +43,7 @@ class NewRecipe extends Component {
       family_id: familyId,
       user_id: userId,
       category_id: 1,
+      notes: "",
       error: "",
       loading: false
     };
@@ -238,7 +240,7 @@ class NewRecipe extends Component {
               onClear={this.removeImage}
             />
             <Button type="submit" loading={loading}>
-              Create
+              Create Recipe
             </Button>
           </InputArea>
           <ListArea>
@@ -251,7 +253,6 @@ class NewRecipe extends Component {
               <TempIngredientsContainer>
                 {this.renderIngredients()}
               </TempIngredientsContainer>
-              <Divider full />
               <AddableInput
                 onAddClick={this.handleAddSteps}
                 label="Directions"
@@ -265,6 +266,13 @@ class NewRecipe extends Component {
                 )}
               </StepsContainer>
             </AddableContainer>
+
+            <Divider full />
+            <Textarea
+              onChange={e => this.setState({ notes: e.target.value })}
+              label="Notes"
+              placeholder="Recipe Notes"
+            />
           </ListArea>
         </Form>
       </Layout>
