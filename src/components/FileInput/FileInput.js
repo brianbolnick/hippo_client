@@ -11,8 +11,10 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   flex-flow: column;
-  width: 50%;
+  width: 100%;
   cursor: pointer;
+  margin: 8px;
+  margin-bottom: 24px;
 
   input[type="file"] {
     position: absolute;
@@ -47,7 +49,6 @@ const StyledButton = styled.div`
   width: 100%;
   box-sizing: border-box;
   height: 100%;
-  padding: 72px;
   width: 100%;
 `;
 
@@ -60,6 +61,7 @@ const DropBox = styled.div`
   flex-flow: column;
   justify-content: center;
   border-radius: 3px;
+  padding: 32px;
 `;
 
 const Description = styled.div`

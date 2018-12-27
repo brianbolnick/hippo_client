@@ -13,7 +13,7 @@ const StyledDivider = styled.hr`
   text-align: center;
   height: 1.5em;
   opacity: 0.5;
-  width: 50%;
+	width: ${({full}) => full ? '100%' : '50%'};
   margin: 16px;
 
   &:before {
@@ -38,6 +38,6 @@ const StyledDivider = styled.hr`
   }
 `;
 
-export default ({ children }) => {
-  return <StyledDivider data-content={children} />;
+export default ({ children, full }) => {
+  return <StyledDivider full={full} data-content={children} />;
 };

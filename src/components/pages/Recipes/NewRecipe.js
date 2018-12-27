@@ -3,14 +3,28 @@ import Layout from "components/Layout/Layout";
 import { token, userId, familyId, API_URL } from "utils";
 import axios from "axios";
 import FileInput from "components/FileInput/FileInput";
-import { Form, InputArea, FormRow } from "./styles";
+import {
+  TempIngredient,
+  TempStep,
+  TempIngredientsContainer,
+  StepsContainer,
+  Form,
+  AddableContainer,
+  InputArea,
+  ListArea,
+  FormRow,
+  Steps,
+  Notice
+} from "./styles";
 import Input from "components/Input/Input";
+import AddableInput from "components/AddableInput/AddableInput";
 import ControlledInput from "components/ControlledInput/ControlledInput";
 import Select from "components/Select/Select";
 import FlashMessage from "components/FlashMessage/FlashMessage";
 import Button from "components/Button/Button";
+import Divider from "components/Divider/Divider";
 
-const AVAILABLE_TIMES = ["Minutes", "Hours", "Days"];
+const AVAILABLE_TIMES = ["Mins", "Hrs", "Days"];
 
 class NewRecipe extends Component {
   constructor(props) {
@@ -22,9 +36,9 @@ class NewRecipe extends Component {
       prep_time: "",
       cook_time: "",
       calories: "",
-      servings: 4,
-      ingredients: ["Salt", "Pepper"],
-      steps: ["Cook it all", "Eat it all!"],
+      servings: 1,
+      ingredients: [],
+      steps: [],
       family_id: familyId,
       user_id: userId,
       category_id: 1,
@@ -48,6 +62,20 @@ class NewRecipe extends Component {
         console.log(err);
         this.setState({ error: { message: "Something went wrong." } });
       });
+  };
+
+  handleAddIngredients = ing => {
+    const ingredients = [...this.state.ingredients];
+    ingredients.push(ing);
+    console.log(ingredients);
+    this.setState({ ingredients });
+  };
+
+  handleAddSteps = step => {
+    const steps = [...this.state.steps];
+    steps.push(step);
+    console.log(steps);
+    this.setState({ steps });
   };
 
   renderCategories = () => {
@@ -79,9 +107,24 @@ class NewRecipe extends Component {
     });
   };
 
+  renderIngredients = () => {
+    const { ingredients } = this.state;
+    return ingredients.length ? (
+      ingredients.map(ing => <TempIngredient>{ing}</TempIngredient>)
+    ) : (
+      <Notice>Use the field above to add ingredients!</Notice>
+    );
+  };
+
+  renderSteps = () => {
+    const { steps } = this.state;
+    return steps.length ? steps.map(ing => <TempStep>{ing}</TempStep>) : null;
+  };
+
   handleSubmit = e => {
     e.preventDefault();
 
+    this.setState({ loading: true });
     const data = new FormData();
 
     const stateData = { ...this.state };
@@ -108,6 +151,10 @@ class NewRecipe extends Component {
       })
       .catch(err => {
         console.log(err);
+        this.setState({
+          error: { message: "Something went wrong. Please try again." },
+          loading: false
+        });
       });
   };
 
@@ -185,15 +232,40 @@ class NewRecipe extends Component {
                 {this.renderTimes()}
               </ControlledInput>
             </FormRow>
+            <FileInput
+              fileName={this.state.image && this.state.image.name}
+              onChange={this.handleUploadImage}
+              onClear={this.removeImage}
+            />
             <Button type="submit" loading={loading}>
               Create
             </Button>
           </InputArea>
-          <FileInput
-            fileName={this.state.image && this.state.image.name}
-            onChange={this.handleUploadImage}
-            onClear={this.removeImage}
-          />
+          <ListArea>
+            <AddableContainer>
+              <AddableInput
+                onAddClick={this.handleAddIngredients}
+                label="Ingredients"
+                placeholder="Click + to add a new ingredient"
+              />
+              <TempIngredientsContainer>
+                {this.renderIngredients()}
+              </TempIngredientsContainer>
+              <Divider full />
+              <AddableInput
+                onAddClick={this.handleAddSteps}
+                label="Directions"
+                placeholder="Click + to add a new step"
+              />
+              <StepsContainer>
+                {this.state.steps.length ? (
+                  <Steps>{this.renderSteps()}</Steps>
+                ) : (
+                  <Notice>Use the field above to add a step!</Notice>
+                )}
+              </StepsContainer>
+            </AddableContainer>
+          </ListArea>
         </Form>
       </Layout>
     );

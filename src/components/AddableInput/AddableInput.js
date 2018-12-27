@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { colors, varela } from "styles/css-variables";
 import Icon from "components/Icon/Icon";
 
-const StyledInput = styled.input`
+const StyledAddableInput = styled.textarea`
   color: ${colors.black};
   border-style: solid;
   padding: 0 1rem;
@@ -15,7 +15,8 @@ const StyledInput = styled.input`
       : `solid 2px ${colors.lightGray}`};
   height: 2.75em;
   line-height: 2.4em;
-  border-radius: 4px;
+  border-radius: 4px 0 0 4px;
+  border-right: none;
   font-size: 1em;
   background-color: #fff;
   max-width: 100%;
@@ -61,13 +62,35 @@ const Label = styled.label`
   font-family: ${varela};
 `;
 
-class Input extends React.Component {
+const AddContainer = styled.div`
+  height: 100%;
+  color: ${colors.white};
+  border-style: solid;
+  border: solid 2px ${colors.red};
+  border-radius: 0 4px 4px 0;
+  background-color: ${colors.red};
+  box-sizing: border-box;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.15s, border-color 0.15s;
+  :hover {
+    opacity: 0.9;
+  }
+`;
+
+const AddIcon = styled(Icon)`
+  height: 32px;
+`;
+class AddableInput extends React.Component {
   state = {
     focus: false
   };
 
   render() {
-    const { type, onChange, placeholder, label, icon, inputState } = this.props;
+    const { onAddClick, placeholder, label, icon, inputState } = this.props;
 
     return (
       <Wrapper {...this.props}>
@@ -81,28 +104,35 @@ class Input extends React.Component {
               name={icon}
             />
           )}
-          <StyledInput
-            type={type}
-            onChange={onChange}
+          <StyledAddableInput
             placeholder={placeholder}
+            onChange={e => this.setState({ text: e.target.value })}
+            value={this.state.text}
             inputState={inputState}
             icon={icon}
             onFocus={() => this.setState({ focus: true })}
             onBlur={() => this.setState({ focus: false })}
           />
+          <AddContainer
+            onClick={() => {
+              onAddClick(this.state.text);
+              this.setState({ text: "" });
+            }}
+          >
+            <AddIcon name="plus" />
+          </AddContainer>
         </Container>
       </Wrapper>
     );
   }
 }
 
-Input.propTypes = {
-  type: PropTypes.string,
-  onChange: PropTypes.func,
+AddableInput.propTypes = {
+  onAddClick: PropTypes.func.isRequired,
   placeholder: PropTypes.string,
   label: PropTypes.string,
   icon: PropTypes.string,
   inputState: PropTypes.string
 };
 
-export default Input;
+export default AddableInput;

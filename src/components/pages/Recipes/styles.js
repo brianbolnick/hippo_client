@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import { colors, rufina, media } from "styles/css-variables";
 import Button from "components/Button/Button";
+
+//New Form Styles
 export const ShowContainer = styled.div`
   height: 100%;
   width: 100%;
@@ -11,9 +13,7 @@ export const ShowContainer = styled.div`
   position: absolute;
   color: ${colors.black};
 
-  ${media.phone`
-		flex-flow: column;
-	`};
+  ${media.tablet` flex-flow: column; `};
 `;
 
 export const DetailsContainer = styled.div`
@@ -21,8 +21,8 @@ export const DetailsContainer = styled.div`
   width: 55%;
   position: relative;
   box-sizing: border-box;
-  ${media.phone`
-		width:100%;
+  ${media.tablet`
+		width: 100%;
 		display: flex;
 		flex-flow: column;
 	`};
@@ -32,26 +32,92 @@ export const Form = styled.form`
   height: 100%;
   width: 100%;
   display: flex;
+  flex-flow: row;
+  flex-wrap: wrap;
 `;
 
 export const FormRow = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
 
   &&& {
     & > * {
       width: ${({ three }) => (three ? "32%" : "48%")};
+      min-width: ${({ three }) => (three ? "100px" : "90px")};
+      ${media.tablet`	width: 100%; `};
+      ${media.smallDesktop`
+				width: ${({ three }) => (three ? "48%" : "100%")};
+			`};
+    }
+
+    &:not(:last-child) {
+      margin-right: 8px;
     }
   }
 `;
 
 export const InputArea = styled.div`
   width: 50%;
-  padding: 72px;
+  padding: 32px;
   box-sizing: border-box;
+  ${media.tablet`
+		width: 100%;
+		padding: 16px;
+`};
+`;
+export const ListArea = styled.div`
+  width: 50%;
+  padding: 32px;
+  box-sizing: border-box;
+  ${media.tablet`
+		width: 100%;
+		padding: 16px;
+`};
 `;
 
+export const AddableContainer = styled.div`
+  display: flex;
+  flex-flow: column;
+`;
+
+export const TempIngredient = styled.div`
+  max-width: 32%;
+  background-color: ${colors.red};
+  color: white;
+  padding: 8px;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  margin-bottom: 8px;
+
+  &:not(:last-child) {
+    margin-right: 8px;
+  }
+`;
+
+export const TempStep = styled.li`
+  color: ${colors.black};
+  font-weight: 600;
+  margin: 8px 0;
+`;
+
+export const Notice = styled.div`
+  text-align: center;
+  width: 100%;
+  color: ${colors.offGray};
+`;
+
+export const TempIngredientsContainer = styled.div`
+  display: flex;
+  flex-flow: row;
+  flex-wrap: wrap;
+`;
+
+export const StepsContainer = styled.div``;
+export const Steps = styled.ol``;
+
+//Recipe View Styles
 export const ImageBlock = styled.div`
   ${({ url }) =>
     url &&
@@ -90,7 +156,7 @@ export const Title = styled.div`
 
   ${media.phone`
     padding: 0 16px;
-	text-align: center;
+		text-align: center;
 		font-size: 4rem;
 	`};
 `;

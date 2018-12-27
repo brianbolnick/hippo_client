@@ -82,6 +82,7 @@ const StyledSelect = styled.select`
   background-color: #fff;
   max-width: 100%;
   width: 100%;
+  //min-width: 88px;
   padding-top: 2px;
   /* for Firefox */
   -moz-appearance: none;

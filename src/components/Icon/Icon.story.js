@@ -28,6 +28,7 @@ const iconList = [
   "menu",
   "message",
   "new",
+  "plus",
   "profile",
   "search",
   "signin",
