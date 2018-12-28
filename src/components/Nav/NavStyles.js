@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { colors, varela, media } from "../../styles/css-variables";
-import Icon from "../Icon/Icon";
+import { colors, varela, media } from "styles/css-variables";
+import Icon from "components/Icon/Icon";
 import Button from "components/Button/Button";
+import Anchor from "components/Anchor/Anchor";
 
 export const Navbar = styled.div`
   display: flex;
@@ -46,6 +47,7 @@ export const Brand = styled.div`
 export const NavLinks = styled.div`
   display: flex;
   justify-content: space-between;
+  align-items: center;
 `;
 
 export const NavLinkMobile = styled(Link)`
@@ -63,6 +65,18 @@ export const NavLinkMobile = styled(Link)`
     transition: all 0.2s ease;
   }
 `;
+export const NavAnchor = styled(Anchor)`
+  color: ${colors.black};
+  transition: all 0.2s ease;
+  text-decoration: none;
+  margin-left: 32px;
+  font-weight: 600;
+  &:hover {
+    color: ${colors.red};
+    ${({ auth }) => auth && `color: ${colors.white} `};
+    transition: all 0.2s ease;
+  }
+`;
 
 export const NavLinkButton = styled(Button)`
   color: ${colors.black};
@@ -73,6 +87,7 @@ export const NavLinkButton = styled(Button)`
   width: 100%;
   text-align: center;
   font-weight: 600;
+
   &:hover {
     color: ${colors.red};
     ${({ auth }) => auth && `color: ${colors.white} `};

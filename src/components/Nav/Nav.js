@@ -1,5 +1,12 @@
 import React from "react";
-import { Navbar, Brand, BrandImage, NavLinks, NavLink } from "./NavStyles";
+import {
+  Navbar,
+  Brand,
+  BrandImage,
+  NavLinks,
+  NavLink,
+  NavAnchor
+} from "./NavStyles";
 import { Link } from "react-router-dom";
 import { Logo, LogoWhite } from "styles/css-variables.js";
 import { token, signOut } from "utils";
@@ -23,20 +30,22 @@ const Nav = props => {
             Recipes
           </NavLink>
         )}
+        <NavAnchor
+          href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=HUYFMWSSJERU2&source=url"
+          target="_blank"
+        >
+          Donate
+        </NavAnchor>
+
         {!token && (
           <NavLink auth={props.auth} to="/sign_in">
             Sign In
           </NavLink>
         )}
         {token && (
-          <>
-            <NavLink auth={props.auth} to="/family">
-              Family
-            </NavLink>
-            <Button asLink onClick={signOut} transparentBackground>
-              Sign Out
-            </Button>
-          </>
+          <Button asLink onClick={signOut} transparentBackground>
+            Sign Out
+          </Button>
         )}
       </NavLinks>
     </Navbar>
