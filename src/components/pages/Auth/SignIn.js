@@ -1,15 +1,15 @@
 import React from "react";
-import Link from "components/Link/Link";
-import Input from "components/Input/Input";
-import Button from "components/Button/Button";
+import Link from "components/common/Link/Link";
+import Input from "components/common/Input/Input";
+import Button from "components/common/Button/Button";
 import { API_URL, handleNetworkErrors } from "utils";
 import axios from "axios";
 import jwtDecode from "jwt-decode";
-import MediaQuery from "components/MediaQuery/MediaQuery";
+import MediaQuery from "components/common/MediaQuery/MediaQuery";
 import { phoneMediaQuery } from "styles/css-variables";
-import Nav from "components/Nav/Nav";
-import MobileNav from "components/Nav/MobileNav";
-import FlashMessage from "components/FlashMessage/FlashMessage";
+import Nav from "components/common/Nav/Nav";
+import MobileNav from "components/common/Nav/MobileNav";
+import FlashMessage from "components/common/FlashMessage/FlashMessage";
 import {
   FormWrapper,
   ActionsWrapper,

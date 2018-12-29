@@ -10,7 +10,7 @@ import Family from "./pages/Family/Family";
 import NotFound from "./pages/NotFound";
 import Test from "./pages/Test";
 import NoAuth from "./pages/NoAuth/NoAuth";
-import { jwt } from "../utils";
+import { jwt } from "utils";
 
 const HiddenRoute = ({ component: Component, isAuthenticated, ...rest }) => {
   return (
@@ -62,7 +62,7 @@ class App extends Component {
           component={Recipes}
           isAuthenticated={this.isLoggedIn()}
         />
-				<AuthRoute
+        <AuthRoute
           path="/recipes/new"
           isAuthenticated={this.isLoggedIn()}
           exact

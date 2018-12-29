@@ -2,38 +2,36 @@ import React from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-import Icon from "components/Icon/Icon";
+import Icon from "components/common/Icon/Icon";
 import { fadeInDown, colors, media } from "styles/css-variables";
-import Tooltip from "components/Tooltip/Tooltip";
+import Tooltip from "components/common/Tooltip/Tooltip";
 
 const StyledTooltip = styled(Tooltip)``;
 
 const ButtonContainer = styled.button`
-	border-radius: 50%;
+  border-radius: 50%;
   box-sizing: border-box;
   padding: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-	background: ${colors.black};
-	cursor: pointer;
+  background: ${colors.black};
+  cursor: pointer;
   width: 48px;
   height: 48px;
-	border: none;
-	outline: none;
+  border: none;
+  outline: none;
   * > &:hover {
     box-shadow: 0px 0px 6px 2px ${colors.offGray};
   }
 
-	${media.phone`
+  ${media.phone`
 		box-shadow: 0px 0px 10px 1px #ffffff8c;
 
 		* > &:hover {
 			box-shadow: 0px 0px 10px 4px #ffffff8c;
 		}
-	`}
-
-  div {
+	`} div {
     width: 100%;
     height: 100%;
     padding: 12px;
@@ -45,7 +43,6 @@ const ButtonContainer = styled.button`
     align-items: center;
     justify-content: center;
   }
-
 `;
 
 const Container = styled.div`

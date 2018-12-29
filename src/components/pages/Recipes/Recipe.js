@@ -1,5 +1,5 @@
 import React from "react";
-import Layout from "components/Layout/Layout";
+import Layout from "components/common/Layout/Layout";
 import { API_URL, token } from "utils";
 import axios from "axios";
 import moment from "moment";
@@ -34,12 +34,12 @@ import {
   FabContainer,
   LoadContainer
 } from "./styles";
-import Icon from "components/Icon/Icon";
-import FlashMessage from "components/FlashMessage/FlashMessage";
-import Rating from "components/Rating/Rating";
+import Icon from "components/common/Icon/Icon";
+import FlashMessage from "components/common/FlashMessage/FlashMessage";
+import Rating from "components/common/Rating/Rating";
 import ActionButton from "./ActionButton";
 import { colors } from "styles/css-variables";
-import MediaQuery from "components/MediaQuery/MediaQuery";
+import MediaQuery from "components/common/MediaQuery/MediaQuery";
 import { phoneMediaQuery } from "styles/css-variables";
 
 class Recipe extends React.Component {

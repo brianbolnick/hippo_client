@@ -1,12 +1,12 @@
 import React from "react";
-import Layout from "components/Layout/Layout";
-import RecipeCard from "components/Recipe/RecipeCard";
+import Layout from "components/common/Layout/Layout";
+import RecipeCard from "components/common/Recipe/RecipeCard";
 import { API_URL, token, familyId } from "utils";
 import axios from "axios";
 import { RecipeList } from "./styles";
 import Loader from "img/loader.gif";
 import styled from "styled-components";
-import Button from "components/Button/Button";
+import Button from "components/common/Button/Button";
 import { Link } from "react-router-dom";
 
 const LoadContainer = styled.div`

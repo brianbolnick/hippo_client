@@ -1,6 +1,6 @@
 import React from "react";
 import { phoneMediaQuery, Logo } from "styles/css-variables";
-import MediaQuery from "components/MediaQuery/MediaQuery";
+import MediaQuery from "components/common/MediaQuery/MediaQuery";
 import {
   Description,
   Actions,
@@ -15,10 +15,10 @@ import {
   DescriptionTitle,
   FooterLinks
 } from "./Styles";
-import { Brand, BrandImage } from "../../Nav/NavStyles";
-import Nav from "../../Nav/Nav";
-import MobileNav from "../../Nav/MobileNav";
-import Button from "../../Button/Button";
+import { Brand, BrandImage } from "components/common/Nav/NavStyles";
+import Nav from "components/common/Nav/Nav";
+import MobileNav from "components/common/Nav/MobileNav";
+import Button from "components/common/Button/Button";
 import { Link } from "react-router-dom";
 
 class NoAuth extends React.Component {

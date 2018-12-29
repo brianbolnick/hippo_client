@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { colors, rufina, media } from "styles/css-variables";
-import Button from "components/Button/Button";
+import Button from "components/common/Button/Button";
 
 //New Form Styles
 export const ShowContainer = styled.div`

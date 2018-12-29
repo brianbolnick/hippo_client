@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "styled-components";
-import Layout from 'components/Layout/Layout';
+import Layout from 'components/common/Layout/Layout';
 import NewForm from './NewForm';
 import JoinForm from './JoinForm';
-import Button from 'components/Button/Button';
+import Button from 'components/common/Button/Button';
 const PageWrapper = styled.div`
 	height: 100%;
 	width: 100%;

@@ -2,8 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { colors, rufina, media, varela } from "styles/css-variables";
-import Button from "components/Button/Button";
-import Icon from "components/Icon/Icon";
+import Button from "components/common/Button/Button";
+import Icon from "components/common/Icon/Icon";
 
 export const InfoBoxComponent = () => (
   <InfoBox>

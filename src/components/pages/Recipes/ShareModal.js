@@ -1,7 +1,7 @@
 import React from "react";
-import Modal from "components/Modal/Modal";
-import Input from "components/Input/Input";
-import Button from "components/Button/Button";
+import Modal from "components/common/Modal/Modal";
+import Input from "components/common/Input/Input";
+import Button from "components/common/Button/Button";
 import styled from "styled-components";
 import { media } from "styles/css-variables";
 

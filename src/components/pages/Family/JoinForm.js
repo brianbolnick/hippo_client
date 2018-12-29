@@ -1,7 +1,7 @@
 import React from "react";
-import Input from "components/Input/Input";
+import Input from "components/common/Input/Input";
 import styled from "styled-components";
-import Button from "components/Button/Button";
+import Button from "components/common/Button/Button";
 //import { API_URL } from "utils";
 //import axios from "axios";
 //import jwtDecode from "jwt-decode";
@@ -19,34 +19,34 @@ const FormContainer = styled.form`
 `;
 
 class JoinForm extends React.Component {
-	state = {
-		join_code: "",
-		error: "",
-		loading: false
-	};
+  state = {
+    join_code: "",
+    error: "",
+    loading: false
+  };
 
-	handleSubmit = e => {
-		e.preventDefault();
-		console.log(this.state);
-	}
+  handleSubmit = e => {
+    e.preventDefault();
+    console.log(this.state);
+  };
 
-	render() {
-		const { loading } = this.state;
-		return (
-			<FormContainer onSubmit={this.handleSubmit}>
-				<Input
-					type="text"
-					label="Join Code"
-					icon="users"
-					placeholder="Enter Shared Code"
-					onChange={e => this.setState({ join_code: e.target.value })}
-				/>
-				<Button type="submit" loading={loading}>
-					Submit
-				</Button>
-			</FormContainer>
-		)
-	}
+  render() {
+    const { loading } = this.state;
+    return (
+      <FormContainer onSubmit={this.handleSubmit}>
+        <Input
+          type="text"
+          label="Join Code"
+          icon="users"
+          placeholder="Enter Shared Code"
+          onChange={e => this.setState({ join_code: e.target.value })}
+        />
+        <Button type="submit" loading={loading}>
+          Submit
+        </Button>
+      </FormContainer>
+    );
+  }
 }
 
 export default JoinForm;

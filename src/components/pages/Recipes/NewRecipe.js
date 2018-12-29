@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import Layout from "components/Layout/Layout";
+import Layout from "components/common/Layout/Layout";
 import { token, userId, familyId, API_URL } from "utils";
 import axios from "axios";
-import FileInput from "components/FileInput/FileInput";
+import FileInput from "components/common/FileInput/FileInput";
 import {
   TempIngredient,
   TempStep,
@@ -16,14 +16,14 @@ import {
   Steps,
   Notice
 } from "./styles";
-import Input from "components/Input/Input";
-import AddableInput from "components/AddableInput/AddableInput";
-import ControlledInput from "components/ControlledInput/ControlledInput";
-import Select from "components/Select/Select";
-import FlashMessage from "components/FlashMessage/FlashMessage";
-import Button from "components/Button/Button";
-import Divider from "components/Divider/Divider";
-import Textarea from "components/Textarea/Textarea";
+import Input from "components/common/Input/Input";
+import AddableInput from "components/common/AddableInput/AddableInput";
+import ControlledInput from "components/common/ControlledInput/ControlledInput";
+import Select from "components/common/Select/Select";
+import FlashMessage from "components/common/FlashMessage/FlashMessage";
+import Button from "components/common/Button/Button";
+import Divider from "components/common/Divider/Divider";
+import Textarea from "components/common/Textarea/Textarea";
 
 const AVAILABLE_TIMES = ["Mins", "Hrs", "Days"];
 
