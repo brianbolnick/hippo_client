@@ -38,7 +38,8 @@ const iconList = [
   "upload",
   "user",
   "users",
-  "utensils"
+  "utensils",
+  "cog"
 ];
 
 const IconLabel = styled.span`

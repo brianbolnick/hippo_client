@@ -7,7 +7,7 @@ import ShareModal from "./ShareModal";
 import {
   CategoryContainer,
   RecipeHeader,
-  ShareIcon,
+  SettingsButton,
   Category,
   Date,
   Details,
@@ -28,10 +28,13 @@ import {
   Title,
   HeaderGroup,
   RatingContainer,
-  RatingCount
+  RatingCount,
+  FloatingActionButtons,
+  FabContainer
 } from "./styles";
 import Icon from "components/Icon/Icon";
 import Rating from "components/Rating/Rating";
+import ActionButton from "./ActionButton";
 import { colors } from "styles/css-variables";
 import MediaQuery from "components/MediaQuery/MediaQuery";
 import { phoneMediaQuery } from "styles/css-variables";
@@ -40,6 +43,7 @@ class Recipe extends React.Component {
   state = {
     recipe: {},
     showShareModal: false,
+    showActions: false,
     showMobile: window.matchMedia("(" + phoneMediaQuery + ")").matches
   };
 
@@ -115,7 +119,7 @@ class Recipe extends React.Component {
   };
 
   render() {
-    const { recipe, showShareModal, showMobile } = this.state;
+    const { recipe, showActions, showShareModal, showMobile } = this.state;
     console.log(recipe);
     return (
       <Layout recipe>
@@ -188,9 +192,40 @@ class Recipe extends React.Component {
               <SubTitle>Ingredients</SubTitle>
               {this.renderIngredients()}
             </IngredientsContainer>
-            <ShareIcon onClick={() => this.setState({ showShareModal: true })}>
-              <Icon name="share" />
-            </ShareIcon>
+            <FabContainer>
+              <SettingsButton
+                onClick={() =>
+                  this.setState({ showActions: !this.state.showActions })
+                }
+              >
+                <Icon name="cog" />
+              </SettingsButton>
+              {showActions && (
+                <FloatingActionButtons>
+                  <ActionButton
+                    icon="share"
+                    onClick={() => this.setState({ showShareModal: true })}
+                    color={colors.green}
+                    tooltip="Share Recipe"
+										tipPosition='left'
+                  />
+                  <ActionButton
+                    icon="edit"
+                    onClick={() => this.setState({ showShareModal: true })}
+                    color={colors.yellow}
+                    tooltip="Edit Recipe"
+										tipPosition='left'
+                  />
+                  <ActionButton
+                    icon="closeOpenCircle"
+                    onClick={() => this.setState({ showShareModal: true })}
+                    color={colors.red}
+                    tooltip="Delete Recipe"
+										tipPosition='left'
+                  />
+                </FloatingActionButtons>
+              )}
+            </FabContainer>
             {!showMobile && (
               <Footer>
                 <Meta>
@@ -234,7 +269,7 @@ class Recipe extends React.Component {
             )}
           </DetailsContainer>
         </ShowContainer>
-				      </Layout>
+      </Layout>
     );
   }
 }

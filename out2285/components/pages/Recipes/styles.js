@@ -297,3 +297,41 @@ export const ShareIcon = styled(Button)`
     justify-content: center;
   }
 `;
+
+export const EditIcon = styled(Button)`
+  border-radius: 50%;
+  box-sizing: border-box;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: ${colors.blue};
+
+  position: absolute;
+  left: -28px;
+  top: 58px;
+  width: 56px;
+  height: 56px;
+
+  * > &:hover {
+    box-shadow: 0px 0px 6px 2px ${colors.offGray};
+  }
+
+  ${media.phone`
+	top: -32px;
+	left: calc(50% - 36px);
+	`};
+
+  div {
+    width: 100%;
+    height: 100%;
+    padding: 12px;
+    margin: 0;
+  }
+
+  span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+`;

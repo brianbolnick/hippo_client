@@ -65,6 +65,17 @@ export const fadeIn = keyframes`
     }
 `;
 
+export const fadeInDown = keyframes`
+	from {
+			opacity: 0;
+			transform: translateY(24px);
+		}
+		to {
+			opacity: 1;
+			transform: translate(0px);
+		}
+`;
+
 export const scaleUp = keyframes`
     0% {
         transform: scale(.8) translateY(1000px);

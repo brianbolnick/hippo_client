@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { colors, rufina, media } from "styles/css-variables";
+import { fadeIn, colors, rufina, media } from "styles/css-variables";
 import Button from "components/Button/Button";
 
 //New Form Styles
@@ -340,7 +340,21 @@ export const RatingCount = styled.div`
   color: ${colors.offGray};
 `;
 
-export const ShareIcon = styled(Button)`
+export const FloatingActionButtons = styled.div`
+  height: 200px;
+  position: absolute;
+  display: flex;
+  flex-flow: column;
+  justify-content: space-between;
+  top: 132px;
+  left: -24px;
+`;
+
+export const FabContainer = styled.div`
+  position: relative;
+`;
+
+export const SettingsButton = styled(Button)`
   border-radius: 50%;
   box-sizing: border-box;
   padding: 0;
@@ -375,5 +389,9 @@ export const ShareIcon = styled(Button)`
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+
+  :focus {
+    outline: none;
   }
 `;
