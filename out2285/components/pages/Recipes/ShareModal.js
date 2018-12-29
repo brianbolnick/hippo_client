@@ -5,11 +5,6 @@ import Button from "components/Button/Button";
 import styled from "styled-components";
 import { media } from "styles/css-variables";
 
-const ModalContent = styled.div`
-  background: white;
-  padding: 48px;
-`;
-
 export const FormContainer = styled.form`
   width: 485px;
   display: flex;
@@ -54,27 +49,25 @@ class ShareModal extends React.Component {
 
     return (
       <Modal onCloseRequest={onCloseRequest}>
-        <ModalContent>
-          <p style={{ textAlign: "center" }}>
-            Share this recipe with another family! Enter the family code below
-            to share.
-          </p>
-          <FormWrapper>
-            <FormContainer onSubmit={this.handleFormSubmit}>
-              {error.message && <div>{error.message}</div>}
-              <Input
-                inputState={error.field === "join_code" ? "error" : ""}
-                type="text"
-                icon="users"
-                placeholder="Family Join Code"
-                onChange={this.onCodeFieldChange}
-              />
-              <Button loading={loading} type="submit" disabled={!joinCodeValid}>
-                Share
-              </Button>
-            </FormContainer>
-          </FormWrapper>
-        </ModalContent>
+        <p style={{ textAlign: "center" }}>
+          Share this recipe with another family! Enter the family code below to
+          share.
+        </p>
+        <FormWrapper>
+          <FormContainer onSubmit={this.handleFormSubmit}>
+            {error.message && <div>{error.message}</div>}
+            <Input
+              inputState={error.field === "join_code" ? "error" : ""}
+              type="text"
+              icon="users"
+              placeholder="Family Join Code"
+              onChange={this.onCodeFieldChange}
+            />
+            <Button loading={loading} type="submit" disabled={!joinCodeValid}>
+              Share
+            </Button>
+          </FormContainer>
+        </FormWrapper>
       </Modal>
     );
   }

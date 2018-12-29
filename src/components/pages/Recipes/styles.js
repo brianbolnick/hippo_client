@@ -348,6 +348,14 @@ export const FloatingActionButtons = styled.div`
   justify-content: space-between;
   top: 132px;
   left: -24px;
+
+  ${media.phone`
+    top: -88px;
+    flex-flow: row;
+    width: 50vw;
+		height: auto;
+    left: calc(50% - 26vw - 3px);
+	`};
 `;
 
 export const FabContainer = styled.div`
@@ -394,4 +402,12 @@ export const SettingsButton = styled(Button)`
   :focus {
     outline: none;
   }
+`;
+
+export const LoadContainer = styled.div`
+  display: flex;
+  height: 100%;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
 `;

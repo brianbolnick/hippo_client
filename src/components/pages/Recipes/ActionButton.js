@@ -6,6 +6,8 @@ import Icon from "components/Icon/Icon";
 import { fadeInDown, colors, media } from "styles/css-variables";
 import Tooltip from "components/Tooltip/Tooltip";
 
+const StyledTooltip = styled(Tooltip)``;
+
 const ButtonContainer = styled.button`
 	border-radius: 50%;
   box-sizing: border-box;
@@ -19,24 +21,17 @@ const ButtonContainer = styled.button`
   height: 48px;
 	border: none;
 	outline: none;
-	animation-name: ${fadeInDown};
-	animation-duration: 0.3s;
-	animation-fill-mode: backwards;
-	:nth-child(2) {
-		animation-delay: .1s;
-	}
-	:nth-child(3) {
-		animation-delay: .2s;
-	}
-
   * > &:hover {
     box-shadow: 0px 0px 6px 2px ${colors.offGray};
   }
 
-  //${media.phone`
-	//top: -32px;
-	//left: calc(50% - 36px);
-	//`};
+	${media.phone`
+		box-shadow: 0px 0px 10px 1px #ffffff8c;
+
+		* > &:hover {
+			box-shadow: 0px 0px 10px 4px #ffffff8c;
+		}
+	`}
 
   div {
     width: 100%;
@@ -51,24 +46,37 @@ const ButtonContainer = styled.button`
     justify-content: center;
   }
 
+`;
 
+const Container = styled.div`
+  animation-name: ${fadeInDown};
+  animation-duration: 0.2s;
+  animation-fill-mode: backwards;
+  :nth-child(2) {
+    animation-delay: 0.1s;
+  }
+  :nth-child(3) {
+    animation-delay: 0.2s;
+  }
 `;
 
 const ActionButton = ({ icon, color, onClick, to, tooltip, tipPosition }) => {
-  return to ? (
-    <Tooltip type="arrow" tip={tooltip} position={tipPosition}>
-      <Link to={to}>
-        <ButtonContainer>
-          <Icon name={icon} color={color} />
-        </ButtonContainer>
-      </Link>
-    </Tooltip>
-  ) : (
-    <Tooltip type="arrow" tip={tooltip} position={tipPosition}>
-      <ButtonContainer onClick={onClick}>
-        <Icon name={icon} color={color} />
-      </ButtonContainer>
-    </Tooltip>
+  return (
+    <Container>
+      <StyledTooltip type="arrow" tip={tooltip} position={tipPosition}>
+        {to ? (
+          <Link to={to}>
+            <ButtonContainer>
+              <Icon name={icon} color={color} />
+            </ButtonContainer>
+          </Link>
+        ) : (
+          <ButtonContainer onClick={onClick}>
+            <Icon name={icon} color={color} />
+          </ButtonContainer>
+        )}
+      </StyledTooltip>
+    </Container>
   );
 };
 

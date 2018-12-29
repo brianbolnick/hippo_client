@@ -26,11 +26,6 @@ import Modal from "components/Modal/Modal";
 
 const config = { headers: {} };
 
-const ModalContent = styled.div`
-  background: white;
-  padding: 48px;
-`;
-
 class SignUp extends React.Component {
   state = {
     name: "",
@@ -226,38 +221,34 @@ class SignUp extends React.Component {
           <Modal
             onCloseRequest={() => this.setState({ showFamilyModal: false })}
           >
-            <ModalContent>
-              <p style={{ textAlign: "center" }}>
-                You need to join a family in order to create and view recipes.
-                Create one now!
-              </p>
-              <FormWrapper>
-                <FormContainer onSubmit={this.handleFormSubmit}>
-                  {error.message && <div>{error.message}</div>}
-                  <Input
-                    inputState={error.field === "join_code" ? "error" : ""}
-                    type="text"
-                    label="Family Join Code"
-                    icon="users"
-                    placeholder="Shared Family Code"
-                    onChange={e => this.setState({ joinCode: e.target.value })}
-                  />
-                  <Input
-                    inputState={error.field === "family_name" ? "error" : ""}
-                    type="text"
-                    label="Family Display Name"
-                    icon="users"
-                    placeholder="Family Name"
-                    onChange={e =>
-                      this.setState({ familyName: e.target.value })
-                    }
-                  />
-                  <Button loading={loading} type="submit">
-                    Submit
-                  </Button>
-                </FormContainer>
-              </FormWrapper>
-            </ModalContent>
+            <p style={{ textAlign: "center" }}>
+              You need to join a family in order to create and view recipes.
+              Create one now!
+            </p>
+            <FormWrapper>
+              <FormContainer onSubmit={this.handleFormSubmit}>
+                {error.message && <div>{error.message}</div>}
+                <Input
+                  inputState={error.field === "join_code" ? "error" : ""}
+                  type="text"
+                  label="Family Join Code"
+                  icon="users"
+                  placeholder="Shared Family Code"
+                  onChange={e => this.setState({ joinCode: e.target.value })}
+                />
+                <Input
+                  inputState={error.field === "family_name" ? "error" : ""}
+                  type="text"
+                  label="Family Display Name"
+                  icon="users"
+                  placeholder="Family Name"
+                  onChange={e => this.setState({ familyName: e.target.value })}
+                />
+                <Button loading={loading} type="submit">
+                  Submit
+                </Button>
+              </FormContainer>
+            </FormWrapper>
           </Modal>
         )}
       </div>

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
-import { fadeIn, scaleUp } from "../../styles/css-variables";
+import { fadeIn, scaleUp } from "styles/css-variables";
 
 const Overlay = styled.div`
   display: flex;
@@ -13,7 +13,7 @@ const Overlay = styled.div`
   left: 0;
   bottom: 0;
   padding: 1rem;
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: rgba(0, 0, 0, 0.5);
   z-index: 9999;
   opacity: 1;
   animation: ${fadeIn} 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
@@ -29,7 +29,17 @@ const StyledModal = styled.div`
   }
 `;
 
-const ModalContent = styled.div``;
+const ModalContent = styled.div`
+  background: white;
+  width: 100%;
+  height: 100%;
+  padding: 50px;
+  border-radius: 3px;
+  font-weight: 300;
+  text-align: center;
+  box-shadow: 0px 11px 15px -7px rgba(0, 0, 0, 0.2),
+    0px 24px 38px 3px rgba(0, 0, 0, 0.14), 0px 9px 46px 8px rgba(0, 0, 0, 0.12);
+`;
 
 const CloseButton = styled.button`
   position: fixed;
@@ -113,15 +123,13 @@ class Modal extends Component {
   };
 
   render() {
-    const { onCloseRequest, children } = this.props;
+    const { children } = this.props;
 
     return (
       <Overlay>
         <StyledModal>
           <ModalContent ref={this.setWrapperRef}>{children}</ModalContent>
         </StyledModal>
-
-        <CloseButton type="button" onClick={onCloseRequest} />
       </Overlay>
     );
   }

@@ -3,6 +3,7 @@ import Layout from "components/Layout/Layout";
 import { API_URL, token } from "utils";
 import axios from "axios";
 import moment from "moment";
+import Loader from "img/loader.gif";
 import ShareModal from "./ShareModal";
 import {
   CategoryContainer,
@@ -30,9 +31,11 @@ import {
   RatingContainer,
   RatingCount,
   FloatingActionButtons,
-  FabContainer
+  FabContainer,
+  LoadContainer
 } from "./styles";
 import Icon from "components/Icon/Icon";
+import FlashMessage from "components/FlashMessage/FlashMessage";
 import Rating from "components/Rating/Rating";
 import ActionButton from "./ActionButton";
 import { colors } from "styles/css-variables";
@@ -44,7 +47,8 @@ class Recipe extends React.Component {
     recipe: {},
     showShareModal: false,
     showActions: false,
-    showMobile: window.matchMedia("(" + phoneMediaQuery + ")").matches
+    showMobile: window.matchMedia("(" + phoneMediaQuery + ")").matches,
+    loading: true
   };
 
   handleMediaQueryChange = ({ matches }) => {
@@ -60,10 +64,13 @@ class Recipe extends React.Component {
         headers: { Authorization: authToken }
       })
       .then(({ data }) => {
-        this.setState({ recipe: data.data });
+        this.setState({ recipe: data.data, loading: false });
       })
       .catch(err => {
         console.log(err);
+        this.setState({
+          error: "Something went wrong. Please refresh and try again."
+        });
       });
   };
 
@@ -119,14 +126,28 @@ class Recipe extends React.Component {
   };
 
   render() {
-    const { recipe, showActions, showShareModal, showMobile } = this.state;
-    console.log(recipe);
-    return (
+    const {
+      recipe,
+      showActions,
+      showShareModal,
+      showMobile,
+      loading,
+      error
+    } = this.state;
+    return loading ? (
+      <LoadContainer>
+        <img alt="" src={Loader} style={{ height: "300px", width: "300px" }} />
+      </LoadContainer>
+    ) : (
       <Layout recipe>
         <MediaQuery
           query={phoneMediaQuery}
           onChange={this.handleMediaQueryChange}
         />
+        <FlashMessage visible={!!error} error>
+          {error}
+        </FlashMessage>
+
         {showShareModal && (
           <ShareModal
             onCloseRequest={() => this.setState({ showShareModal: false })}
@@ -207,21 +228,21 @@ class Recipe extends React.Component {
                     onClick={() => this.setState({ showShareModal: true })}
                     color={colors.green}
                     tooltip="Share Recipe"
-										tipPosition='left'
+                    tipPosition={showMobile ? "top" : "left"}
                   />
                   <ActionButton
                     icon="edit"
-                    onClick={() => this.setState({ showShareModal: true })}
+                    to={`/recipes/${recipe.id}/edit`}
                     color={colors.yellow}
                     tooltip="Edit Recipe"
-										tipPosition='left'
+                    tipPosition={showMobile ? "top" : "left"}
                   />
                   <ActionButton
                     icon="closeOpenCircle"
                     onClick={() => this.setState({ showShareModal: true })}
                     color={colors.red}
                     tooltip="Delete Recipe"
-										tipPosition='left'
+                    tipPosition={showMobile ? "top" : "left"}
                   />
                 </FloatingActionButtons>
               )}
