@@ -52,7 +52,7 @@ export const NavLinks = styled.div`
 
 export const NavLinkMobile = styled(Link)`
   color: ${colors.black};
-  font-size: 1.7rem;
+  font-size: 1.4rem;
   transition: all 0.2s ease;
   margin: 10px 0;
   text-decoration: none;
@@ -80,7 +80,7 @@ export const NavAnchor = styled(Anchor)`
 
 export const NavLinkButton = styled(Button)`
   color: ${colors.black};
-  font-size: 1.7rem;
+  font-size: 1.4rem;
   transition: all 0.2s ease;
   margin: 10px 0;
   text-decoration: none;
@@ -112,6 +112,8 @@ export const BrandImage = styled.img`
   height: 64px;
 
   ${media.phone`
+
+  height: 48px;
 	`};
 `;
 
@@ -121,7 +123,7 @@ export const MobileNavLinks = styled.div`
   height: 300px;
   background-color: white;
   box-shadow: rgba(61, 60, 60, 0.58) 0px 7px 11px -5px;
-  top: 88px;
+  top: 72px;
   left: 0;
   transition: transform 0.3s cubic-bezier(0, 0.52, 0, 1);
   overflow: scroll;

@@ -10,7 +10,7 @@ const Content = styled.div`
   width: ${({ recipe }) => (recipe ? "100%" : "90%")};
   margin: 0 auto;
   margin-top: ${({ recipe }) => (recipe ? "0" : "10px")};
-    height: calc(100% - 111px);
+  height: calc(100% - 111px);
 
   ${({ recipe }) =>
     recipe &&
@@ -21,7 +21,7 @@ const Content = styled.div`
 	`};
 
   ${media.phone`
-	margin-top: 100px;
+	margin-top: 72px;
     overflow: auto;
 	`};
 `;
