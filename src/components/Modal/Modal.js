@@ -41,41 +41,6 @@ const ModalContent = styled.div`
     0px 24px 38px 3px rgba(0, 0, 0, 0.14), 0px 9px 46px 8px rgba(0, 0, 0, 0.12);
 `;
 
-const CloseButton = styled.button`
-  position: fixed;
-  top: 0;
-  right: 0;
-  background: #fff;
-  width: 2.5rem;
-  height: 2.5rem;
-  padding: 0;
-  border: 0;
-  cursor: pointer;
-  outline: 0;
-  box-shadow: 0 0 0.625rem rgba(0, 0, 0, 0.2);
-  &:before,
-  &:after {
-    content: "";
-    position: absolute;
-    top: 1.2rem;
-    left: 0.25rem;
-    width: 2rem;
-    height: 0.1rem;
-    background-color: #888;
-  }
-  &:before {
-    transform: rotate(45deg);
-  }
-  &:after {
-    transform: rotate(-45deg);
-  }
-
-  &:hover:before,
-  &:hover:after {
-    background-color: #444;
-  }
-`;
-
 class Modal extends Component {
   constructor(props) {
     super(props);

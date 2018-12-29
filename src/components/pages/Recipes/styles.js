@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { fadeIn, colors, rufina, media } from "styles/css-variables";
+import { colors, rufina, media } from "styles/css-variables";
 import Button from "components/Button/Button";
 
 //New Form Styles

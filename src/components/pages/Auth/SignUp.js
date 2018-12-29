@@ -11,7 +11,6 @@ import { phoneMediaQuery } from "styles/css-variables";
 import Nav from "components/Nav/Nav";
 import MobileNav from "components/Nav/MobileNav";
 import Checkbox from "components/Checkbox/Checkbox";
-import styled from "styled-components";
 import FlashMessage from "components/FlashMessage/FlashMessage";
 import {
   FormWrapper,
