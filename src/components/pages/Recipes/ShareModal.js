@@ -5,7 +5,7 @@ import Button from "components/common/Button/Button";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import { media } from "styles/css-variables";
-import { API_URL, token } from "utils";
+import { API_URL, token, userId, familyId } from "utils";
 import axios from "axios";
 
 const authToken = `Bearer ${token}`;
@@ -69,8 +69,25 @@ class ShareModal extends React.Component {
 
   handleFormSubmit = e => {
     e.preventDefault();
-    console.log("submit");
-    this.props.onSuccess();
+    const data = {
+      shared_recipe: {
+        user_id: userId,
+        family_id: familyId,
+        recipe_id: this.props.recipeId
+      }
+    };
+
+    axios
+      .post(`${API_URL}/shared_recipes`, data, {
+        headers: { Authorization: authToken }
+      })
+      .then(resp => {
+        this.props.onSuccess();
+      })
+      .catch(err => {
+        console.log(err);
+        this.props.onFailure();
+      });
   };
 
   render() {

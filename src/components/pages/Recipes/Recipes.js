@@ -9,6 +9,8 @@ import styled from "styled-components";
 import Button from "components/common/Button/Button";
 import { Link } from "react-router-dom";
 
+const authToken = `Bearer ${token}`;
+
 const LoadContainer = styled.div`
   display: flex;
   height: 100%;
@@ -17,20 +19,36 @@ const LoadContainer = styled.div`
   align-items: center;
 `;
 
+const getFamilyRecipes = () => {
+  return axios.get(`${API_URL}/family/${familyId}/recipes`, {
+    headers: { Authorization: authToken }
+  });
+};
+
+const getSharedFamilyRecipes = () => {
+  return axios.get(`${API_URL}/family/${familyId}/shared_recipes`, {
+    headers: { Authorization: authToken }
+  });
+};
+
 class Recipe extends React.Component {
-  state = { recipes: [], loading: true };
+  state = { recipes: [], sharedRecipes: [], loading: true };
 
   componentDidMount = () => {
-    const authToken = `Bearer ${token}`;
     axios
-      .get(`${API_URL}/family/${familyId}/recipes`, {
-        headers: { Authorization: authToken }
-      })
-      .then(({ data }) => {
-        this.setState({ recipes: data.data }, () =>
-          setTimeout(() => this.setState({ loading: false }), 3000)
-        );
-      })
+      .all([getFamilyRecipes(), getSharedFamilyRecipes()])
+      .then(
+        axios.spread((recipeData, sharedRecipeData) => {
+          //debugger;
+          let recipes = recipeData.data.data;
+          //const recipes = recipeData.data.data.concat(
+          //sharedRecipeData.data.data
+          //);
+          this.setState({ recipes }, () =>
+            setTimeout(() => this.setState({ loading: false }), 3000)
+          );
+        })
+      )
       .catch(err => {
         console.log(err);
       });

@@ -159,6 +159,13 @@ class Recipe extends React.Component {
     });
   };
 
+  handleShareFailure = () => {
+    this.setState({
+      error: "Something went wrong sharing this recipe. Please try again.",
+      showShareModal: false
+    });
+  };
+
   render() {
     const {
       recipe,
@@ -199,6 +206,8 @@ class Recipe extends React.Component {
           <ShareModal
             onCancelClick={() => this.setState({ showShareModal: false })}
             onSuccess={this.handleShareSuccess}
+            onFailure={this.handleShareFailure}
+            recipeId={recipe.id}
           />
         )}
         {showDeleteModal && (
