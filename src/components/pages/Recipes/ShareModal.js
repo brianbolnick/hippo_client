@@ -53,11 +53,15 @@ class ShareModal extends React.Component {
           })
           .then(resp => {
             const joinCodeValid = resp.status === 200;
-            this.setState({ loading: false, joinCodeValid });
+            const familyName = resp.data.data && resp.data.data.display_name;
+            this.setState({ loading: false, joinCodeValid, familyName });
           })
           .catch(err => {
-            console.log(err);
-            this.setState({ joinCodeValid: false, loading: false });
+            this.setState({
+              joinCodeValid: false,
+              loading: false,
+              familyName: ""
+            });
           });
       });
     }
@@ -71,7 +75,7 @@ class ShareModal extends React.Component {
 
   render() {
     const { onCancelClick } = this.props;
-    const { loading, joinCodeValid, joinCode } = this.state;
+    const { loading, joinCodeValid, joinCode, familyName } = this.state;
 
     return (
       <Modal>
@@ -91,6 +95,7 @@ class ShareModal extends React.Component {
               onChange={this.onCodeFieldChange}
             />
 
+            {familyName && <p>{familyName}</p>}
             <ButtonContainer>
               <Button loading={loading} type="submit" disabled={!joinCodeValid}>
                 Share
