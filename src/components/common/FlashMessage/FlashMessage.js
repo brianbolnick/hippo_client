@@ -6,7 +6,8 @@ import { colors, varela, media } from "styles/css-variables";
 const FlashContainer = styled.div`
   min-width: 500px;
   margin-left: -250px;
-  background-color: ${({ error }) => (error ? colors.darkRed : colors.black)};
+  background-color: ${({ error, success }) =>
+    error ? colors.darkRed : success ? colors.green : colors.black};
   color: ${colors.white};
   font-family: ${varela};
   text-align: center;
@@ -49,13 +50,11 @@ const CloseIcon = styled(Icon)`
 		border-radius: 50%;
 `;
 
-const FlashMessage = ({ children, error, closeable, visible }) => {
+const FlashMessage = ({ children, error, success, onClose, visible }) => {
   return (
-    <FlashContainer error={error} visible={visible}>
+    <FlashContainer error={error} visible={visible} success={success}>
       {children}
-      {closeable && (
-        <CloseIcon name="close" onClick={() => console.log("clicked")} />
-      )}
+      {onClose && <CloseIcon name="close" onClick={onClose} />}
     </FlashContainer>
   );
 };

@@ -15,7 +15,7 @@ const ButtonContainer = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  background: ${colors.black};
+  background: ${({ background }) => background || colors.black};
   cursor: pointer;
   width: 48px;
   height: 48px;
@@ -25,16 +25,10 @@ const ButtonContainer = styled.button`
     box-shadow: 0px 0px 6px 2px ${colors.offGray};
   }
 
-  ${media.phone`
-		box-shadow: 0px 0px 10px 1px #ffffff8c;
-
-		* > &:hover {
-			box-shadow: 0px 0px 10px 4px #ffffff8c;
-		}
-	`} div {
+  div {
     width: 100%;
     height: 100%;
-    padding: 12px;
+    padding: 10px;
     margin: 0;
   }
 
@@ -57,19 +51,27 @@ const Container = styled.div`
   }
 `;
 
-const ActionButton = ({ icon, color, onClick, to, tooltip, tipPosition }) => {
+const ActionButton = ({
+  icon,
+  fill,
+  background,
+  onClick,
+  to,
+  tooltip,
+  tipPosition
+}) => {
   return (
     <Container>
       <StyledTooltip type="arrow" tip={tooltip} position={tipPosition}>
         {to ? (
           <Link to={to}>
-            <ButtonContainer>
-              <Icon name={icon} color={color} />
+            <ButtonContainer background={background}>
+              <Icon name={icon} color={fill} />
             </ButtonContainer>
           </Link>
         ) : (
-          <ButtonContainer onClick={onClick}>
-            <Icon name={icon} color={color} />
+          <ButtonContainer onClick={onClick} background={background}>
+            <Icon name={icon} color={fill} />
           </ButtonContainer>
         )}
       </StyledTooltip>
@@ -79,7 +81,8 @@ const ActionButton = ({ icon, color, onClick, to, tooltip, tipPosition }) => {
 
 ActionButton.propTypes = {
   icon: PropTypes.string.isRequired,
-  color: PropTypes.string.isRequired,
+  fill: PropTypes.string.isRequired,
+  background: PropTypes.string.isRequired,
   onClick: PropTypes.func,
   to: PropTypes.string,
   tooltip: PropTypes.string.isRequired,

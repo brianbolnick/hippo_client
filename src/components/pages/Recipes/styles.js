@@ -34,8 +34,10 @@ export const Form = styled.form`
   display: flex;
   flex-flow: row;
   flex-wrap: wrap;
-  border: solid 4px ${colors.red};
+  //border: solid 4px ${colors.red};
   border-bottom: none;
+border-radius: 16px 16px 0 0;
+    box-shadow: 0px 0px 20px 4px rgba(0, 0, 0, 0.1);
 `;
 
 export const FormRow = styled.div`
@@ -221,7 +223,7 @@ padding: 8px 16px;
 	`};
 `;
 
-export const Ingredient = styled.div`
+export const Ingredient = styled.li`
   color: ${colors.offGray};
   margin: 24px 0;
 `;

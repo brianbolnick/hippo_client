@@ -66,7 +66,7 @@ class Modal extends Component {
     const keys = {
       27: () => {
         e.preventDefault();
-        onCloseRequest();
+        onCloseRequest && onCloseRequest();
         window.removeEventListener("keyup", this.handleKeyUp, false);
       }
     };
@@ -79,7 +79,7 @@ class Modal extends Component {
   handleOutsideClick(e) {
     const { onCloseRequest } = this.props;
     if (this.wrapperRef && !this.wrapperRef.contains(e.target)) {
-      onCloseRequest();
+      onCloseRequest && onCloseRequest();
       document.removeEventListener("click", this.handleOutsideClick, false);
     }
   }

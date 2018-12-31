@@ -84,7 +84,7 @@ class Recipe extends React.Component {
     return (
       ingredients &&
       ingredients.map((ing, index) => {
-        return <Ingredient key={`ingredient|${index}`}>- {ing}</Ingredient>;
+        return <Ingredient key={`ingredient|${index}`}>{ing}</Ingredient>;
       })
     );
   };
@@ -151,6 +151,14 @@ class Recipe extends React.Component {
         });
       });
   };
+
+  handleShareSuccess = () => {
+    this.setState({
+      shareSuccess: "Your recipe has been shared successfully.",
+      showShareModal: false
+    });
+  };
+
   render() {
     const {
       recipe,
@@ -159,6 +167,7 @@ class Recipe extends React.Component {
       showDeleteModal,
       showMobile,
       loading,
+      shareSuccess,
       error
     } = this.state;
     return loading ? (
@@ -171,13 +180,25 @@ class Recipe extends React.Component {
           query={phoneMediaQuery}
           onChange={this.handleMediaQueryChange}
         />
-        <FlashMessage visible={!!error} error>
+        <FlashMessage
+          visible={!!error}
+          error
+          onClose={() => this.setState({ error: "" })}
+        >
           {error}
+        </FlashMessage>
+        <FlashMessage
+          visible={!!shareSuccess}
+          success
+          onClose={() => this.setState({ shareSuccess: "" })}
+        >
+          {shareSuccess}
         </FlashMessage>
 
         {showShareModal && (
           <ShareModal
-            onCloseRequest={() => this.setState({ showShareModal: false })}
+            onCancelClick={() => this.setState({ showShareModal: false })}
+            onSuccess={this.handleShareSuccess}
           />
         )}
         {showDeleteModal && (
@@ -244,7 +265,9 @@ class Recipe extends React.Component {
               )}
 
               <SubTitle>Ingredients</SubTitle>
-              {this.renderIngredients()}
+              <ul style={{ paddingLeft: "16px" }}>
+                {this.renderIngredients()}
+              </ul>
             </IngredientsContainer>
             <FabContainer>
               <SettingsButton
@@ -259,21 +282,24 @@ class Recipe extends React.Component {
                   <ActionButton
                     icon="share"
                     onClick={() => this.setState({ showShareModal: true })}
-                    color={colors.green}
+                    background={colors.green}
+                    fill={colors.white}
                     tooltip="Share Recipe"
                     tipPosition={showMobile ? "top" : "left"}
                   />
                   <ActionButton
                     icon="edit"
                     to={`/recipes/${recipe.id}/edit`}
-                    color={colors.yellow}
+                    background={colors.yellow}
+                    fill={colors.black}
                     tooltip="Edit Recipe"
                     tipPosition={showMobile ? "top" : "left"}
                   />
                   <ActionButton
                     icon="closeOpenCircle"
                     onClick={() => this.setState({ showDeleteModal: true })}
-                    color={colors.red}
+                    background={colors.red}
+                    fill={colors.white}
                     tooltip="Delete Recipe"
                     tipPosition={showMobile ? "top" : "left"}
                   />

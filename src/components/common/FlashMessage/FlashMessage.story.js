@@ -7,7 +7,7 @@ storiesOf("Flash Message", module)
     <FlashMessage visible>This is some information!</FlashMessage>
   ))
   .add("Closeable", () => (
-    <FlashMessage closeable visible>
+    <FlashMessage onClose={() => console.log("closing")} visible>
       This is some information!
     </FlashMessage>
   ))
@@ -16,7 +16,11 @@ storiesOf("Flash Message", module)
       This is some information!
     </FlashMessage>
   ))
-
+  .add("Success", () => (
+    <FlashMessage success visible>
+      This is some information!
+    </FlashMessage>
+  ))
   .add("Error", () => (
     <FlashMessage error visible>
       This is some information!

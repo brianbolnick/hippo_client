@@ -5,6 +5,11 @@ import { action } from "@storybook/addon-actions";
 
 storiesOf("Button", module)
   .add("Default", () => <Button onClick={action("click")}>Primary</Button>)
+  .add("Disabled", () => (
+    <Button disabled onClick={action("click")}>
+      Disabled
+    </Button>
+  ))
   .add("Secondary", () => (
     <Button onClick={action("click")} secondary>
       Secondary

@@ -12,7 +12,9 @@ const StyledInput = styled.input`
   border: ${({ inputState }) =>
     inputState === "error"
       ? `solid 2px ${colors.darkRed}`
-      : `solid 2px ${colors.lightGray}`};
+      : inputState === "success"
+        ? `solid 2px ${colors.green}`
+        : `solid 2px ${colors.lightGray}`};
   height: 2.75em;
   line-height: 2.4em;
   border-radius: 4px;
@@ -30,7 +32,8 @@ const StyledInput = styled.input`
 
   &:focus {
     outline: none;
-    border-color: ${colors.red};
+    border-color: ${({ inputState }) =>
+      inputState === "success" ? colors.green : colors.red};
     background-color: ${colors.white};
   }
 `;
@@ -52,7 +55,13 @@ const StyledIcon = styled(Icon)`
   left: 8px;
   width: 20px;
   height: 20px;
-  ${({ focus }) => focus && `path {fill: ${colors.red};}`};
+  ${({ focus, inputState }) =>
+    focus &&
+    `
+			path {
+				fill: ${inputState === "success" ? colors.green : colors.red};
+			}
+	`};
 `;
 
 const Wrapper = styled.div``;
@@ -77,8 +86,21 @@ class Input extends React.Component {
             <StyledIcon
               label={label}
               focus={this.state.focus}
-              color={inputState === "error" ? colors.darkRed : "#dbdbdb"}
-              name={icon}
+              inputState={inputState}
+              color={
+                inputState === "error"
+                  ? colors.darkRed
+                  : inputState === "success"
+                    ? colors.green
+                    : "#dbdbdb"
+              }
+              name={
+                inputState === "success"
+                  ? "checkCircle"
+                  : inputState === "error"
+                    ? "close"
+                    : icon
+              }
             />
           )}
           <StyledInput

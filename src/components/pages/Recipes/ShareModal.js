@@ -3,12 +3,12 @@ import Modal from "components/common/Modal/Modal";
 import Input from "components/common/Input/Input";
 import Button from "components/common/Button/Button";
 import styled from "styled-components";
+import PropTypes from "prop-types";
 import { media } from "styles/css-variables";
+import { API_URL, token } from "utils";
+import axios from "axios";
 
-const ModalContent = styled.div`
-  background: white;
-  padding: 48px;
-`;
+const authToken = `Bearer ${token}`;
 
 export const FormContainer = styled.form`
   width: 485px;
@@ -20,7 +20,6 @@ export const FormContainer = styled.form`
 	background: #ffffff;
 	border-radius: 4px;
 	width: 100%;
-	box-shadow: 0 0 12px 3px #21212170;
 	padding: 16px;
 	`};
 `;
@@ -34,50 +33,81 @@ export const FormWrapper = styled.div`
 	width: 100%;
 	`};
 `;
+const ButtonContainer = styled.div`
+  display: flex;
+  width: 200px;
+  justify-content: space-between;
+  margin: 32px auto;
+`;
 
 class ShareModal extends React.Component {
-  state = { loading: false, error: "", joinCodeValid: false };
+  state = { loading: false, error: "", joinCodeValid: false, joinCode: "" };
 
   onCodeFieldChange = e => {
-    console.log("make request to validate join code: ", e.target.value);
-    const joinCodeValid = false;
-    this.setState({ joinCode: e.target.value, joinCodeValid });
+    const code = e.target.value;
+    if (code && code.length >= 3) {
+      this.setState({ loading: true, joinCode: code }, () => {
+        axios
+          .get(`${API_URL}/family/code/${code}`, {
+            headers: { Authorization: authToken }
+          })
+          .then(resp => {
+            const joinCodeValid = resp.status === 200;
+            this.setState({ loading: false, joinCodeValid });
+          })
+          .catch(err => {
+            console.log(err);
+            this.setState({ joinCodeValid: false, loading: false });
+          });
+      });
+    }
   };
 
   handleFormSubmit = e => {
     e.preventDefault();
+    console.log("submit");
+    this.props.onSuccess();
   };
 
   render() {
-    const { onCloseRequest } = this.props;
-    const { loading, error, joinCodeValid } = this.state;
+    const { onCancelClick } = this.props;
+    const { loading, joinCodeValid, joinCode } = this.state;
 
     return (
-      <Modal onCloseRequest={onCloseRequest}>
-        <ModalContent>
-          <p style={{ textAlign: "center" }}>
-            Share this recipe with another family! Enter the family code below
-            to share.
-          </p>
-          <FormWrapper>
-            <FormContainer onSubmit={this.handleFormSubmit}>
-              {error.message && <div>{error.message}</div>}
-              <Input
-                inputState={error.field === "join_code" ? "error" : ""}
-                type="text"
-                icon="users"
-                placeholder="Family Join Code"
-                onChange={this.onCodeFieldChange}
-              />
+      <Modal>
+        <p style={{ textAlign: "center" }}>
+          Share this recipe with another family! Enter the family code below to
+          share.
+        </p>
+        <FormWrapper>
+          <FormContainer onSubmit={this.handleFormSubmit}>
+            <Input
+              inputState={
+                joinCodeValid ? "success" : joinCode.length ? "error" : ""
+              }
+              type="text"
+              icon="users"
+              placeholder="Family Join Code"
+              onChange={this.onCodeFieldChange}
+            />
+
+            <ButtonContainer>
               <Button loading={loading} type="submit" disabled={!joinCodeValid}>
                 Share
               </Button>
-            </FormContainer>
-          </FormWrapper>
-        </ModalContent>
+              <Button secondary onClick={onCancelClick}>
+                Cancel
+              </Button>
+            </ButtonContainer>
+          </FormContainer>
+        </FormWrapper>
       </Modal>
     );
   }
 }
+ShareModal.propTypes = {
+  onCancelClick: PropTypes.func.isRequired,
+  onSuccess: PropTypes.func.isRequired
+};
 
 export default ShareModal;

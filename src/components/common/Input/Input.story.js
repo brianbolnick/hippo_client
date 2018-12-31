@@ -24,6 +24,18 @@ storiesOf("Input", module)
       />
     </div>
   ))
+  .add("Success", () => (
+    <div style={{ width: "300px" }}>
+      <Input
+        type="text"
+        placeholder="Email Address"
+        inputState="success"
+        icon="envelope"
+        onChange={action("change")}
+      />
+    </div>
+  ))
+
   .add("Icon", () => (
     <div style={{ width: "300px" }}>
       <Input

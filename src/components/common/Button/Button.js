@@ -53,6 +53,18 @@ const StyledButton = styled.button`
 		}
 	`};
 
+  ${({ disabled }) =>
+    disabled &&
+    `
+		background:  ${colors.mutedGray};
+		border: solid 2px ${colors.offGray};
+		color: ${colors.black};
+		cursor: not-allowed;
+		:hover { 
+			 box-shadow: none;
+		}
+	`};
+
   ${({ tertiary }) =>
     tertiary &&
     `
