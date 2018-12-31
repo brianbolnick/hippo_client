@@ -1,6 +1,7 @@
 import React from "react";
 import Layout from "components/common/Layout/Layout";
 import RecipeCard from "components/common/Recipe/RecipeCard";
+import Divider from "components/common/Divider/Divider";
 import { API_URL, token, familyId } from "utils";
 import axios from "axios";
 import { RecipeList } from "./styles";
@@ -8,7 +9,7 @@ import Loader from "img/loader.gif";
 import styled from "styled-components";
 import Button from "components/common/Button/Button";
 import { Link } from "react-router-dom";
-
+import { rufina } from "styles/css-variables";
 const authToken = `Bearer ${token}`;
 
 const LoadContainer = styled.div`
@@ -17,6 +18,15 @@ const LoadContainer = styled.div`
   width: 100%;
   justify-content: center;
   align-items: center;
+`;
+
+const Heading = styled.div`
+  font-family: ${rufina};
+  font-size: 1.8rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 16px;
 `;
 
 const getFamilyRecipes = () => {
@@ -40,12 +50,13 @@ class Recipe extends React.Component {
       .then(
         axios.spread((recipeData, sharedRecipeData) => {
           //debugger;
-          let recipes = recipeData.data.data;
+          const recipes = recipeData.data.data;
+          const sharedRecipes = sharedRecipeData.data.data;
           //const recipes = recipeData.data.data.concat(
           //sharedRecipeData.data.data
           //);
-          this.setState({ recipes }, () =>
-            setTimeout(() => this.setState({ loading: false }), 3000)
+          this.setState({ recipes, sharedRecipes }, () =>
+            setTimeout(() => this.setState({ loading: false }), 2000)
           );
         })
       )
@@ -54,15 +65,13 @@ class Recipe extends React.Component {
       });
   };
 
-  renderRecipes = () => {
-    const { recipes } = this.state;
-
+  renderRecipes = recipes => {
     return recipes.length ? (
       recipes.map(recipe => {
         return <RecipeCard key={recipe.id} data={recipe} />;
       })
     ) : (
-      <div>Nothing here yet! Create something new!</div>
+      <div>Nothing here yet!</div>
     );
   };
 
@@ -78,7 +87,16 @@ class Recipe extends React.Component {
             />
           </LoadContainer>
         ) : (
-          <RecipeList>{this.renderRecipes()}</RecipeList>
+          <>
+            <Heading>My Family Recipes</Heading>
+            <RecipeList>{this.renderRecipes(this.state.recipes)}</RecipeList>
+            {/*
+            <Heading>Recipes Shared With Me</Heading>
+            <RecipeList>
+              {this.renderRecipes(this.state.sharedRecipes)}
+						</RecipeList>
+						*/}
+          </>
         )}
         <Link to="/recipes/new">
           <Button fixed icon="addRecipe">
