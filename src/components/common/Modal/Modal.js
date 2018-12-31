@@ -22,7 +22,7 @@ const Overlay = styled.div`
 const StyledModal = styled.div`
   display: inline-block;
   position: relative;
-  width: 50%;
+  width: ${({ width }) => (width ? width : "50%")};
   animation: ${scaleUp} 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
   @media (max-width: 1320px) {
     width: 90%;
@@ -33,10 +33,11 @@ const ModalContent = styled.div`
   background: white;
   width: 100%;
   height: 100%;
-  padding: 50px;
+  padding: 24px;
   border-radius: 3px;
   font-weight: 300;
   text-align: center;
+  box-sizing: border-box;
   box-shadow: 0px 11px 15px -7px rgba(0, 0, 0, 0.2),
     0px 24px 38px 3px rgba(0, 0, 0, 0.14), 0px 9px 46px 8px rgba(0, 0, 0, 0.12);
 `;
@@ -88,11 +89,11 @@ class Modal extends Component {
   };
 
   render() {
-    const { children } = this.props;
+    const { children, width } = this.props;
 
     return (
       <Overlay>
-        <StyledModal>
+        <StyledModal width={width}>
           <ModalContent ref={this.setWrapperRef}>{children}</ModalContent>
         </StyledModal>
       </Overlay>
@@ -102,6 +103,7 @@ class Modal extends Component {
 
 Modal.propTypes = {
   onCloseRequest: PropTypes.func,
+  width: PropTypes.string,
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node

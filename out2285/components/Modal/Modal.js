@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
-import { fadeIn, scaleUp } from "../../styles/css-variables";
+import { fadeIn, scaleUp } from "styles/css-variables";
 
 const Overlay = styled.div`
   display: flex;

@@ -5,6 +5,7 @@ import axios from "axios";
 import moment from "moment";
 import Loader from "img/loader.gif";
 import ShareModal from "./ShareModal";
+import DeleteModal from "./DeleteModal";
 import {
   CategoryContainer,
   RecipeHeader,
@@ -42,10 +43,13 @@ import { colors } from "styles/css-variables";
 import MediaQuery from "components/common/MediaQuery/MediaQuery";
 import { phoneMediaQuery } from "styles/css-variables";
 
+const authToken = `Bearer ${token}`;
+
 class Recipe extends React.Component {
   state = {
     recipe: {},
     showShareModal: false,
+    showDeleteModal: false,
     showActions: false,
     showMobile: window.matchMedia("(" + phoneMediaQuery + ")").matches,
     loading: true
@@ -56,8 +60,6 @@ class Recipe extends React.Component {
   };
 
   componentDidMount = () => {
-    const authToken = `Bearer ${token}`;
-
     const id = this.props.match.params.id;
     axios
       .get(`${API_URL}/recipes/${id}`, {
@@ -125,11 +127,36 @@ class Recipe extends React.Component {
     return created_at && moment(created_at).format("MMM Do, YYYY");
   };
 
+  handleDeleteRecipe = () => {
+    const id = this.props.match.params.id;
+    console.log("delete");
+    this.setState({ showDeleteModal: false });
+    axios
+      .delete(`${API_URL}/recipes/${id}`, {
+        headers: { Authorization: authToken }
+      })
+      .then(resp => {
+        if (resp.status !== 200) {
+          this.setState({
+            error: "Something went wrong. Please refresh and try again."
+          });
+        } else {
+          window.location.replace("/");
+        }
+      })
+      .catch(err => {
+        console.log(err);
+        this.setState({
+          error: "Something went wrong. Please refresh and try again."
+        });
+      });
+  };
   render() {
     const {
       recipe,
       showActions,
       showShareModal,
+      showDeleteModal,
       showMobile,
       loading,
       error
@@ -151,6 +178,12 @@ class Recipe extends React.Component {
         {showShareModal && (
           <ShareModal
             onCloseRequest={() => this.setState({ showShareModal: false })}
+          />
+        )}
+        {showDeleteModal && (
+          <DeleteModal
+            onDeleteClick={this.handleDeleteRecipe}
+            onCancelClick={() => this.setState({ showDeleteModal: false })}
           />
         )}
         <ShowContainer>
@@ -239,7 +272,7 @@ class Recipe extends React.Component {
                   />
                   <ActionButton
                     icon="closeOpenCircle"
-                    onClick={() => this.setState({ showShareModal: true })}
+                    onClick={() => this.setState({ showDeleteModal: true })}
                     color={colors.red}
                     tooltip="Delete Recipe"
                     tipPosition={showMobile ? "top" : "left"}

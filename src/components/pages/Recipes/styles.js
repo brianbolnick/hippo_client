@@ -34,6 +34,8 @@ export const Form = styled.form`
   display: flex;
   flex-flow: row;
   flex-wrap: wrap;
+  border: solid 4px ${colors.red};
+  border-bottom: none;
 `;
 
 export const FormRow = styled.div`
