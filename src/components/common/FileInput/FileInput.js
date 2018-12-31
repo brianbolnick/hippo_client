@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import Icon from "components/common/Icon/Icon";
 import Button from "components/common/Button/Button";
 import Divider from "components/common/Divider/Divider";
-import { colors, varela } from "styles/css-variables";
+import { colors, varela, phoneMediaQuery } from "styles/css-variables";
+import MediaQuery from "components/common/MediaQuery/MediaQuery";
 
 const Container = styled.div`
   position: relative;
@@ -75,28 +76,56 @@ const UploadButton = styled(Button)`
   max-width: 100%;
 `;
 
+const MobileContainer = styled.div``;
+
+const Label = styled.div`
+  margin-bottom: 8px;
+`;
+
 const FileInput = ({ onChange, label, fileName, onClear }, ...props) => {
+  const [showMobile, setShowMobile] = useState(
+    window.matchMedia("(" + phoneMediaQuery + ")").matches
+  );
+
+  const handleMediaQueryChange = ({ matches }) => {
+    setShowMobile(matches);
+  };
+
   return (
-    <Container>
-      <StyledButton>
-        {fileName ? (
-          <DropBox>
-            <StyledIcon name="checkCircle" color={colors.green} />
-            <Description>{fileName}</Description>
-            <Divider />
-            <UploadButton secondary>Reselect</UploadButton>
-          </DropBox>
-        ) : (
-          <DropBox>
-            <StyledIcon name="upload" color={colors.darkGray} />
-            <Description>Drag and drop an image here!</Description>
-            <Divider>OR</Divider>
-            <UploadButton secondary>Click to Browse</UploadButton>
-          </DropBox>
-        )}
-      </StyledButton>
-      <input onChange={onChange} type="file" accept="image/*" {...props} />
-    </Container>
+    <>
+      <MediaQuery
+        query={phoneMediaQuery}
+        onChange={matches => handleMediaQueryChange(matches)}
+      />
+
+      {showMobile ? (
+        <MobileContainer>
+          <Label>Image</Label>
+          <input onChange={onChange} type="file" accept="image/*" {...props} />
+        </MobileContainer>
+      ) : (
+        <Container>
+          <StyledButton>
+            {fileName ? (
+              <DropBox>
+                <StyledIcon name="checkCircle" color={colors.green} />
+                <Description>{fileName}</Description>
+                <Divider />
+                <UploadButton secondary>Reselect</UploadButton>
+              </DropBox>
+            ) : (
+              <DropBox>
+                <StyledIcon name="upload" color={colors.darkGray} />
+                <Description>Drag and drop an image here!</Description>
+                <Divider>OR</Divider>
+                <UploadButton secondary>Click to Browse</UploadButton>
+              </DropBox>
+            )}
+          </StyledButton>
+          <input onChange={onChange} type="file" accept="image/*" {...props} />
+        </Container>
+      )}
+    </>
   );
 };
 

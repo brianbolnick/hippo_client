@@ -17,6 +17,7 @@ import {
   Notice
 } from "./styles";
 import Input from "components/common/Input/Input";
+import MediaQuery from "components/common/MediaQuery/MediaQuery";
 import AddableInput from "components/common/AddableInput/AddableInput";
 import ControlledInput from "components/common/ControlledInput/ControlledInput";
 import Select from "components/common/Select/Select";
@@ -24,6 +25,7 @@ import FlashMessage from "components/common/FlashMessage/FlashMessage";
 import Button from "components/common/Button/Button";
 import Divider from "components/common/Divider/Divider";
 import Textarea from "components/common/Textarea/Textarea";
+import { tabletMediaQuery } from "styles/css-variables";
 
 const AVAILABLE_TIMES = ["Mins", "Hrs", "Days"];
 
@@ -45,7 +47,8 @@ class NewRecipe extends Component {
       category_id: 1,
       notes: "",
       error: "",
-      loading: false
+      loading: false,
+      showMobile: window.matchMedia("(" + tabletMediaQuery + ")").matches
     };
   }
 
@@ -69,14 +72,12 @@ class NewRecipe extends Component {
   handleAddIngredients = ing => {
     const ingredients = [...this.state.ingredients];
     ingredients.push(ing);
-    console.log(ingredients);
     this.setState({ ingredients });
   };
 
   handleAddSteps = step => {
     const steps = [...this.state.steps];
     steps.push(step);
-    console.log(steps);
     this.setState({ steps });
   };
 
@@ -133,6 +134,7 @@ class NewRecipe extends Component {
     delete stateData.loading;
     delete stateData.error;
     delete stateData.categories;
+    delete stateData.showMobile;
     Object.keys(stateData).forEach(obj => {
       const val = stateData[obj];
       if (val instanceof Array) {
@@ -170,10 +172,18 @@ class NewRecipe extends Component {
     this.setState({ image: null });
   };
 
+  handleMediaQueryChange = ({ matches }) => {
+    this.setState({ showMobile: matches });
+  };
+
   render() {
-    const { loading, error } = this.state;
+    const { loading, error, showMobile } = this.state;
     return (
       <Layout>
+        <MediaQuery
+          query={tabletMediaQuery}
+          onChange={this.handleMediaQueryChange}
+        />
         <FlashMessage visible={!!error.message} error>
           {error.message}
         </FlashMessage>
@@ -239,9 +249,11 @@ class NewRecipe extends Component {
               onChange={this.handleUploadImage}
               onClear={this.removeImage}
             />
-            <Button type="submit" loading={loading}>
-              Create Recipe
-            </Button>
+            {!showMobile && (
+              <Button type="submit" loading={loading}>
+                Create Recipe
+              </Button>
+            )}
           </InputArea>
           <ListArea>
             <AddableContainer>
@@ -253,6 +265,7 @@ class NewRecipe extends Component {
               <TempIngredientsContainer>
                 {this.renderIngredients()}
               </TempIngredientsContainer>
+              {showMobile && <Divider full />}
               <AddableInput
                 onAddClick={this.handleAddSteps}
                 label="Directions"
@@ -274,6 +287,11 @@ class NewRecipe extends Component {
               placeholder="Recipe Notes"
             />
           </ListArea>
+          {showMobile && (
+            <Button type="submit" loading={loading}>
+              Create Recipe
+            </Button>
+          )}
         </Form>
       </Layout>
     );

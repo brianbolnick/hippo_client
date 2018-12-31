@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
-import { phoneMediaQuery, media } from "styles/css-variables";
+import { tabletMediaQuery, media } from "styles/css-variables";
 import Nav from "components/common/Nav/Nav";
 import MobileNav from "components/common/Nav/MobileNav";
 import MediaQuery from "components/common/MediaQuery/MediaQuery";
@@ -28,7 +28,7 @@ const Content = styled.div`
 
 class Layout extends React.Component {
   state = {
-    showMobile: window.matchMedia("(" + phoneMediaQuery + ")").matches
+    showMobile: window.matchMedia("(" + tabletMediaQuery + ")").matches
   };
 
   handleMediaQueryChange = ({ matches }) => {
@@ -41,7 +41,7 @@ class Layout extends React.Component {
     return (
       <>
         <MediaQuery
-          query={phoneMediaQuery}
+          query={tabletMediaQuery}
           onChange={this.handleMediaQueryChange}
         />
         {showMobile ? <MobileNav /> : <Nav recipe={recipe} />}

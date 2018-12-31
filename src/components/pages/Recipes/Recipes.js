@@ -7,7 +7,7 @@ import Tab from "components/common/Tabs/Tab";
 import Tabs from "components/common/Tabs/Tabs";
 import TabPane from "components/common/Tabs/TabPane";
 import { Link } from "react-router-dom";
-import { rufina } from "styles/css-variables";
+import { rufina, media } from "styles/css-variables";
 import FlashMessage from "components/common/FlashMessage/FlashMessage";
 
 const TabLink = styled.div``;
@@ -29,6 +29,9 @@ const Heading = styled.div`
 const Header = styled.div`
   display: flex;
   justify-content: space-between;
+  ${media.phone`
+    flex-flow: column;
+`}
 `;
 
 const Recipes = () => {

@@ -36,8 +36,12 @@ export const Form = styled.form`
   flex-wrap: wrap;
   //border: solid 4px ${colors.red};
   border-bottom: none;
-border-radius: 16px 16px 0 0;
-    box-shadow: 0px 0px 20px 4px rgba(0, 0, 0, 0.1);
+	border-radius: 16px 16px 0 0;
+	box-shadow: 0px 0px 20px 4px rgba(0, 0, 0, 0.1);
+
+	${media.tablet`
+		box-shadow: none;
+`}
 `;
 
 export const FormRow = styled.div`
