@@ -20,19 +20,21 @@ const RecipesTab = ({ recipeType, onError }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios
-      .get(`${API_URL}/family/${familyId}/${recipeType}`, {
-        headers: { Authorization: authToken }
-      })
-      .then(({ data }) => {
-        const recipes = data.data;
-        setLoading(false);
-        setRecipes(recipes);
-      })
-      .catch(err => {
-        console.log(err);
-        onError("Something went wrong, please try again.");
-      });
+    if (!recipes.length) {
+      axios
+        .get(`${API_URL}/family/${familyId}/${recipeType}`, {
+          headers: { Authorization: authToken }
+        })
+        .then(({ data }) => {
+          const recipes = data.data;
+          setLoading(false);
+          setRecipes(recipes);
+        })
+        .catch(err => {
+          console.log(err);
+          onError("Something went wrong, please try again.");
+        });
+    }
   });
 
   const renderRecipes = recipes => {
