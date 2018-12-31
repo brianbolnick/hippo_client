@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import RecipeCard from "components/common/Recipe/RecipeCard";
 import { API_URL, token, familyId } from "utils";
 import axios from "axios";
@@ -15,27 +15,27 @@ const LoadContainer = styled.div`
   align-items: center;
 `;
 
-class RecipesTab extends React.Component {
-  state = { recipes: [], sharedRecipes: [], loading: true };
+const RecipesTab = ({ recipeType, onError }) => {
+  const [recipes, setRecipes] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  componentDidMount = () => {
-    const { recipeType } = this.props;
+  useEffect(() => {
     axios
       .get(`${API_URL}/family/${familyId}/${recipeType}`, {
         headers: { Authorization: authToken }
       })
       .then(({ data }) => {
         const recipes = data.data;
-        this.setState({ recipes }, () =>
-          setTimeout(() => this.setState({ loading: false }), 2000)
-        );
+        setLoading(false);
+        setRecipes(recipes);
       })
       .catch(err => {
         console.log(err);
+        onError("Something went wrong, please try again.");
       });
-  };
+  });
 
-  renderRecipes = recipes => {
+  const renderRecipes = recipes => {
     return recipes.length ? (
       recipes.map(recipe => {
         return <RecipeCard key={recipe.id} data={recipe} />;
@@ -45,15 +45,13 @@ class RecipesTab extends React.Component {
     );
   };
 
-  render() {
-    return this.state.loading ? (
-      <LoadContainer>
-        <img alt="" src={Loader} style={{ height: "300px", width: "300px" }} />
-      </LoadContainer>
-    ) : (
-      <RecipeList>{this.renderRecipes(this.state.recipes)}</RecipeList>
-    );
-  }
-}
+  return loading ? (
+    <LoadContainer>
+      <img alt="" src={Loader} style={{ height: "300px", width: "300px" }} />
+    </LoadContainer>
+  ) : (
+    <RecipeList>{renderRecipes(recipes)}</RecipeList>
+  );
+};
 
 export default RecipesTab;

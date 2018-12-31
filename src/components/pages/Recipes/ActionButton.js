@@ -3,7 +3,7 @@ import styled from "styled-components";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import Icon from "components/common/Icon/Icon";
-import { fadeInDown, colors, media } from "styles/css-variables";
+import { fadeInDown, colors } from "styles/css-variables";
 import Tooltip from "components/common/Tooltip/Tooltip";
 
 const StyledTooltip = styled(Tooltip)``;

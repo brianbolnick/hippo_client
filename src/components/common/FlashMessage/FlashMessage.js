@@ -14,7 +14,7 @@ const FlashContainer = styled.div`
   border-radius: 3px 3px 0 0;
   padding: 16px;
   position: fixed;
-  z-index: 1;
+  z-index: 1999;
   left: 50%;
   bottom: 0;
   font-size: 1.1rem;
