@@ -5,6 +5,7 @@ import SignUp from "./pages/Auth/SignUp";
 import Recipes from "./pages/Recipes";
 import Recipe from "./pages/Recipes/Recipe";
 import NewRecipe from "./pages/Recipes/NewRecipe";
+import EditRecipe from "./pages/Recipes/EditRecipe";
 import About from "./pages/About";
 import Family from "./pages/Family/Family";
 import NotFound from "./pages/NotFound";
@@ -68,6 +69,13 @@ class App extends Component {
           exact
           component={NewRecipe}
         />
+        <AuthRoute
+          path="/recipes/:id/edit"
+          isAuthenticated={this.isLoggedIn()}
+          exact
+          component={EditRecipe}
+        />
+
         <AuthRoute
           path="/recipes/:id"
           isAuthenticated={this.isLoggedIn()}

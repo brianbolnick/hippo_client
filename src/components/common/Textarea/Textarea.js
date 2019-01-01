@@ -84,7 +84,7 @@ class Textarea extends React.Component {
           <StyledTextarea
             placeholder={placeholder}
             onChange={onChange}
-            value={this.state.text}
+            value={this.state.text || this.props.value}
             inputState={inputState}
             icon={icon}
             onFocus={() => this.setState({ focus: true })}

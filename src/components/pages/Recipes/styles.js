@@ -3,6 +3,13 @@ import { colors, rufina, media } from "styles/css-variables";
 import Button from "components/common/Button/Button";
 
 //New Form Styles
+export const ButtonContainer = styled.div`
+  display: flex;
+  button {
+    margin-right: 8px;
+  }
+`;
+
 export const ShowContainer = styled.div`
   height: 100%;
   width: 100%;
@@ -79,6 +86,7 @@ export const ListArea = styled.div`
   width: 50%;
   padding: 32px;
   box-sizing: border-box;
+  overflow-y: scroll;
   ${media.tablet`
 		width: 100%;
 		padding: 16px;

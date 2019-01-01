@@ -13,8 +13,8 @@ const StyledInput = styled.input`
     inputState === "error"
       ? `solid 2px ${colors.darkRed}`
       : inputState === "success"
-        ? `solid 2px ${colors.green}`
-        : `solid 2px ${colors.lightGray}`};
+      ? `solid 2px ${colors.green}`
+      : `solid 2px ${colors.lightGray}`};
   height: 2.75em;
   line-height: 2.4em;
   border-radius: 4px;
@@ -91,15 +91,15 @@ class Input extends React.Component {
                 inputState === "error"
                   ? colors.darkRed
                   : inputState === "success"
-                    ? colors.green
-                    : "#dbdbdb"
+                  ? colors.green
+                  : "#dbdbdb"
               }
               name={
                 inputState === "success"
                   ? "checkCircle"
                   : inputState === "error"
-                    ? "close"
-                    : icon
+                  ? "close"
+                  : icon
               }
             />
           )}
@@ -111,6 +111,7 @@ class Input extends React.Component {
             icon={icon}
             onFocus={() => this.setState({ focus: true })}
             onBlur={() => this.setState({ focus: false })}
+            {...this.props}
           />
         </Container>
       </Wrapper>

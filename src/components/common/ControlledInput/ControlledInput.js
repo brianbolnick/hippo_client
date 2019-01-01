@@ -55,7 +55,15 @@ class ControlledInput extends React.Component {
   };
 
   render() {
-    const { children, placeholder, label, icon, inputState } = this.props;
+    const {
+      children,
+      placeholder,
+      label,
+      icon,
+      inputState,
+      defaultInputValue,
+      defaultSelectValue
+    } = this.props;
 
     return (
       <Wrapper>
@@ -66,8 +74,12 @@ class ControlledInput extends React.Component {
             inputState={inputState}
             onChange={this.handleInputChange}
             icon={icon}
+            value={defaultInputValue}
           />
-          <StyledSelect onChange={this.handleSelectChange}>
+          <StyledSelect
+            onChange={this.handleSelectChange}
+            value={defaultSelectValue}
+          >
             {children}
           </StyledSelect>
         </InputContainer>
@@ -78,6 +90,8 @@ class ControlledInput extends React.Component {
 
 ControlledInput.propTypes = {
   type: PropTypes.string,
+  defaultInputValue: PropTypes.string,
+  defaultSelectValue: PropTypes.string,
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node
@@ -86,8 +100,7 @@ ControlledInput.propTypes = {
   placeholder: PropTypes.string,
   label: PropTypes.string,
   icon: PropTypes.string,
-  inputState: PropTypes.string,
-  defaultSelectValue: PropTypes.string.isRequired
+  inputState: PropTypes.string
 };
 
 export default ControlledInput;

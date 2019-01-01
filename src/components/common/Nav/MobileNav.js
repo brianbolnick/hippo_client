@@ -64,7 +64,6 @@ class MobileNav extends React.Component {
           {token && (
             <>
               <NavLinkMobile to="/recipes">Recipes</NavLinkMobile>
-              <NavLinkMobile to="/family">Family</NavLinkMobile>
               <NavLinkButton asLink onClick={signOut}>
                 Sign Out
               </NavLinkButton>
