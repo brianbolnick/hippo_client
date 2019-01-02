@@ -43,6 +43,7 @@ export const Form = styled.form`
   flex-flow: row;
   flex-wrap: wrap;
   //border: solid 4px ${colors.red};
+	border-top: solid 4px #ff2e65;
   border-bottom: none;
 	border-radius: 16px 16px 0 0;
 	box-shadow: 0px 0px 20px 4px rgba(0, 0, 0, 0.1);
