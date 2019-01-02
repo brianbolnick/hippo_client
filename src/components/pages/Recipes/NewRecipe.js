@@ -5,16 +5,18 @@ import axios from "axios";
 import FileInput from "components/common/FileInput/FileInput";
 import {
   TempIngredient,
-  TempStep,
+  Direction,
+  TempDirection,
   TempIngredientsContainer,
-  StepsContainer,
+  DirectionsContainer,
   Form,
   AddableContainer,
   InputArea,
   ListArea,
   FormRow,
   Steps,
-  Notice
+  Notice,
+  DeleteIcon
 } from "./styles";
 import Input from "components/common/Input/Input";
 import MediaQuery from "components/common/MediaQuery/MediaQuery";
@@ -70,15 +72,19 @@ class NewRecipe extends Component {
   };
 
   handleAddIngredients = ing => {
-    const ingredients = [...this.state.ingredients];
-    ingredients.push(ing);
-    this.setState({ ingredients });
+    if (ing) {
+      const ingredients = [...this.state.ingredients];
+      ingredients.push(ing);
+      this.setState({ ingredients });
+    }
   };
 
   handleAddSteps = step => {
-    const steps = [...this.state.steps];
-    steps.push(step);
-    this.setState({ steps });
+    if (step) {
+      const steps = [...this.state.steps];
+      steps.push(step);
+      this.setState({ steps });
+    }
   };
 
   renderCategories = () => {
@@ -110,10 +116,25 @@ class NewRecipe extends Component {
     });
   };
 
+  deleteIngredient = ing => {
+    const ingredients = [...this.state.ingredients];
+    this.setState({ ingredients: ingredients.filter(x => x !== ing) });
+  };
+
+  deleteStep = step => {
+    const steps = [...this.state.steps];
+    this.setState({ steps: steps.filter(x => x !== step) });
+  };
+
   renderIngredients = () => {
     const { ingredients } = this.state;
     return ingredients.length ? (
-      ingredients.map(ing => <TempIngredient>{ing}</TempIngredient>)
+      ingredients.map(ing => (
+        <TempIngredient>
+          <span>{ing}</span>
+          <DeleteIcon name="close" onClick={() => this.deleteIngredient(ing)} />
+        </TempIngredient>
+      ))
     ) : (
       <Notice>Use the field above to add ingredients!</Notice>
     );
@@ -121,7 +142,23 @@ class NewRecipe extends Component {
 
   renderSteps = () => {
     const { steps } = this.state;
-    return steps.length ? steps.map(ing => <TempStep>{ing}</TempStep>) : null;
+    return steps.length
+      ? steps.map((step, index) => {
+          return (
+            <Direction key={`dir|${index}`} style={{ alignItems: "center" }}>
+              <span>{index + 1}</span>
+              <TempDirection>
+                <div>{step}</div>
+                <DeleteIcon
+                  name="close"
+                  onClick={() => this.deleteStep(step)}
+                  clear
+                />
+              </TempDirection>
+            </Direction>
+          );
+        })
+      : null;
   };
 
   handleSubmit = e => {
@@ -271,13 +308,13 @@ class NewRecipe extends Component {
                 label="Directions"
                 placeholder="Click + to add a new step"
               />
-              <StepsContainer>
+              <DirectionsContainer>
                 {this.state.steps.length ? (
                   <Steps>{this.renderSteps()}</Steps>
                 ) : (
                   <Notice>Use the field above to add a step!</Notice>
                 )}
-              </StepsContainer>
+              </DirectionsContainer>
             </AddableContainer>
 
             <Divider full />

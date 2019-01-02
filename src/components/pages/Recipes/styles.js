@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { colors, rufina, media } from "styles/css-variables";
 import Button from "components/common/Button/Button";
+import Icon from "components/common/Icon/Icon";
 
 //New Form Styles
 export const ButtonContainer = styled.div`
@@ -99,19 +100,44 @@ export const AddableContainer = styled.div`
 `;
 
 export const TempIngredient = styled.div`
-  max-width: 32%;
+  //max-width: 32%;
   background-color: ${colors.red};
   color: white;
   padding: 8px;
   border-radius: 8px;
   font-size: 0.8rem;
   margin-bottom: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 
   &:not(:last-child) {
     margin-right: 8px;
   }
 `;
 
+export const DeleteIcon = styled(Icon)`
+  height: 16px;
+  width: 16px;
+  min-width: 16px;
+  min-height: 16px;
+  margin-left: 8px;
+  cursor: pointer;
+  &:hover {
+    background-color: ${({ clear }) => (clear ? "" : colors.darkRed)};
+    path {
+      fill: ${({ clear }) => (!clear ? "" : colors.red)};
+    }
+    border-radius: 50%;
+  }
+`;
+
+export const TempDirection = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+`;
 export const TempStep = styled.li`
   color: ${colors.black};
   font-weight: 600;

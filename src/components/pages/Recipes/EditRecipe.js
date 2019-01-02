@@ -5,7 +5,8 @@ import axios from "axios";
 import FileInput from "components/common/FileInput/FileInput";
 import {
   TempIngredient,
-  TempStep,
+  Direction,
+  TempDirection,
   TempIngredientsContainer,
   StepsContainer,
   Form,
@@ -15,7 +16,8 @@ import {
   FormRow,
   Steps,
   Notice,
-  ButtonContainer
+  ButtonContainer,
+  DeleteIcon
 } from "./styles";
 import Input from "components/common/Input/Input";
 import MediaQuery from "components/common/MediaQuery/MediaQuery";
@@ -152,10 +154,25 @@ class EditRecipe extends Component {
     });
   };
 
+  deleteIngredient = ing => {
+    const ingredients = [...this.state.ingredients];
+    this.setState({ ingredients: ingredients.filter(x => x !== ing) });
+  };
+
+  deleteStep = step => {
+    const steps = [...this.state.steps];
+    this.setState({ steps: steps.filter(x => x !== step) });
+  };
+
   renderIngredients = () => {
     const { ingredients } = this.state;
     return ingredients.length ? (
-      ingredients.map(ing => <TempIngredient>{ing}</TempIngredient>)
+      ingredients.map(ing => (
+        <TempIngredient>
+          <span>{ing}</span>
+          <DeleteIcon name="close" onClick={() => this.deleteIngredient(ing)} />
+        </TempIngredient>
+      ))
     ) : (
       <Notice>Use the field above to add ingredients!</Notice>
     );
@@ -163,7 +180,23 @@ class EditRecipe extends Component {
 
   renderSteps = () => {
     const { steps } = this.state;
-    return steps.length ? steps.map(ing => <TempStep>{ing}</TempStep>) : null;
+    return steps.length
+      ? steps.map((step, index) => {
+          return (
+            <Direction key={`dir|${index}`} style={{ alignItems: "center" }}>
+              <span>{index + 1}</span>
+              <TempDirection>
+                <div>{step}</div>
+                <DeleteIcon
+                  name="close"
+                  onClick={() => this.deleteStep(step)}
+                  clear
+                />
+              </TempDirection>
+            </Direction>
+          );
+        })
+      : null;
   };
 
   handleSubmit = e => {
