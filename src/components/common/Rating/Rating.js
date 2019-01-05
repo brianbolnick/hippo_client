@@ -3,15 +3,24 @@ import styled from "styled-components";
 import PropTypes from "prop-types";
 import Star from "./Star";
 import Popover from "components/common/Popover/Popover";
+import RateModal from "./RateModal";
 
 const StyledSpan = styled.span``;
 const RatingContainer = styled.div`
   max-width: 125px;
+
+  ${({ rateable }) =>
+    rateable &&
+    `
+	cursor: pointer
+`}
 `;
 
 class Rating extends Component {
+  state = { showRateModal: false };
+
   renderStars = () => {
-    const { value } = this.props;
+    const { value, rateable } = this.props;
 
     //round value to nearest .5
     const rounded = Math.round(value * 2) / 2;
@@ -32,22 +41,44 @@ class Rating extends Component {
       }
     }
 
-    return <RatingContainer>{stars}</RatingContainer>;
-  };
-  render() {
     return (
-      <Popover target={this.renderStars()}>
-        <StyledSpan>
-          Rating: {this.props.value && this.props.value.toFixed(1)}
-          /5
-        </StyledSpan>
-      </Popover>
+      <RatingContainer
+        rateable={rateable}
+        onClick={() => rateable && this.setState({ showRateModal: true })}
+      >
+        {stars}
+      </RatingContainer>
+    );
+  };
+
+  render() {
+    const { rateable } = this.props;
+    const { showRateModal } = this.state;
+    return (
+      <>
+        {showRateModal && (
+          <RateModal
+            onCancelClick={() => this.setState({ showRateModal: false })}
+            onSuccess={() => console.log("success")}
+            onFailire={() => console.log("success")}
+          />
+        )}
+        <Popover target={this.renderStars()}>
+          <StyledSpan
+            onClick={() => rateable && this.setState({ showRateModal: true })}
+          >
+            Rating: {this.props.value && this.props.value.toFixed(1)}
+            /5
+          </StyledSpan>
+        </Popover>
+      </>
     );
   }
 }
 
 Rating.propTypes = {
-  value: PropTypes.number.isRequired
+  value: PropTypes.number.isRequired,
+  rateable: PropTypes.bool
 };
 
 export default Rating;

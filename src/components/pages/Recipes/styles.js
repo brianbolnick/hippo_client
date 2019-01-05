@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { colors, rufina, media } from "styles/css-variables";
+import { colors, rufina, media, raleway } from "styles/css-variables";
 import Button from "components/common/Button/Button";
 import Icon from "components/common/Icon/Icon";
 
@@ -315,7 +315,8 @@ export const SubTitle = styled.div`
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
-  color: ${colors.darkGray};
+  color: ${colors.black};
+  font-family: ${raleway};
 `;
 
 export const Meta = styled.div`

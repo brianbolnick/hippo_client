@@ -237,7 +237,7 @@ class Recipe extends React.Component {
                       <Date>{this.renderDate()}</Date>
                     </CategoryContainer>
                     <RatingContainer>
-                      <Rating value={recipe.rating} />
+                      <Rating value={recipe.rating} rateable />
                       <RatingCount>
                         {recipe.rating_count || 0} Reviews
                       </RatingCount>
@@ -264,7 +264,7 @@ class Recipe extends React.Component {
                       <Date>{this.renderDate()}</Date>
                     </CategoryContainer>
                     <RatingContainer>
-                      <Rating value={recipe.rating} />
+                      <Rating value={recipe.rating} rateable />
                       <RatingCount>
                         {recipe.rating_count || 0} Reviews
                       </RatingCount>

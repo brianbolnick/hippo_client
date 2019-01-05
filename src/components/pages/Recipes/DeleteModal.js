@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import Modal from "components/common/Modal/Modal";
 import Button from "components/common/Button/Button";
+import { varela } from "styles/css-variables";
 import styled from "styled-components";
 
 const ButtonContainer = styled.div`
@@ -11,12 +12,18 @@ const ButtonContainer = styled.div`
   margin: 32px auto;
 `;
 
+const ModalText = styled.div`
+  font-family: ${varela};
+  font-weight: 600;
+  margin-top: 16px;
+`;
+
 const DeleteModal = ({ onCancelClick, onDeleteClick }) => {
   return (
-    <Modal width="25%">
-      <p style={{ textAlign: "center" }}>
+    <Modal width="25%" onCloseRequest={onCancelClick}>
+      <ModalText style={{ textAlign: "center" }}>
         Are you sure you want to delete this recipe? This cannot be undone.
-      </p>
+      </ModalText>
       <ButtonContainer>
         <Button secondary onClick={onCancelClick}>
           Cancel

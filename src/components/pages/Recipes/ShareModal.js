@@ -1,14 +1,20 @@
 import React from "react";
 import Modal from "components/common/Modal/Modal";
-import Input from "components/common/Input/Input";
+import ModalInput from "components/common/ModalInput/ModalInput";
 import Button from "components/common/Button/Button";
 import styled from "styled-components";
 import PropTypes from "prop-types";
-import { media } from "styles/css-variables";
+import { media, varela } from "styles/css-variables";
 import { API_URL, token, userId, familyId } from "utils";
 import axios from "axios";
 
 const authToken = `Bearer ${token}`;
+
+const ModalText = styled.div`
+  font-family: ${varela};
+  font-weight: 600;
+  margin-top: 16px;
+`;
 
 export const FormContainer = styled.form`
   width: 485px;
@@ -95,14 +101,11 @@ class ShareModal extends React.Component {
     const { loading, joinCodeValid, joinCode, familyName } = this.state;
 
     return (
-      <Modal>
-        <p style={{ textAlign: "center" }}>
-          Share this recipe with another family! Enter the family code below to
-          share.
-        </p>
+      <Modal onCloseRequest={onCancelClick}>
+        {familyName && <p>{familyName}</p>}
         <FormWrapper>
           <FormContainer onSubmit={this.handleFormSubmit}>
-            <Input
+            <ModalInput
               inputState={
                 joinCodeValid ? "success" : joinCode.length ? "error" : ""
               }
@@ -111,8 +114,11 @@ class ShareModal extends React.Component {
               placeholder="Family Join Code"
               onChange={this.onCodeFieldChange}
             />
+            <ModalText>
+              Share this recipe with another family! Enter the family code below
+              to share.
+            </ModalText>
 
-            {familyName && <p>{familyName}</p>}
             <ButtonContainer>
               <Button loading={loading} type="submit" disabled={!joinCodeValid}>
                 Share
