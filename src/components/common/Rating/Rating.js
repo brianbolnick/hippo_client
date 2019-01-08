@@ -56,7 +56,7 @@ class Rating extends Component {
   };
 
   render() {
-    const { rateable, onSubmit } = this.props;
+    const { rateable } = this.props;
     const { showRateModal } = this.state;
     return (
       <>
@@ -84,7 +84,7 @@ class Rating extends Component {
 Rating.propTypes = {
   value: PropTypes.number.isRequired,
   rateable: PropTypes.bool,
-  onSubmit: PropTypes.isRequired
+  onSubmit: PropTypes.func
 };
 
 export default Rating;
