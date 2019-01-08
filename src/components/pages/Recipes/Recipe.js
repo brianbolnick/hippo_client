@@ -1,6 +1,6 @@
 import React from "react";
 import Layout from "components/common/Layout/Layout";
-import { API_URL, token } from "utils";
+import { API_URL, token, userId } from "utils";
 import axios from "axios";
 import moment from "moment";
 import Loader from "img/loader.gif";
@@ -154,7 +154,7 @@ class Recipe extends React.Component {
 
   handleShareSuccess = () => {
     this.setState({
-      shareSuccess: "Your recipe has been shared successfully.",
+      success: "Your recipe has been shared successfully.",
       showShareModal: false
     });
   };
@@ -166,6 +166,33 @@ class Recipe extends React.Component {
     });
   };
 
+  handleRatingSubmit = rating => {
+    console.log(rating);
+
+    const data = {
+      rating: {
+        user_id: userId,
+        value: rating,
+        recipe_id: this.state.recipe.id
+      }
+    };
+
+    axios
+      .post(`${API_URL}/ratings`, data, {
+        headers: { Authorization: authToken }
+      })
+      .then(resp => {
+        console.log(resp);
+        this.setState({
+          success: "Rating Saved Successfully!",
+          recipe: { ...this.state.recipe, rating }
+        });
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
   render() {
     const {
       recipe,
@@ -174,7 +201,7 @@ class Recipe extends React.Component {
       showDeleteModal,
       showMobile,
       loading,
-      shareSuccess,
+      success,
       error
     } = this.state;
     return loading ? (
@@ -195,11 +222,11 @@ class Recipe extends React.Component {
           {error}
         </FlashMessage>
         <FlashMessage
-          visible={!!shareSuccess}
+          visible={!!success}
           success
-          onClose={() => this.setState({ shareSuccess: "" })}
+          onClose={() => this.setState({ success: "" })}
         >
-          {shareSuccess}
+          {success}
         </FlashMessage>
 
         {showShareModal && (
@@ -237,7 +264,11 @@ class Recipe extends React.Component {
                       <Date>{this.renderDate()}</Date>
                     </CategoryContainer>
                     <RatingContainer>
-                      <Rating value={recipe.rating} rateable />
+                      <Rating
+                        value={recipe.rating}
+                        rateable
+                        onSubmit={this.handleRatingSubmit}
+                      />
                       <RatingCount>
                         {recipe.rating_count || 0} Reviews
                       </RatingCount>

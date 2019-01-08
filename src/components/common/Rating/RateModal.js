@@ -83,25 +83,7 @@ class RateModal extends React.Component {
   handleRatingChange = e => {
     const rating = e.target.value;
     if (this.isRatingValid(rating)) {
-      this.setState({ rating: rating, error: "", ratingValid: true }, () => {
-        console.log("set state", rating);
-        //axios
-        //.get(`${API_URL}/family/code/${code}`, {
-        //headers: { Authorization: authToken }
-        //})
-        //.then(resp => {
-        //const ratingValid = resp.status === 200;
-        //const familyName = resp.data.data && resp.data.data.display_name;
-        //this.setState({ loading: false, ratingValid, familyName });
-        //})
-        //.catch(err => {
-        //this.setState({
-        //ratingValid: false,
-        //loading: false,
-        //familyName: ""
-        //});
-        //});
-      });
+      this.setState({ rating: rating, error: "", ratingValid: true });
     } else {
       this.setState({
         error:
@@ -116,25 +98,7 @@ class RateModal extends React.Component {
   handleFormSubmit = e => {
     e.preventDefault();
     console.log(e.target.value);
-    //const data = {
-    //shared_recipe: {
-    //user_id: userId,
-    //family_id: familyId,
-    //recipe_id: this.props.recipeId
-    //}
-    //};
-
-    //axios
-    //.post(`${API_URL}/shared_recipes`, data, {
-    //headers: { Authorization: authToken }
-    //})
-    //.then(resp => {
-    //this.props.onSuccess();
-    //})
-    //.catch(err => {
-    //console.log(err);
-    //this.props.onFailure();
-    //});
+    this.state.rating && this.props.onSubmit(this.state.rating);
   };
 
   renderStars = () => {
@@ -199,7 +163,7 @@ class RateModal extends React.Component {
 }
 RateModal.propTypes = {
   onCancelClick: PropTypes.func.isRequired,
-  onSuccess: PropTypes.func.isRequired
+  onSubmit: PropTypes.func.isRequired
 };
 
 export default RateModal;

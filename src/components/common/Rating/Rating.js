@@ -19,6 +19,10 @@ const RatingContainer = styled.div`
 class Rating extends Component {
   state = { showRateModal: false };
 
+  handleSubmit = rating => {
+    this.props.onSubmit(rating);
+    this.setState({ showRateModal: false });
+  };
   renderStars = () => {
     const { value, rateable } = this.props;
 
@@ -52,7 +56,7 @@ class Rating extends Component {
   };
 
   render() {
-    const { rateable } = this.props;
+    const { rateable, onSubmit } = this.props;
     const { showRateModal } = this.state;
     return (
       <>
@@ -61,13 +65,14 @@ class Rating extends Component {
             onCancelClick={() => this.setState({ showRateModal: false })}
             onSuccess={() => console.log("success")}
             onFailire={() => console.log("success")}
+            onSubmit={this.handleSubmit}
           />
         )}
         <Popover target={this.renderStars()}>
           <StyledSpan
             onClick={() => rateable && this.setState({ showRateModal: true })}
           >
-            Rating: {this.props.value && this.props.value.toFixed(1)}
+            Rating: {this.props.value && parseInt(this.props.value).toFixed(1)}
             /5
           </StyledSpan>
         </Popover>
@@ -78,7 +83,8 @@ class Rating extends Component {
 
 Rating.propTypes = {
   value: PropTypes.number.isRequired,
-  rateable: PropTypes.bool
+  rateable: PropTypes.bool,
+  onSubmit: PropTypes.isRequired
 };
 
 export default Rating;
