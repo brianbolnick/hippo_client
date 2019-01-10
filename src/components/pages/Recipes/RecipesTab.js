@@ -18,9 +18,10 @@ const LoadContainer = styled.div`
 const RecipesTab = ({ recipeType, onError }) => {
   const [recipes, setRecipes] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [recipesLoaded, setRecipesLoaded] = useState(false);
 
   useEffect(() => {
-    if (!recipes.length) {
+    if (!recipesLoaded) {
       axios
         .get(`${API_URL}/family/${familyId}/${recipeType}`, {
           headers: { Authorization: authToken }
@@ -28,6 +29,7 @@ const RecipesTab = ({ recipeType, onError }) => {
         .then(({ data }) => {
           const recipes = data.data;
           setLoading(false);
+          setRecipesLoaded(true);
           setRecipes(recipes);
         })
         .catch(err => {
