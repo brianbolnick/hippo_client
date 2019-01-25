@@ -12,6 +12,7 @@ import {
   Rating
 } from "./Styles";
 import Icon from "components/common/Icon/Icon";
+import PlaceholderImage from "img/recipe-placeholder.png";
 
 const RecipeCard = ({ data }) => {
   const renderRecipeAddedIcon = () => {
@@ -26,7 +27,7 @@ const RecipeCard = ({ data }) => {
   return (
     <Card>
       <LinkWrapper to={`/recipes/${data.id}`}>
-        <RecipeImage url={data.image_url}>
+        <RecipeImage url={data.image_url || PlaceholderImage}>
           {renderRecipeAddedIcon()}
         </RecipeImage>
         <Content>

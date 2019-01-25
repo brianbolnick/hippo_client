@@ -47,7 +47,13 @@ const ButtonContainer = styled.div`
 `;
 
 class ShareModal extends React.Component {
-  state = { loading: false, error: "", joinCodeValid: false, joinCode: "" };
+  state = {
+    loading: false,
+    error: "",
+    joinCodeValid: false,
+    joinCode: "",
+    sharedFamilyId: ""
+  };
 
   onCodeFieldChange = e => {
     const code = e.target.value;
@@ -60,7 +66,13 @@ class ShareModal extends React.Component {
           .then(resp => {
             const joinCodeValid = resp.status === 200;
             const familyName = resp.data.data && resp.data.data.display_name;
-            this.setState({ loading: false, joinCodeValid, familyName });
+            const sharedFamilyId = resp.data.data && resp.data.data.id;
+            this.setState({
+              loading: false,
+              joinCodeValid,
+              familyName,
+              sharedFamilyId
+            });
           })
           .catch(err => {
             this.setState({
@@ -78,7 +90,7 @@ class ShareModal extends React.Component {
     const data = {
       shared_recipe: {
         user_id: userId,
-        family_id: familyId,
+        family_id: this.state.sharedFamilyId,
         recipe_id: this.props.recipeId
       }
     };

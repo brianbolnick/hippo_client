@@ -42,6 +42,7 @@ import ActionButton from "./ActionButton";
 import { colors } from "styles/css-variables";
 import MediaQuery from "components/common/MediaQuery/MediaQuery";
 import { phoneMediaQuery } from "styles/css-variables";
+import ImagePlaceholder from "img/recipe-placeholder.png";
 
 const authToken = `Bearer ${token}`;
 
@@ -244,7 +245,7 @@ class Recipe extends React.Component {
           />
         )}
         <ShowContainer>
-          <ImageBlock url={recipe.image_url}>
+          <ImageBlock url={recipe.image_url || ImagePlaceholder}>
             <Title>{recipe.title}</Title>
             <Divider>
               <hr />
