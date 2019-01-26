@@ -1,15 +1,8 @@
 import React, { useState } from "react";
 import Input from "components/common/Input/Input";
-import MediaQuery from "components/common/MediaQuery/MediaQuery";
-import AddableInput from "components/common/AddableInput/AddableInput";
-import ControlledInput from "components/common/ControlledInput/ControlledInput";
 import Select from "components/common/Select/Select";
-import FlashMessage from "components/common/FlashMessage/FlashMessage";
 import Button from "components/common/Button/Button";
-import Divider from "components/common/Divider/Divider";
-import Textarea from "components/common/Textarea/Textarea";
-import { tabletMediaQuery } from "styles/css-variables";
-import { colors, varela } from "styles/css-variables";
+import { varela } from "styles/css-variables";
 import styled from "styled-components";
 
 const MEASUREMENTS = [

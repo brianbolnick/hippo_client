@@ -5,7 +5,7 @@ import Button from "components/common/Button/Button";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import { media, varela } from "styles/css-variables";
-import { API_URL, token, userId, familyId } from "utils";
+import { API_URL, token, userId } from "utils";
 import axios from "axios";
 
 const authToken = `Bearer ${token}`;

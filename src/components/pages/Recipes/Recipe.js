@@ -85,7 +85,11 @@ class Recipe extends React.Component {
     return (
       ingredients &&
       ingredients.map((ing, index) => {
-        return <Ingredient key={`ingredient|${index}`}>{ing}</Ingredient>;
+        return (
+          <Ingredient key={`ingredient|${index}`}>{`${ing.quantity} ${
+            ing.measurement
+          } ${ing.name}`}</Ingredient>
+        );
       })
     );
   };
