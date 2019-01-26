@@ -27,6 +27,7 @@ import FlashMessage from "components/common/FlashMessage/FlashMessage";
 import Button from "components/common/Button/Button";
 import Divider from "components/common/Divider/Divider";
 import Textarea from "components/common/Textarea/Textarea";
+import AddIngredientForm from "./AddIngredientForm.js";
 import { tabletMediaQuery } from "styles/css-variables";
 
 const AVAILABLE_TIMES = ["Mins", "Hrs", "Days"];
@@ -118,7 +119,11 @@ class NewRecipe extends Component {
 
   deleteIngredient = ing => {
     const ingredients = [...this.state.ingredients];
-    this.setState({ ingredients: ingredients.filter(x => x !== ing) });
+    this.setState({
+      ingredients: ingredients.filter(
+        x => JSON.stringify(x) !== JSON.stringify(ing)
+      )
+    });
   };
 
   deleteStep = step => {
@@ -131,7 +136,7 @@ class NewRecipe extends Component {
     return ingredients.length ? (
       ingredients.map(ing => (
         <TempIngredient>
-          <span>{ing}</span>
+          <span>{`${ing.quantity} ${ing.measurement} ${ing.name}`}</span>
           <DeleteIcon name="close" onClick={() => this.deleteIngredient(ing)} />
         </TempIngredient>
       ))
@@ -294,10 +299,8 @@ class NewRecipe extends Component {
           </InputArea>
           <ListArea>
             <AddableContainer>
-              <AddableInput
-                onAddClick={this.handleAddIngredients}
-                label="Ingredients"
-                placeholder="Click + to add a new ingredient"
+              <AddIngredientForm
+                onSave={data => this.handleAddIngredients(data)}
               />
               <TempIngredientsContainer>
                 {this.renderIngredients()}
