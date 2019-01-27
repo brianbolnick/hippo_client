@@ -62,7 +62,7 @@ const AddIngredientForm = ({ onSave }) => {
 
   const verifyQuantity = e => {
     const quantity = e.target.value;
-    const regex = /^(\d+[\/\d. ]*|\d{1,2})?\S+$/;
+    const regex = /^(\d+[\d. ]*|\d{1,2})?\S+$/;
     if (quantity && regex.test(quantity)) {
       setQuantity(quantity);
       setError("");
