@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Input from "components/common/Input/Input";
 import Select from "components/common/Select/Select";
 import Button from "components/common/Button/Button";
-import { varela } from "styles/css-variables";
+import { varela, colors } from "styles/css-variables";
 import styled from "styled-components";
 
 const MEASUREMENTS = [
@@ -49,6 +49,7 @@ const AddIngredientForm = ({ onSave }) => {
   const [quantity, setQuantity] = useState("");
   const [measurement, setMeasurement] = useState("tsp");
   const [name, setName] = useState("");
+  const [error, setError] = useState("");
 
   const handleAdd = e => {
     e.preventDefault();
@@ -57,6 +58,17 @@ const AddIngredientForm = ({ onSave }) => {
       measurement,
       name
     });
+  };
+
+  const verifyQuantity = e => {
+    const quantity = e.target.value;
+    const regex = /^(\d+[\/\d. ]*|\d{1,2})?\S+$/;
+    if (quantity && regex.test(quantity)) {
+      setQuantity(quantity);
+      setError("");
+    } else {
+      setError("Quantities must be whole numbers, decimals, or fractions.");
+    }
   };
 
   const renderMeasurements = () => {
@@ -68,9 +80,10 @@ const AddIngredientForm = ({ onSave }) => {
   return (
     <div style={{ marginBottom: "16px" }}>
       <Label>Ingredients</Label>
+      {error && <div style={{ color: colors.red }}>{error} </div>}
       <Container>
         <StyledInput
-          onChange={e => setQuantity(e.target.value)}
+          onChange={e => verifyQuantity(e)}
           placeholder="Quantity"
           type="text"
         />
@@ -87,7 +100,7 @@ const AddIngredientForm = ({ onSave }) => {
           onChange={e => setName(e.target.value)}
         />
       </Container>
-      <Button secondary onClick={handleAdd}>
+      <Button secondary onClick={handleAdd} disabled={!!error}>
         Add Ingredient
       </Button>
     </div>
