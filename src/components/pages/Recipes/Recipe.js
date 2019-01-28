@@ -66,11 +66,18 @@ class Recipe extends React.Component {
       .get(`${API_URL}/recipes/${id}`, {
         headers: { Authorization: authToken }
       })
-      .then(({ data }) => {
+      .then(({ data, status }) => {
+        if (status === 401) {
+          window.location.replace("/401");
+        }
         this.setState({ recipe: data.data, loading: false });
       })
       .catch(err => {
         console.log(err);
+        if (err.request.status === 401) {
+          window.location.replace("/401");
+        }
+
         this.setState({
           error: "Something went wrong. Please refresh and try again."
         });

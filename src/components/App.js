@@ -9,6 +9,7 @@ import EditRecipe from "./pages/Recipes/EditRecipe";
 import About from "./pages/About";
 import Family from "./pages/Family/Family";
 import NotFound from "./pages/NotFound";
+import Unauthorized from "./pages/Unauthorized";
 import Test from "./pages/Test";
 import NoAuth from "./pages/NoAuth/NoAuth";
 import { jwt } from "utils";
@@ -91,6 +92,7 @@ class App extends Component {
         <Route path="/sign_up" exact component={SignUp} />
         <Route path="/about" exact component={About} />
         <Route path="/test" exact component={Test} />
+        <Route path="/401" exact component={Unauthorized} />
         <Route component={NotFound} />
       </Switch>
     );
