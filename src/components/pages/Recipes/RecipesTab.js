@@ -34,6 +34,7 @@ const RecipesTab = ({ recipeType, onError }) => {
         })
         .catch(err => {
           console.log(err);
+          setRecipesLoaded(true);
           onError("Something went wrong, please try again.");
         });
     }
