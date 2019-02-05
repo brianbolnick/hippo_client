@@ -30,6 +30,10 @@ export const orange = "#F9665E";
 //Greens
 export const green = "#59CD90";
 export const darkGreen = "#49A876";
+
+//purple
+export const purple = "#BE67DB";
+
 export default {
   whiteSmoke,
   black,
@@ -46,5 +50,6 @@ export default {
   orange,
   red,
   white,
-  yellow
+  yellow,
+  purple
 };
