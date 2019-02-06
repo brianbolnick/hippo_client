@@ -12,7 +12,7 @@ const StyledTextarea = styled.textarea`
   border: ${({ inputState }) =>
     inputState === "error"
       ? `solid 2px ${colors.darkRed}`
-      : `solid 2px ${colors.lightGray}`};
+      : `solid 1px ${colors.lightGray}`};
   height: 2.75em;
   line-height: 2.4em;
   border-radius: 4px 0 0 4px;

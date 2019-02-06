@@ -31,7 +31,7 @@ const StyledInput = styled(Input)`
     //min-width: 100px;
     border-right: none;
     :focus {
-      border-right: solid 2px ${colors.red};
+      border-right: solid 1px ${colors.red};
     }
   }
 `;

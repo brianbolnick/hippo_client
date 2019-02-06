@@ -22,7 +22,7 @@ const SelectWrapper = styled.div`
   vertical-align: top;
 
   &:after {
-    border: 3px solid transparent;
+    border: 2px solid transparent;
     border-radius: 2px;
     border-right: 0;
     border-top: 0;
@@ -73,9 +73,9 @@ const StyledSelect = styled.select`
   border: ${({ inputState }) =>
     inputState === "error"
       ? `solid 2px ${colors.darkRed}`
-      : `solid 2px ${colors.lightGray}`};
+      : `solid 1px ${colors.lightGray}`};
 
-  height: 48px;
+  height: 46px;
   line-height: 2.4em;
   border-radius: 4px;
   font-size: 1em;
@@ -83,7 +83,7 @@ const StyledSelect = styled.select`
   max-width: 100%;
   width: 100%;
   //min-width: 88px;
-  padding-top: 2px;
+  padding-top: 1px;
   /* for Firefox */
   -moz-appearance: none;
   /* for Chrome */

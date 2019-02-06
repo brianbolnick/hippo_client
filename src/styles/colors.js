@@ -20,6 +20,7 @@ export const offGray = "rgb(0,0,0,.30)";
 //Reds
 export const red = "#FE4969";
 export const darkRed = "#D03C56";
+export const softRed = "#f0617d";
 
 // Blacks
 export const black = "#2F2D2E";
@@ -33,6 +34,11 @@ export const darkGreen = "#49A876";
 
 //purple
 export const purple = "#BE67DB";
+
+//gradients
+export const primaryGradient = `linear-gradient(to right, ${softRed}, ${red})`;
+export const darkPrimaryGradient = `linear-gradient(to right,#f35775,#fd4163)`;
+export const disabledGradient = `linear-gradient(to right,${mutedGray}, ${offGray})`;
 
 export default {
   whiteSmoke,
@@ -49,7 +55,11 @@ export default {
   offWhite,
   orange,
   red,
+  softRed,
   white,
   yellow,
-  purple
+  purple,
+  primaryGradient,
+	darkPrimaryGradient,
+	disabledGradient
 };

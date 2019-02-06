@@ -12,7 +12,7 @@ const StyledAddableInput = styled.textarea`
   border: ${({ inputState }) =>
     inputState === "error"
       ? `solid 2px ${colors.darkRed}`
-      : `solid 2px ${colors.lightGray}`};
+      : `solid 1px ${colors.lightGray}`};
   height: 2.75em;
   line-height: 2.4em;
   border-radius: 4px 0 0 4px;
@@ -66,7 +66,7 @@ const AddContainer = styled.div`
   height: 100%;
   color: ${colors.white};
   border-style: solid;
-  border: solid 2px ${colors.red};
+  border: solid 1px ${colors.red};
   border-radius: 0 4px 4px 0;
   background-color: ${colors.red};
   box-sizing: border-box;

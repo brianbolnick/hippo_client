@@ -48,6 +48,7 @@ class NewRecipe extends Component {
       family_id: familyId,
       user_id: userId,
       category_id: 1,
+      dish_type_id: 1,
       notes: "",
       error: "",
       loading: false,
@@ -55,17 +56,30 @@ class NewRecipe extends Component {
     };
   }
 
+  getCategories = () => {
+    return axios.get(`${API_URL}/categories`, {
+      headers: { Authorization: `Bearer ${token}` }
+    });
+  };
+
+  getDishTypes = () => {
+    return axios.get(`${API_URL}/dish_types`, {
+      headers: { Authorization: `Bearer ${token}` }
+    });
+  };
+
   componentDidMount = () => {
-    const authToken = `Bearer ${token}`;
     axios
-      .get(`${API_URL}/categories`, {
-        headers: { Authorization: authToken }
-      })
-      .then(({ data }) => {
-        this.setState({ categories: data.data }, () =>
-          console.log(this.state.categories)
-        );
-      })
+      .all([this.getCategories(), this.getDishTypes()])
+      .then(
+        axios.spread((categoryData, dishTypeData) => {
+          const categories = categoryData.data.data;
+          const dishTypes = dishTypeData.data.data;
+          this.setState({ categories, dishTypes }, () =>
+            console.log(this.state)
+          );
+        })
+      )
       .catch(err => {
         console.log(err);
         this.setState({ error: { message: "Something went wrong." } });
@@ -101,9 +115,27 @@ class NewRecipe extends Component {
     );
   };
 
+  renderDishTypes = () => {
+    return (
+      this.state.dishTypes &&
+      this.state.dishTypes.map(dishType => {
+        return (
+          <option key={`dishType|${dishType.id}`} value={dishType.id}>
+            {dishType.name}
+          </option>
+        );
+      })
+    );
+  };
+
   renderTimes = () => {
     return AVAILABLE_TIMES.map(time => {
-      return <option value={time}> {time} </option>;
+      return (
+        <option key={time} value={time}>
+          {" "}
+          {time}{" "}
+        </option>
+      );
     });
   };
 
@@ -135,7 +167,7 @@ class NewRecipe extends Component {
     const { ingredients } = this.state;
     return ingredients.length ? (
       ingredients.map(ing => (
-        <TempIngredient>
+        <TempIngredient key={JSON.stringify(ing)}>
           <span>{`${ing.quantity} ${ing.measurement} ${ing.name}`}</span>
           <DeleteIcon name="close" onClick={() => this.deleteIngredient(ing)} />
         </TempIngredient>
@@ -150,7 +182,10 @@ class NewRecipe extends Component {
     return steps.length
       ? steps.map((step, index) => {
           return (
-            <Direction key={`dir|${index}`} style={{ alignItems: "center" }}>
+            <Direction
+              key={JSON.stringify(step)}
+              style={{ alignItems: "center" }}
+            >
               <span>{index + 1}</span>
               <TempDirection>
                 <div>{step}</div>
@@ -176,6 +211,7 @@ class NewRecipe extends Component {
     delete stateData.loading;
     delete stateData.error;
     delete stateData.categories;
+    delete stateData.dishTypes;
     delete stateData.showMobile;
     Object.keys(stateData).forEach(obj => {
       const val = stateData[obj];
@@ -267,6 +303,28 @@ class NewRecipe extends Component {
             </FormRow>
 
             <FormRow>
+              <Select
+                onChange={e => this.setState({ dish_type_id: e.target.value })}
+                icon="tags"
+                label="Dish Type"
+                placeholder="Dish Type"
+              >
+                {this.renderDishTypes()}
+              </Select>
+            </FormRow>
+            <FileInput
+              fileName={this.state.image && this.state.image.name}
+              onChange={this.handleUploadImage}
+              onClear={this.removeImage}
+            />
+            {!showMobile && (
+              <Button type="submit" loading={loading}>
+                Create Recipe
+              </Button>
+            )}
+          </InputArea>
+          <ListArea>
+            <FormRow>
               <ControlledInput
                 onChange={e => this.setState({ prep_time: e })}
                 defaultSelectValue="Minutes"
@@ -286,18 +344,13 @@ class NewRecipe extends Component {
                 {this.renderTimes()}
               </ControlledInput>
             </FormRow>
-            <FileInput
-              fileName={this.state.image && this.state.image.name}
-              onChange={this.handleUploadImage}
-              onClear={this.removeImage}
+            <Textarea
+              onChange={e => this.setState({ notes: e.target.value })}
+              label="Notes"
+              placeholder="Recipe Notes"
             />
-            {!showMobile && (
-              <Button type="submit" loading={loading}>
-                Create Recipe
-              </Button>
-            )}
-          </InputArea>
-          <ListArea>
+
+            <Divider full />
             <AddableContainer>
               <AddIngredientForm
                 onSave={data => this.handleAddIngredients(data)}
@@ -319,13 +372,6 @@ class NewRecipe extends Component {
                 )}
               </DirectionsContainer>
             </AddableContainer>
-
-            <Divider full />
-            <Textarea
-              onChange={e => this.setState({ notes: e.target.value })}
-              label="Notes"
-              placeholder="Recipe Notes"
-            />
           </ListArea>
           {showMobile && (
             <Button type="submit" loading={loading}>

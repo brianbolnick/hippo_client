@@ -155,6 +155,7 @@ export const TempIngredientsContainer = styled.div`
   display: flex;
   flex-flow: row;
   flex-wrap: wrap;
+  margin-bottom: 32px;
 `;
 
 export const StepsContainer = styled.div``;
@@ -423,6 +424,7 @@ export const SettingsButton = styled(Button)`
 
   * > &:hover {
     box-shadow: 0px 0px 6px 2px ${colors.offGray};
+    background: ${colors.blue};
   }
 
   ${media.phone`

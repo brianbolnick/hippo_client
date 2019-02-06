@@ -23,45 +23,56 @@ const loadingStyles = css`
 `;
 
 const StyledButton = styled.button`
-  background: linear-gradient(to right, #ff416c, #f9665e);
   color: ${colors.white};
   font-size: 14px;
   font-family: ${varela};
   text-transform: uppercase;
   letter-spacing: 1px;
-  padding: 12px 16px;
   cursor: pointer;
   border: none;
-  border-radius: 8px;
   max-width: 180px;
-  font-weight: 700;
+  border-radius: 4px;
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.2);
+  padding: 14px 16px;
+  font-weight: 500;
+  text-align: center;
+  background: ${colors.primaryGradient};
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.3);
+  margin-bottom: 1em;
 
   &:hover {
-    box-shadow: 0 3px 25px rgba(0, 0, 0, 0.15),
-      0 8px 10px -6px rgba(0, 0, 0, 0.3);
+    background: ${colors.darkPrimaryGradient};
   }
 
   ${({ secondary }) =>
     secondary &&
     `
 		background:  transparent;
-		border: solid 2px ${colors.red};
+		text-shadow: none;
+		border: solid 2px ${colors.black};
 		color: ${colors.black};
+		font-weight: 700;
+		padding: 12px 14px;
+		box-shadow: none;
 		:hover { 
-			background: white;
-			border: solid 2px ${colors.red};
+			background: ${colors.whiteSmoke};
+			border: solid 2px ${colors.black};
+			transform: none;
+			box-shadow: none;
 		}
 	`};
 
   ${({ disabled }) =>
     disabled &&
     `
-		background:  ${colors.mutedGray};
-		border: solid 2px ${colors.offGray};
+
+    background: ${colors.disabledGradient};
+		text-shadow: none;
 		color: ${colors.black};
 		cursor: not-allowed;
 		:hover { 
-			 box-shadow: none;
+			transform: none;
+			background: ${colors.disabledGradient};
 		}
 	`};
 
@@ -69,6 +80,7 @@ const StyledButton = styled.button`
     tertiary &&
     `
 		background:  transparent;
+		text-shadow: none;
 		border:  solid 2px ${colors.white};
 		color: ${colors.white};
 		:hover { 
@@ -80,6 +92,7 @@ const StyledButton = styled.button`
     loading &&
     `
 		color: transparent;
+		text-shadow: none;
 		line-height: 0;
 		pointer-events: none;
 	`};

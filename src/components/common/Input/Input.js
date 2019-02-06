@@ -14,7 +14,7 @@ const StyledInput = styled.input`
       ? `solid 2px ${colors.darkRed}`
       : inputState === "success"
       ? `solid 2px ${colors.green}`
-      : `solid 2px ${colors.lightGray}`};
+      : `solid 1px ${colors.lightGray}`};
   height: 2.75em;
   line-height: 2.4em;
   border-radius: 4px;
