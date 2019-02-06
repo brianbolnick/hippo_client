@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
-import { media, colors, lato, raleway } from "styles/css-variables";
+import { media, colors, avenir, raleway } from "styles/css-variables";
 import Icon from "components/common/Icon/Icon";
 
 const StyledInput = styled.input`
@@ -88,11 +88,11 @@ const StyledIcon = styled(Icon)`
 const Wrapper = styled.div``;
 
 const Label = styled.div`
-  font-family: ${lato};
+  font-family: ${avenir};
   text-align: center;
   font-size: 0.8rem;
   text-transform: uppercase;
-  font-weight: 800;
+  font-weight: 600;
   color: ${colors.darkGray};
 `;
 

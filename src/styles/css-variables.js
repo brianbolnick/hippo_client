@@ -11,6 +11,7 @@ export const varela = "'Varela Round', sans-serif";
 export const lato = "'Lato', sans-serif";
 export const rufina = "'Rufina', serif";
 export const raleway = "'Raleway', sans-serif";
+export const avenir = "'Avenir Next', sans-serif";
 export const colors = cols;
 
 // Responsive design
