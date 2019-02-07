@@ -80,10 +80,10 @@ export const FamilyName = styled.div`
 `;
 
 export const RecipeDetails = styled.div`
-  width: 85%;
+  width: 80%;
   position: relative;
   bottom: 80px;
-  height: 400px;
+  height: auto;
   background: white;
   margin: 0 auto;
   border-radius: 6px;
@@ -91,7 +91,7 @@ export const RecipeDetails = styled.div`
 
 export const MetaContainer = styled.div`
   display: flex;
-  width: 85%;
+  width: 80%;
   margin: 0 auto;
 `;
 
@@ -127,7 +127,7 @@ export const Footer = styled.div`
 
 export const CategoryContainer = styled.div`
   flex: 1;
-  padding: 8px 16px;
+  padding: 16px 32px;
   display: flex;
   align-items: center;
   border-right: solid 1px ${colors.mutedGray};
@@ -195,27 +195,57 @@ export const SubContainer = styled.div`
 export const IngredientsContainer = styled.div`
   flex: 1;
   border-right: solid 1px ${colors.mutedGray};
-  padding: 11px;
+  padding: 16px 32px;
   box-sizing: border-box;
 `;
 export const DirectionsContainer = styled.div`
   flex: 3;
-  padding: 16px;
+  padding: 16px 32px;
+  overflow: scroll;
 `;
 
-export const Ingredient = styled.div``;
+export const Ingredient = styled.div`
+  margin: 16px 0;
+  font-family: ${avenir};
+  border-bottom: solid 1px ${colors.mutedGray};
+  color: ${colors.black};
+  padding-bottom: 8px;
+`;
 
-export const Step = styled.div``;
+export const Step = styled.div`
+  margin: 32px 0;
+  font-family: ${avenir};
+  color: ${colors.black};
+  font-weight: 500;
+  font-size: 1.2rem;
+  text-align: justify;
+
+  span {
+    font-weight: 600;
+    display: block;
+    margin-bottom: 16px;
+    color: ${colors.offGray};
+    font-size: 1.1rem;
+  }
+`;
 export const SectionTitle = styled.div`
-  font-size: 1.5rem;
   letter-spacing: 1px;
   margin: 16px 0;
-  font-weight: 600;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  color: ${colors.black};
+  color: ${colors.offGray};
+  font-size: 1rem;
+  font-weight: 700;
+  text-transform: uppercase;
   font-family: ${avenir};
 `;
 export const IngredientList = styled.div``;
 export const StepsList = styled.div``;
+export const Notes = styled.div`
+  margin-bottom: 32px;
+`;
+export const ButtonContainer = styled.div`
+  margin: 32px auto;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;

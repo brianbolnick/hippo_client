@@ -6,9 +6,10 @@ import axios from "axios";
 import moment from "moment";
 import Loader from "img/loader.gif";
 import Icon from "components/common/Icon/Icon";
+import Tooltip from "components/common/Tooltip/Tooltip";
+import Button from "components/common/Button/Button";
 import FlashMessage from "components/common/FlashMessage/FlashMessage";
 import Rating from "components/common/Rating/Rating";
-//import ActionButton from "./ActionButton";
 import { colors } from "styles/css-variables";
 import MediaQuery from "components/common/MediaQuery/MediaQuery";
 import { phoneMediaQuery } from "styles/css-variables";
@@ -44,7 +45,9 @@ import {
   Step,
   SectionTitle,
   IngredientList,
-  StepsList
+  StepsList,
+  Notes,
+  ButtonContainer
 } from "./TestStyledComponents";
 import ShareModal from "./Recipes/ShareModal";
 import DeleteModal from "./Recipes/DeleteModal";
@@ -117,7 +120,7 @@ class Recipe extends React.Component {
       steps.map((step, index) => {
         return (
           <Step key={`dir|${index}`}>
-            <span>{index + 1}</span> {step}
+            <span>Step {index + 1}</span> {step}
           </Step>
         );
       })
@@ -357,10 +360,24 @@ class Recipe extends React.Component {
               <IngredientsContainer>
                 <SectionTitle>Ingredients</SectionTitle>
                 <IngredientList>{this.renderIngredients()}</IngredientList>
+
+                <ButtonContainer>
+                  <Tooltip
+                    type="arrow"
+                    position="top"
+                    tip="This feature is coming soon."
+                  >
+                    <Button disabled onClick={() => console.log("clicked")}>
+                      Add to Shopping List
+                    </Button>
+                  </Tooltip>
+                </ButtonContainer>
               </IngredientsContainer>
               <DirectionsContainer>
                 <SectionTitle>Directions</SectionTitle>
                 <StepsList>{this.renderDirections()}</StepsList>
+                <SectionTitle>Recipe Notes</SectionTitle>
+                <Notes>{recipe.notes || ""}</Notes>
               </DirectionsContainer>
             </SubContainer>
           </RecipeDetails>

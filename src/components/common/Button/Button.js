@@ -30,7 +30,6 @@ const StyledButton = styled.button`
   letter-spacing: 1px;
   cursor: pointer;
   border: none;
-  max-width: 180px;
   border-radius: 4px;
   box-shadow: 0 2px 0 rgba(0, 0, 0, 0.2);
   padding: 14px 16px;

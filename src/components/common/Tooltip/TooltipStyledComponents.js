@@ -39,7 +39,7 @@ const positionStyles = {
       &:after {
         ${carrotStyles} top: 100%;
         left: 14px;
-        border-color: ${colors.black} transparent transparent transparent;
+				border-color: ${({color}) => color || colors.black} transparent transparent transparent;
       }
     `
   },
@@ -55,7 +55,7 @@ const positionStyles = {
         ${carrotStyles} margin-left: -10px;
         top: 100%;
         left: 50%;
-        border-color: ${colors.black} transparent transparent transparent;
+        border-color:  ${({color}) => color || colors.black} transparent transparent transparent;
       }
     `
   },
@@ -71,7 +71,7 @@ const positionStyles = {
       &:after {
         ${carrotStyles} top: 100%;
         right: 14px;
-        border-color: ${colors.black} transparent transparent transparent;
+        border-color:  ${({color}) => color || colors.black} transparent transparent transparent;
       }
     `
   },
@@ -87,7 +87,7 @@ const positionStyles = {
         ${carrotStyles} transform: translate(0, -50%);
         right: 100%;
         top: 50%;
-        border-color: transparent ${colors.black} transparent transparent;
+        border-color:  ${({color}) => color || colors.black} transparent transparent transparent;
       }
     `
   },
@@ -106,7 +106,7 @@ const positionStyles = {
       &:after {
         ${carrotStyles} bottom: 100%;
         right: 14px;
-        border-color: transparent transparent ${colors.black} transparent;
+        border-color:  ${({color}) => color || colors.black} transparent transparent transparent;
       }
     `
   },
@@ -122,7 +122,7 @@ const positionStyles = {
         ${carrotStyles} margin-left: -10px;
         bottom: 100%;
         left: 50%;
-        border-color: transparent transparent ${colors.black} transparent;
+        border-color:  ${({color}) => color || colors.black} transparent transparent transparent;
       }
     `
   },
@@ -138,7 +138,7 @@ const positionStyles = {
       &:after {
         ${carrotStyles} bottom: 100%;
         left: 14px;
-        border-color: transparent transparent ${colors.black} transparent;
+        border-color:  ${({color}) => color || colors.black} transparent transparent transparent;
       }
     `
   },
@@ -154,7 +154,7 @@ const positionStyles = {
         ${carrotStyles} transform: translate(0, -50%);
         right: -20px;
         top: 50%;
-        border-color: transparent transparent transparent ${colors.black};
+        border-color:  ${({color}) => color || colors.black} transparent transparent transparent;
       }
     `
   }
@@ -170,7 +170,7 @@ export const MoreInfo = styled.div`
 
 export const ToolTipStyled = styled.div`
   position: absolute;
-  background: ${colors.black};
+	background: ${({ color }) => color || colors.black};
   border-radius: 3px;
   padding: 12px 24px;
   text-align: center;
@@ -181,6 +181,7 @@ export const ToolTipStyled = styled.div`
   font-size: 12px;
   line-height: 1.4;
   color: #fff;
+	white-space: nowrap;
   ${({ position, type }) => css`
     ${positionStyles[position].default} ${type === types.arrow &&
       positionStyles[position].arrow};

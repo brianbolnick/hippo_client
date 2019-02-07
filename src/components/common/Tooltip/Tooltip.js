@@ -17,7 +17,7 @@ const supportedTypes = Object.keys(types).reduce((carry, key) => {
   return carry;
 }, []);
 
-function ToolTip({ children, tip, position, type, show, hide }) {
+function ToolTip({ children, color, tip, position, type, show, hide }) {
   const hoverEnabled = show === null && hide === null;
   const forceShowToolTip =
     !hoverEnabled && ((show !== null && show) || (hide !== null && !hide));
@@ -30,6 +30,7 @@ function ToolTip({ children, tip, position, type, show, hide }) {
         type={type}
         hoverEnabled={hoverEnabled}
         forceShowToolTip={forceShowToolTip}
+        color={color}
       >
         {tip}
       </ToolTipStyled>
@@ -43,7 +44,8 @@ ToolTip.propTypes = {
   tip: PropTypes.node.isRequired,
   type: PropTypes.oneOf(supportedTypes),
   show: PropTypes.bool,
-  hide: PropTypes.bool
+  hide: PropTypes.bool,
+  color: PropTypes.string
 };
 
 ToolTip.defaultProps = {
