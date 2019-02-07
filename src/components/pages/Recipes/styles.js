@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { colors, rufina, media, raleway } from "styles/css-variables";
+import { colors, rufina, media, raleway, avenir } from "styles/css-variables";
 import Button from "components/common/Button/Button";
 import Icon from "components/common/Icon/Icon";
 
@@ -227,7 +227,7 @@ export const Footer = styled.div`
   font-size: 0.85rem;
   height: 64px;
   background: ${colors.mutedGray};
-  background: ${colors.red};
+  background: ${colors.primaryGradient};
   width: 100%;
   position: absolute;
   bottom: 0;
@@ -264,8 +264,12 @@ padding: 8px 16px;
 `;
 
 export const Ingredient = styled.li`
-  color: ${colors.offGray};
-  margin: 24px 0;
+  color: rgb(0, 0, 0, 0.3);
+  margin: 16px 0;
+  list-style: none;
+  border-bottom: solid 1px rgb(0, 0, 0, 0.05);
+  padding-bottom: 8px;
+  font-family: "Avenir Next";
 `;
 
 export const Details = styled.div`
@@ -294,18 +298,19 @@ export const HeaderGroup = styled.div`
   align-items: center;
 `;
 export const Direction = styled.div`
-  margin: 24px 0;
+  margin-bottom: 34px;
   letter-spacing: 1px;
-  padding: 16px;
   width: 100%;
   display: flex;
+  flex-flow: column;
   box-sizing: border-box;
-  border: solid 2px ${colors.red};
   border-radius: 2px;
   span {
-    font-weight: 600;
-    margin-right: 16px;
-    color: #fe4969;
+    font-weight: 500;
+    color: ${colors.offGray};
+    font-size: 1.1rem;
+    margin-bottom: 16px;
+    font-family: ${avenir};
   }
 `;
 export const SubTitle = styled.div`
@@ -317,7 +322,7 @@ export const SubTitle = styled.div`
   text-overflow: ellipsis;
   overflow: hidden;
   color: ${colors.black};
-  font-family: ${raleway};
+  font-family: ${avenir};
 `;
 
 export const Meta = styled.div`
@@ -353,16 +358,36 @@ export const RecipeHeader = styled.div`
   margin: 32px 0;
 `;
 
+//export const CategoryContainer = styled.div`
+//display: flex;
+//flex-flow: column;
+//justify-content: center;
+//`;
 export const CategoryContainer = styled.div`
+  flex: 1;
   display: flex;
-  flex-flow: column;
-  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
 `;
+export const CategoryMeta = styled.div``;
+export const Category = styled.div`
+  font-family: ${avenir};
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: ${colors.black};
+`;
+export const DishType = styled.div`
+  font-family: ${avenir};
+  font-size: 1rem;
+  font-weight: 400;
+  color: ${colors.darkGray};
+`;
+
 export const Date = styled.div`
   color: ${colors.offGray};
 `;
 
-export const Category = styled.div``;
+//export const Category = styled.div``;
 
 export const Divider = styled.div`
   padding: 0 80px;
@@ -414,7 +439,7 @@ export const SettingsButton = styled(Button)`
   display: flex;
   align-items: center;
   justify-content: center;
-  background: ${colors.blue};
+  background: ${colors.darkBlue};
 
   position: absolute;
   left: -28px;
@@ -424,7 +449,7 @@ export const SettingsButton = styled(Button)`
 
   * > &:hover {
     box-shadow: 0px 0px 6px 2px ${colors.offGray};
-    background: ${colors.blue};
+    background: ${colors.darkBlue};
   }
 
   ${media.phone`
@@ -456,4 +481,21 @@ export const LoadContainer = styled.div`
   width: 100%;
   justify-content: center;
   align-items: center;
+`;
+export const ActionIcon = styled(Icon)`
+  margin: 0 16px;
+  height: 24px;
+  width: 24px;
+  cursor: pointer;
+
+  &:hover {
+    path {
+      fill: ${colors.darkGray};
+    }
+  }
+`;
+export const ActionContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  box-sizing: border-box;
 `;

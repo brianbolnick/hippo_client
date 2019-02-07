@@ -69,8 +69,8 @@ class Recipe extends React.Component {
   };
 
   componentDidMount = () => {
-    //const id = this.props.match.params.id;
-    const id = 1;
+    const id = this.props.match.params.id;
+    //const id = 1;
     axios
       .get(`${API_URL}/recipes/${id}`, {
         headers: { Authorization: authToken }
@@ -274,23 +274,29 @@ class Recipe extends React.Component {
                 <FamilyName>{recipe.family.display_name || ""}</FamilyName>
               </RecipeTitle>
               <ActionContainer>
-                <ActionIcon
-                  name="share"
-                  onClick={() => this.setState({ showShareModal: true })}
-                  color={colors.offWhite}
-                />
-                <ActionIcon
-                  name="edit"
-                  onClick={() =>
-                    window.location.replace(`/recipes/${recipe.id}/edit`)
-                  }
-                  color={colors.offWhite}
-                />
-                <ActionIcon
-                  name="closeOpenCircle"
-                  onClick={() => this.setState({ showDeleteModal: true })}
-                  color={colors.offWhite}
-                />
+                <Tooltip type="arrow" position="top" tip="Share Recipe">
+                  <ActionIcon
+                    name="share"
+                    onClick={() => this.setState({ showShareModal: true })}
+                    color={colors.offWhite}
+                  />
+                </Tooltip>
+                <Tooltip type="arrow" position="top" tip="Edit Recipe">
+                  <ActionIcon
+                    name="edit"
+                    onClick={() =>
+                      window.location.replace(`/recipes/${recipe.id}/edit`)
+                    }
+                    color={colors.offWhite}
+                  />
+                </Tooltip>
+                <Tooltip type="arrow" position="top" tip="Delete Recipe">
+                  <ActionIcon
+                    name="closeOpenCircle"
+                    onClick={() => this.setState({ showDeleteModal: true })}
+                    color={colors.offWhite}
+                  />
+                </Tooltip>
               </ActionContainer>
             </MetaContainer>
           </ImageView>

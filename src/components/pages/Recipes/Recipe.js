@@ -33,7 +33,11 @@ import {
   RatingCount,
   FloatingActionButtons,
   FabContainer,
-  LoadContainer
+  LoadContainer,
+  ActionContainer,
+  ActionIcon,
+  CategoryMeta,
+  DishType
 } from "./styles";
 import Icon from "components/common/Icon/Icon";
 import FlashMessage from "components/common/FlashMessage/FlashMessage";
@@ -111,7 +115,7 @@ class Recipe extends React.Component {
       steps.map((step, index) => {
         return (
           <Direction key={`dir|${index}`}>
-            <span>{index + 1}</span> {step}
+            <span>Step {index + 1}</span> {step}
           </Direction>
         );
       })
@@ -267,14 +271,23 @@ class Recipe extends React.Component {
             <Details>
               {!showMobile && (
                 <RecipeHeader>
-                  <IconContainer>
-                    <Icon name="tags" color={colors.black} />
-                  </IconContainer>
                   <HeaderGroup>
                     <CategoryContainer>
-                      <Category>{this.renderCategoryName()}</Category>
-                      <Date>{this.renderDate()}</Date>
+                      <Icon
+                        style={{ marginRight: "16px" }}
+                        name="tags"
+                        color={colors.black}
+                      />
+                      <CategoryMeta>
+                        <Category>
+                          {recipe.category.name || "category"}
+                        </Category>
+                        <DishType>
+                          {recipe.dish_type.name || "dish type"}
+                        </DishType>
+                      </CategoryMeta>
                     </CategoryContainer>
+
                     <RatingContainer>
                       <Rating
                         value={recipe.rating}
@@ -315,49 +328,29 @@ class Recipe extends React.Component {
                   </HeaderGroup>
                 </RecipeHeader>
               )}
+              <ActionContainer>
+                <ActionIcon
+                  name="share"
+                  onClick={() => this.setState({ showShareModal: true })}
+                  color={colors.black}
+                />
+                <ActionIcon
+                  name="edit"
+                  onClick={() =>
+                    window.location.replace(`/recipes/${recipe.id}/edit`)
+                  }
+                  color={colors.black}
+                />
+                <ActionIcon
+                  name="closeOpenCircle"
+                  onClick={() => this.setState({ showDeleteModal: true })}
+                  color={colors.black}
+                />
+              </ActionContainer>
 
               <SubTitle>Ingredients</SubTitle>
-              <ul style={{ paddingLeft: "16px" }}>
-                {this.renderIngredients()}
-              </ul>
+              <ul style={{ paddingLeft: "0px" }}>{this.renderIngredients()}</ul>
             </IngredientsContainer>
-            <FabContainer>
-              <SettingsButton
-                onClick={() =>
-                  this.setState({ showActions: !this.state.showActions })
-                }
-              >
-                <Icon name="cog" />
-              </SettingsButton>
-              {showActions && (
-                <FloatingActionButtons>
-                  <ActionButton
-                    icon="share"
-                    onClick={() => this.setState({ showShareModal: true })}
-                    background={colors.green}
-                    fill={colors.white}
-                    tooltip="Share Recipe"
-                    tipPosition={showMobile ? "top" : "left"}
-                  />
-                  <ActionButton
-                    icon="edit"
-                    to={`/recipes/${recipe.id}/edit`}
-                    background={colors.yellow}
-                    fill={colors.black}
-                    tooltip="Edit Recipe"
-                    tipPosition={showMobile ? "top" : "left"}
-                  />
-                  <ActionButton
-                    icon="closeOpenCircle"
-                    onClick={() => this.setState({ showDeleteModal: true })}
-                    background={colors.red}
-                    fill={colors.white}
-                    tooltip="Delete Recipe"
-                    tipPosition={showMobile ? "top" : "left"}
-                  />
-                </FloatingActionButtons>
-              )}
-            </FabContainer>
             {!showMobile && (
               <Footer>
                 <Meta>

@@ -81,7 +81,7 @@ class App extends Component {
           path="/recipes/:id"
           isAuthenticated={this.isLoggedIn()}
           exact
-          component={Recipe}
+          component={Test}
         />
         <AuthRoute
           path="/family"

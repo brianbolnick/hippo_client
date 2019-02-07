@@ -148,7 +148,7 @@ export const DishType = styled.div`
 `;
 
 export const HeaderDetails = styled.div`
-  flex: 3;
+  flex: 5;
   display: flex;
   justify-content: space-between;
   padding: 16px 32px;
@@ -231,14 +231,16 @@ export const Step = styled.div`
 export const SectionTitle = styled.div`
   letter-spacing: 1px;
   margin: 16px 0;
-  color: ${colors.offGray};
+  color: ${colors.blue};
   font-size: 1rem;
   font-weight: 700;
   text-transform: uppercase;
   font-family: ${avenir};
 `;
 export const IngredientList = styled.div``;
-export const StepsList = styled.div``;
+export const StepsList = styled.div`
+  padding-right: 8em;
+`;
 export const Notes = styled.div`
   margin-bottom: 32px;
 `;

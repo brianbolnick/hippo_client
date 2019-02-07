@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { colors } from "styles/css-variables";
+import { colors, avenir } from "styles/css-variables";
 
 export const positions = {
   topLeft: "top-left",
@@ -39,7 +39,8 @@ const positionStyles = {
       &:after {
         ${carrotStyles} top: 100%;
         left: 14px;
-				border-color: ${({color}) => color || colors.black} transparent transparent transparent;
+        border-color: ${({ color }) => color || colors.black} transparent
+          transparent transparent;
       }
     `
   },
@@ -55,7 +56,8 @@ const positionStyles = {
         ${carrotStyles} margin-left: -10px;
         top: 100%;
         left: 50%;
-        border-color:  ${({color}) => color || colors.black} transparent transparent transparent;
+        border-color: ${({ color }) => color || colors.black} transparent
+          transparent transparent;
       }
     `
   },
@@ -71,7 +73,8 @@ const positionStyles = {
       &:after {
         ${carrotStyles} top: 100%;
         right: 14px;
-        border-color:  ${({color}) => color || colors.black} transparent transparent transparent;
+        border-color: ${({ color }) => color || colors.black} transparent
+          transparent transparent;
       }
     `
   },
@@ -87,7 +90,8 @@ const positionStyles = {
         ${carrotStyles} transform: translate(0, -50%);
         right: 100%;
         top: 50%;
-        border-color:  ${({color}) => color || colors.black} transparent transparent transparent;
+        border-color: ${({ color }) => color || colors.black} transparent
+          transparent transparent;
       }
     `
   },
@@ -106,7 +110,8 @@ const positionStyles = {
       &:after {
         ${carrotStyles} bottom: 100%;
         right: 14px;
-        border-color:  ${({color}) => color || colors.black} transparent transparent transparent;
+        border-color: ${({ color }) => color || colors.black} transparent
+          transparent transparent;
       }
     `
   },
@@ -122,7 +127,8 @@ const positionStyles = {
         ${carrotStyles} margin-left: -10px;
         bottom: 100%;
         left: 50%;
-        border-color:  ${({color}) => color || colors.black} transparent transparent transparent;
+        border-color: ${({ color }) => color || colors.black} transparent
+          transparent transparent;
       }
     `
   },
@@ -138,7 +144,8 @@ const positionStyles = {
       &:after {
         ${carrotStyles} bottom: 100%;
         left: 14px;
-        border-color:  ${({color}) => color || colors.black} transparent transparent transparent;
+        border-color: ${({ color }) => color || colors.black} transparent
+          transparent transparent;
       }
     `
   },
@@ -154,7 +161,8 @@ const positionStyles = {
         ${carrotStyles} transform: translate(0, -50%);
         right: -20px;
         top: 50%;
-        border-color:  ${({color}) => color || colors.black} transparent transparent transparent;
+        border-color: ${({ color }) => color || colors.black} transparent
+          transparent transparent;
       }
     `
   }
@@ -175,10 +183,11 @@ export const ToolTipStyled = styled.div`
   padding: 12px 24px;
   text-align: center;
   font-weight: normal;
+		font-family: ${avenir};
   box-shadow: 0 3px 12px rgba(0, 0, 0, 0.24);
   z-index: 9999;
   visibility: hidden;
-  font-size: 12px;
+  font-size: 14px;
   line-height: 1.4;
   color: #fff;
 	white-space: nowrap;
