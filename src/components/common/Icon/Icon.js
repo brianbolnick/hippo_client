@@ -122,8 +122,8 @@ const viewboxSize = {
 };
 
 const IconContainer = styled.div`
-  width: 35px;
-  height: 35px};
+  width: ${({ size }) => size};
+  height: ${({ size }) => size};
   display: flex;
   align-items: center;
   justify-content: center;
@@ -144,13 +144,14 @@ const StyledSvg = styled.svg`
 
 class Icon extends Component {
   render() {
-    const { color, name, onClick, link } = this.props;
+    const { color, name, onClick, link, size } = this.props;
     return (
       <IconContainer
         name={name}
         color={color}
         onClick={onClick}
         link={link}
+        size={size}
         {...this.props}
       >
         <StyledSvg
@@ -171,7 +172,12 @@ Icon.propTypes = {
   color: PropTypes.string,
   name: PropTypes.string.isRequired,
   onClick: PropTypes.func,
-  link: PropTypes.bool
+  link: PropTypes.bool,
+  size: PropTypes.string
+};
+
+Icon.defaultProps = {
+  size: "35px"
 };
 
 export default Icon;

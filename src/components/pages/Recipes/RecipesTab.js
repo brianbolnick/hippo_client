@@ -2,9 +2,11 @@ import React, { useState, useEffect } from "react";
 import RecipeCard from "components/common/Recipe/RecipeCard";
 import { API_URL, token, familyId } from "utils";
 import axios from "axios";
+import { avenir, colors } from "styles/css-variables";
 import { RecipeList } from "./styles";
 import Loader from "img/loader.gif";
 import styled from "styled-components";
+import NoRecipes from "img/food_icon.gif";
 const authToken = `Bearer ${token}`;
 
 const LoadContainer = styled.div`
@@ -13,6 +15,16 @@ const LoadContainer = styled.div`
   width: 100%;
   justify-content: center;
   align-items: center;
+  flex-flow: column;
+`;
+
+const PlaceholderText = styled.div`
+  font-size: 1.8rem;
+  font-family: ${avenir};
+  font-weight: 600;
+  color: ${colors.black};
+  position: relative;
+  bottom: 132px;
 `;
 
 const RecipesTab = ({ recipeType, onError }) => {
@@ -46,7 +58,12 @@ const RecipesTab = ({ recipeType, onError }) => {
         return <RecipeCard key={recipe.id} data={recipe} />;
       })
     ) : (
-      <div>Nothing here yet!</div>
+      <LoadContainer>
+        <img src={NoRecipes} />
+        <PlaceholderText>
+          You have no recipes here yet. Create one now!
+        </PlaceholderText>
+      </LoadContainer>
     );
   };
 

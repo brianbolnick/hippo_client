@@ -43,6 +43,13 @@ const StyledButton = styled.button`
     background: ${colors.darkPrimaryGradient};
   }
 
+  ${({ icon }) =>
+    icon &&
+    `
+		padding: 4px;
+		border-radius: 50%;
+	`};
+
   ${({ secondary }) =>
     secondary &&
     `
@@ -182,7 +189,13 @@ class Button extends Component {
       </FixedButton>
     ) : (
       <StyledButton {...this.props}>
-        <Children>{children}</Children>
+        <Children>
+          {icon ? (
+            <Icon name={icon} color={colors.white} size="24px" />
+          ) : (
+            children
+          )}
+        </Children>
       </StyledButton>
     );
   }

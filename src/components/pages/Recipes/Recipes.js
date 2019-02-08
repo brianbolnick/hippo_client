@@ -10,11 +10,19 @@ import { Link } from "react-router-dom";
 import { rufina, media } from "styles/css-variables";
 import FlashMessage from "components/common/FlashMessage/FlashMessage";
 
-const TabLink = styled.div``;
+const TabLink = styled.div`
+  font-size: 1.2rem;
+`;
 
 const TabsContainer = styled.div`
   display: flex;
-  margin-bottom: 32px;
+  margin-right: 16px;
+`;
+
+const NewButtonContainer = styled.div``;
+const OptionsContainer = styled.div`
+  display: flex;
+  align-items: center;
 `;
 
 const Heading = styled.div`
@@ -23,12 +31,14 @@ const Heading = styled.div`
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  margin-bottom: 16px;
 `;
 
 const Header = styled.div`
   display: flex;
   justify-content: space-between;
+  align-items: center;
+
+  margin-bottom: 32px;
   ${media.phone`
     flex-flow: column;
 `}
@@ -53,14 +63,21 @@ const Recipes = () => {
           <Heading>
             {activeTab === "family" ? "Family Recipes" : "Shared Recipes"}
           </Heading>
-          <TabsContainer>
-            <Tab name="family">
-              <TabLink>Family</TabLink>
-            </Tab>
-            <Tab name="shared">
-              <TabLink>Shared</TabLink>
-            </Tab>
-          </TabsContainer>
+          <OptionsContainer>
+            <TabsContainer>
+              <Tab name="family">
+                <TabLink>Family</TabLink>
+              </Tab>
+              <Tab name="shared">
+                <TabLink>Shared</TabLink>
+              </Tab>
+            </TabsContainer>
+            <NewButtonContainer>
+              <Link to="/recipes/new">
+                <Button icon="plus" />
+              </Link>
+            </NewButtonContainer>
+          </OptionsContainer>
         </Header>
         <TabPane name="family" asyncRender>
           <RecipesTab
@@ -77,11 +94,6 @@ const Recipes = () => {
           />
         </TabPane>
       </Tabs>
-      <Link to="/recipes/new">
-        <Button fixed icon="addRecipe">
-          Add New Recipe
-        </Button>
-      </Link>
     </Layout>
   );
 };
