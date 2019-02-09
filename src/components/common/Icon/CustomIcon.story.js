@@ -2,7 +2,18 @@ import React from "react";
 import { storiesOf } from "@storybook/react";
 import styled from "styled-components";
 
-import { IconDish } from "./";
+import {
+  IconDish,
+  IconClock,
+  IconCog,
+  IconEdit,
+  IconHome,
+  IconMixer,
+  IconMessage,
+  IconShare,
+  IconTrash,
+  IconUser
+} from "./";
 
 const Grid = styled.div`
   display: grid;
@@ -21,7 +32,18 @@ const Name = styled.div`
   padding-top: 16px;
 `;
 
-const iconList = [{ name: "IconDish", icon: IconDish }];
+const iconList = [
+  { name: "IconDish", icon: IconDish },
+  { name: "IconClock", icon: IconClock },
+  { name: "IconCog", icon: IconCog },
+  { name: "IconEdit", icon: IconEdit },
+  { name: "IconHome", icon: IconHome },
+  { name: "IconMixer", icon: IconMixer },
+  { name: "IconMessage", icon: IconMessage },
+  { name: "IconShare", icon: IconShare },
+  { name: "IconTrash", icon: IconTrash },
+  { name: "IconUser", icon: IconUser }
+];
 
 function IconsGrid() {
   return (
