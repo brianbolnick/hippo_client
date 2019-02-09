@@ -42,9 +42,6 @@ const StyledInput = styled(Input)`
   }
 `;
 
-//const MeasureInput = styled.input`
-//`;
-
 const AddIngredientForm = ({ onSave }) => {
   const [quantity, setQuantity] = useState("");
   const [measurement, setMeasurement] = useState("tsp");
@@ -62,7 +59,7 @@ const AddIngredientForm = ({ onSave }) => {
 
   const verifyQuantity = e => {
     const quantity = e.target.value;
-    const regex = /^(\d+[\d. ]*|\d{1,2})?\S+$/;
+    const regex = /^(\d+[\d. \/]*|\d{1,2})?$/;
     if (quantity && regex.test(quantity)) {
       setQuantity(quantity);
       setError("");

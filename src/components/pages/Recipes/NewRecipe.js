@@ -5,7 +5,7 @@ import axios from "axios";
 import FileInput from "components/common/FileInput/FileInput";
 import {
   TempIngredient,
-  Direction,
+  TempDirectionContainer,
   TempDirection,
   TempIngredientsContainer,
   DirectionsContainer,
@@ -182,20 +182,20 @@ class NewRecipe extends Component {
     return steps.length
       ? steps.map((step, index) => {
           return (
-            <Direction
+            <TempDirection
               key={JSON.stringify(step)}
               style={{ alignItems: "center" }}
             >
               <span>{index + 1}</span>
-              <TempDirection>
+              <TempDirectionContainer>
                 <div>{step}</div>
                 <DeleteIcon
                   name="close"
                   onClick={() => this.deleteStep(step)}
                   clear
                 />
-              </TempDirection>
-            </Direction>
+              </TempDirectionContainer>
+            </TempDirection>
           );
         })
       : null;

@@ -81,7 +81,7 @@ class App extends Component {
           path="/recipes/:id"
           isAuthenticated={this.isLoggedIn()}
           exact
-          component={Test}
+          component={Recipe}
         />
         <AuthRoute
           path="/family"
@@ -91,7 +91,7 @@ class App extends Component {
         />
         <Route path="/sign_up" exact component={SignUp} />
         <Route path="/about" exact component={About} />
-        <Route path="/test/:id" exact component={Recipe} />
+        <Route path="/test/:id" exact component={Test} />
         <Route path="/401" exact component={Unauthorized} />
         <Route component={NotFound} />
       </Switch>

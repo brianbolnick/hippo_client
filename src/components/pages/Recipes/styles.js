@@ -133,7 +133,7 @@ export const DeleteIcon = styled(Icon)`
   }
 `;
 
-export const TempDirection = styled.div`
+export const TempDirectionContainer = styled.div`
   display: flex;
   width: 100%;
   justify-content: space-between;
@@ -159,7 +159,9 @@ export const TempIngredientsContainer = styled.div`
 `;
 
 export const StepsContainer = styled.div``;
-export const Steps = styled.ol``;
+export const Steps = styled.ol`
+  padding-left: 0;
+`;
 
 //Recipe View Styles
 export const ImageBlock = styled.div`
@@ -305,12 +307,29 @@ export const Direction = styled.div`
   flex-flow: column;
   box-sizing: border-box;
   border-radius: 2px;
+  font-family: ${avenir};
+  font-weight: 500;
   span {
     font-weight: 500;
     color: ${colors.offGray};
     font-size: 1.1rem;
     margin-bottom: 16px;
     font-family: ${avenir};
+  }
+`;
+export const TempDirection = styled.div`
+  margin: 24px 0;
+  letter-spacing: 1px;
+  padding: 16px;
+  width: 100%;
+  display: flex;
+  box-sizing: border-box;
+  border: solid 2px ${colors.red};
+  border-radius: 2px;
+  span {
+    font-weight: 600;
+    margin-right: 16px;
+    color: #fe4969;
   }
 `;
 export const SubTitle = styled.div`
