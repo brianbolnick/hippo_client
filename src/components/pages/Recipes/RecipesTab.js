@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import RecipeCard from "components/common/Recipe/RecipeCard";
 import { API_URL, token, familyId } from "utils";
 import axios from "axios";
-import { avenir, colors } from "styles/css-variables";
+import { avenir, colors, media } from "styles/css-variables";
 import { RecipeList } from "./styles";
 import Loader from "img/loader.gif";
 import styled from "styled-components";
@@ -25,6 +25,17 @@ const PlaceholderText = styled.div`
   color: ${colors.black};
   position: relative;
   bottom: 132px;
+  ${media.phone`
+	bottom: auto;
+	font-size: 1.6rem;
+	text-align: center;
+	`}
+`;
+
+const NoRecipesImage = styled.img`
+  ${media.phone`
+		width: 100%;
+	`}
 `;
 
 const RecipesTab = ({ recipeType, onError }) => {
@@ -59,7 +70,7 @@ const RecipesTab = ({ recipeType, onError }) => {
       })
     ) : (
       <LoadContainer>
-        <img src={NoRecipes} />
+        <NoRecipesImage src={NoRecipes} />
         <PlaceholderText>
           You have no recipes here yet. Create one now!
         </PlaceholderText>

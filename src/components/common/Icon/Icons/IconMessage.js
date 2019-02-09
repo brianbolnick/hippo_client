@@ -1,19 +1,19 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import Icon from "../CustomIcon";
+import { WhitePath } from "../IconStyledComponents";
 
 export default class IconMessage extends Component {
   render() {
     const { size, color } = this.props;
     return (
-      <Icon size={size} viewBoxWidth="73.9" viewBoxHeight="73.8">
+      <Icon size={size} viewBoxWidth="73.9" viewBoxHeight="73.8" {...this.props}>
         <path
           fill={color}
           d="M308.7,279.7c-5.7,0-11.4.2-17,0-3.7-.1-5.1-2.5-2.4-5.1,5.2-5.1,2.4-8.8-.4-13.7a36.9,36.9,0,1,1,43.5,17.2C324.6,280.6,316.6,279.5,308.7,279.7Z"
           transform="translate(-284.1 -206)"
         />
-        <path
-          fill="white"
+        <WhitePath
           d="M296.2,275c2.7-5.5,1.4-9.6-1.7-14.1-8-11.9-7.6-25.4.3-36.3s21.4-16.2,34.1-13,22.1,13.9,24.2,27.5c2.7,17.4-11.2,34.7-29.3,35.8C314.9,275.5,306,275,296.2,275Z"
           transform="translate(-284.1 -206)"
         />

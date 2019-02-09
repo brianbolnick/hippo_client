@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { colors, rufina, media, raleway, avenir } from "styles/css-variables";
 import Button from "components/common/Button/Button";
 import Icon from "components/common/Icon/Icon";
+import { IconTrash } from "components/common/Icon";
 
 //New Form Styles
 export const ButtonContainer = styled.div`
@@ -513,6 +514,19 @@ export const ActionIcon = styled(Icon)`
     }
   }
 `;
+export const ActionTrashIcon = styled(IconTrash)`
+  margin: 0 16px;
+  height: 24px;
+  width: 24px;
+  cursor: pointer;
+
+  &:hover {
+    path {
+      fill: ${colors.darkGray};
+    }
+  }
+`;
+
 export const ActionContainer = styled.div`
   display: flex;
   justify-content: space-between;

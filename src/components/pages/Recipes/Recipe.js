@@ -9,7 +9,7 @@ import DeleteModal from "./DeleteModal";
 import {
   CategoryContainer,
   RecipeHeader,
-  SettingsButton,
+  ActionTrashIcon,
   Category,
   Date,
   Details,
@@ -31,8 +31,6 @@ import {
   HeaderGroup,
   RatingContainer,
   RatingCount,
-  FloatingActionButtons,
-  FabContainer,
   LoadContainer,
   ActionContainer,
   ActionIcon,
@@ -341,10 +339,10 @@ class Recipe extends React.Component {
                   }
                   color={colors.black}
                 />
-                <ActionIcon
-                  name="closeOpenCircle"
+                <ActionTrashIcon
                   onClick={() => this.setState({ showDeleteModal: true })}
                   color={colors.black}
+                  size="24"
                 />
               </ActionContainer>
 

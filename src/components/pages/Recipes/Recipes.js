@@ -17,12 +17,19 @@ const TabLink = styled.div`
 const TabsContainer = styled.div`
   display: flex;
   margin-right: 16px;
+  ${media.phone`
+	margin-right: 0;
+	margin: 16px auto;
+`}
 `;
 
 const NewButtonContainer = styled.div``;
 const OptionsContainer = styled.div`
   display: flex;
   align-items: center;
+  ${media.phone`
+    flex-flow: column;
+`}
 `;
 
 const Heading = styled.div`
