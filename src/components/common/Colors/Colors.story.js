@@ -12,7 +12,7 @@ const ColorContainer = styled.div`
   align-items: center;
   margin: 12px;
   flex-direction: column;
-  background-color: ${({ color }) => color};
+  background: ${({ color }) => color};
 `;
 
 const ColorLabel = styled.div`
