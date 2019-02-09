@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import { colors, rufina, media, raleway, avenir } from "styles/css-variables";
+import { colors, rufina, media, avenir } from "styles/css-variables";
 import Button from "components/common/Button/Button";
 import Icon from "components/common/Icon/Icon";
-import { IconTrash } from "components/common/Icon";
+import { IconTrash, IconEdit, IconShare } from "components/common/Icon";
 
 //New Form Styles
 export const ButtonContainer = styled.div`
@@ -519,6 +519,34 @@ export const ActionTrashIcon = styled(IconTrash)`
   height: 24px;
   width: 24px;
   cursor: pointer;
+  margin-top: 4px;
+
+  &:hover {
+    path {
+      fill: ${colors.darkGray};
+    }
+  }
+`;
+export const ActionShareIcon = styled(IconShare)`
+  margin: 0 16px;
+  height: 24px;
+  width: 24px;
+  cursor: pointer;
+  margin-top: 4px;
+
+  &:hover {
+    path {
+      fill: ${colors.darkGray};
+    }
+  }
+`;
+
+export const ActionEditIcon = styled(IconEdit)`
+  margin: 0 16px;
+  height: 24px;
+  width: 24px;
+  cursor: pointer;
+  margin-top: 4px;
 
   &:hover {
     path {

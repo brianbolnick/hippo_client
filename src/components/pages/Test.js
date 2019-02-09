@@ -219,7 +219,6 @@ class Recipe extends React.Component {
       recipe,
       showShareModal,
       showDeleteModal,
-      showMobile,
       loading,
       success,
       error

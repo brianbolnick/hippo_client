@@ -8,6 +8,8 @@ import ShareModal from "./ShareModal";
 import DeleteModal from "./DeleteModal";
 import {
   CategoryContainer,
+  ActionEditIcon,
+  ActionShareIcon,
   RecipeHeader,
   ActionTrashIcon,
   Category,
@@ -33,14 +35,12 @@ import {
   RatingCount,
   LoadContainer,
   ActionContainer,
-  ActionIcon,
   CategoryMeta,
   DishType
 } from "./styles";
 import Icon from "components/common/Icon/Icon";
 import FlashMessage from "components/common/FlashMessage/FlashMessage";
 import Rating from "components/common/Rating/Rating";
-import ActionButton from "./ActionButton";
 import { colors } from "styles/css-variables";
 import MediaQuery from "components/common/MediaQuery/MediaQuery";
 import { phoneMediaQuery } from "styles/css-variables";
@@ -53,7 +53,6 @@ class Recipe extends React.Component {
     recipe: {},
     showShareModal: false,
     showDeleteModal: false,
-    showActions: false,
     showMobile: window.matchMedia("(" + phoneMediaQuery + ")").matches,
     loading: true
   };
@@ -210,7 +209,6 @@ class Recipe extends React.Component {
   render() {
     const {
       recipe,
-      showActions,
       showShareModal,
       showDeleteModal,
       showMobile,
@@ -327,17 +325,17 @@ class Recipe extends React.Component {
                 </RecipeHeader>
               )}
               <ActionContainer>
-                <ActionIcon
-                  name="share"
+                <ActionShareIcon
                   onClick={() => this.setState({ showShareModal: true })}
                   color={colors.black}
+                  size="24"
                 />
-                <ActionIcon
-                  name="edit"
+                <ActionEditIcon
                   onClick={() =>
                     window.location.replace(`/recipes/${recipe.id}/edit`)
                   }
                   color={colors.black}
+                  size="24"
                 />
                 <ActionTrashIcon
                   onClick={() => this.setState({ showDeleteModal: true })}
