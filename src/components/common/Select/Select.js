@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 import { colors, varela } from "styles/css-variables";
 import Icon from "components/common/Icon/Icon";
-
 const Control = styled.div`
   box-sizing: border-box;
   clear: both;
@@ -51,9 +50,11 @@ const IconContainer = styled(Icon)`
   left: 8px;
   width: 20px;
   height: 20px;
+  svg {
+    position: initial;
+  }
   ${({ focus }) => focus && `path {fill: ${colors.red};}`};
 `;
-
 const StyledSelect = styled.select`
   margin: 0;
   font-family: ${varela};
@@ -119,6 +120,22 @@ class Select extends React.Component {
     focus: false
   };
 
+  renderIcon = () => {
+    const { label, icon, inputState } = this.props;
+
+    const color = inputState === "error" ? colors.darkRed : "#dbdbdb";
+    return (
+      icon && (
+        <IconContainer
+          label={label}
+          focus={this.state.focus}
+          color={color}
+          name={icon}
+        />
+      )
+    );
+  };
+
   render() {
     const {
       children,
@@ -145,14 +162,7 @@ class Select extends React.Component {
               {children}
             </StyledSelect>
           </SelectWrapper>
-          {icon && (
-            <IconContainer
-              label={label}
-              focus={this.state.focus}
-              color={inputState === "error" ? colors.darkRed : "#dbdbdb"}
-              name={icon}
-            />
-          )}
+          {this.renderIcon()}
         </Container>
       </Control>
     );

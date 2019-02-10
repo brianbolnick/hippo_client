@@ -6,18 +6,23 @@ import styled from "styled-components";
 import { varela, colors } from "styles/css-variables";
 
 const iconList = [
+  "dish",
+  "mixer",
+  "share",
+  "trash",
   "addRecipe",
   "book",
+  "checkCircle",
   "checkOpenCircle",
   "chevronDown",
   "chevronLeft",
   "chevronRight",
   "chevronUp",
-  "checkCircle",
   "clock",
   "clockAlarm",
   "close",
   "closeOpenCircle",
+  "cog",
   "edit",
   "envelope",
   "filter",
@@ -38,8 +43,7 @@ const iconList = [
   "upload",
   "user",
   "users",
-  "utensils",
-  "cog"
+  "utensils"
 ];
 
 const IconLabel = styled.span`

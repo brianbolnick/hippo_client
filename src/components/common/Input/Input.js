@@ -55,6 +55,9 @@ const StyledIcon = styled(Icon)`
   left: 8px;
   width: 20px;
   height: 20px;
+  svg {
+    position: initial;
+  }
   ${({ focus, inputState }) =>
     focus &&
     `
@@ -75,6 +78,35 @@ class Input extends React.Component {
     focus: false
   };
 
+  renderIcon = () => {
+    const { label, icon, inputState } = this.props;
+    const color =
+      inputState === "error"
+        ? colors.darkRed
+        : inputState === "success"
+        ? colors.green
+        : "#dbdbdb";
+
+    const name =
+      inputState === "success"
+        ? "checkCircle"
+        : inputState === "error"
+        ? "close"
+        : icon;
+
+    return (
+      icon && (
+        <StyledIcon
+          label={label}
+          focus={this.state.focus}
+          inputState={inputState}
+          color={color}
+          name={name}
+        />
+      )
+    );
+  };
+
   render() {
     const { type, onChange, placeholder, label, icon, inputState } = this.props;
 
@@ -82,27 +114,7 @@ class Input extends React.Component {
       <Wrapper {...this.props}>
         {label && <Label>{label}</Label>}
         <Container>
-          {icon && (
-            <StyledIcon
-              label={label}
-              focus={this.state.focus}
-              inputState={inputState}
-              color={
-                inputState === "error"
-                  ? colors.darkRed
-                  : inputState === "success"
-                  ? colors.green
-                  : "#dbdbdb"
-              }
-              name={
-                inputState === "success"
-                  ? "checkCircle"
-                  : inputState === "error"
-                  ? "close"
-                  : icon
-              }
-            />
-          )}
+          {this.renderIcon()}
           <StyledInput
             type={type}
             onChange={onChange}

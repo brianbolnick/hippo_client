@@ -1,14 +1,15 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import Icon from "../CustomIcon";
-import { WhitePath } from "../IconStyledComponents";
+import { colors } from "styles/css-variables";
+import { WhitePath, TransparentPath } from "../IconStyledComponents";
 
 export default class IconClock extends Component {
   render() {
-    const { size, color } = this.props;
+    const { color } = this.props;
     return (
-      <Icon size={size} viewBoxWidth="80.2" viewBoxHeight="76.2" {...this.props}>
-        <path
+      <Icon viewBoxWidth="80.2" viewBoxHeight="76.2" {...this.props}>
+        <TransparentPath
           fill={color}
           d="M356.9,241.7a36.4,36.4,0,0,1-37,36.4c-20.1-.1-36.8-17.2-36.4-37.2s17.1-36.1,36.7-36.1A36.9,36.9,0,0,1,356.9,241.7Z"
           transform="translate(-280.2 -201.9)"
@@ -24,6 +25,7 @@ export default class IconClock extends Component {
           transform="translate(-280.2 -201.9)"
         />
         <WhitePath
+          style={{ fillOpacity: color === colors.white ? 0 : "" }}
           d="M288.7,241.5c0-17.8,13.6-31.6,31.4-31.7s32.7,14.7,32.3,32.3-15.2,31.6-32.3,31.5S288.6,259,288.7,241.5Z"
           transform="translate(-280.2 -201.9)"
         />
@@ -38,11 +40,9 @@ export default class IconClock extends Component {
 }
 
 IconClock.propTypes = {
-  size: PropTypes.number,
   color: PropTypes.string
 };
 
 IconClock.defaultProps = {
-  size: 35,
   color: "#333333"
 };

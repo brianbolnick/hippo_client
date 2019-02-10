@@ -1,6 +1,20 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
+import * as CustomIcons from "./";
+
+const CUSTOM_MAP = {
+  dish: CustomIcons.IconDish,
+  clock: CustomIcons.IconClock,
+  cog: CustomIcons.IconCog,
+  edit: CustomIcons.IconEdit,
+  home: CustomIcons.IconHome,
+  mixer: CustomIcons.IconMixer,
+  message: CustomIcons.IconMessage,
+  share: CustomIcons.IconShare,
+  trash: CustomIcons.IconTrash,
+  user: CustomIcons.IconUser
+};
 
 const icons = {
   pencil:
@@ -145,6 +159,8 @@ const StyledSvg = styled.svg`
 class Icon extends Component {
   render() {
     const { color, name, onClick, link, size } = this.props;
+    const isCustom = CUSTOM_MAP[name];
+    const ComponentName = CUSTOM_MAP[name];
     return (
       <IconContainer
         name={name}
@@ -154,15 +170,19 @@ class Icon extends Component {
         size={size}
         {...this.props}
       >
-        <StyledSvg
-          aria-hidden="true"
-          data-prefix="fal"
-          role="img"
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox={viewboxSize[name]}
-        >
-          <path fill={color || "currentColor"} d={icons[name]} />
-        </StyledSvg>
+        {isCustom ? (
+          <ComponentName {...this.props} />
+        ) : (
+          <StyledSvg
+            aria-hidden="true"
+            data-prefix="fal"
+            role="img"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox={viewboxSize[name]}
+          >
+            <path fill={color || "currentColor"} d={icons[name]} />
+          </StyledSvg>
+        )}
       </IconContainer>
     );
   }

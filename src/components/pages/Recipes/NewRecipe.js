@@ -305,7 +305,7 @@ class NewRecipe extends Component {
             <FormRow>
               <Select
                 onChange={e => this.setState({ dish_type_id: e.target.value })}
-                icon="tags"
+                icon="dish"
                 label="Dish Type"
                 placeholder="Dish Type"
               >

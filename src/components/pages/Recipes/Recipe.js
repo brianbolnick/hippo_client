@@ -8,10 +8,8 @@ import ShareModal from "./ShareModal";
 import DeleteModal from "./DeleteModal";
 import {
   CategoryContainer,
-  ActionEditIcon,
-  ActionShareIcon,
+  ActionIcon,
   RecipeHeader,
-  ActionTrashIcon,
   Category,
   Date,
   Details,
@@ -325,22 +323,25 @@ class Recipe extends React.Component {
                 </RecipeHeader>
               )}
               <ActionContainer>
-                <ActionShareIcon
+                <ActionIcon
+                  name="share"
                   onClick={() => this.setState({ showShareModal: true })}
                   color={colors.black}
-                  size="24"
+                  size="24px"
                 />
-                <ActionEditIcon
+                <ActionIcon
                   onClick={() =>
                     window.location.replace(`/recipes/${recipe.id}/edit`)
                   }
                   color={colors.black}
-                  size="24"
+                  name="edit"
+                  size="24px"
                 />
-                <ActionTrashIcon
+                <ActionIcon
                   onClick={() => this.setState({ showDeleteModal: true })}
                   color={colors.black}
-                  size="24"
+                  name="trash"
+                  size="24px"
                 />
               </ActionContainer>
 
