@@ -7,7 +7,12 @@ export default class IconEdit extends Component {
   render() {
     const { size, color } = this.props;
     return (
-			<Icon size={size} viewBoxWidth="76.8" viewBoxHeight="78.9" {...this.props}>
+      <Icon
+        size={size}
+        viewBoxWidth="76.8"
+        viewBoxHeight="78.9"
+        {...this.props}
+      >
         <path
           fill={color}
           d="M354.3,240a79.5,79.5,0,0,1,.5,26.1c-.9,7.2-7.7,12.9-15.5,13.1-13.6.4-27.3.4-40.9,0-8.4-.2-14.7-5.6-15.7-14a196.5,196.5,0,0,1-.1-44.7c.8-7.3,5.6-12,12.7-13.7s14.6-1.1,21.9-.8a2.8,2.8,0,0,1,3,2.1c.2,2.2-1.6,2.6-3.3,2.7-5,.1-10-.1-15,.1-10.6.3-14.9,4.6-15,15.4s-.2,21.9,0,32.9,4.4,15.4,14.9,15.6,22.6.2,33.9,0,14.8-4.9,15.1-15.6c.1-4.3,0-8.6.1-12.9C350.9,244.3,351,242.4,354.3,240Z"
@@ -23,7 +28,6 @@ export default class IconEdit extends Component {
           transform="translate(-281.4 -202.6)"
         />
         <WhitePath
-          fill="white"
           d="M347.1,207.2c2.9-.1,7.7,4.2,7.7,7a5.3,5.3,0,0,1-4.7,5.5c-1.6.4-8.3-6.8-7.8-8.3A5.8,5.8,0,0,1,347.1,207.2Z"
           transform="translate(-281.4 -202.6)"
         />
