@@ -2,10 +2,19 @@ import styled from "styled-components";
 import { colors, rufina, avenir } from "styles/css-variables";
 import Icon from "components/common/Icon/Icon";
 
+//export const ActionIcon = styled(Icon)`
+//height: 40px;
+//width: 40px;
+//margin: 0 16px;
+//cursor: pointer;
+
+//&:hover {
+//path {
+//fill: ${colors.white};
+//}
+//}
+//`;
 export const ActionIcon = styled(Icon)`
-  height: 40px;
-  width: 40px;
-  margin: 0 16px;
   cursor: pointer;
 
   &:hover {
@@ -14,12 +23,17 @@ export const ActionIcon = styled(Icon)`
     }
   }
 `;
+
 export const ActionContainer = styled.div`
   display: flex;
   flex-basis: 50%;
   justify-content: flex-end;
   padding-top: 32px;
   box-sizing: border-box;
+
+  * > {
+    margin: 0 40px;
+  }
 `;
 
 export const LoadContainer = styled.div`

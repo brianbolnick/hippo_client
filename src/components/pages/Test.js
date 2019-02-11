@@ -277,7 +277,8 @@ class Recipe extends React.Component {
                   <ActionIcon
                     name="share"
                     onClick={() => this.setState({ showShareModal: true })}
-                    color={colors.offWhite}
+                    color={colors.white}
+                    size="32px"
                   />
                 </Tooltip>
                 <Tooltip type="arrow" position="top" tip="Edit Recipe">
@@ -286,14 +287,16 @@ class Recipe extends React.Component {
                     onClick={() =>
                       window.location.replace(`/recipes/${recipe.id}/edit`)
                     }
-                    color={colors.offWhite}
+                    color={colors.white}
+                    size="32px"
                   />
                 </Tooltip>
                 <Tooltip type="arrow" position="top" tip="Delete Recipe">
                   <ActionIcon
-                    name="closeOpenCircle"
+                    name="trash"
                     onClick={() => this.setState({ showDeleteModal: true })}
-                    color={colors.offWhite}
+                    color={colors.white}
+                    size="32px"
                   />
                 </Tooltip>
               </ActionContainer>

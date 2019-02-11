@@ -15,7 +15,7 @@ export const WhitePath = styled.path`
 `;
 export const TransparentPath = styled.path`
   ${({ fill }) =>
-    fill === colors.white &&
+    (fill === colors.white || fill === colors.offWhite) &&
     `
 	&&& {
     fill-opacity: 0;
