@@ -13,7 +13,8 @@ const CUSTOM_MAP = {
   message: CustomIcons.IconMessage,
   share: CustomIcons.IconShare,
   trash: CustomIcons.IconTrash,
-  user: CustomIcons.IconUser
+  user: CustomIcons.IconUser,
+  american: CustomIcons.IconAmerican
 };
 
 const icons = {

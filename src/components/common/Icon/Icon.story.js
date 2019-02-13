@@ -43,7 +43,8 @@ const iconList = [
   "upload",
   "user",
   "users",
-  "utensils"
+  "utensils",
+  "american"
 ];
 
 const IconLabel = styled.span`
@@ -81,4 +82,12 @@ storiesOf("Icon", module)
   .add("default", () => <IconList />)
   .add("colored", () => (
     <Icon name="home" onClick={action("click")} color={colors.red} />
+  ))
+  .add("colored shade", () => (
+    <Icon
+      name="american"
+      size="40px"
+      onClick={action("click")}
+      color={colors.red}
+    />
   ));
