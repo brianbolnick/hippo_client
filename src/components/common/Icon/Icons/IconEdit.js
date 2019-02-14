@@ -28,6 +28,7 @@ export default class IconEdit extends Component {
           transform="translate(-281.4 -202.6)"
         />
         <WhitePath
+          fill="white"
           d="M347.1,207.2c2.9-.1,7.7,4.2,7.7,7a5.3,5.3,0,0,1-4.7,5.5c-1.6.4-8.3-6.8-7.8-8.3A5.8,5.8,0,0,1,347.1,207.2Z"
           transform="translate(-281.4 -202.6)"
         />

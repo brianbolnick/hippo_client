@@ -9,6 +9,7 @@ import IconTrash from "./Icons/IconTrash";
 import IconClock from "./Icons/IconClock";
 import IconMixer from "./Icons/IconMixer";
 import IconAmerican from "./Icons/IconAmerican";
+import IconAsian from "./Icons/IconAsian";
 
 export { default as IconUser } from "./Icons/IconUser";
 export { default as IconDish } from "./Icons/IconDish";
@@ -21,6 +22,7 @@ export { default as IconTrash } from "./Icons/IconTrash";
 export { default as IconClock } from "./Icons/IconClock";
 export { default as IconMixer } from "./Icons/IconMixer";
 export { default as IconAmerican } from "./Icons/IconAmerican";
+export { default as IconAsian } from "./Icons/IconAsian";
 
 export default {
   IconUser,
@@ -33,5 +35,6 @@ export default {
   IconTrash,
   IconClock,
   IconMixer,
-  IconAmerican
+  IconAmerican,
+  IconAsian
 };

@@ -4,6 +4,7 @@ import { action } from "@storybook/addon-actions";
 import Icon from "./Icon";
 import styled from "styled-components";
 import { varela, colors } from "styles/css-variables";
+const shadedIconList = ["american", "asian"];
 
 const iconList = [
   "dish",
@@ -44,7 +45,8 @@ const iconList = [
   "user",
   "users",
   "utensils",
-  "american"
+  "american",
+  "asian"
 ];
 
 const IconLabel = styled.span`
@@ -75,19 +77,27 @@ const icons = iconList.map(icon => {
     </IconWrapper>
   );
 });
+const shadedIcons = shadedIconList.map(icon => {
+  return (
+    <IconWrapper>
+      <Icon
+        name={icon}
+        color={colors.red}
+        size="40px"
+        onClick={action("click")}
+      />
+      <IconLabel>{icon}</IconLabel>
+    </IconWrapper>
+  );
+});
 
 const IconList = () => <StyledContainer>{icons}</StyledContainer>;
+
+const ShadedIconList = () => <StyledContainer>{shadedIcons}</StyledContainer>;
 
 storiesOf("Icon", module)
   .add("default", () => <IconList />)
   .add("colored", () => (
     <Icon name="home" onClick={action("click")} color={colors.red} />
   ))
-  .add("colored shade", () => (
-    <Icon
-      name="american"
-      size="40px"
-      onClick={action("click")}
-      color={colors.red}
-    />
-  ));
+  .add("colored shade", () => <ShadedIconList />);
