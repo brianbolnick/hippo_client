@@ -11,6 +11,11 @@ import IconMixer from "./Icons/IconMixer";
 import IconAmerican from "./Icons/IconAmerican";
 import IconAsian from "./Icons/IconAsian";
 import IconItalian from "./Icons/IconItalian";
+import IconFruit from "./Icons/IconFruit";
+import IconMexican from "./Icons/IconMexican";
+import IconList from "./Icons/IconList";
+import IconProfile from "./Icons/IconProfile";
+import IconFamily from "./Icons/IconFamily";
 
 export { default as IconUser } from "./Icons/IconUser";
 export { default as IconDish } from "./Icons/IconDish";
@@ -24,7 +29,12 @@ export { default as IconClock } from "./Icons/IconClock";
 export { default as IconMixer } from "./Icons/IconMixer";
 export { default as IconAmerican } from "./Icons/IconAmerican";
 export { default as IconAsian } from "./Icons/IconAsian";
+export { default as IconFruit } from "./Icons/IconFruit";
 export { default as IconItalian } from "./Icons/IconItalian";
+export { default as IconMexican } from "./Icons/IconMexican";
+export { default as IconList } from "./Icons/IconList";
+export { default as IconProfile } from "./Icons/IconProfile";
+export { default as IconFamily } from "./Icons/IconFamily";
 
 export default {
   IconUser,
@@ -39,5 +49,10 @@ export default {
   IconMixer,
   IconAmerican,
   IconAsian,
-  IconItalian
+  IconItalian,
+  IconFruit,
+  IconMexican,
+  IconList,
+  IconProfile,
+  IconFamily
 };

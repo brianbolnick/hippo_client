@@ -16,7 +16,12 @@ const CUSTOM_MAP = {
   user: CustomIcons.IconUser,
   american: CustomIcons.IconAmerican,
   asian: CustomIcons.IconAsian,
-  italian: CustomIcons.IconItalian
+  italian: CustomIcons.IconItalian,
+  fruit: CustomIcons.IconFruit,
+  mexican: CustomIcons.IconMexican,
+  list: CustomIcons.IconList,
+  profile: CustomIcons.IconProfile,
+  family: CustomIcons.IconFamily
 };
 
 const icons = {

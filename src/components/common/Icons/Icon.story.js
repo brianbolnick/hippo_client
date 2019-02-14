@@ -5,7 +5,15 @@ import Icon from "./Icon";
 import styled from "styled-components";
 import { varela, colors } from "styles/css-variables";
 
-const shadedIconList = ["american", "asian", "italian"];
+const shadedIconList = [
+  "american",
+  "asian",
+  "italian",
+  "fruit",
+  "list",
+  "profile",
+  "family"
+];
 
 const iconList = [
   "dish",
@@ -48,7 +56,11 @@ const iconList = [
   "utensils",
   "american",
   "asian",
-  "italian"
+  "italian",
+  "fruit",
+  "mexican",
+  "list",
+  "family"
 ];
 
 const IconLabel = styled.span`
