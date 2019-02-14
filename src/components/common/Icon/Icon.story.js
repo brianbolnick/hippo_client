@@ -4,7 +4,8 @@ import { action } from "@storybook/addon-actions";
 import Icon from "./Icon";
 import styled from "styled-components";
 import { varela, colors } from "styles/css-variables";
-const shadedIconList = ["american", "asian"];
+
+const shadedIconList = ["american", "asian", "italian"];
 
 const iconList = [
   "dish",
@@ -46,7 +47,8 @@ const iconList = [
   "users",
   "utensils",
   "american",
-  "asian"
+  "asian",
+  "italian"
 ];
 
 const IconLabel = styled.span`

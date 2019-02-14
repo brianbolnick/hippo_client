@@ -15,7 +15,8 @@ const CUSTOM_MAP = {
   trash: CustomIcons.IconTrash,
   user: CustomIcons.IconUser,
   american: CustomIcons.IconAmerican,
-  asian: CustomIcons.IconAsian
+  asian: CustomIcons.IconAsian,
+  italian: CustomIcons.IconItalian
 };
 
 const icons = {
