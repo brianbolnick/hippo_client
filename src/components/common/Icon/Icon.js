@@ -21,7 +21,14 @@ const CUSTOM_MAP = {
   mexican: CustomIcons.IconMexican,
   list: CustomIcons.IconList,
   profile: CustomIcons.IconProfile,
-  family: CustomIcons.IconFamily
+  family: CustomIcons.IconFamily,
+  drink: CustomIcons.IconDrink,
+  cheese: CustomIcons.IconCheese,
+  main: CustomIcons.IconMain,
+  dessert: CustomIcons.IconDessert,
+  salad: CustomIcons.IconSalad,
+  breakfast: CustomIcons.IconBreakfast,
+  bread: CustomIcons.IconBread
 };
 
 const icons = {
