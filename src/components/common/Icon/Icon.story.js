@@ -5,25 +5,16 @@ import Icon from "./Icon";
 import styled from "styled-components";
 import { varela, colors } from "styles/css-variables";
 
-const shadedIconList = [
-  "american",
-  "asian",
-  "italian",
-  "fruit",
-  "list",
-  "profile",
-  "family"
-];
-
 const iconList = [
   "addRecipe",
   "american",
   "asian",
   "book",
   "bread",
-  "cheese",
+  "breakfast",
   "checkCircle",
   "checkOpenCircle",
+  "cheese",
   "chevronDown",
   "chevronLeft",
   "chevronRight",
@@ -33,6 +24,7 @@ const iconList = [
   "close",
   "closeOpenCircle",
   "cog",
+  "dessert",
   "dish",
   "drink",
   "edit",
@@ -46,6 +38,7 @@ const iconList = [
   "italian",
   "list",
   "lock",
+  "main",
   "menu",
   "message",
   "mexican",
@@ -53,6 +46,7 @@ const iconList = [
   "new",
   "plus",
   "profile",
+  "salad",
   "search",
   "share",
   "signin",
@@ -63,11 +57,7 @@ const iconList = [
   "upload",
   "user",
   "users",
-  "utensils",
-  "main",
-  "dessert",
-  "salad",
-  "breakfast"
+  "utensils"
 ];
 const IconLabel = styled.span`
   margin: 0 0 10px 0;
@@ -97,27 +87,11 @@ const icons = iconList.map(icon => {
     </IconWrapper>
   );
 });
-const shadedIcons = shadedIconList.map(icon => {
-  return (
-    <IconWrapper>
-      <Icon
-        name={icon}
-        color={colors.red}
-        size="40px"
-        onClick={action("click")}
-      />
-      <IconLabel>{icon}</IconLabel>
-    </IconWrapper>
-  );
-});
 
 const IconList = () => <StyledContainer>{icons}</StyledContainer>;
-
-const ShadedIconList = () => <StyledContainer>{shadedIcons}</StyledContainer>;
 
 storiesOf("Icon", module)
   .add("default", () => <IconList />)
   .add("colored", () => (
     <Icon name="home" onClick={action("click")} color={colors.red} />
-  ))
-  .add("colored shade", () => <ShadedIconList />);
+  ));
