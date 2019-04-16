@@ -14,7 +14,7 @@ const StyledDivider = styled.hr`
   height: 1.5em;
   opacity: 0.5;
   width: ${({ full }) => (full ? "100%" : "50%")};
-  margin: 16px;
+	margin: ${({margin}) => `${margin} auto`};
 
   &:before {
     content: "";
@@ -38,6 +38,12 @@ const StyledDivider = styled.hr`
   }
 `;
 
-export default ({ children, full }) => {
-  return <StyledDivider full={full} data-content={children} />;
+const Divider = ({ children, full, margin }) => {
+  return <StyledDivider full={full} data-content={children} margin={margin}/>;
 };
+
+Divider.defaultProps = {
+	margin: '16px'
+}
+
+export default Divider

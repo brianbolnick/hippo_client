@@ -30,12 +30,12 @@ const Nav = props => {
             Recipes
           </NavLink>
         )}
-        <NavAnchor
-          href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=HUYFMWSSJERU2&source=url"
-          target="_blank"
+        <NavLink
+					notify
+					to='/about'
         >
-          Donate
-        </NavAnchor>
+          About
+        </NavLink>
 
         {!token && (
           <NavLink auth={props.auth} to="/sign_in">
