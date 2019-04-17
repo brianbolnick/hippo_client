@@ -4,8 +4,7 @@ import {
   Brand,
   BrandImage,
   NavLinks,
-  NavLink,
-  NavAnchor
+	NavLink
 } from "./NavStyles";
 import { Link } from "react-router-dom";
 import { Logo, LogoWhite } from "styles/css-variables.js";
@@ -21,21 +20,15 @@ const Nav = props => {
         </Link>
       </Brand>
       <NavLinks>
-        {!token ? (
-          <NavLink auth={props.auth} to="/about">
-            About
-          </NavLink>
-        ) : (
+        {token && (
           <NavLink auth={props.auth} to="/">
             Recipes
           </NavLink>
         )}
-        <NavLink
-					notify
-					to='/about'
-        >
-          About
-        </NavLink>
+
+          <NavLink auth={props.auth} to="/about">
+            About
+          </NavLink>
 
         {!token && (
           <NavLink auth={props.auth} to="/sign_in">
