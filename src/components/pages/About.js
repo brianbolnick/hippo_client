@@ -57,7 +57,7 @@ export default () => {
 				<ButtonMeta>All initial proceeds (after hosting and maintenance fees) will go towards my student loan balance.</ButtonMeta>
 
 				<Divider full margin="40px"/>
-				<Title>So... What's Different?</Title>
+				<Title>More information coming soon!</Title>
 			</Container>
 		</Layout>
 	)
