@@ -19,11 +19,11 @@ export const Navbar = styled.div`
   ${({ recipe }) =>
     recipe &&
     `
-		position: absolute;
-	width: 100%;
-	box-sizing: border-box;
-	padding: 0 5%;
-	    padding-right: 32px;
+			position: absolute;
+			width: 100%;
+			box-sizing: border-box;
+			padding: 0 5%;
+			padding-right: 32px;
 	`};
 
   ${({ auth }) =>
@@ -39,9 +39,10 @@ export const Navbar = styled.div`
 
 export const Brand = styled.div`
   ${({ recipe }) =>
-    recipe &&
-    `    position: relative;
-	    top: 16px;`};
+	recipe && `    
+		position: relative;
+		top: 16px;
+`};
 `;
 
 export const NavLinks = styled.div`

@@ -21,9 +21,15 @@ const Nav = props => {
       </Brand>
       <NavLinks>
         {token && (
+					<>
           <NavLink auth={props.auth} to="/">
             Recipes
           </NavLink>
+					<NavLink auth={props.auth} to="/meal_plans">
+						Meal Plans
+					</NavLink>
+					</>
+
         )}
 
           <NavLink auth={props.auth} to="/about">

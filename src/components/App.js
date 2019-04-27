@@ -8,6 +8,7 @@ import NewRecipe from "./pages/Recipes/NewRecipe";
 import EditRecipe from "./pages/Recipes/EditRecipe";
 import About from "./pages/About";
 import Family from "./pages/Family/Family";
+import MealPlans from "./pages/MealPlans";
 import NotFound from "./pages/NotFound";
 import Unauthorized from "./pages/Unauthorized";
 import Test from "./pages/Test";
@@ -83,6 +84,12 @@ class App extends Component {
           exact
           component={Recipe}
         />
+				<AuthRoute
+					path="/meal_plans"
+					isAuthenticated={this.isLoggedIn()}
+					exact
+					component={MealPlans}
+				/>
         <AuthRoute
           path="/family"
           exact

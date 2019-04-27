@@ -266,7 +266,7 @@ padding: 8px 16px;
 `;
 
 export const Ingredient = styled.li`
-  color: rgb(0, 0, 0, 0.3);
+  color: rgb(0, 0, 0, 0.5);
   margin: 16px 0;
   list-style: none;
   border-bottom: solid 1px rgb(0, 0, 0, 0.05);
