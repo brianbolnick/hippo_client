@@ -15,15 +15,15 @@ export const Navbar = styled.div`
   transition: 0.2s ease;
   padding: 16px 5%;
   box-shadow: rgba(0, 0, 0, 0) 0px 0px 0px;
+	position: relative;
 
-  ${({ recipe }) =>
-    recipe &&
+  ${({ recipe, menuOpen }) =>
+    (recipe && !menuOpen) && 
     `
 			position: absolute;
 			width: 100%;
 			box-sizing: border-box;
-			padding: 0 5%;
-			padding-right: 32px;
+			padding: 16px 5%;
 	`};
 
   ${({ auth }) =>
@@ -38,8 +38,8 @@ export const Navbar = styled.div`
 `;
 
 export const Brand = styled.div`
-  ${({ recipe }) =>
-	recipe && `    
+  ${({ recipe, menuOpen }) =>
+	(recipe && !menuOpen) &&  `    
 		position: relative;
 		top: 16px;
 `};
@@ -55,7 +55,6 @@ export const NavLinkMobile = styled(Link)`
   color: ${colors.black};
   font-size: 1.4rem;
   transition: all 0.2s ease;
-  margin: 10px 0;
   text-decoration: none;
   width: 100%;
   text-align: center;
@@ -81,13 +80,10 @@ export const NavAnchor = styled(Anchor)`
 
 export const NavLinkButton = styled(Button)`
   color: ${colors.black};
-  font-size: 1.4rem;
   transition: all 0.2s ease;
-  margin: 10px 0;
-  text-decoration: none;
-  width: 100%;
-  text-align: center;
-  font-weight: 600;
+	text-decoration: none;
+	text-align: left;
+	margin-left: 24px;
 
   &:hover {
     color: ${colors.red};

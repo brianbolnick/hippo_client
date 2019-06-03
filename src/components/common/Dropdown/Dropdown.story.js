@@ -23,10 +23,32 @@ const list = [
     key: "fruit"
   }
 ];
-storiesOf("Dropdown", module).add("Default", () => (
-  <Dropdown
-    placeholder="Email Address"
-    onChange={action("change")}
-    list={list}
-  />
-));
+
+const navList = [
+  {
+    title: "Home Page",
+    path: "/home"
+  },
+  {
+    title: "About Page",
+    path: "/about"
+  },
+  {
+    title: "Contact Page",
+    path: "/contact"
+  }
+];
+
+storiesOf("Dropdown", module)
+  .add("Default", () => (
+    <Dropdown
+      placeholder="Email Address"
+      onChange={action("change")}
+      list={list}
+    />
+  ))
+  .add("Default Value", () => (
+    <Dropdown defaultValue="TesT" onChange={action("change")} list={list} />
+  ))
+
+  .add("Navbar", () => <Dropdown nav placeholder="Recipes" list={navList} />);
