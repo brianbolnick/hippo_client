@@ -15,25 +15,13 @@ export const Navbar = styled.div`
   transition: 0.2s ease;
   padding: 16px 5%;
   box-shadow: rgba(0, 0, 0, 0) 0px 0px 0px;
-	position: relative;
-
-  ${({ recipe, menuOpen }) =>
-    (recipe && !menuOpen) && 
-    `
-			position: absolute;
-			width: 100%;
-			box-sizing: border-box;
-			padding: 16px 5%;
-	`};
-
-  ${({ auth }) =>
-    auth &&
-    `
-	    padding: 16px 0%;
-	    box-shadow: rgba(0,0,0,0) 0px 0px 0px;
-	    position: absolute;
-	    top: 0;
-	    width: 80%;
+	position: fixed;
+	top: 0;
+	width: 100%;
+	box-sizing: border-box;
+	background: ${({auth}) => auth ? '' : colors.white};
+	${({auth}) => auth && `
+		left: 0;
 	`};
 `;
 

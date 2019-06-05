@@ -6,16 +6,17 @@ import {
   NavLinks,
 } from "./NavStyles";
 import { Link } from "react-router-dom";
-import { Logo, LogoWhite } from "styles/css-variables.js";
+import { NewLogo, LogoWhite } from "styles/css-variables.js";
 import NavIcon from './NavIcon';
 
 const Nav = props => {
 	const [ menuOpen, setMenuOpen] = useState(false)
   return (
     <Navbar recipe={props.recipe} auth={props.auth} menuOpen={menuOpen}>
+			<div>Something</div>
       <Brand recipe={props.recipe} menuOpen={menuOpen}>
         <Link to="/">
-          <BrandImage src={(props.recipe && !menuOpen) ? LogoWhite : Logo} alt="" />
+          <BrandImage src={(props.recipe && !menuOpen) ? LogoWhite : NewLogo} alt="" />
         </Link>
       </Brand>
       <NavLinks>

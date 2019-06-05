@@ -110,7 +110,7 @@ export const Header = styled.div`
   align-items: center;
   padding: 0 25%;
   text-align: center;
-  margin-top: 80px;
+  margin-top: 140px;
   ${media.phone`
 	padding: 5% 16px;
 	`};

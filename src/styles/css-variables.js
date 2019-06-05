@@ -3,6 +3,7 @@ import cols from "./colors";
 import TextLogo from "../img/hippo-text.svg";
 import WhiteLogo from "../img/hippo-text-white.svg";
 
+
 // Fonts
 export const sourceSans = "'Source Sans Pro', sans-serif";
 export const workSans = "'Work Sans', sans-serif";
@@ -22,6 +23,7 @@ export const desktopMediaQuery = "min-width: 1200px";
 
 export const Logo = TextLogo;
 export const LogoWhite = WhiteLogo;
+export { default as NewLogo } from "../img/new-logo.svg";
 
 export const media = {
   phone: (...args) => css`
