@@ -2,6 +2,7 @@ import { css, keyframes } from "styled-components";
 import cols from "./colors";
 import TextLogo from "../img/hippo-text.svg";
 import WhiteLogo from "../img/hippo-text-white.svg";
+export { default as NewLogo } from "../img/new-logo.svg";
 
 // Fonts
 export const sourceSans = "'Source Sans Pro', sans-serif";

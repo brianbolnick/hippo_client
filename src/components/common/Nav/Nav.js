@@ -7,7 +7,7 @@ import {
 	NavLink
 } from "./NavStyles";
 import { Link } from "react-router-dom";
-import { Logo, LogoWhite } from "styles/css-variables.js";
+import { NewLogo, LogoWhite } from "styles/css-variables.js";
 import { token, signOut } from "utils";
 import Button from "components/common/Button/Button";
 
@@ -16,7 +16,7 @@ const Nav = props => {
     <Navbar recipe={props.recipe} auth={props.auth}>
       <Brand recipe={props.recipe}>
         <Link to="/">
-          <BrandImage src={props.recipe ? LogoWhite : Logo} alt="" />
+          <BrandImage src={props.recipe ? LogoWhite : NewLogo} alt="" />
         </Link>
       </Brand>
       <NavLinks>
@@ -25,9 +25,11 @@ const Nav = props => {
           <NavLink auth={props.auth} to="/">
             Recipes
           </NavLink>
+					{/*
 					<NavLink auth={props.auth} to="/meal_plans">
 						Meal Plans
 					</NavLink>
+					*/}
 					</>
 
         )}
