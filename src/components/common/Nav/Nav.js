@@ -3,52 +3,22 @@ import {
   Navbar,
   Brand,
   BrandImage,
-  NavLinks,
-	NavLink
 } from "./NavStyles";
 import { Link } from "react-router-dom";
-import { NewLogo, LogoWhite } from "styles/css-variables.js";
-import { token, signOut } from "utils";
-import Button from "components/common/Button/Button";
+import { NewLogo } from "styles/css-variables.js";
+import NavIcon from './NavIcon';
+import NavMenu from './NavMenu';
 
-const Nav = props => {
+const Nav = ({menuOpen, setMenuOpen, recipe, auth}) => {
   return (
-    <Navbar recipe={props.recipe} auth={props.auth}>
-      <Brand recipe={props.recipe}>
+    <Navbar menuOpen={menuOpen} recipe={recipe} auth={auth}>
+      <Brand recipe={recipe}>
         <Link to="/">
-          <BrandImage src={props.recipe ? LogoWhite : NewLogo} alt="" />
+					{!recipe && <BrandImage src={NewLogo} alt="" />} 
         </Link>
       </Brand>
-      <NavLinks>
-        {token && (
-					<>
-          <NavLink auth={props.auth} to="/">
-            Recipes
-          </NavLink>
-					{/*
-					<NavLink auth={props.auth} to="/meal_plans">
-						Meal Plans
-					</NavLink>
-					*/}
-					</>
-
-        )}
-
-          <NavLink auth={props.auth} to="/about">
-            About
-          </NavLink>
-
-        {!token && (
-          <NavLink auth={props.auth} to="/sign_in">
-            Sign In
-          </NavLink>
-        )}
-        {token && (
-          <Button asLink onClick={signOut} transparentBackground>
-            Sign Out
-          </Button>
-        )}
-      </NavLinks>
+			<NavIcon open={menuOpen} onClick={() => setMenuOpen(!menuOpen)}/>
+			<NavMenu menuOpen={menuOpen} recipe={recipe} auth={auth}/>
     </Navbar>
   );
 };

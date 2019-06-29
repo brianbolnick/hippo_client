@@ -112,7 +112,7 @@ export const Header = styled.div`
   text-align: center;
   margin-top: 80px;
   ${media.phone`
-	padding: 5% 16px;
+		padding: 5% 16px;
 	`};
 `;
 export const Title = styled.div`

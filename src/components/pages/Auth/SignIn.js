@@ -5,10 +5,7 @@ import Button from "components/common/Button/Button";
 import { API_URL, handleNetworkErrors } from "utils";
 import axios from "axios";
 import jwtDecode from "jwt-decode";
-import MediaQuery from "components/common/MediaQuery/MediaQuery";
-import { phoneMediaQuery } from "styles/css-variables";
-import Nav from "components/common/Nav/Nav";
-import MobileNav from "components/common/Nav/MobileNav";
+import Layout from "components/common/Layout/Layout";
 import FlashMessage from "components/common/FlashMessage/FlashMessage";
 import {
   FormWrapper,
@@ -28,10 +25,6 @@ class SignIn extends React.Component {
     password: "",
     error: "",
     loading: false
-  };
-
-  handleMediaQueryChange = ({ matches }) => {
-    this.setState({ showMobile: matches });
   };
 
   handleFormSubmit = e => {
@@ -65,15 +58,11 @@ class SignIn extends React.Component {
       });
   };
   render() {
-    const { loading, showMobile, error } = this.state;
+    const { loading, error } = this.state;
     return (
       <div style={{ height: "100%" }}>
-        <MediaQuery
-          query={phoneMediaQuery}
-          onChange={this.handleMediaQueryChange}
-        />
+				<Layout auth fullScreen>
         <PageWrapper>
-          {showMobile ? <MobileNav auth /> : <Nav auth />}
           <Block />
           <FadedBlock />
           <ActionsWrapper>
@@ -107,6 +96,7 @@ class SignIn extends React.Component {
             <InfoBoxComponent />
           </ActionsWrapper>
         </PageWrapper>
+			</Layout>
       </div>
     );
   }

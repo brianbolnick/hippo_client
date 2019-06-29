@@ -6,10 +6,8 @@ import { API_URL, handleNetworkErrors } from "utils";
 //import { getRecipeArgs } from "./helper";
 import axios from "axios";
 import jwtDecode from "jwt-decode";
-import MediaQuery from "components/common/MediaQuery/MediaQuery";
 import { phoneMediaQuery } from "styles/css-variables";
-import Nav from "components/common/Nav/Nav";
-import MobileNav from "components/common/Nav/MobileNav";
+import Layout from "components/common/Layout/Layout";
 import Checkbox from "components/common/Checkbox/Checkbox";
 import FlashMessage from "components/common/FlashMessage/FlashMessage";
 import {
@@ -128,19 +126,14 @@ class SignUp extends React.Component {
   render() {
     const {
       error,
-      showMobile,
       hasJoinCode,
       showFamilyModal,
       loading
     } = this.state;
     return (
       <div style={{ height: "100%" }}>
-        <MediaQuery
-          query={phoneMediaQuery}
-          onChange={this.handleMediaQueryChange}
-        />
+				<Layout auth fullScreen>
         <PageWrapper>
-          {showMobile ? <MobileNav auth /> : <Nav auth />}
           <Block />
           <FadedBlock />
           <ActionsWrapper>
@@ -254,6 +247,7 @@ class SignUp extends React.Component {
             </FormWrapper>
           </Modal>
         )}
+				</Layout>
       </div>
     );
   }

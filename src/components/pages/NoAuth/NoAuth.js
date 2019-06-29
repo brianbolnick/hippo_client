@@ -1,6 +1,5 @@
 import React from "react";
-import { phoneMediaQuery, Logo } from "styles/css-variables";
-import MediaQuery from "components/common/MediaQuery/MediaQuery";
+import { NewLogo } from "styles/css-variables";
 import {
   Description,
   Actions,
@@ -16,31 +15,16 @@ import {
   FooterLinks
 } from "./Styles";
 import { Brand, BrandImage } from "components/common/Nav/NavStyles";
-import Nav from "components/common/Nav/Nav";
-import MobileNav from "components/common/Nav/MobileNav";
+import Layout from "components/common/Layout/Layout";
 import Button from "components/common/Button/Button";
 import { Link } from "react-router-dom";
 
 class NoAuth extends React.Component {
-  state = {
-    showMobile: window.matchMedia("(" + phoneMediaQuery + ")").matches
-  };
-
-  handleMediaQueryChange = ({ matches }) => {
-    this.setState({ showMobile: matches });
-  };
-
   render() {
-    const { showMobile } = this.state;
     return (
-      <div>
-        <MediaQuery
-          query={phoneMediaQuery}
-          onChange={this.handleMediaQueryChange}
-        />
+			<Layout fullScreen>
         <Content>
           <Hero>
-            {showMobile ? <MobileNav /> : <Nav />}
             <Header>
               <Title>Recipes Made Simple</Title>
               <Description>
@@ -110,7 +94,7 @@ class NoAuth extends React.Component {
 					</section> */}
           <Footer>
             <Brand>
-              <BrandImage src={Logo} alt="" />
+              <BrandImage src={NewLogo} alt="" />
             </Brand>
             <FooterLinks>
               <a
@@ -123,7 +107,7 @@ class NoAuth extends React.Component {
             </FooterLinks>
           </Footer>
         </Content>
-      </div>
+      </Layout>
     );
   }
 }
