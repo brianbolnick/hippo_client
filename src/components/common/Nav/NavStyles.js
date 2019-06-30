@@ -19,10 +19,10 @@ export const Navbar = styled.div`
 	width: 100%;
 	box-sizing: border-box;
 	background: white;
+	top: 0;
 
   ${({ recipe }) =>
-    recipe &&
-    `
+    recipe && `
 			padding-right: 32px;
 			background: transparent;
 	`};

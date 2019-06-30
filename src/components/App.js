@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Route, withRouter, Switch, Redirect } from "react-router-dom";
 import SignIn from "./pages/Auth/SignIn";
 import SignUp from "./pages/Auth/SignUp";
+import Logout from "./pages/Auth/Logout";
 import Recipes from "./pages/Recipes";
 import Recipe from "./pages/Recipes/Recipe";
 import NewRecipe from "./pages/Recipes/NewRecipe";
@@ -97,6 +98,7 @@ class App extends Component {
           isAuthenticated={this.isLoggedIn()}
         />
         <Route path="/sign_up" exact component={SignUp} />
+        <Route path="/logout" exact component={Logout} />
         <Route path="/about" exact component={About} />
         <Route path="/test/:id" exact component={Test} />
         <Route path="/401" exact component={Unauthorized} />

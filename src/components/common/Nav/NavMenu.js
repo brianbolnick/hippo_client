@@ -1,35 +1,35 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { token, signOut } from "utils";
+import { token } from "utils";
+import { colors } from 'styles/css-variables';
 import { NavLink } from './NavStyles';
-import Button from "components/common/Button/Button";
 
 const Container = styled.div`
-    position: fixed;
-    width: 100vw;
-    height: calc(101vh - 101px);
-    background-color: white;
-    top: 101px;
-    left: 100vw;
-    padding: 20vh;
-    text-align: left;
-    transition: all 0.3s ease;
-    z-index: 100000;
-		box-sizing: border-box;
-		display: flex;
-		flex-flow: column;
-    justify-content: space-evenly;
+	position: fixed;
+	width: 100vw;
+	height: calc(101vh - 101px);
+	background-color: white;
+	top: 101px;
+	left: 100vw;
+	padding: 8%;
+	text-align: left;
+	transition: all 0.3s ease;
+	z-index: 100000;
+	box-sizing: border-box;
+	display: flex;
+	flex-flow: column;
+	justify-content: space-evenly;
+	border-bottom: 32px solid ${colors.red};
 
 	${({menuOpen}) => menuOpen && `
-		left: 0;
+	left: 0;
 	`};
 
 	${({recipe}) => recipe && `
-		top: 72px;
-    height: calc(101vh - 72px);
+	top: 72px;
+	height: calc(101vh - 72px);
 	`};
-
 `;
 
 const NavMenu = ({menuOpen, recipe, auth}) => {
@@ -57,9 +57,9 @@ const NavMenu = ({menuOpen, recipe, auth}) => {
           </NavLink>
         )}
         {token && (
-          <Button asLink onClick={signOut} transparentBackground>
+          <NavLink to="/logout">
             Sign Out
-          </Button>
+          </NavLink>
         )}
 		</Container>
 	)
