@@ -27,7 +27,7 @@ export const RatingCount = styled.div`
 
 export const Card = styled.div`
   width: 275px;
-  border-radius: 4px;
+  border-radius: 2px;
   box-shadow: 0px 0px 20px 1px #2121213d;
   background-color: white;
   margin: 10px 25px;
@@ -69,7 +69,7 @@ export const Title = styled.div`
 `;
 
 export const MetaData = styled.div`
-  color: ${colors.mutedGray};
+	color: ${colors.mutedGray};
   text-transform: uppercase;
   font-size: 0.9rem;
   font-weight: 600;
@@ -78,12 +78,14 @@ export const MetaData = styled.div`
 
 export const Footer = styled.div`
   width: 100%;
-  background: ${colors.lightGray};
+  //background: ${colors.lightGray};
+
+	border-top: solid 1px ${colors.lightGray};
   height: 48px;
   padding: 8px;
   box-sizing: border-box;
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   align-items: center;
   color: rgb(0, 0, 0, 0.2);
 `;

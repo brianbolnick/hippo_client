@@ -24,7 +24,7 @@ class Rating extends Component {
     this.setState({ showRateModal: false });
   };
   renderStars = () => {
-    const { value, rateable } = this.props;
+    const { value, rateable, small } = this.props;
 
     //round value to nearest .5
     const rounded = Math.round(value * 2) / 2;
@@ -33,15 +33,15 @@ class Rating extends Component {
 
     for (let i = 1; i <= 5; i++) {
       if (i <= rounded) {
-        stars.push(<Star type="filled" key={i} />);
+        stars.push(<Star type="filled" small={small} key={i} />);
       } else if (
         i > Math.floor(rounded) &&
         i <= Math.ceil(rounded) &&
         rounded % 1 !== 0
       ) {
-        stars.push(<Star type="half" key={i} />);
+        stars.push(<Star type="half" small={small} key={i} />);
       } else {
-        stars.push(<Star type="blank" key={i} />);
+        stars.push(<Star type="blank" small={small} key={i} />);
       }
     }
 
@@ -84,7 +84,8 @@ class Rating extends Component {
 Rating.propTypes = {
   value: PropTypes.number.isRequired,
   rateable: PropTypes.bool,
-  onSubmit: PropTypes.func
-};
+	onSubmit: PropTypes.func,
+	small: PropTypes.bool
+}
 
 export default Rating;
