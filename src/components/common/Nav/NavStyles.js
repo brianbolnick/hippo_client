@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { colors, varela, media } from "styles/css-variables";
+import { colors, varela, media, raleway } from "styles/css-variables";
 import Icon from "components/common/Icon/Icon";
 import Button from "components/common/Button/Button";
 import Anchor from "components/common/Anchor/Anchor";
@@ -82,6 +82,7 @@ export const NavLink = styled(Link)`
   margin-left: 32px;
   font-weight: 600;
   font-size: 40px;
+	font-family: ${raleway};
 
   &:hover {
     color: ${colors.red};
