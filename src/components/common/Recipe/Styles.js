@@ -61,7 +61,7 @@ export const RecipeImage = styled.div`
 
 export const Title = styled.div`
   font-family: ${rufina};
-  font-size: 1.8rem;
+  font-size: 1.4rem;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
