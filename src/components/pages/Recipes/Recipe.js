@@ -41,7 +41,7 @@ import FlashMessage from "components/common/FlashMessage/FlashMessage";
 import Rating from "components/common/Rating/Rating";
 import { colors } from "styles/css-variables";
 import MediaQuery from "components/common/MediaQuery/MediaQuery";
-import { phoneMediaQuery } from "styles/css-variables";
+import { tabletMediaQuery } from "styles/css-variables";
 import ImagePlaceholder from "img/recipe-placeholder.png";
 
 const authToken = `Bearer ${token}`;
@@ -51,7 +51,7 @@ class Recipe extends React.Component {
     recipe: {},
     showShareModal: false,
     showDeleteModal: false,
-    showMobile: window.matchMedia("(" + phoneMediaQuery + ")").matches,
+    showMobile: window.matchMedia("(" + tabletMediaQuery + ")").matches,
     loading: true
   };
 
@@ -221,7 +221,7 @@ class Recipe extends React.Component {
     ) : (
       <Layout recipe={!showMobile} recipeMobile={showMobile}>
         <MediaQuery
-          query={phoneMediaQuery}
+          query={tabletMediaQuery}
           onChange={this.handleMediaQueryChange}
         />
         <FlashMessage
