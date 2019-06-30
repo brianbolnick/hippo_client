@@ -182,8 +182,10 @@ export const ImageBlock = styled.div`
 			url(${url});
 			background-repeat: no-repeat;
 	`};
+
   ${media.phone`
 		width: 100%;
+    min-height: 360px;
 	`};
 `;
 

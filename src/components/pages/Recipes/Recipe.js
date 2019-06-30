@@ -219,7 +219,7 @@ class Recipe extends React.Component {
         <img alt="" src={Loader} style={{ height: "300px", width: "300px" }} />
       </LoadContainer>
     ) : (
-      <Layout recipe>
+      <Layout recipe={!showMobile} recipeMobile={showMobile}>
         <MediaQuery
           query={phoneMediaQuery}
           onChange={this.handleMediaQueryChange}

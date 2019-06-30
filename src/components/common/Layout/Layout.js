@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
-import { media } from "styles/css-variables";
 import Nav from "components/common/Nav/Nav";
 
 const Content = styled.div`
@@ -19,8 +18,11 @@ const Content = styled.div`
 			padding-top: 0;
 	`};
 
-  ${media.phone`
+	${({ recipeMobile }) => recipeMobile && `
+			margin: 0;
+			padding-top: 82px;
 	`};
+
 
 	${({menuOpen}) => menuOpen && `
 		overflow: hidden;
@@ -33,7 +35,7 @@ const Content = styled.div`
 
 `;
 
-const Layout = ({recipe, auth, fullScreen, children}) => { 
+const Layout = ({recipe, recipeMobile, auth, fullScreen, children}) => { 
 	const [menuOpen, setMenuOpen] = useState(false);
 	const [scrolling, setScrolling] = useState(false);
 
@@ -54,7 +56,7 @@ const Layout = ({recipe, auth, fullScreen, children}) => {
 	return (
 		<>
 			<Nav scrolling={scrolling} auth={auth} recipe={recipe} setMenuOpen={setMenuOpen} menuOpen={menuOpen}/>
-			<Content auth={auth} fullScreen={fullScreen} recipe={recipe} menuOpen={menuOpen}>
+			<Content recipeMobile={recipeMobile} auth={auth} fullScreen={fullScreen} recipe={recipe} menuOpen={menuOpen}>
 					{children}
 			</Content>
 		</>
