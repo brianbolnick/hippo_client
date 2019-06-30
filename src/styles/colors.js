@@ -1,10 +1,13 @@
 //Yellows
-export const yellow = "#F9DC5C";
+//export const yellow = "#F9DC5C";
+export const yellow = "#FED766";
 
 //Blues
 //export const blue = '	#009FFD';
-export const blue = "#3FA7D6";
-export const darkBlue = "#3489B0";
+//export const blue = "#3FA7D6";
+export const blue = "#009FB7";
+//export const darkBlue = "#3489B0";
+export const darkBlue = "#0091A7";
 
 // Whites
 export const white = "#ffffff";
@@ -29,8 +32,10 @@ export const black = "#2F2D2E";
 export const orange = "#F9665E";
 
 //Greens
-export const green = "#59CD90";
-export const darkGreen = "#49A876";
+//export const green = "#59CD90";
+export const green = "#2FA295";
+//export const darkGreen = "#49A876";
+export const darkGreen = "#2B9488";
 
 //purple
 export const purple = "#BE67DB";

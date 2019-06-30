@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import { media } from "styles/css-variables";
@@ -20,8 +20,6 @@ const Content = styled.div`
 	`};
 
   ${media.phone`
-		margin-top: 72px;
-    overflow: auto;
 	`};
 
 	${({menuOpen}) => menuOpen && `
@@ -37,10 +35,25 @@ const Content = styled.div`
 
 const Layout = ({recipe, auth, fullScreen, children}) => { 
 	const [menuOpen, setMenuOpen] = useState(false);
+	const [scrolling, setScrolling] = useState(false);
 
+	useEffect(() => {
+		window.addEventListener("scroll", handleScroll);
+		return () => {
+			window.removeEventListener("scroll", handleScroll);
+		};
+	});
+
+	const handleScroll = event => {
+		const navHeight = 20;
+		var refOffset = 0;
+		const newOffset = window.scrollY || window.pageYOffset;
+		const isScrolling = (newOffset > navHeight) && (newOffset > refOffset) 
+		setScrolling(isScrolling)
+	};
 	return (
 		<>
-			<Nav auth={auth} recipe={recipe} setMenuOpen={setMenuOpen} menuOpen={menuOpen}/>
+			<Nav scrolling={scrolling} auth={auth} recipe={recipe} setMenuOpen={setMenuOpen} menuOpen={menuOpen}/>
 			<Content auth={auth} fullScreen={fullScreen} recipe={recipe} menuOpen={menuOpen}>
 					{children}
 			</Content>

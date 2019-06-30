@@ -1,25 +1,34 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { colors, varela, media, raleway } from "styles/css-variables";
+import { colors, media, raleway } from "styles/css-variables";
 import Icon from "components/common/Icon/Icon";
 import Button from "components/common/Button/Button";
 import Anchor from "components/common/Anchor/Anchor";
 
 export const Navbar = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  font-family: ${varela};
-  font-size: 1rem;
-  z-index: 9500;
-  transition: 0.2s ease;
-  padding: 16px 5%;
-  box-shadow: rgba(0, 0, 0, 0) 0px 0px 0px;
+
+	display: flex;
+	margin-left: auto;
+	margin-right: auto;
+	align-items: center;
+	justify-content: space-between;
 	position: fixed;
-	width: 100%;
-	box-sizing: border-box;
-	background: white;
+	left: 0;
+	right: 0;
+	background-color: white;
+	font-size: 1rem;
+	z-index: 1000;
 	top: 0;
+	transition: .2s ease;
+	box-shadow: 0 0 0 transparent;
+	padding: 16px 5%;
+
+	${({scrolling}) => scrolling && `
+    padding-top: 10px;
+    padding-bottom: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,.2);
+    transition: .2s ease;
+	`};
 
   ${({ recipe }) =>
     recipe && `
@@ -92,6 +101,10 @@ export const NavLink = styled(Link)`
 
 export const BrandImage = styled.img`
   height: 64px;
+
+	${({small}) => small && `
+		height: 48px; 
+	`};
 
   ${media.phone` height: 48px; `};
 `;

@@ -4,6 +4,8 @@ import TextLogo from "../img/hippo-text.svg";
 import WhiteLogo from "../img/hippo-text-white.svg";
 //export { default as NewLogo } from "../img/new-logo.svg";
 export { default as NewLogo } from "../img/new-logo.png";
+export { default as BlackLogo } from "../img/new-logo-black.png";
+export { default as WhiteLogo } from "../img/new-logo-white.png";
 
 // Fonts
 export const sourceSans = "'Source Sans Pro', sans-serif";

@@ -8,14 +8,14 @@ import { NavLink } from './NavStyles';
 const Container = styled.div`
 	position: fixed;
 	width: 100vw;
-	height: calc(101vh - 101px);
+	height: 100vh;
 	background-color: white;
-	top: 101px;
+	top: 0;
 	left: 100vw;
 	padding: 8%;
 	text-align: left;
 	transition: all 0.3s ease;
-	z-index: 100000;
+	z-index: -1;
 	box-sizing: border-box;
 	display: flex;
 	flex-flow: column;
