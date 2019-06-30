@@ -7,7 +7,7 @@ import Nav from "components/common/Nav/Nav";
 const Content = styled.div`
   width: ${({ recipe, fullScreen }) => (recipe || fullScreen ? "100%" : "90%")};
   margin: 0 auto;
-  height: calc(100% - 111px);
+  height: 100%;
 	box-sizing: border-box;
 	padding-top: 112px;
 
