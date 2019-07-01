@@ -39,8 +39,6 @@ export const DISH_TYPE_ICON_MAP = {
 	bread: 'bread' 
 }
 
-
-
 export const handleNetworkErrors = err => {
   return (
     errorMap[err.response.status] || `Something unexpected occurred: ${err}`

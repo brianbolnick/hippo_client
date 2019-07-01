@@ -7,7 +7,7 @@ import Tab from "components/common/Tabs/Tab";
 import Tabs from "components/common/Tabs/Tabs";
 import TabPane from "components/common/Tabs/TabPane";
 import { Link } from "react-router-dom";
-import { rufina, media } from "styles/css-variables";
+import { media } from "styles/css-variables";
 import FlashMessage from "components/common/FlashMessage/FlashMessage";
 
 const TabLink = styled.div`
@@ -32,14 +32,6 @@ const OptionsContainer = styled.div`
 `}
 `;
 
-const Heading = styled.div`
-  font-family: ${rufina};
-  font-size: 1.8rem;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-`;
-
 const Header = styled.div`
   display: flex;
   justify-content: space-between;
@@ -52,7 +44,6 @@ const Header = styled.div`
 `;
 
 const Recipes = () => {
-  const [activeTab, setActiveTab] = useState("family");
   const [error, setError] = useState("");
 
   return (
@@ -64,13 +55,8 @@ const Recipes = () => {
       <Tabs
         defaultActiveTab="family"
         asyncRender
-        onTabChange={tab => setActiveTab(tab)}
       >
         <Header>
-          <Heading>
-            {activeTab === "family" ? "Family Recipes" : "Shared Recipes"}
-          </Heading>
-          <OptionsContainer>
             <TabsContainer>
               <Tab name="family">
                 <TabLink>Family</TabLink>
@@ -79,6 +65,7 @@ const Recipes = () => {
                 <TabLink>Shared</TabLink>
               </Tab>
             </TabsContainer>
+          <OptionsContainer>
             <NewButtonContainer>
               <Link to="/recipes/new">
                 <Button icon="plus" />
