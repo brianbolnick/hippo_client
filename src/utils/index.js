@@ -27,6 +27,20 @@ const errorMap = {
   500: "Something went wrong. Please try again."
 };
 
+export const DISH_TYPE_ICON_MAP = {
+	beverage: 'drink',
+	soup: 'dish',
+	appetizer: 'cheese',
+	main: 'main',
+	side: 'fries',
+	dessert: 'dessert',
+	salad: 'salad',
+	breakfast: 'breakfast',
+	bread: 'bread' 
+}
+
+
+
 export const handleNetworkErrors = err => {
   return (
     errorMap[err.response.status] || `Something unexpected occurred: ${err}`

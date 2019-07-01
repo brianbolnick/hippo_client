@@ -1,5 +1,6 @@
 import React from "react";
-//import { colors } from "styles/css-variables";
+import { colors } from "styles/css-variables";
+import { DISH_TYPE_ICON_MAP } from 'utils';
 import {
   Card,
   RecipeImage,
@@ -7,24 +8,15 @@ import {
   MetaData,
   Footer,
   Content,
-  //RatingCount,
-  LinkWrapper,
-  //Rating
+	LinkWrapper,
+	DishType,
+	DishTypeName,
 } from "./Styles";
-//import Icon from "components/common/Icon/Icon";
+import Icon from "components/common/Icon/Icon";
 import Rating from "components/common/Rating/Rating";
 import PlaceholderImage from "img/recipe-placeholder.png";
 
 const RecipeCard = ({ data }) => {
-  //const renderRecipeAddedIcon = () => {
-    //return (
-      //<RatingCount>
-        //<Icon name="star" color={colors.yellow} />
-        //<Rating>{(data.rating && data.rating.toFixed(1)) || "-"}</Rating>
-      //</RatingCount>
-    //);
-  //};
-
   return (
     <Card>
       <LinkWrapper to={`/recipes/${data.id}`}>
@@ -32,11 +24,22 @@ const RecipeCard = ({ data }) => {
         </RecipeImage>
         <Content>
           <Title>{data.title}</Title>
-          <MetaData>{data.dish_type.name}</MetaData>
+					<MetaData>
+
+					<div>	{data.category.name}</div>
+					</MetaData>
         </Content>
 				<Footer>
 					<Rating small value={data.rating} />
-					<div>	{data.category.name}</div>
+					<DishType>
+						<Icon 
+							name={DISH_TYPE_ICON_MAP[data.dish_type.name.toLowerCase()]} 
+							color={colors.mutedGray} 
+							size="28px"
+						/>
+						<DishTypeName>{data.dish_type.name}</DishTypeName>
+					</DishType>
+
 		</Footer>
       </LinkWrapper>
     </Card>

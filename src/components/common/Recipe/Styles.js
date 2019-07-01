@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { colors, varela, rufina, media } from "styles/css-variables";
+import { colors, raleway, media } from "styles/css-variables";
 import { Link } from "react-router-dom";
 
 export const LinkWrapper = styled(Link)`
@@ -27,14 +27,13 @@ export const RatingCount = styled.div`
 
 export const Card = styled.div`
   width: 275px;
-  border-radius: 2px;
+  border-radius: 8px;
   box-shadow: 0px 0px 20px 1px #2121213d;
   background-color: white;
   margin: 10px 25px;
   position: relative;
   overflow: hidden;
   color: ${colors.black};
-  font-family: ${varela};
   transition: 0.2s;
 
   ${media.phone`
@@ -60,7 +59,7 @@ export const RecipeImage = styled.div`
 `;
 
 export const Title = styled.div`
-  font-family: ${rufina};
+  font-family: ${raleway};
   font-size: 1.4rem;
   white-space: nowrap;
   overflow: hidden;
@@ -74,12 +73,12 @@ export const MetaData = styled.div`
   font-size: 0.9rem;
   font-weight: 600;
   letter-spacing: 1px;
+	display: flex;
+	align-items: center;
 `;
 
 export const Footer = styled.div`
   width: 100%;
-  //background: ${colors.lightGray};
-
 	border-top: solid 1px ${colors.lightGray};
   height: 48px;
   padding: 8px;
@@ -90,7 +89,16 @@ export const Footer = styled.div`
   color: rgb(0, 0, 0, 0.2);
 `;
 
+export const DishType = styled.div`
+	display: flex;
+	align-items: center;
+`;
+
+export const DishTypeName = styled.div`
+margin-left: 4px;
+`;
+
 export const Content = styled.div`
   padding: 24px;
-  text-align: center;
+  text-align: left;
 `;

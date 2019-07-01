@@ -31,6 +31,7 @@ const iconList = [
   "envelope",
   "family",
   "filter",
+	"fries",
   "fruit",
   "heartbeat",
   "home",

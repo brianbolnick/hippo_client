@@ -23,6 +23,7 @@ import IconDessert from "./Icons/IconDessert";
 import IconSalad from "./Icons/IconSalad";
 import IconBreakfast from "./Icons/IconBreakfast";
 import IconBread from "./Icons/IconBread";
+import IconFries from "./Icons/IconFries";
 
 export { default as IconUser } from "./Icons/IconUser";
 export { default as IconDish } from "./Icons/IconDish";
@@ -49,6 +50,7 @@ export { default as IconDessert } from "./Icons/IconDessert";
 export { default as IconSalad } from "./Icons/IconSalad";
 export { default as IconBreakfast } from "./Icons/IconBreakfast";
 export { default as IconBread } from "./Icons/IconBread";
+export { default as IconFries } from "./Icons/IconFries";
 
 export default {
   IconUser,
@@ -75,5 +77,6 @@ export default {
   IconDessert,
   IconSalad,
   IconBreakfast,
-  IconBread
+	IconBread,
+	IconFries
 };
