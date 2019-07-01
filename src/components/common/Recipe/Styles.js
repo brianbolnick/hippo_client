@@ -30,7 +30,7 @@ export const Card = styled.div`
   border-radius: 8px;
   box-shadow: 0px 0px 20px 1px #2121213d;
   background-color: white;
-  margin: 10px 25px;
+  margin: 10px 16px;
   position: relative;
   overflow: hidden;
   color: ${colors.black};
@@ -38,7 +38,9 @@ export const Card = styled.div`
 
   ${media.phone`
 		width: 100%;
+		margin: 10px 25px;
 	`};
+
   &:hover {
     box-shadow: 0px 0px 20px 5px #2121213d;
     transition: 0.2s;

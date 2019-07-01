@@ -7,7 +7,12 @@ export const RecipeList = styled.div`
   display: flex;
   flex-flow: row;
   flex-wrap: wrap;
-  justify-content: center;
+	justify-content: flex-end;
+	flex: 5;
+
+	${media.tablet`
+		justify-content: center;
+	`}
 `;
 
 export const TabLink = styled.div`
@@ -25,8 +30,7 @@ export const TabsContainer = styled.div`
 
 export const FiltersContainer = styled.div`
 	height: 100%;
-	border: solid 1px black;
-	width: 20%;
+	flex: 1;
 `;
 
 export const NewButtonContainer = styled.div``;
@@ -50,7 +54,7 @@ export const Header = styled.div`
 	`}
 `;
 
-export const PageContent = styled.div`
+export const RecipeContent = styled.div`
 	display: flex;
 `;
 
@@ -129,4 +133,25 @@ export const NoRecipesImage = styled.img`
 	`}
 `;
 
+export const FilterGroup = styled.div`
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-bottom: 16px;
+`;
 
+export const ClearFilters = styled.div`
+	font-size: 0.7rem;
+	color: ${colors.red};
+	cursor: pointer;
+
+	&:hover {
+		text-decoration: underline;
+	}
+`;
+
+export const FilterTitle = styled.div`
+	font-size: 1.2rem;
+	font-family: ${avenir};
+	font-weight: 600;
+`;

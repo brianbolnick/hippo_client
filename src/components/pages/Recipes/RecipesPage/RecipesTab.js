@@ -3,8 +3,21 @@ import axios from "axios";
 import { API_URL, token, familyId } from "utils";
 import Loader from "img/burger.gif";
 import NoRecipes from "img/food_icon.gif";
+import { tabletMediaQuery } from "styles/css-variables";
 import RecipeCard from "components/common/Recipe/RecipeCard";
-import { RecipeList, LoadContainer, PlaceholderText, NoRecipesImage } from "./RecipesPageStyledComponents";
+import MediaQuery from "components/common/MediaQuery/MediaQuery";
+import Collapse from 'components/common/Collapse';
+import {
+	RecipeContent, 
+	FiltersContainer, 
+	RecipeList, 
+	LoadContainer, 
+	PlaceholderText, 
+	NoRecipesImage ,
+	FilterGroup,
+	ClearFilters,
+	FilterTitle
+} from "./RecipesPageStyledComponents";
 
 const authToken = `Bearer ${token}`;
 
@@ -12,6 +25,7 @@ const RecipesTab = ({ recipeType, onError }) => {
   const [recipes, setRecipes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [recipesLoaded, setRecipesLoaded] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.matchMedia("(" + tabletMediaQuery + ")").matches);
 
   useEffect(() => {
     if (!recipesLoaded) {
@@ -33,7 +47,7 @@ const RecipesTab = ({ recipeType, onError }) => {
     }
   });
 
-  const renderRecipes = recipes => {
+  const renderRecipes = () => {
     return recipes.length ? (
       recipes.map(recipe => {
         return <RecipeCard key={recipe.id} data={recipe} />;
@@ -48,13 +62,46 @@ const RecipesTab = ({ recipeType, onError }) => {
     );
   };
 
+	const renderFilters = () => {
+
+		return (
+			<FiltersContainer>
+				<FilterGroup>
+					<FilterTitle>Filter By:</FilterTitle>
+					<ClearFilters onClick={() => console.log("click")}>
+						Clear Filters
+					</ClearFilters>
+				</FilterGroup>
+				<Collapse label="Dish Type">
+					<div>hey</div>
+				</Collapse>
+				<Collapse label="Category">
+					<div>hey</div>
+				</Collapse>
+				<Collapse label="Difficulty">
+					<div>hey</div>
+				</Collapse>
+
+
+			</FiltersContainer>
+		)
+
+	}
+
   return loading ? (
     <LoadContainer>
       <img alt="" src={Loader} style={{ height: "300px", width: "300px" }} />
     </LoadContainer>
-  ) : (
-    <RecipeList>{renderRecipes(recipes)}</RecipeList>
-  );
+	) : (
+		<RecipeContent>
+			<MediaQuery
+				query={tabletMediaQuery}
+				onChange={({matches}) => setIsMobile(matches)}
+			/>
+			{!isMobile && renderFilters()}
+			<RecipeList>{renderRecipes(recipes)}</RecipeList>
+		</RecipeContent>
+	);
 };
 
 export default RecipesTab;

@@ -1,0 +1,54 @@
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import PropTypes from 'prop-types';
+import Icon from 'components/common/Icon/Icon';
+import { colors, avenir } from 'styles/css-variables';
+
+const Container = styled.div`
+	display: flex;
+	flex-flow: column;
+	margin-bottom: 8px;
+`;
+
+const Label = styled.div`
+	font-family: ${avenir};
+	color: ${colors.black};
+	font-size: 1.1rem;
+	font-weight: 600;
+`
+
+const Header = styled.div`
+	display: flex;
+	justify-content: space-between;    
+	align-items: center;
+`;
+
+const StyledIcon = styled(Icon)`
+	cursor: pointer;
+`;
+
+const Collapse = ({ label, children, defaultOpen }) => {
+
+	const [isOpen, setIsOpen] = useState(defaultOpen);
+
+	return (
+		<Container>
+			<Header>
+				<Label>{label}</Label>
+				<StyledIcon size="24px" name="plus" color={colors.black} onClick={() => setIsOpen(!isOpen)} />
+			</Header>
+			{isOpen && children}
+		</Container>
+	) }
+
+Collapse.propTypes = {
+	children: PropTypes.any,
+	label: PropTypes.string.isRequired,
+	defaultOpen: PropTypes.bool
+}
+
+Collapse.defaultProps = {
+	defaultOpen: false
+}
+
+export default Collapse
