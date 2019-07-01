@@ -1,14 +1,24 @@
 import React, { Component } from "react";
-import Layout from "components/common/Layout/Layout";
-import { token, userId, familyId, API_URL } from "utils";
 import axios from "axios";
+import { token, userId, familyId, API_URL } from "utils";
+import { tabletMediaQuery } from "styles/css-variables";
+import AddableInput from "components/common/AddableInput/AddableInput";
+import Button from "components/common/Button/Button";
+import ControlledInput from "components/common/ControlledInput/ControlledInput";
+import Divider from "components/common/Divider/Divider";
 import FileInput from "components/common/FileInput/FileInput";
+import FlashMessage from "components/common/FlashMessage/FlashMessage";
+import Input from "components/common/Input/Input";
+import Layout from "components/common/Layout/Layout";
+import MediaQuery from "components/common/MediaQuery/MediaQuery";
+import Select from "components/common/Select/Select";
+import Textarea from "components/common/Textarea/Textarea";
 import {
   TempIngredient,
-  Direction,
+  TempDirectionContainer,
   TempDirection,
   TempIngredientsContainer,
-  StepsContainer,
+  DirectionsContainer,
   Form,
   AddableContainer,
   InputArea,
@@ -16,37 +26,13 @@ import {
   FormRow,
   Steps,
   Notice,
-  ButtonContainer,
   DeleteIcon
-} from "./styles";
-import Input from "components/common/Input/Input";
-import MediaQuery from "components/common/MediaQuery/MediaQuery";
-import AddableInput from "components/common/AddableInput/AddableInput";
-import ControlledInput from "components/common/ControlledInput/ControlledInput";
-import Select from "components/common/Select/Select";
-import FlashMessage from "components/common/FlashMessage/FlashMessage";
-import Button from "components/common/Button/Button";
-import Divider from "components/common/Divider/Divider";
-import Textarea from "components/common/Textarea/Textarea";
-import { tabletMediaQuery } from "styles/css-variables";
+} from "./NewRecipeStyledComponents";
+import AddIngredientForm from "./AddIngredientForm";
 
 const AVAILABLE_TIMES = ["Mins", "Hrs", "Days"];
 
-const authToken = `Bearer ${token}`;
-
-const getCategories = () => {
-  return axios.get(`${API_URL}/categories`, {
-    headers: { Authorization: authToken }
-  });
-};
-
-const getRecipe = id => {
-  return axios.get(`${API_URL}/recipes/${id}`, {
-    headers: { Authorization: authToken }
-  });
-};
-
-class EditRecipe extends Component {
+class NewRecipe extends Component {
   constructor(props) {
     super(props);
     this.handleUploadImage = this.handleUploadImage.bind(this);
@@ -57,10 +43,13 @@ class EditRecipe extends Component {
       cook_time: "",
       calories: "",
       servings: 1,
+      difficulty: 1,
       ingredients: [],
       steps: [],
       family_id: familyId,
       user_id: userId,
+      category_id: 1,
+      dish_type_id: 1,
       notes: "",
       error: "",
       loading: false,
@@ -68,28 +57,26 @@ class EditRecipe extends Component {
     };
   }
 
+  getCategories = () => {
+    return axios.get(`${API_URL}/categories`, {
+      headers: { Authorization: `Bearer ${token}` }
+    });
+  };
+
+  getDishTypes = () => {
+    return axios.get(`${API_URL}/dish_types`, {
+      headers: { Authorization: `Bearer ${token}` }
+    });
+  };
+
   componentDidMount = () => {
-    const id = this.props.match.params.id;
     axios
-      .all([getRecipe(id), getCategories()])
+      .all([this.getCategories(), this.getDishTypes()])
       .then(
-        axios.spread((recipeData, categoryData) => {
-          const { data } = recipeData.data;
-          this.setState({
-            categories: categoryData.data.data,
-            title: data.title,
-            prep_time: data.prep_time,
-            cook_time: data.cook_time,
-            calories: data.calories,
-            servings: data.servings,
-            ingredients: data.ingredients,
-            steps: data.steps,
-            family_id: data.family_id,
-            user_id: data.user_id,
-            category_id: data.category.id,
-            notes: data.notes,
-            image_url: data.image_url
-          });
+        axios.spread((categoryData, dishTypeData) => {
+          const categories = categoryData.data.data;
+          const dishTypes = dishTypeData.data.data;
+          this.setState({ categories, dishTypes });
         })
       )
       .catch(err => {
@@ -99,15 +86,19 @@ class EditRecipe extends Component {
   };
 
   handleAddIngredients = ing => {
-    const ingredients = [...this.state.ingredients];
-    ingredients.push(ing);
-    this.setState({ ingredients });
+    if (ing) {
+      const ingredients = [...this.state.ingredients];
+      ingredients.push(ing);
+      this.setState({ ingredients });
+    }
   };
 
   handleAddSteps = step => {
-    const steps = [...this.state.steps];
-    steps.push(step);
-    this.setState({ steps });
+    if (step) {
+      const steps = [...this.state.steps];
+      steps.push(step);
+      this.setState({ steps });
+    }
   };
 
   renderCategories = () => {
@@ -115,11 +106,7 @@ class EditRecipe extends Component {
       this.state.categories &&
       this.state.categories.map(category => {
         return (
-          <option
-            selected={category.id === this.state.category_id}
-            key={`category|${category.id}`}
-            value={category.id}
-          >
+          <option key={`category|${category.id}`} value={category.id}>
             {category.name}
           </option>
         );
@@ -127,27 +114,51 @@ class EditRecipe extends Component {
     );
   };
 
-  renderTimes = type => {
-    if (this.state[type]) {
-      const times = this.state[type].split(" ");
-      return AVAILABLE_TIMES.map(time => {
+  renderDishTypes = () => {
+    return (
+      this.state.dishTypes &&
+      this.state.dishTypes.map(dishType => {
         return (
-          <option selected={time === times[1]} value={time}>
-            {time}{" "}
+          <option key={`dishType|${dishType.id}`} value={dishType.id}>
+            {dishType.name}
           </option>
         );
-      });
-    }
+      })
+    );
+  };
+
+	renderDifficulty = () => {
+	const difficulties = [
+		{ name: 'Easy', value: 1 },
+		{ name: 'Medium', value: 2},
+		{ name: 'Difficult', value: 3}
+	]
+		return (difficulties.map(diff => {
+				return (
+					<option key={`difficulty|${diff.name}`} value={diff.value}>
+						{diff.name}
+					</option>
+				);
+			})
+		);
+	};
+
+
+	renderTimes = () => {
+		return AVAILABLE_TIMES.map(time => {
+			return (
+        <option key={time} value={time}>
+          {" "}
+          {time}{" "}
+        </option>
+      );
+    });
   };
 
   renderServings = () => {
     return [...Array(10).keys()].map(x => {
       return (
-        <option
-          key={`serving|${x + 1}`}
-          value={x + 1}
-          selected={x + 1 === this.state.servings}
-        >
+        <option key={`serving|${x + 1}`} value={x + 1}>
           {x + 1}
         </option>
       );
@@ -156,7 +167,11 @@ class EditRecipe extends Component {
 
   deleteIngredient = ing => {
     const ingredients = [...this.state.ingredients];
-    this.setState({ ingredients: ingredients.filter(x => x !== ing) });
+    this.setState({
+      ingredients: ingredients.filter(
+        x => JSON.stringify(x) !== JSON.stringify(ing)
+      )
+    });
   };
 
   deleteStep = step => {
@@ -168,8 +183,8 @@ class EditRecipe extends Component {
     const { ingredients } = this.state;
     return ingredients.length ? (
       ingredients.map(ing => (
-        <TempIngredient>
-          <span>{ing}</span>
+        <TempIngredient key={JSON.stringify(ing)}>
+          <span>{`${ing.quantity} ${ing.measurement} ${ing.name}`}</span>
           <DeleteIcon name="close" onClick={() => this.deleteIngredient(ing)} />
         </TempIngredient>
       ))
@@ -183,17 +198,20 @@ class EditRecipe extends Component {
     return steps.length
       ? steps.map((step, index) => {
           return (
-            <Direction key={`dir|${index}`} style={{ alignItems: "center" }}>
+            <TempDirection
+              key={JSON.stringify(step)}
+              style={{ alignItems: "center" }}
+            >
               <span>{index + 1}</span>
-              <TempDirection>
+              <TempDirectionContainer>
                 <div>{step}</div>
                 <DeleteIcon
                   name="close"
                   onClick={() => this.deleteStep(step)}
                   clear
                 />
-              </TempDirection>
-            </Direction>
+              </TempDirectionContainer>
+            </TempDirection>
           );
         })
       : null;
@@ -209,6 +227,7 @@ class EditRecipe extends Component {
     delete stateData.loading;
     delete stateData.error;
     delete stateData.categories;
+    delete stateData.dishTypes;
     delete stateData.showMobile;
     Object.keys(stateData).forEach(obj => {
       const val = stateData[obj];
@@ -219,13 +238,14 @@ class EditRecipe extends Component {
       }
     });
 
-    const recipeId = this.props.match.params.id;
+    const authToken = `Bearer ${token}`;
     axios
-      .put(`${API_URL}/recipes/${recipeId}`, data, {
+      .post(`${API_URL}/recipes`, data, {
         headers: { Authorization: authToken }
       })
       .then(resp => {
-        window.location.replace(`/recipes/${recipeId}`);
+        const id = resp.data.data.id;
+        window.location.replace(`/recipes/${id}`);
       })
       .catch(err => {
         console.log(err);
@@ -238,8 +258,7 @@ class EditRecipe extends Component {
 
   handleUploadImage = e => {
     this.setState({
-      image: e.target.files[0],
-      image_url: null
+      image: e.target.files[0]
     });
   };
 
@@ -249,11 +268,6 @@ class EditRecipe extends Component {
 
   handleMediaQueryChange = ({ matches }) => {
     this.setState({ showMobile: matches });
-  };
-
-  handleCancel = () => {
-    const id = this.props.match.params.id;
-    window.location.replace(`/recipes/${id}`);
   };
 
   render() {
@@ -271,7 +285,6 @@ class EditRecipe extends Component {
         <Form onSubmit={this.handleSubmit}>
           <InputArea>
             <Input
-              value={this.state.title}
               type="text"
               label="Recipe Title"
               icon="book"
@@ -283,13 +296,12 @@ class EditRecipe extends Component {
                 onChange={e => this.setState({ category_id: e.target.value })}
                 icon="tags"
                 label="Category"
-                placehoder="Category"
+                placeholder="Category"
               >
                 {this.renderCategories()}
               </Select>
               <Input
                 type="text"
-                value={this.state.calories}
                 label="Calories"
                 icon="heartbeat"
                 placeholder="Calories"
@@ -307,24 +319,23 @@ class EditRecipe extends Component {
             </FormRow>
 
             <FormRow>
-              <ControlledInput
-                onChange={e => this.setState({ prep_time: e })}
-                defaultInputValue={this.state.prep_time.split(" ")[0]}
-                placeholder="Prep"
-                label="Prep Time"
-                icon="clock"
+              <Select
+                onChange={e => this.setState({ dish_type_id: e.target.value })}
+                icon="dish"
+                label="Dish Type"
+                placeholder="Dish Type"
               >
-                {this.renderTimes("prep_time")}
-              </ControlledInput>
-              <ControlledInput
-                onChange={e => this.setState({ cook_time: e })}
-                placeholder="Cook"
-                label="Cook Time"
-                icon="clockAlarm"
-                defaultInputValue={this.state.cook_time.split(" ")[0]}
+                {this.renderDishTypes()}
+              </Select>
+              <Select
+                onChange={e => this.setState({ difficulty: e.target.value })}
+                icon="fire"
+                label="Difficulty"
+                placeholder="Easy"
               >
-                {this.renderTimes("cook_time")}
-              </ControlledInput>
+                {this.renderDifficulty()}
+              </Select>
+
             </FormRow>
             <FileInput
               fileName={this.state.image && this.state.image.name}
@@ -332,22 +343,42 @@ class EditRecipe extends Component {
               onClear={this.removeImage}
             />
             {!showMobile && (
-              <ButtonContainer>
-                <Button type="submit" loading={loading}>
-                  Save Recipe
-                </Button>
-                <Button secondary onClick={this.handleCancel}>
-                  Cancel
-                </Button>
-              </ButtonContainer>
+              <Button type="submit" loading={loading}>
+                Create Recipe
+              </Button>
             )}
           </InputArea>
           <ListArea>
+            <FormRow>
+              <ControlledInput
+                onChange={e => this.setState({ prep_time: e })}
+                defaultSelectValue="Minutes"
+                placeholder="Prep"
+                label="Prep Time"
+                icon="clock"
+              >
+                {this.renderTimes()}
+              </ControlledInput>
+              <ControlledInput
+                onChange={e => this.setState({ cook_time: e })}
+                defaultSelectValue="Minutes"
+                placeholder="Cook"
+                label="Cook Time"
+                icon="clockAlarm"
+              >
+                {this.renderTimes()}
+              </ControlledInput>
+            </FormRow>
+            <Textarea
+              onChange={e => this.setState({ notes: e.target.value })}
+              label="Notes"
+              placeholder="Recipe Notes"
+            />
+
+            <Divider full />
             <AddableContainer>
-              <AddableInput
-                onAddClick={this.handleAddIngredients}
-                label="Ingredients"
-                placeholder="Click + to add a new ingredient"
+              <AddIngredientForm
+                onSave={data => this.handleAddIngredients(data)}
               />
               <TempIngredientsContainer>
                 {this.renderIngredients()}
@@ -358,32 +389,19 @@ class EditRecipe extends Component {
                 label="Directions"
                 placeholder="Click + to add a new step"
               />
-              <StepsContainer>
+              <DirectionsContainer>
                 {this.state.steps.length ? (
                   <Steps>{this.renderSteps()}</Steps>
                 ) : (
                   <Notice>Use the field above to add a step!</Notice>
                 )}
-              </StepsContainer>
+              </DirectionsContainer>
             </AddableContainer>
-
-            <Divider full />
-            <Textarea
-              onChange={e => this.setState({ notes: e.target.value })}
-              value={this.state.notes}
-              label="Notes"
-              placeholder="Recipe Notes"
-            />
           </ListArea>
           {showMobile && (
-            <ButtonContainer>
-              <Button type="submit" loading={loading}>
-                Save Recipe
-              </Button>
-              <Button secondary onClick={this.handleCancel}>
-                Cancel
-              </Button>
-            </ButtonContainer>
+            <Button type="submit" loading={loading}>
+              Create Recipe
+            </Button>
           )}
         </Form>
       </Layout>
@@ -391,4 +409,4 @@ class EditRecipe extends Component {
   }
 }
 
-export default EditRecipe;
+export default NewRecipe;

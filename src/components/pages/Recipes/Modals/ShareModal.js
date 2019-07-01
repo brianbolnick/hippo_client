@@ -1,50 +1,13 @@
 import React from "react";
+import axios from "axios";
+import PropTypes from "prop-types";
+import { API_URL, token, userId } from "utils";
 import Modal from "components/common/Modal/Modal";
 import ModalInput from "components/common/ModalInput/ModalInput";
 import Button from "components/common/Button/Button";
-import styled from "styled-components";
-import PropTypes from "prop-types";
-import { media, varela } from "styles/css-variables";
-import { API_URL, token, userId } from "utils";
-import axios from "axios";
+import { ModalText, ButtonContainer, FormContainer, FormWrapper } from './ModalStyledComponents';
 
 const authToken = `Bearer ${token}`;
-
-const ModalText = styled.div`
-  font-family: ${varela};
-  font-weight: 600;
-  margin-top: 16px;
-`;
-
-export const FormContainer = styled.form`
-  width: 485px;
-  display: flex;
-  justify-content: center;
-  flex-flow: column;
-  ${media.phone` 
-	box-sizing: border-box;
-	background: #ffffff;
-	border-radius: 4px;
-	width: 100%;
-	padding: 16px;
-	`};
-`;
-
-export const FormWrapper = styled.div`
-  z-index: 9;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  ${media.phone`
-	width: 100%;
-	`};
-`;
-const ButtonContainer = styled.div`
-  display: flex;
-  width: 200px;
-  justify-content: space-between;
-  margin: 32px auto;
-`;
 
 class ShareModal extends React.Component {
   state = {

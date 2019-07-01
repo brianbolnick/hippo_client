@@ -2,21 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import Modal from "components/common/Modal/Modal";
 import Button from "components/common/Button/Button";
-import { varela } from "styles/css-variables";
-import styled from "styled-components";
-
-const ButtonContainer = styled.div`
-  display: flex;
-  width: 200px;
-  justify-content: space-between;
-  margin: 32px auto;
-`;
-
-const ModalText = styled.div`
-  font-family: ${varela};
-  font-weight: 600;
-  margin-top: 16px;
-`;
+import { ModalText, ButtonContainer } from './ModalStyledComponents';
 
 const DeleteModal = ({ onCancelClick, onDeleteClick }) => {
   return (

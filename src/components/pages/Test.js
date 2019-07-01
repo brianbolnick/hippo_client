@@ -1,19 +1,18 @@
 import React from "react";
 import PropTypes from "prop-types";
-import Layout from "components/common/Layout/Layout";
-import { API_URL, token, userId } from "utils";
 import axios from "axios";
 import moment from "moment";
+import { API_URL, token, userId } from "utils";
 import Loader from "img/loader.gif";
-import Icon from "components/common/Icon/Icon";
-import Tooltip from "components/common/Tooltip/Tooltip";
+import ImagePlaceholder from "img/recipe-placeholder.png";
+import { colors, phoneMediaQuery } from "styles/css-variables";
 import Button from "components/common/Button/Button";
 import FlashMessage from "components/common/FlashMessage/FlashMessage";
-import Rating from "components/common/Rating/Rating";
-import { colors } from "styles/css-variables";
+import Icon from "components/common/Icon/Icon";
+import Layout from "components/common/Layout/Layout";
 import MediaQuery from "components/common/MediaQuery/MediaQuery";
-import { phoneMediaQuery } from "styles/css-variables";
-import ImagePlaceholder from "img/recipe-placeholder.png";
+import Rating from "components/common/Rating/Rating";
+import Tooltip from "components/common/Tooltip/Tooltip";
 import {
   LoadContainer,
   PageContainer,
@@ -49,8 +48,8 @@ import {
   Notes,
   ButtonContainer
 } from "./TestStyledComponents";
-import ShareModal from "./Recipes/ShareModal";
-import DeleteModal from "./Recipes/DeleteModal";
+import ShareModal from "./Recipes/Modals/ShareModal";
+import DeleteModal from "./Recipes/Modals/DeleteModal";
 
 const authToken = `Bearer ${token}`;
 

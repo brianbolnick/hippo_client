@@ -4,6 +4,13 @@ import Button from "components/common/Button/Button";
 import Icon from "components/common/Icon/Icon";
 
 //New Form Styles
+export const ButtonContainer = styled.div`
+  display: flex;
+  button {
+    margin-right: 8px;
+  }
+`;
+
 export const ShowContainer = styled.div`
   height: 100%;
   width: 100%;
@@ -29,10 +36,131 @@ export const DetailsContainer = styled.div`
 	`};
 `;
 
+export const Form = styled.form`
+  //height: 100%;
+  width: 100%;
+  display: flex;
+  flex-flow: row;
+  flex-wrap: wrap;
+  //border: solid 4px ${colors.red};
+	border-top: solid 4px #ff2e65;
+  border-bottom: none;
+	border-radius: 16px 16px 0 0;
+	box-shadow: 0px 0px 20px 4px rgba(0, 0, 0, 0.1);
+
+	${media.tablet`
+		box-shadow: none;
+`}
+`;
+
+export const FormRow = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+
+  &&& {
+    & > * {
+      width: ${({ three }) => (three ? "32%" : "48%")};
+      min-width: ${({ three }) => (three ? "100px" : "90px")};
+      ${media.tablet`	width: 100%; `};
+      ${media.smallDesktop`
+				width: ${({ three }) => (three ? "48%" : "100%")};
+			`};
+    }
+
+    &:not(:last-child) {
+      margin-right: 8px;
+    }
+  }
+`;
+
+export const InputArea = styled.div`
+  width: 50%;
+  padding: 32px;
+  box-sizing: border-box;
+  ${media.tablet`
+		width: 100%;
+		padding: 16px;
+`};
+`;
+export const ListArea = styled.div`
+  width: 50%;
+  padding: 32px;
+  box-sizing: border-box;
+  overflow-y: scroll;
+  ${media.tablet`
+		width: 100%;
+		padding: 16px;
+`};
+`;
+
+export const AddableContainer = styled.div`
+  display: flex;
+  flex-flow: column;
+`;
+
+export const TempIngredient = styled.div`
+  //max-width: 32%;
+  background-color: ${colors.red};
+  color: white;
+  padding: 8px;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  margin-bottom: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  &:not(:last-child) {
+    margin-right: 8px;
+  }
+`;
+
+export const DeleteIcon = styled(Icon)`
+  height: 16px;
+  width: 16px;
+  min-width: 16px;
+  min-height: 16px;
+  margin-left: 8px;
+  cursor: pointer;
+  &:hover {
+    background-color: ${({ clear }) => (clear ? "" : colors.darkRed)};
+    path {
+      fill: ${({ clear }) => (!clear ? "" : colors.red)};
+    }
+    border-radius: 50%;
+  }
+`;
+
+export const TempDirectionContainer = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+`;
 export const TempStep = styled.li`
   color: ${colors.black};
   font-weight: 600;
   margin: 8px 0;
+`;
+
+export const Notice = styled.div`
+  text-align: center;
+  width: 100%;
+  color: ${colors.offGray};
+`;
+
+export const TempIngredientsContainer = styled.div`
+  display: flex;
+  flex-flow: row;
+  flex-wrap: wrap;
+  margin-bottom: 32px;
+`;
+
+export const StepsContainer = styled.div``;
+export const Steps = styled.ol`
+  padding-left: 0;
 `;
 
 //Recipe View Styles
@@ -166,11 +294,45 @@ export const Details = styled.div`
 	`};
 `;
 
+export const DirectionsContainer = styled.div``;
 export const HeaderGroup = styled.div`
   display: flex;
   width: 100%;
   justify-content: space-between;
   align-items: center;
+`;
+export const Direction = styled.div`
+  margin-bottom: 34px;
+  letter-spacing: 1px;
+  width: 100%;
+  display: flex;
+  flex-flow: column;
+  box-sizing: border-box;
+  border-radius: 2px;
+  font-family: ${avenir};
+  font-weight: 500;
+  span {
+    font-weight: 500;
+    color: ${colors.offGray};
+    font-size: 1.1rem;
+    margin-bottom: 16px;
+    font-family: ${avenir};
+  }
+`;
+export const TempDirection = styled.div`
+  margin: 24px 0;
+  letter-spacing: 1px;
+  padding: 16px;
+  width: 100%;
+  display: flex;
+  box-sizing: border-box;
+  border: solid 2px ${colors.red};
+  border-radius: 2px;
+  span {
+    font-weight: 600;
+    margin-right: 16px;
+    color: #fe4969;
+  }
 `;
 export const SubTitle = styled.div`
   font-size: 1.5rem;
@@ -204,21 +366,31 @@ export const MetaDetails = styled.div`
   }
 `;
 
+export const RecipeList = styled.div`
+  display: flex;
+  flex-flow: row;
+  flex-wrap: wrap;
+  justify-content: center;
+`;
+
 export const RecipeHeader = styled.div`
   display: flex;
   align-items: center;
   margin: 32px 0;
 `;
 
+//export const CategoryContainer = styled.div`
+//display: flex;
+//flex-flow: column;
+//justify-content: center;
+//`;
 export const CategoryContainer = styled.div`
   flex: 1;
   display: flex;
   align-items: center;
   box-sizing: border-box;
 `;
-
 export const CategoryMeta = styled.div``;
-
 export const Category = styled.div`
   font-family: ${avenir};
   font-size: 1.1rem;
@@ -235,6 +407,8 @@ export const DishType = styled.div`
 export const Date = styled.div`
   color: ${colors.offGray};
 `;
+
+//export const Category = styled.div``;
 
 export const Divider = styled.div`
   padding: 0 80px;

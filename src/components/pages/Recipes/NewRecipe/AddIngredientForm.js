@@ -1,9 +1,7 @@
 import React, { useState } from "react";
-import Input from "components/common/Input/Input";
-import Select from "components/common/Select/Select";
 import Button from "components/common/Button/Button";
-import { varela, colors } from "styles/css-variables";
-import styled from "styled-components";
+import { colors } from "styles/css-variables";
+import { AddIngredientContainer, AddIngredientLabel, StyledSelect, StyledInput } from './NewRecipeStyledComponents';
 
 const MEASUREMENTS = [
   "tsp",
@@ -19,28 +17,6 @@ const MEASUREMENTS = [
   "g",
   ""
 ];
-
-const Container = styled.div`
-  display: flex;
-  flex-flow: row;
-`;
-
-const Label = styled.label`
-  font-family: ${varela};
-  margin-bottom: 16px;
-`;
-
-const StyledSelect = styled(Select)`
-  width: 33%;
-  margin: 0 8px;
-`;
-
-const StyledInput = styled(Input)`
-  width: 33%;
-  & input {
-    width: 100%;
-  }
-`;
 
 const AddIngredientForm = ({ onSave }) => {
   const [quantity, setQuantity] = useState("");
@@ -76,9 +52,9 @@ const AddIngredientForm = ({ onSave }) => {
 
   return (
     <div style={{ marginBottom: "16px" }}>
-      <Label>Ingredients</Label>
+      <AddIngredientLabel>Ingredients</AddIngredientLabel>
       {error && <div style={{ color: colors.red }}>{error} </div>}
-      <Container>
+      <AddIngredientContainer>
         <StyledInput
           onChange={e => verifyQuantity(e)}
           placeholder="Quantity"
@@ -96,7 +72,7 @@ const AddIngredientForm = ({ onSave }) => {
           type="text"
           onChange={e => setName(e.target.value)}
         />
-      </Container>
+      </AddIngredientContainer>
       <Button secondary onClick={handleAdd} disabled={!!error}>
         Add Ingredient
       </Button>

@@ -1,12 +1,18 @@
 import React from "react";
-import Layout from "components/common/Layout/Layout";
-import { API_URL, token, userId } from "utils";
 import axios from "axios";
 import moment from "moment";
-//import Loader from "img/loader.gif";
+import { API_URL, token, userId } from "utils";
+import FlashMessage from "components/common/FlashMessage/FlashMessage";
+import Icon from "components/common/Icon/Icon";
+import Layout from "components/common/Layout/Layout";
+import MediaQuery from "components/common/MediaQuery/MediaQuery";
+import Rating from "components/common/Rating/Rating";
+import { colors } from "styles/css-variables";
+import { tabletMediaQuery } from "styles/css-variables";
+import ImagePlaceholder from "img/recipe-placeholder.png";
 import Loader from "img/burger.gif";
-import ShareModal from "./ShareModal";
-import DeleteModal from "./DeleteModal";
+import ShareModal from "../Modals/ShareModal";
+import DeleteModal from "../Modals/DeleteModal";
 import {
   CategoryContainer,
   ActionIcon,
@@ -36,14 +42,7 @@ import {
   ActionContainer,
   CategoryMeta,
   DishType
-} from "./styles";
-import Icon from "components/common/Icon/Icon";
-import FlashMessage from "components/common/FlashMessage/FlashMessage";
-import Rating from "components/common/Rating/Rating";
-import { colors } from "styles/css-variables";
-import MediaQuery from "components/common/MediaQuery/MediaQuery";
-import { tabletMediaQuery } from "styles/css-variables";
-import ImagePlaceholder from "img/recipe-placeholder.png";
+} from "./RecipeStyledComponents";
 
 const authToken = `Bearer ${token}`;
 
