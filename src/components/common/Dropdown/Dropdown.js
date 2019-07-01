@@ -7,45 +7,48 @@ import {
 	HeaderTitle, 
 	List, 
 	ListItem, 
-	SelectedIcon 
+	SelectedIcon,
+	Placeholder
 } from './DropdownStyles'; 
 
-	const Dropdown = ({title, list, onChange}) => {
+const Dropdown = ({title, items, onChange, placeholder}) => {
 	const [listOpen, setListOpen] = useState(false);
 	const [headerTitle, setHeaderTitle] = useState(title);
+	const node = useRef();
 
-	useEffect(() => {
-		window.addEventListener('click', handleOutsideClick)
-		return () => {
-			window.removeEventListener("scroll", handleOutsideClick);
-		};
-	});
-
-	const handleOutsideClick = e => {
-    if (this.node && !this.node.contains(e.target)) {
-			setListOpen(false)
-      document.removeEventListener("click", this.handleOutsideClick, false);
+  const handleClick = e => {
+    if (node && !node.current.contains(e.target)) {
+			setListOpen(false);
     }
-  }
+  };
 
-	const handleChange = item => {
-		setHeaderTitle(item.title);
-		setListOpen(false);
-		onChange(item)
-	}
+  const handleChange = selectedValue => {
+		setHeaderTitle(selectedValue.title);
+    setListOpen(false);
+    onChange(selectedValue);
+  };
 
-		const node = useRef();
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClick);
 
-		return(
+    return () => {
+      document.removeEventListener("mousedown", handleClick);
+    };
+  }, []);
+
+	return (
 			<Container ref={node}>
 				<Header onClick={() => setListOpen(!listOpen)}>
-					<HeaderTitle>{headerTitle}</HeaderTitle>
+						{headerTitle ? 
+							<HeaderTitle>{headerTitle}</HeaderTitle> :
+							<Placeholder>{placeholder}</Placeholder>
+						}
 					<Icon name={listOpen ? 'chevronUp' : 'chevronDown'} />
 				</Header>
 
 				{listOpen && (
 					<List>
-							{list.map((item)=> (
+							{items.map((item)=> (
 								<ListItem 
 									key={item.id} 
 									onClick={() => handleChange(item)}
@@ -63,8 +66,12 @@ import {
 
 Dropdown.propTypes = {
 	onChange: PropTypes.func.isRequired,
-	placeholder: PropTypes.string,
-	children: PropTypes.any
+	items: PropTypes.arrayOf(PropTypes.shape({
+		id: PropTypes.number,
+		name: PropTypes.string,
+		selected: PropTypes.boolean
+	})),
+	placeholder: PropTypes.string
 }
 
 export default Dropdown;

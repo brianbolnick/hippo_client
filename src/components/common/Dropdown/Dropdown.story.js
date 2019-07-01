@@ -58,7 +58,7 @@ const DropDownStory = () => {
 			<Dropdown
 				placeholder="Fruit"
 				onChange={item => handleChange(item)}
-				list={list}
+				items={list}
 			/>
 		)
 }

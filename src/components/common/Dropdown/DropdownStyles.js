@@ -30,41 +30,50 @@ export const HeaderTitle = styled.div`
 	margin-right: 30px;
 	font-family: ${avenir};
 	font-weight: 500;
-
 `;
 
-export const List = styled.ul`
+export const Placeholder = styled.div`
+	font-weight: 300;
+	margin: 0 20px;
+	margin-right: 30px;
+	font-family: ${avenir};
+	font-weight: 500;
+	color: ${colors.offGray};
+`;
+
+export const List = styled.div`
 	z-index: 10;
 	position: absolute;
 	width: 100%;
-	border: 1px solid #dfdfdf;
+	border: 1px solid ${colors.mutedGray};
 	border-top: none;
 	border-bottom-right-radius: 3px;
 	border-bottom-left-radius: 3px;
 	background-color: #fff;
-	box-shadow: 0 2px 5px -1px #e8e8e8;
+	box-shadow: 0 2px 5px -1px #2121213d;
 	font-weight: 700;
 	padding: 15px 0;
+	padding-top: 0;
 	max-height: 280px;
 	overflow-y: scroll;
 	margin-top: -1px;
 	box-sizing: border-box;
 `;
 
-export const ListItem = styled.li`
+export const ListItem = styled.div`
 	width: 100%;
 	font-size: 1rem;
 	padding: 8px 10px;
 	cursor: default;
-	display: inline-block;
+	display: flex;
+	margin: 0;
 	white-space: nowrap;
 	text-overflow: ellipsis;
 	overflow-x: hidden;
 	box-sizing: border-box;
-	font-family: ${avenir};
 	font-weight: 500;
 	position: relative;
-
+	font-family: ${avenir};
 
 	&:hover {
 		color: #fff;
@@ -82,6 +91,4 @@ export const SelectedIcon = styled(Icon)`
 	right: 0;
 	top: 5px;
 `;
-
-
 
