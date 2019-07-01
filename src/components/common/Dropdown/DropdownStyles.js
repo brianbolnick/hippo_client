@@ -52,8 +52,6 @@ export const List = styled.div`
 	background-color: #fff;
 	box-shadow: 0 2px 5px -1px #2121213d;
 	font-weight: 700;
-	padding: 15px 0;
-	padding-top: 0;
 	max-height: 280px;
 	overflow-y: scroll;
 	margin-top: -1px;

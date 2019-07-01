@@ -13,7 +13,8 @@ import {
   IconShare,
   IconTrash,
 	IconUser,
-	IconFries
+	IconFries,
+	IconFire
 } from "./";
 
 const Grid = styled.div`
@@ -44,7 +45,8 @@ const iconList = [
   { name: "IconShare", icon: IconShare },
   { name: "IconTrash", icon: IconTrash },
   { name: "IconUser", icon: IconUser },
-  { name: "IconFries", icon: IconFries }
+  { name: "IconFries", icon: IconFries },
+  { name: "IconFire", icon: IconFire },
 ];
 
 function IconsGrid() {

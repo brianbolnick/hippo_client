@@ -29,7 +29,8 @@ const CUSTOM_MAP = {
   salad: CustomIcons.IconSalad,
   breakfast: CustomIcons.IconBreakfast,
 	bread: CustomIcons.IconBread,
-	fries: CustomIcons.IconFries
+	fries: CustomIcons.IconFries,
+	fire: CustomIcons.IconFire
 };
 
 const icons = {

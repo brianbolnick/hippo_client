@@ -43,6 +43,7 @@ class NewRecipe extends Component {
       cook_time: "",
       calories: "",
       servings: 1,
+      difficulty: 1,
       ingredients: [],
       steps: [],
       family_id: familyId,
@@ -75,9 +76,7 @@ class NewRecipe extends Component {
         axios.spread((categoryData, dishTypeData) => {
           const categories = categoryData.data.data;
           const dishTypes = dishTypeData.data.data;
-          this.setState({ categories, dishTypes }, () =>
-            console.log(this.state)
-          );
+          this.setState({ categories, dishTypes });
         })
       )
       .catch(err => {
@@ -128,9 +127,26 @@ class NewRecipe extends Component {
     );
   };
 
-  renderTimes = () => {
-    return AVAILABLE_TIMES.map(time => {
-      return (
+	renderDifficulty = () => {
+	const difficulties = [
+		{ name: 'Easy', value: 1 },
+		{ name: 'Medium', value: 2},
+		{ name: 'Difficult', value: 3}
+	]
+		return (difficulties.map(diff => {
+				return (
+					<option key={`difficulty|${diff.name}`} value={diff.value}>
+						{diff.name}
+					</option>
+				);
+			})
+		);
+	};
+
+
+	renderTimes = () => {
+		return AVAILABLE_TIMES.map(time => {
+			return (
         <option key={time} value={time}>
           {" "}
           {time}{" "}
@@ -311,6 +327,15 @@ class NewRecipe extends Component {
               >
                 {this.renderDishTypes()}
               </Select>
+              <Select
+                onChange={e => this.setState({ difficulty: e.target.value })}
+                icon="fire"
+                label="Difficulty"
+                placeholder="Easy"
+              >
+                {this.renderDifficulty()}
+              </Select>
+
             </FormRow>
             <FileInput
               fileName={this.state.image && this.state.image.name}

@@ -58,6 +58,13 @@ export const RecipeImage = styled.div`
   position: relative;
 `;
 
+export const LevelContainer = styled.div`
+	display: flex	;
+`;
+
+export const LevelLabel = styled.div`
+	color: ${colors.mutedGray};
+`;
 export const Title = styled.div`
   font-family: ${raleway};
   font-size: 1.4rem;

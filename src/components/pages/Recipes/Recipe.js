@@ -3,7 +3,8 @@ import Layout from "components/common/Layout/Layout";
 import { API_URL, token, userId } from "utils";
 import axios from "axios";
 import moment from "moment";
-import Loader from "img/loader.gif";
+//import Loader from "img/loader.gif";
+import Loader from "img/burger.gif";
 import ShareModal from "./ShareModal";
 import DeleteModal from "./DeleteModal";
 import {

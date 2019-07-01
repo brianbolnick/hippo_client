@@ -4,7 +4,7 @@ import { API_URL, token, familyId } from "utils";
 import axios from "axios";
 import { avenir, colors, media } from "styles/css-variables";
 import { RecipeList } from "./styles";
-import Loader from "img/loader.gif";
+import Loader from "img/burger.gif";
 import styled from "styled-components";
 import NoRecipes from "img/food_icon.gif";
 const authToken = `Bearer ${token}`;

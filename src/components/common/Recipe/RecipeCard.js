@@ -13,7 +13,7 @@ import {
 	DishTypeName,
 } from "./Styles";
 import Icon from "components/common/Icon/Icon";
-import Rating from "components/common/Rating/Rating";
+import Difficulty from "components/common/Difficulty";
 import PlaceholderImage from "img/recipe-placeholder.png";
 
 const RecipeCard = ({ data }) => {
@@ -25,17 +25,16 @@ const RecipeCard = ({ data }) => {
         <Content>
           <Title>{data.title}</Title>
 					<MetaData>
-
-					<div>	{data.category.name}</div>
+						<div>{data.category.name}</div>
 					</MetaData>
         </Content>
 				<Footer>
-					<Rating small value={data.rating} />
+						<Difficulty value={data.difficulty} />
 					<DishType>
 						<Icon 
 							name={DISH_TYPE_ICON_MAP[data.dish_type.name.toLowerCase()]} 
 							color={colors.mutedGray} 
-							size="28px"
+							size="24px"
 						/>
 						<DishTypeName>{data.dish_type.name}</DishTypeName>
 					</DishType>
