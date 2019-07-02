@@ -45,7 +45,7 @@ const Collapse = ({ label, children, defaultOpen }) => {
 		<Container>
 			<Header>
 				<Label>{label}</Label>
-				<StyledIcon size="24px" name="plus" color={colors.black} onClick={() => setIsOpen(!isOpen)} />
+				<StyledIcon size="20px" name="plus" color={colors.black} onClick={() => setIsOpen(!isOpen)} />
 			</Header>
 		<ChildrenContainer isOpen={isOpen}>{children}</ChildrenContainer>
 		</Container>
