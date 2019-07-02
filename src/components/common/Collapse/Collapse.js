@@ -27,6 +27,16 @@ const StyledIcon = styled(Icon)`
 	cursor: pointer;
 `;
 
+const ChildrenContainer = styled.div`
+	max-height: 0;
+	overflow: scroll;
+	transition: max-height 0.2s ease-in-out;
+	
+	${({isOpen}) => isOpen && `
+		max-height: 200px;
+	`};
+`;
+
 const Collapse = ({ label, children, defaultOpen }) => {
 
 	const [isOpen, setIsOpen] = useState(defaultOpen);
@@ -37,7 +47,7 @@ const Collapse = ({ label, children, defaultOpen }) => {
 				<Label>{label}</Label>
 				<StyledIcon size="24px" name="plus" color={colors.black} onClick={() => setIsOpen(!isOpen)} />
 			</Header>
-			{isOpen && children}
+		<ChildrenContainer isOpen={isOpen}>{children}</ChildrenContainer>
 		</Container>
 	) }
 

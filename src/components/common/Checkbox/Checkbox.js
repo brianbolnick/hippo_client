@@ -31,10 +31,10 @@ const Container = styled.label`
   display: inline-flex;
   align-items: center;
   input {
-    position: absolute;
     opacity: 0;
     cursor: pointer;
-  }
+		margin-left: -15px;
+	}
 
   input:checked ~ ${Checkmark} {
     background-color: transparent;
@@ -70,8 +70,8 @@ const StyledLabel = styled.span`
   }
 `;
 
-const Checkbox = ({ checked, onChange, disabled, value, children }) => (
-  <Container>
+const Checkbox = ({ checked, onChange, disabled, value, children, ...rest }) => (
+  <Container {...rest}>
     <StyledLabel disabled={disabled}>{children}</StyledLabel>
     <input
       type="checkbox"

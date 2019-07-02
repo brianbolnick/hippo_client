@@ -7,6 +7,7 @@ import { tabletMediaQuery } from "styles/css-variables";
 import RecipeCard from "components/common/Recipe/RecipeCard";
 import MediaQuery from "components/common/MediaQuery/MediaQuery";
 import Collapse from 'components/common/Collapse';
+import Checkbox from 'components/common/Checkbox';
 import {
 	RecipeContent, 
 	FiltersContainer, 
@@ -16,40 +17,69 @@ import {
 	NoRecipesImage ,
 	FilterGroup,
 	ClearFilters,
-	FilterTitle
+	FilterTitle,
+	FilterOptions,
+	FilterItemGroup,
+	FilterItem
 } from "./RecipesPageStyledComponents";
 
 const authToken = `Bearer ${token}`;
 
 const RecipesTab = ({ recipeType, onError }) => {
   const [recipes, setRecipes] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [dishTypes, setDishTypes] = useState([]);
+  const [filteredRecipes, setFilteredRecipes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [recipesLoaded, setRecipesLoaded] = useState(false);
   const [isMobile, setIsMobile] = useState(window.matchMedia("(" + tabletMediaQuery + ")").matches);
 
-  useEffect(() => {
-    if (!recipesLoaded) {
-      axios
-        .get(`${API_URL}/family/${familyId}/${recipeType}`, {
-          headers: { Authorization: authToken }
-        })
-        .then(({ data }) => {
-          const recipes = data.data;
-          setLoading(false);
-          setRecipesLoaded(true);
-          setRecipes(recipes);
-        })
-        .catch(err => {
-          console.log(err);
-          setRecipesLoaded(true);
-          onError("Something went wrong, please try again.");
-        });
-    }
-  });
+  const getCategories = () => {
+    return axios.get(`${API_URL}/categories`, {
+      headers: { Authorization: authToken }
+    });
+  };
+
+  const getDishTypes = () => {
+    return axios.get(`${API_URL}/dish_types`, {
+      headers: { Authorization: authToken }
+    });
+  };
+
+	const getRecipes = () => {
+    return axios.get(`${API_URL}/family/${familyId}/${recipeType}`, {
+      headers: { Authorization: authToken }
+    });
+	}
+
+	useEffect(() => {
+		if (!recipesLoaded) {
+			axios
+				.all([getRecipes(), getCategories(), getDishTypes()])
+				.then(
+					axios.spread((recipeData, categoryData, dishTypeData) => {
+						const recipes = recipeData.data.data;
+						const categories = categoryData.data.data;
+						const dishTypes = dishTypeData.data.data;
+						setLoading(false);
+						setRecipesLoaded(true);
+						setCategories(categories);
+						setDishTypes(dishTypes);
+						setRecipes(recipes);
+						setFilteredRecipes(recipes);
+					})
+				)
+				.catch(err => {
+					console.log(err);
+					setRecipesLoaded(true);
+					onError("Something went wrong, please try again.");
+				});
+		}
+	});
 
   const renderRecipes = () => {
-    return recipes.length ? (
-      recipes.map(recipe => {
+    return filteredRecipes.length ? (
+      filteredRecipes.map(recipe => {
         return <RecipeCard key={recipe.id} data={recipe} />;
       })
     ) : (
@@ -62,8 +92,45 @@ const RecipesTab = ({ recipeType, onError }) => {
     );
   };
 
-	const renderFilters = () => {
+	const renderDishTypes = () => {
+		return dishTypes.map(type => {
+			return (
+				<FilterItemGroup>
+				<FilterItem>{type.name}</FilterItem>
+					<Checkbox onChange={() => console.log("change", type)} />
+			</FilterItemGroup>
+		)
+		})
+	}
 
+	const renderCategories = () => {
+		return categories.map(type => {
+			return (
+				<FilterItemGroup>
+				<FilterItem>{type.name}</FilterItem>
+					<Checkbox onChange={() => console.log("change", type)} />
+			</FilterItemGroup>
+		)
+		})
+	}
+
+	const renderDifficulties = () => {
+		const difficulties = [
+			{name: "Easy", value: 1},
+			{name: "Medium", value: 2},
+			{name: "Hard", value: 3},
+		]
+		return difficulties.map(type => {
+			return (
+				<FilterItemGroup>
+				<FilterItem>{type.name}</FilterItem>
+					<Checkbox onChange={() => console.log("change", type)} />
+			</FilterItemGroup>
+		)
+		})
+	}
+
+	const renderFilters = () => {
 		return (
 			<FiltersContainer>
 				<FilterGroup>
@@ -73,19 +140,16 @@ const RecipesTab = ({ recipeType, onError }) => {
 					</ClearFilters>
 				</FilterGroup>
 				<Collapse label="Dish Type">
-					<div>hey</div>
+					<FilterOptions>{renderDishTypes()}</FilterOptions>
 				</Collapse>
 				<Collapse label="Category">
-					<div>hey</div>
+					<FilterOptions>{renderCategories()}</FilterOptions>
 				</Collapse>
 				<Collapse label="Difficulty">
-					<div>hey</div>
+					<FilterOptions>{renderDifficulties()}</FilterOptions>
 				</Collapse>
-
-
 			</FiltersContainer>
 		)
-
 	}
 
   return loading ? (

@@ -33,6 +33,25 @@ export const FiltersContainer = styled.div`
 	flex: 1;
 `;
 
+export const FilterOptions = styled.div`
+	padding: 8px 0;
+	font-size: 0.9rem;
+	font-weight: 400;
+`;
+
+export const FilterItemGroup = styled.div`
+	display: flex;
+	justify-content: space-between;
+	position: relative;
+	width: 100%;
+    margin: 8px 0;
+    box-sizing: border-box;
+    width: calc(100% - 0px);
+`;
+
+export const FilterItem = styled.div`
+`;
+
 export const NewButtonContainer = styled.div``;
 
 export const OptionsContainer = styled.div`
