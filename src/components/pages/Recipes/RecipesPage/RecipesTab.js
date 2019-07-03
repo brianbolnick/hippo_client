@@ -25,6 +25,12 @@ import {
 
 const authToken = `Bearer ${token}`;
 
+const difficulties = [
+	{name: "Easy", id: 1},
+	{name: "Medium", id: 2},
+	{name: "Hard", id: 3},
+]
+
 const RecipesTab = ({ recipeType, onError }) => {
   const [recipes, setRecipes] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -33,6 +39,28 @@ const RecipesTab = ({ recipeType, onError }) => {
   const [loading, setLoading] = useState(true);
   const [recipesLoaded, setRecipesLoaded] = useState(false);
   const [isMobile, setIsMobile] = useState(window.matchMedia("(" + tabletMediaQuery + ")").matches);
+	const [filters, setFilters] = useState({})
+	const [filtersSet, setFiltersSet] = useState(false)
+
+	const createFilters = () => ({
+		category: createInitialFilterList(categories),
+		dishType: createInitialFilterList(dishTypes),
+		difficulty: createInitialFilterList(difficulties)
+	})
+
+	const createInitialFilterList = group => {
+		return group.reduce((acc, val) => {
+			acc[val.id] = true
+			return acc
+		}, {})
+	}
+
+	const updateFilterList = (mapping, id) => {
+		const newFilters = {...filters};
+		newFilters[mapping][id] = !filters[mapping][id]
+		setFilters(newFilters)
+	}
+		
 
   const getCategories = () => {
     return axios.get(`${API_URL}/categories`, {
@@ -53,6 +81,11 @@ const RecipesTab = ({ recipeType, onError }) => {
 	}
 
 	useEffect(() => {
+		if (recipesLoaded && !filtersSet) {
+			setFilters(createFilters())
+			setFiltersSet(true)
+		}
+
 		if (!recipesLoaded) {
 			axios
 				.all([getRecipes(), getCategories(), getDishTypes()])
@@ -62,11 +95,11 @@ const RecipesTab = ({ recipeType, onError }) => {
 						const categories = categoryData.data.data;
 						const dishTypes = dishTypeData.data.data;
 						setLoading(false);
-						setRecipesLoaded(true);
 						setCategories(categories);
 						setDishTypes(dishTypes);
 						setRecipes(recipes);
 						setFilteredRecipes(recipes);
+						setRecipesLoaded(true);
 					})
 				)
 				.catch(err => {
@@ -75,7 +108,7 @@ const RecipesTab = ({ recipeType, onError }) => {
 					onError("Something went wrong, please try again.");
 				});
 		}
-	});
+	}, [categories, dishTypes, recipes, filters]);
 
   const renderRecipes = () => {
     return filteredRecipes.length ? (
@@ -93,38 +126,33 @@ const RecipesTab = ({ recipeType, onError }) => {
   };
 
 	const renderDishTypes = () => {
-		return dishTypes.map(type => {
+		return filtersSet && dishTypes.map(type => {
 			return (
 				<FilterItemGroup>
 				<FilterItem>{type.name}</FilterItem>
-					<Checkbox onChange={() => console.log("change", type)} />
+				<Checkbox checked={filters.dishType[type.id]} onChange={() => updateFilterList("dishType", type.id) }/>
 			</FilterItemGroup>
 		)
 		})
 	}
 
 	const renderCategories = () => {
-		return categories.map(type => {
+		return filtersSet && categories.map(type => {
 			return (
 				<FilterItemGroup>
 				<FilterItem>{type.name}</FilterItem>
-					<Checkbox onChange={() => console.log("change", type)} />
+				<Checkbox checked={filters.category[type.id]} onChange={() => updateFilterList("category", type.id)} />
 			</FilterItemGroup>
 		)
 		})
 	}
 
 	const renderDifficulties = () => {
-		const difficulties = [
-			{name: "Easy", value: 1},
-			{name: "Medium", value: 2},
-			{name: "Hard", value: 3},
-		]
-		return difficulties.map(type => {
+		return filtersSet && difficulties.map(type => {
 			return (
 				<FilterItemGroup>
 				<FilterItem>{type.name}</FilterItem>
-					<Checkbox onChange={() => console.log("change", type)} />
+				<Checkbox checked={filters.difficulty[type.id]} onChange={() => updateFilterList("difficulty", type.id)} />
 			</FilterItemGroup>
 		)
 		})
@@ -135,7 +163,7 @@ const RecipesTab = ({ recipeType, onError }) => {
 			<FiltersContainer>
 				<FilterGroup>
 					<FilterTitle>Filter By:</FilterTitle>
-					<ClearFilters onClick={() => console.log("click")}>
+					<ClearFilters onClick={() => setFilters(createFilters)}>
 						Clear Filters
 					</ClearFilters>
 				</FilterGroup>
@@ -152,6 +180,7 @@ const RecipesTab = ({ recipeType, onError }) => {
 		)
 	}
 
+						console.log(filters)
   return loading ? (
     <LoadContainer>
       <img alt="" src={Loader} style={{ height: "300px", width: "300px" }} />
