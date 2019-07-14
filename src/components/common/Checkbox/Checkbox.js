@@ -6,17 +6,21 @@ const Checkmark = styled.span`
   position: absolute;
   top: 0;
   left: 0;
-  height: 15px;
-  width: 16px;
-  border: ${({ disabled }) =>
-    disabled ? `solid 2px ${colors.mutedGray}` : `solid 2px ${colors.red}`};
+  height: 18px;
+  width: 18px;
+  //border: ${({ disabled }) => disabled ? `solid 2px ${colors.mutedGray}` : `solid 2px ${colors.red}`};
   border-radius: 4px;
-  background-color: ${props => (props.disabled ? colors.lightGray : "white")};
+  background-color: ${colors.lightGray};
   &:after {
     content: "";
     position: absolute;
     display: none;
   }
+
+	&:hover {
+		background-color: ${colors.mutedGray};
+		transition: 0.1s ease;
+	}
 `;
 
 const Container = styled.label`
@@ -37,7 +41,7 @@ const Container = styled.label`
 	}
 
   input:checked ~ ${Checkmark} {
-    background-color: transparent;
+    background-color: ${colors.black};
     border: none;
   }
 
@@ -46,11 +50,11 @@ const Container = styled.label`
   }
 
   & ${Checkmark}:after {
-    left: 5px;
-    top: -1px;
-    width: 4px;
+    left: 6px;
+    top: 1px;
+    width: 3px;
     height: 11px;
-    border: solid ${colors.red};
+    border: solid ${colors.white};
     border-width: 0 3px 3px 0px;
     transform: rotate(45deg);
 

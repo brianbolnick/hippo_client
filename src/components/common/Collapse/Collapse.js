@@ -7,7 +7,7 @@ import { colors, avenir } from 'styles/css-variables';
 const Container = styled.div`
 	display: flex;
 	flex-flow: column;
-	margin-bottom: 8px;
+	margin-bottom: 16px;
 `;
 
 const Label = styled.div`
@@ -25,6 +25,10 @@ const Header = styled.div`
 
 const StyledIcon = styled(Icon)`
 	cursor: pointer;
+	transition: transform 0.2s ease;
+	${({isOpen}) => isOpen && `
+		transform: rotate(-90deg);
+	`};
 `;
 
 const ChildrenContainer = styled.div`
@@ -45,7 +49,7 @@ const Collapse = ({ label, children, defaultOpen }) => {
 		<Container>
 			<Header>
 				<Label>{label}</Label>
-				<StyledIcon size="20px" name="plus" color={colors.black} onClick={() => setIsOpen(!isOpen)} />
+				<StyledIcon size="24px" name='chevronDown' isOpen={isOpen} color={colors.black} onClick={() => setIsOpen(!isOpen)} />
 			</Header>
 		<ChildrenContainer isOpen={isOpen}>{children}</ChildrenContainer>
 		</Container>

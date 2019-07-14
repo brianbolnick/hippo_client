@@ -50,7 +50,7 @@ const RecipesTab = ({ recipeType, onError }) => {
 
 	const createInitialFilterList = group => {
 		return group.reduce((acc, val) => {
-			acc[val.id] = true
+			acc[val.id] = false
 			return acc
 		}, {})
 	}
@@ -84,6 +84,8 @@ const RecipesTab = ({ recipeType, onError }) => {
 		if (recipesLoaded && !filtersSet) {
 			setFilters(createFilters())
 			setFiltersSet(true)
+		} else {
+			filterRecipes()
 		}
 
 		if (!recipesLoaded) {
@@ -109,6 +111,35 @@ const RecipesTab = ({ recipeType, onError }) => {
 				});
 		}
 	}, [categories, dishTypes, recipes, filters]);
+
+	const filterRecipes = () => {
+		console.log("here");
+		const filtered = filteredRecipes.filter(recipe => {
+			return filterByDishType(recipe) && filterByCategory(recipe) && filterByDifficulty(recipe);
+		});
+		setFilteredRecipes(filtered)
+	}
+
+	const filterByDishType = recipe => {
+		const anySelected = Object.keys(filters.dishType).some(x => filters.dishType[x] === true );
+		if (!anySelected) return true;
+		return filters.dishType[recipe.dish_type.id];
+	}
+
+	const filterByCategory = recipe => {
+		const anySelected = Object.keys(filters.category).some(x => filters.category[x] === true );
+		if (!anySelected) return true;
+
+		return filters.category[recipe.category.id];
+	}
+
+	const filterByDifficulty = recipe => {
+const anySelected = Object.keys(filters.difficulty).some(x => filters.difficulty[x] === true );
+		if (!anySelected) return true;
+
+
+		return filters.difficulty[recipe.difficulty];
+	}
 
   const renderRecipes = () => {
     return filteredRecipes.length ? (
@@ -180,7 +211,6 @@ const RecipesTab = ({ recipeType, onError }) => {
 		)
 	}
 
-						console.log(filters)
   return loading ? (
     <LoadContainer>
       <img alt="" src={Loader} style={{ height: "300px", width: "300px" }} />
