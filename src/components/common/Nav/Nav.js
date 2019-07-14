@@ -1,11 +1,12 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import PropTypes from 'prop-types';
+import { NewLogo, WhiteLogo, BlackLogo } from "styles/css-variables.js";
 import {
   Navbar,
   Brand,
   BrandImage,
 } from "./NavStyles";
-import { Link } from "react-router-dom";
-import { NewLogo, WhiteLogo, BlackLogo } from "styles/css-variables.js";
 import NavIcon from './NavIcon';
 import NavMenu from './NavMenu';
 
@@ -28,5 +29,13 @@ const Nav = ({scrolling, menuOpen, setMenuOpen, recipe, auth}) => {
     </Navbar>
   );
 };
+
+Nav.propTypes = {
+	scrolling: PropTypes.bool
+}
+
+Nav.defaultProps = {
+	scrolling: false
+}
 
 export default Nav;

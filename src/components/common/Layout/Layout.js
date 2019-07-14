@@ -51,7 +51,7 @@ const Layout = ({recipe, recipeMobile, auth, fullScreen, children}) => {
 		var refOffset = 0;
 		const newOffset = window.scrollY || window.pageYOffset;
 		const isScrolling = (newOffset > navHeight) && (newOffset > refOffset) 
-		setScrolling(isScrolling)
+		setScrolling(isScrolling || false)
 	};
 	return (
 		<>

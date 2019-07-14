@@ -81,7 +81,7 @@ const RecipesTab = ({ recipeType, onError }) => {
 	}
 
 	useEffect(() => {
-		if (recipesLoaded && !filtersSet) {
+		if (recipesLoaded && !filtersSet && !filteredRecipes.length) {
 			setFilters(createFilters())
 			setFiltersSet(true)
 		} else {
@@ -110,41 +110,40 @@ const RecipesTab = ({ recipeType, onError }) => {
 					onError("Something went wrong, please try again.");
 				});
 		}
-	}, [categories, dishTypes, recipes, filters]);
+	}, [ categories, dishTypes, filteredRecipes, filters, loading, recipes, recipesLoaded ]);
 
 	const filterRecipes = () => {
-		console.log("here");
-		const filtered = filteredRecipes.filter(recipe => {
+		const filtered = recipes.filter(recipe => {
 			return filterByDishType(recipe) && filterByCategory(recipe) && filterByDifficulty(recipe);
 		});
 		setFilteredRecipes(filtered)
 	}
 
+	const filtersCleared = (type) => {
+		//should return all results if all items are unchecked
+		if (!filters[type]) return true
+		return Object.keys(filters[type]).every(x => !filters[type][x] );
+	}
+
 	const filterByDishType = recipe => {
-		const anySelected = Object.keys(filters.dishType).some(x => filters.dishType[x] === true );
-		if (!anySelected) return true;
+		if (filtersCleared('dishType')) return true;
 		return filters.dishType[recipe.dish_type.id];
 	}
 
 	const filterByCategory = recipe => {
-		const anySelected = Object.keys(filters.category).some(x => filters.category[x] === true );
-		if (!anySelected) return true;
-
+		if (filtersCleared('category')) return true;
 		return filters.category[recipe.category.id];
 	}
 
 	const filterByDifficulty = recipe => {
-const anySelected = Object.keys(filters.difficulty).some(x => filters.difficulty[x] === true );
-		if (!anySelected) return true;
-
-
+		if (filtersCleared('difficulty')) return true;
 		return filters.difficulty[recipe.difficulty];
 	}
 
   const renderRecipes = () => {
     return filteredRecipes.length ? (
       filteredRecipes.map(recipe => {
-        return <RecipeCard key={recipe.id} data={recipe} />;
+        return <RecipeCard key={`recipe|${recipe.id}`} data={recipe} />;
       })
     ) : (
       <LoadContainer>
@@ -159,7 +158,7 @@ const anySelected = Object.keys(filters.difficulty).some(x => filters.difficulty
 	const renderDishTypes = () => {
 		return filtersSet && dishTypes.map(type => {
 			return (
-				<FilterItemGroup>
+				<FilterItemGroup key={`dishTypes|${type.id}`}>
 				<FilterItem>{type.name}</FilterItem>
 				<Checkbox checked={filters.dishType[type.id]} onChange={() => updateFilterList("dishType", type.id) }/>
 			</FilterItemGroup>
@@ -170,8 +169,8 @@ const anySelected = Object.keys(filters.difficulty).some(x => filters.difficulty
 	const renderCategories = () => {
 		return filtersSet && categories.map(type => {
 			return (
-				<FilterItemGroup>
-				<FilterItem>{type.name}</FilterItem>
+				<FilterItemGroup key={`category|${type.id}`}>
+,				<FilterItem>{type.name}</FilterItem>
 				<Checkbox checked={filters.category[type.id]} onChange={() => updateFilterList("category", type.id)} />
 			</FilterItemGroup>
 		)
@@ -181,7 +180,7 @@ const anySelected = Object.keys(filters.difficulty).some(x => filters.difficulty
 	const renderDifficulties = () => {
 		return filtersSet && difficulties.map(type => {
 			return (
-				<FilterItemGroup>
+				<FilterItemGroup key={`difficulty|${type.id}`}>
 				<FilterItem>{type.name}</FilterItem>
 				<Checkbox checked={filters.difficulty[type.id]} onChange={() => updateFilterList("difficulty", type.id)} />
 			</FilterItemGroup>
@@ -194,7 +193,7 @@ const anySelected = Object.keys(filters.difficulty).some(x => filters.difficulty
 			<FiltersContainer>
 				<FilterGroup>
 					<FilterTitle>Filter By:</FilterTitle>
-					<ClearFilters onClick={() => setFilters(createFilters)}>
+					<ClearFilters onClick={() => setFilters(createFilters())}>
 						Clear Filters
 					</ClearFilters>
 				</FilterGroup>
