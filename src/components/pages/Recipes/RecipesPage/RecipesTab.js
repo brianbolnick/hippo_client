@@ -202,13 +202,13 @@ const RecipesTab = ({ recipeType, onError }) => {
 						Clear Filters
 					</ClearFilters>
 				</FilterGroup>
-				<Collapse label="Dish Type">
+				<Collapse label="Dish Type" divider>
 					<FilterOptions>{renderDishTypes()}</FilterOptions>
 				</Collapse>
-				<Collapse label="Category">
+				<Collapse label="Category" divider>
 					<FilterOptions>{renderCategories()}</FilterOptions>
 				</Collapse>
-				<Collapse label="Difficulty">
+				<Collapse label="Difficulty" divider>
 					<FilterOptions>{renderDifficulties()}</FilterOptions>
 				</Collapse>
 			</FiltersContainer>

@@ -8,6 +8,10 @@ const Container = styled.div`
 	display: flex;
 	flex-flow: column;
 	margin-bottom: 16px;
+	${({divider}) => divider && `
+		padding-bottom: 16px;
+		border-bottom: solid 1px ${colors.offWhite};
+	`};
 `;
 
 const Label = styled.div`
@@ -18,13 +22,13 @@ const Label = styled.div`
 `
 
 const Header = styled.div`
+	cursor: pointer;
 	display: flex;
 	justify-content: space-between;    
 	align-items: center;
 `;
 
 const StyledIcon = styled(Icon)`
-	cursor: pointer;
 	transition: transform 0.2s ease;
 	${({isOpen}) => isOpen && `
 		transform: rotate(-90deg);
@@ -41,15 +45,15 @@ const ChildrenContainer = styled.div`
 	`};
 `;
 
-const Collapse = ({ label, children, defaultOpen }) => {
+const Collapse = ({ label, divider, children, defaultOpen }) => {
 
 	const [isOpen, setIsOpen] = useState(defaultOpen);
 
 	return (
-		<Container>
-			<Header>
+		<Container divider={divider} >
+			<Header onClick={() => setIsOpen(!isOpen)}>
 				<Label>{label}</Label>
-				<StyledIcon size="24px" name='chevronDown' isOpen={isOpen} color={colors.black} onClick={() => setIsOpen(!isOpen)} />
+				<StyledIcon size="24px" name='chevronDown' isOpen={isOpen} color={colors.black}  />
 			</Header>
 		<ChildrenContainer isOpen={isOpen}>{children}</ChildrenContainer>
 		</Container>
@@ -58,11 +62,13 @@ const Collapse = ({ label, children, defaultOpen }) => {
 Collapse.propTypes = {
 	children: PropTypes.any,
 	label: PropTypes.string.isRequired,
-	defaultOpen: PropTypes.bool
+	defaultOpen: PropTypes.bool,
+	divider: PropTypes.bool
 }
 
 Collapse.defaultProps = {
-	defaultOpen: false
+	defaultOpen: false,
+	divider: false
 }
 
 export default Collapse
