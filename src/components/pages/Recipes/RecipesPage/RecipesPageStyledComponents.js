@@ -7,11 +7,14 @@ export const RecipeList = styled.div`
   display: flex;
   flex-flow: row;
   flex-wrap: wrap;
-	justify-content: flex-end;
+	justify-content: flex-start;
+	margin-left: 36px;
 	flex: 5;
+	height: 100%;
 
 	${media.tablet`
 		justify-content: center;
+		margin-left: 0;
 	`}
 `;
 
@@ -75,6 +78,7 @@ export const Header = styled.div`
 
 export const RecipeContent = styled.div`
 	display: flex;
+	height: 100%;
 `;
 
 export const ButtonContainer = styled.button`
@@ -140,9 +144,9 @@ export const PlaceholderText = styled.div`
   position: relative;
   bottom: 132px;
   ${media.phone`
-	bottom: auto;
-	font-size: 1.6rem;
-	text-align: center;
+		bottom: auto;
+		font-size: 1.6rem;
+		text-align: center;
 	`}
 `;
 

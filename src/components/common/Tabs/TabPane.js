@@ -4,6 +4,8 @@ import PropTypes from "prop-types";
 
 const StyledTabPane = styled.div`
   display: ${props => (props.isActive ? "block" : "none")};
+	height: auto;
+	width: 100%;
 `;
 
 const TabPane = ({ isActive, asyncRender, children }) => {

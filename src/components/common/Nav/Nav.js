@@ -21,7 +21,7 @@ const Nav = ({scrolling, menuOpen, setMenuOpen, recipe, auth}) => {
     <Navbar menuOpen={menuOpen} recipe={recipe} auth={auth} scrolling={scrolling}>
       <Brand recipe={recipe}>
         <Link to="/">
-					<BrandImage src={renderLogo()} alt="" small={menuOpen || recipe}/>
+					<BrandImage src={renderLogo()} alt="" small={recipe}/>
         </Link>
       </Brand>
 			<NavIcon open={menuOpen} onClick={() => setMenuOpen(!menuOpen)}/>

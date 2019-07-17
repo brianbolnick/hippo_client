@@ -1,7 +1,12 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import styled from 'styled-components';
 import TabPane from "./TabPane";
 import Tab from "./Tab";
+
+const Container = styled.div`
+	height: 100%;
+	`
 
 class Tabs extends Component {
   state = {
@@ -59,7 +64,7 @@ class Tabs extends Component {
   }
 
   render() {
-    return <div>{this.renderChildren()}</div>;
+    return <Container>{this.renderChildren()}</Container>;
   }
 }
 

@@ -59,6 +59,7 @@ const RecipesTab = ({ recipeType, onError }) => {
 		const newFilters = {...filters};
 		newFilters[mapping][id] = !filters[mapping][id]
 		setFilters(newFilters)
+		filterRecipes()
 	}
 		
 
@@ -81,12 +82,10 @@ const RecipesTab = ({ recipeType, onError }) => {
 	}
 
 	useEffect(() => {
-		if (recipesLoaded && !filtersSet && !filteredRecipes.length) {
+		if (recipesLoaded && !filtersSet) {
 			setFilters(createFilters())
 			setFiltersSet(true)
-		} else {
-			filterRecipes()
-		}
+		} 
 
 		if (!recipesLoaded) {
 			axios
@@ -170,7 +169,7 @@ const RecipesTab = ({ recipeType, onError }) => {
 		return filtersSet && categories.map(type => {
 			return (
 				<FilterItemGroup key={`category|${type.id}`}>
-,				<FilterItem>{type.name}</FilterItem>
+				<FilterItem>{type.name}</FilterItem>
 				<Checkbox checked={filters.category[type.id]} onChange={() => updateFilterList("category", type.id)} />
 			</FilterItemGroup>
 		)
@@ -188,12 +187,18 @@ const RecipesTab = ({ recipeType, onError }) => {
 		})
 	}
 
+	const clearFilters = () =>{
+		const newFilters = createFilters()
+		setFilters(newFilters)
+		setFilteredRecipes(recipes)
+	}
+
 	const renderFilters = () => {
 		return (
 			<FiltersContainer>
 				<FilterGroup>
 					<FilterTitle>Filter By:</FilterTitle>
-					<ClearFilters onClick={() => setFilters(createFilters())}>
+					<ClearFilters onClick={() => clearFilters()}>
 						Clear Filters
 					</ClearFilters>
 				</FilterGroup>

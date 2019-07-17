@@ -35,6 +35,7 @@ export const Card = styled.div`
   overflow: hidden;
   color: ${colors.black};
   transition: 0.2s;
+	max-height: 340px;
 
   ${media.phone`
 		width: 100%;
