@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import axios from "axios";
 import PropTypes from 'prop-types';
 import { API_URL, token, familyId } from "utils";
@@ -32,215 +32,242 @@ const difficulties = [
 	{name: "Hard", id: 3},
 ]
 
-const RecipesTab = ({ searchTerm, recipeType, onError }) => {
-  const [recipes, setRecipes] = useState([]);
-  const [categories, setCategories] = useState([]);
-  const [dishTypes, setDishTypes] = useState([]);
-  const [filteredRecipes, setFilteredRecipes] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [recipesLoaded, setRecipesLoaded] = useState(false);
-  const [isMobile, setIsMobile] = useState(window.matchMedia("(" + tabletMediaQuery + ")").matches);
-	const [filters, setFilters] = useState({})
-	const [filtersSet, setFiltersSet] = useState(false)
+class RecipesTab extends React.Component {
+	state = { 
+		recipes: [],
+		categories: [],
+		dishTypes: [],
+		filteredRecipes: [],
+		loading: true,
+		isMobile: window.matchMedia("(" + tabletMediaQuery + ")").matches,
+		filters: [],
+		filtersSet: false
+	}
 
-	const createFilters = () => ({
-		category: createInitialFilterList(categories),
-		dishType: createInitialFilterList(dishTypes),
-		difficulty: createInitialFilterList(difficulties)
-	})
+	componentDidMount = () => {
+		axios
+			.all([this.getRecipes(), this.getCategories(), this.getDishTypes()])
+			.then(
+				axios.spread((recipeData, categoryData, dishTypeData) => {
+					const recipes = recipeData.data.data;
+					const categories = categoryData.data.data;
+					const dishTypes = dishTypeData.data.data;
+					console.log("after fetch", categories)
 
-	const createInitialFilterList = group => {
+					this.setState({
+						loading: false,
+						categories,
+						dishTypes,
+						recipes,
+						filteredRecipes: recipes,
+					}, () =>  {
+						this.setState({
+							filters: this.createFilters(),
+							filtersSet: true
+						})
+					})
+				})
+			)
+			.catch(err => {
+				console.log(err);
+				this.setState({ loading: false }, 
+					() => this.props.onError("Something went wrong, please try again.")
+				);
+			});
+
+	}
+
+	componentDidUpdate = (prevProps, prevState) => {
+		if ((JSON.stringify(prevState.filteredRecipes) !== JSON.stringify(this.state.filteredRecipes)) || (prevProps.searchTerm !== this.props.searchTerm)) {
+			this.filterRecipes()
+		}
+	}
+
+	createInitialFilterList = group => {
 		return group.reduce((acc, val) => {
 			acc[val.id] = false
 			return acc
 		}, {})
 	}
 
-	const updateFilterList = (mapping, id) => {
+	updateFilterList = (mapping, id) => {
+		const { filters } = this.state;
+
 		const newFilters = {...filters};
 		newFilters[mapping][id] = !filters[mapping][id]
-		setFilters(newFilters)
-		filterRecipes()
-	}
-		
 
-  const getCategories = () => {
-    return axios.get(`${API_URL}/categories`, {
-      headers: { Authorization: authToken }
-    });
-  };
-
-  const getDishTypes = () => {
-    return axios.get(`${API_URL}/dish_types`, {
-      headers: { Authorization: authToken }
-    });
-  };
-
-	const getRecipes = () => {
-    return axios.get(`${API_URL}/family/${familyId}/${recipeType}`, {
-      headers: { Authorization: authToken }
-    });
+		this.setState({filters: newFilters}, () => this.filterRecipes())
 	}
 
-	useEffect(() => {
-		console.log("use effect", searchTerm)
-		if (recipesLoaded && !filtersSet) {
-			setFilters(createFilters())
-			setFiltersSet(true)
-		} 
 
-		if (!recipesLoaded) {
-			axios
-				.all([getRecipes(), getCategories(), getDishTypes()])
-				.then(
-					axios.spread((recipeData, categoryData, dishTypeData) => {
-						const recipes = recipeData.data.data;
-						const categories = categoryData.data.data;
-						const dishTypes = dishTypeData.data.data;
-						setLoading(false);
-						setCategories(categories);
-						setDishTypes(dishTypes);
-						setRecipes(recipes);
-						setFilteredRecipes(recipes);
-						setRecipesLoaded(true);
-					})
-				)
-				.catch(err => {
-					console.log(err);
-					setRecipesLoaded(true);
-					onError("Something went wrong, please try again.");
-				});
-		}
-	}, [ categories, dishTypes, filteredRecipes, filters, loading, recipes, recipesLoaded, searchTerm ]);
+	getCategories = () => {
+		return axios.get(`${API_URL}/categories`, {
+			headers: { Authorization: authToken }
+		});
+	};
 
-	const filterRecipes = () => {
-		const filtered = recipes.filter(recipe => {
-			return filterByDishType(recipe) && 
-				filterByCategory(recipe) && 
-				filterByDifficulty(recipe) && 
-				filterBySearchTerm(recipe);
+	getDishTypes = () => {
+		return axios.get(`${API_URL}/dish_types`, {
+			headers: { Authorization: authToken }
+		});
+	};
+
+	getRecipes = () => {
+		return axios.get(`${API_URL}/family/${familyId}/${this.props.recipeType}`, {
+			headers: { Authorization: authToken }
+		});
+	}
+
+
+	createFilters = () => ({
+		category: this.createInitialFilterList(this.state.categories),
+		dishType: this.createInitialFilterList(this.state.dishTypes),
+		difficulty: this.createInitialFilterList(difficulties)
+	})
+
+	filterRecipes = () => {
+		const filteredRecipes = this.state.recipes.filter(recipe => {
+			return this.filterByDishType(recipe) && 
+				this.filterByCategory(recipe) && 
+				this.filterByDifficulty(recipe) && 
+				this.filterBySearchTerm(recipe);
 		});
 
-		setFilteredRecipes(filtered)
+		this.setState({filteredRecipes})
 	}
 
-	const filtersCleared = (type) => {
+	filtersCleared = (type) => {
+		const { filters } = this.state;
+
 		//should return all results if all items are unchecked
 		if (!filters[type]) return true
 		return Object.keys(filters[type]).every(x => !filters[type][x] );
 	}
 
-	const filterByDishType = recipe => {
-		if (filtersCleared('dishType')) return true;
-		return filters.dishType[recipe.dish_type.id];
+	filterByDishType = recipe => {
+		if (this.filtersCleared('dishType')) return true;
+		return this.state.filters.dishType[recipe.dish_type.id];
 	}
 
-	const filterByCategory = recipe => {
-		if (filtersCleared('category')) return true;
-		return filters.category[recipe.category.id];
+	filterByCategory = recipe => {
+		if (this.filtersCleared('category')) return true;
+		return this.state.filters.category[recipe.category.id];
 	}
 
-	const filterByDifficulty = recipe => {
-		if (filtersCleared('difficulty')) return true;
-		return filters.difficulty[recipe.difficulty];
+	filterByDifficulty = recipe => {
+		if (this.filtersCleared('difficulty')) return true;
+		return this.state.filters.difficulty[recipe.difficulty];
 	}
 
-	const filterBySearchTerm = recipe => {
-		console.log("searchterm", searchTerm)
+	filterBySearchTerm = recipe => {
+		const { searchTerm } = this.props;
+
 		if (!searchTerm) return true;
-		return recipe.title.includes(searchTerm);
+		return recipe.title.toLowerCase().includes(searchTerm.toLowerCase());
 	}
 
-  const renderRecipes = () => {
-    return filteredRecipes.length ? (
-      filteredRecipes.map(recipe => {
-        return <RecipeCard key={`recipe|${recipe.id}`} data={recipe} />;
-      })
-    ) : (
-      <LoadContainer>
-        <NoRecipesImage src={NoRecipes} />
-        <PlaceholderText>
-          You have no recipes here yet. Create one now!
-        </PlaceholderText>
-      </LoadContainer>
-    );
-  };
+	renderRecipes = () => {
+		const { filteredRecipes } = this.state; 
 
-	const renderDishTypes = () => {
+		return filteredRecipes.length ? (
+			filteredRecipes.map(recipe => {
+				return <RecipeCard key={`recipe|${recipe.id}`} data={recipe} />;
+			})
+		) : (
+			<LoadContainer>
+				<NoRecipesImage src={NoRecipes} />
+				<PlaceholderText>
+						You have no recipes here yet. Create one now!
+				</PlaceholderText>
+			</LoadContainer>
+		);
+	};
+
+	renderDishTypes = () => {
+		const { filtersSet, dishTypes, filters } = this.state;
+
 		return filtersSet && dishTypes.map(type => {
 			return (
 				<FilterItemGroup key={`dishTypes|${type.id}`}>
-				<FilterItem>{type.name}</FilterItem>
-				<Checkbox checked={filters.dishType[type.id]} onChange={() => updateFilterList("dishType", type.id) }/>
-			</FilterItemGroup>
-		)
+					<FilterItem>{type.name}</FilterItem>
+					<Checkbox checked={filters.dishType[type.id]} onChange={() => this.updateFilterList("dishType", type.id) }/>
+				</FilterItemGroup>
+			)
 		})
 	}
 
-	const renderCategories = () => {
+	renderCategories = () => {
+		const { filtersSet, categories, filters } = this.state;
+
 		return filtersSet && categories.map(type => {
 			return (
 				<FilterItemGroup key={`category|${type.id}`}>
-				<FilterItem>{type.name}</FilterItem>
-				<Checkbox checked={filters.category[type.id]} onChange={() => updateFilterList("category", type.id)} />
-			</FilterItemGroup>
-		)
+					<FilterItem>{type.name}</FilterItem>
+					<Checkbox checked={filters.category[type.id]} onChange={() => this.updateFilterList("category", type.id)} />
+				</FilterItemGroup>
+			)
 		})
 	}
 
-	const renderDifficulties = () => {
+	renderDifficulties = () => {
+		const { filtersSet, filters } = this.state;
+
 		return filtersSet && difficulties.map(type => {
 			return (
 				<FilterItemGroup key={`difficulty|${type.id}`}>
-				<FilterItem>{type.name}</FilterItem>
-				<Checkbox checked={filters.difficulty[type.id]} onChange={() => updateFilterList("difficulty", type.id)} />
-			</FilterItemGroup>
-		)
+					<FilterItem>{type.name}</FilterItem>
+					<Checkbox checked={filters.difficulty[type.id]} onChange={() => this.updateFilterList("difficulty", type.id)} />
+				</FilterItemGroup>
+			)
 		})
 	}
 
-	const clearFilters = () =>{
-		const newFilters = createFilters()
-		setFilters(newFilters)
-		setFilteredRecipes(recipes)
+	clearFilters = () =>{
+		const filters = this.createFilters()
+		this.setState({ filters, filteredRecipes: this.state.recipes});
 	}
 
-	const renderFilters = () => {
+	renderFilters = () => {
 		return (
 			<FiltersContainer>
 				<FilterGroup>
 					<FilterTitle>Filter By:</FilterTitle>
-					<ClearFilters onClick={() => clearFilters()}>
-						Clear Filters
+					<ClearFilters onClick={() => this.clearFilters()}>
+							Clear Filters
 					</ClearFilters>
 				</FilterGroup>
 				<Collapse label="Dish Type" divider>
-					<FilterOptions>{renderDishTypes()}</FilterOptions>
+					<FilterOptions>{this.renderDishTypes()}</FilterOptions>
 				</Collapse>
 				<Collapse label="Category" divider>
-					<FilterOptions>{renderCategories()}</FilterOptions>
+					<FilterOptions>{this.renderCategories()}</FilterOptions>
 				</Collapse>
 				<Collapse label="Difficulty" divider>
-					<FilterOptions>{renderDifficulties()}</FilterOptions>
+					<FilterOptions>{this.renderDifficulties()}</FilterOptions>
 				</Collapse>
 			</FiltersContainer>
 		)
 	}
 
-  return loading ? (
-    <LoadContainer>
-      <img alt="" src={Loader} style={{ height: "300px", width: "300px" }} />
-    </LoadContainer>
-	) : (
-		<RecipeContent>
-			<MediaQuery
-				query={tabletMediaQuery}
-				onChange={({matches}) => setIsMobile(matches)}
-			/>
-			{!isMobile && renderFilters()}
-			<RecipeList>{renderRecipes(recipes)}</RecipeList>
-		</RecipeContent>
-	);
+	render () {
+		const { loading } = this.props
+		const { recipes, isMobile } = this.state;
+
+		return loading ? (
+			<LoadContainer>
+				<img alt="" src={Loader} style={{ height: "300px", width: "300px" }} />
+			</LoadContainer>
+		) : (
+			<RecipeContent>
+				<MediaQuery
+					query={tabletMediaQuery}
+					onChange={({matches}) => this.setState({isMobile: matches})}
+				/>
+						{!isMobile && this.renderFilters()}
+				<RecipeList>{this.renderRecipes(recipes)}</RecipeList>
+			</RecipeContent>
+		);
+	}
 };
 
 RecipesTab.propTypes = {
