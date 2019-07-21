@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import PropTypes from 'prop-types';
 import { API_URL, token, familyId } from "utils";
 import Loader from "img/burger.gif";
 import NoRecipes from "img/food_icon.gif";
@@ -31,7 +32,7 @@ const difficulties = [
 	{name: "Hard", id: 3},
 ]
 
-const RecipesTab = ({ recipeType, onError }) => {
+const RecipesTab = ({ searchTerm, recipeType, onError }) => {
   const [recipes, setRecipes] = useState([]);
   const [categories, setCategories] = useState([]);
   const [dishTypes, setDishTypes] = useState([]);
@@ -82,6 +83,7 @@ const RecipesTab = ({ recipeType, onError }) => {
 	}
 
 	useEffect(() => {
+		console.log("use effect", searchTerm)
 		if (recipesLoaded && !filtersSet) {
 			setFilters(createFilters())
 			setFiltersSet(true)
@@ -109,12 +111,16 @@ const RecipesTab = ({ recipeType, onError }) => {
 					onError("Something went wrong, please try again.");
 				});
 		}
-	}, [ categories, dishTypes, filteredRecipes, filters, loading, recipes, recipesLoaded ]);
+	}, [ categories, dishTypes, filteredRecipes, filters, loading, recipes, recipesLoaded, searchTerm ]);
 
 	const filterRecipes = () => {
 		const filtered = recipes.filter(recipe => {
-			return filterByDishType(recipe) && filterByCategory(recipe) && filterByDifficulty(recipe);
+			return filterByDishType(recipe) && 
+				filterByCategory(recipe) && 
+				filterByDifficulty(recipe) && 
+				filterBySearchTerm(recipe);
 		});
+
 		setFilteredRecipes(filtered)
 	}
 
@@ -137,6 +143,12 @@ const RecipesTab = ({ recipeType, onError }) => {
 	const filterByDifficulty = recipe => {
 		if (filtersCleared('difficulty')) return true;
 		return filters.difficulty[recipe.difficulty];
+	}
+
+	const filterBySearchTerm = recipe => {
+		console.log("searchterm", searchTerm)
+		if (!searchTerm) return true;
+		return recipe.title.includes(searchTerm);
 	}
 
   const renderRecipes = () => {
@@ -231,4 +243,7 @@ const RecipesTab = ({ recipeType, onError }) => {
 	);
 };
 
+RecipesTab.propTypes = {
+	searchTerm: PropTypes.string
+}
 export default RecipesTab;
