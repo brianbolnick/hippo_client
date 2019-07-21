@@ -4,10 +4,11 @@ import Button from "components/common/Button/Button";
 import FlashMessage from "components/common/FlashMessage/FlashMessage";
 import Layout from "components/common/Layout/Layout";
 import Tab from "components/common/Tabs/Tab";
+import Search from "components/common/Search";
 import TabPane from "components/common/Tabs/TabPane";
 import Tabs from "components/common/Tabs/Tabs";
 import RecipesTab from "./RecipesTab";
-import { TabLink, TabsContainer,  NewButtonContainer, OptionsContainer, Header } from './RecipesPageStyledComponents'; 
+import { SearchWrapper, TabLink, TabsContainer,  NewButtonContainer, OptionsContainer, Header } from './RecipesPageStyledComponents'; 
 
 const Recipes = () => {
   const [error, setError] = useState("");
@@ -31,6 +32,9 @@ const Recipes = () => {
               </Tab>
             </TabsContainer>
           <OptionsContainer>
+						<SearchWrapper>
+							<Search onChange={val => console.log(val)} />
+						</SearchWrapper>
             <NewButtonContainer>
               <Link to="/recipes/new">
                 <Button icon="plus" />

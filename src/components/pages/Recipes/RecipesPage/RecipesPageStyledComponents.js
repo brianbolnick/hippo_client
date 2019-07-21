@@ -178,3 +178,12 @@ export const FilterTitle = styled.div`
 	font-family: ${avenir};
 	font-weight: 600;
 `;
+
+export const SearchWrapper = styled.div`
+	width: 32vw;
+	margin-right: 32px;
+  ${media.phone`
+		width: 100%;
+	`}
+
+`;
