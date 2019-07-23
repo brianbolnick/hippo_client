@@ -28,7 +28,7 @@ export const RatingCount = styled.div`
 export const Card = styled.div`
   width: 275px;
   border-radius: 8px;
-  box-shadow: 0px 0px 20px 1px #2121213d;
+  box-shadow: 0px 0px 10px 1px #2121213d;
   background-color: white;
   margin: 10px 16px;
   position: relative;
@@ -43,7 +43,7 @@ export const Card = styled.div`
 	`};
 
   &:hover {
-    box-shadow: 0px 0px 20px 5px #2121213d;
+    box-shadow: 0px 0px 10px 5px #2121213d;
     transition: 0.2s;
   }
 `;
