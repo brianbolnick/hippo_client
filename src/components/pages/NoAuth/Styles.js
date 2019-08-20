@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import { colors, media, varela, rufina } from "styles/css-variables";
+import { Link } from 'react-router-dom';
+import { colors, media, varela, rufina, avenir } from "styles/css-variables";
 import DemoPic from "img/demo-pic.png";
 
 export const Actions = styled.div`
@@ -157,4 +158,54 @@ export const DescriptionText = styled.div`
   color: ${colors.lightGray};
   width: 75%;
   margin-top: 10px;
+`;
+
+export const PlanContainer = styled.div`
+	position: relative;
+	bottom: 400px;
+	text-align: center;
+	font-family: ${avenir};
+	color: ${colors.black};
+	font-size: 1.5rem;
+	width: 60%;
+	margin: 0 auto;
+`;
+
+export const PlanTitle = styled.div``;
+export const PlanDetails = styled.div``;
+export const PlanPrice = styled.div``;
+export const PlanItem = styled.div``;
+
+export const PlanCard = styled.div`
+	min-height: 600px;
+	flex: 1;
+	border-right: dotted 2px ${colors.lightGray};
+	:last-child {
+		border: none;
+	}
+`;
+
+export const Plans = styled.div`
+	display: flex;
+	align-items: center;
+	margin: 0 auto;
+	justify-content: center;
+	border-radius: 8px;
+	box-shadow: 0px 2px 8px 1px #31363896;
+	padding: 32px;
+`;
+
+export const SubTitle = styled.div`
+	font-size: 3rem;
+	margin: 24px auto;
+	font-weight: 600;
+`;
+
+export const PlanDescription = styled.div`
+	margin-bottom: 32px;
+`;
+
+export const AboutLink = styled(Link)`
+    font-weight: 700;
+    color: ${colors.red};
 `;

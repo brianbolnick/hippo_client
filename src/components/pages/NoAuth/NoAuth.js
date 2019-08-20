@@ -12,7 +12,13 @@ import {
   DemoContainer,
   SubDescriptionContainer,
   DescriptionTitle,
-  FooterLinks
+	FooterLinks,
+	Plans,
+	PlanCard,
+	PlanContainer,
+	SubTitle,
+	PlanDescription,
+	AboutLink 
 } from "./Styles";
 import { Brand, BrandImage } from "components/common/Nav/NavStyles";
 import Layout from "components/common/Layout/Layout";
@@ -47,6 +53,7 @@ class NoAuth extends React.Component {
           </Hero>
           <section>
             <DemoContainer />
+
           </section>
           <section style={{ zIndex: "-1" }}>
             <Curve>
@@ -86,6 +93,21 @@ class NoAuth extends React.Component {
               </SubDescriptionContainer>
             </Curve>
           </section>
+
+					<PlanContainer>
+						<SubTitle>Plans and Pricing</SubTitle>
+						<PlanDescription>
+								Choose a plan and features that fit your needs today! 
+								All initial proceeds will go towards my student loans balance, 
+								as described <AboutLink to="/about">here.</AboutLink>
+							</PlanDescription>
+						<Plans>
+							<PlanCard />
+							<PlanCard />
+							<PlanCard />
+						</Plans>
+					</PlanContainer>
+
           {/*          <section style={{ position: "relative", top: "200px" }}>
 						<Block left />
 					</section>
