@@ -171,7 +171,9 @@ export const PlanContainer = styled.div`
 	margin: 0 auto;
 `;
 
-export const PlanTitle = styled.div``;
+export const PlanTitle = styled.div`
+    font-weight: 700;
+`;
 export const PlanDetails = styled.div``;
 export const PlanPrice = styled.div``;
 export const PlanItem = styled.div``;

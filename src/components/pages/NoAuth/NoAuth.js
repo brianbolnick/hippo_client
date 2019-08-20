@@ -18,7 +18,8 @@ import {
 	PlanContainer,
 	SubTitle,
 	PlanDescription,
-	AboutLink 
+	AboutLink,
+	PlanTitle
 } from "./Styles";
 import { Brand, BrandImage } from "components/common/Nav/NavStyles";
 import Layout from "components/common/Layout/Layout";
@@ -102,9 +103,16 @@ class NoAuth extends React.Component {
 								as described <AboutLink to="/about">here.</AboutLink>
 							</PlanDescription>
 						<Plans>
-							<PlanCard />
-							<PlanCard />
-							<PlanCard />
+							<PlanCard>
+								<PlanTitle>Hungry</PlanTitle>
+							</PlanCard>
+	<PlanCard>
+								<PlanTitle>Starving</PlanTitle>
+							</PlanCard>
+	<PlanCard>
+								<PlanTitle>Famished</PlanTitle>
+							</PlanCard>
+
 						</Plans>
 					</PlanContainer>
 
