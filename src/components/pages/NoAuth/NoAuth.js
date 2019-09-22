@@ -12,24 +12,19 @@ import {
   DemoContainer,
   SubDescriptionContainer,
   DescriptionTitle,
-	FooterLinks,
-	Plans,
-	PlanCard,
-	PlanContainer,
-	SubTitle,
-	PlanDescription,
-	AboutLink,
-	PlanTitle
+  FooterLinks,
+  CurveSection
 } from "./Styles";
 import { Brand, BrandImage } from "components/common/Nav/NavStyles";
 import Layout from "components/common/Layout/Layout";
 import Button from "components/common/Button/Button";
 import { Link } from "react-router-dom";
+import Plans from "./Plans";
 
 class NoAuth extends React.Component {
   render() {
     return (
-			<Layout fullScreen>
+      <Layout fullScreen>
         <Content>
           <Hero>
             <Header>
@@ -54,9 +49,8 @@ class NoAuth extends React.Component {
           </Hero>
           <section>
             <DemoContainer />
-
           </section>
-          <section style={{ zIndex: "-1" }}>
+          <CurveSection style={{ zIndex: "-1" }}>
             <Curve>
               <svg
                 viewBox="0 0 1200 53"
@@ -93,29 +87,9 @@ class NoAuth extends React.Component {
                 <DescriptionTitle />
               </SubDescriptionContainer>
             </Curve>
-          </section>
+          </CurveSection>
 
-					<PlanContainer>
-						<SubTitle>Plans and Pricing</SubTitle>
-						<PlanDescription>
-								Choose a plan and features that fit your needs today! 
-								All initial proceeds will go towards my student loans balance, 
-								as described <AboutLink to="/about">here.</AboutLink>
-							</PlanDescription>
-						<Plans>
-							<PlanCard>
-								<PlanTitle>Hungry</PlanTitle>
-							</PlanCard>
-	<PlanCard>
-								<PlanTitle>Starving</PlanTitle>
-							</PlanCard>
-	<PlanCard>
-								<PlanTitle>Famished</PlanTitle>
-							</PlanCard>
-
-						</Plans>
-					</PlanContainer>
-
+          <Plans />
           {/*          <section style={{ position: "relative", top: "200px" }}>
 						<Block left />
 					</section>
