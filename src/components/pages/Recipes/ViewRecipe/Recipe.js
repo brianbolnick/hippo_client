@@ -1,12 +1,10 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
-import moment from "moment";
-import { API_URL, token, userId } from "utils";
+import { API_URL, token, timeShortener } from "utils";
 import FlashMessage from "components/common/FlashMessage/FlashMessage";
 import Icon from "components/common/Icon/Icon";
 import Layout from "components/common/Layout/Layout";
 import MediaQuery from "components/common/MediaQuery/MediaQuery";
-import Rating from "components/common/Rating/Rating";
 import { colors } from "styles/css-variables";
 import { tabletMediaQuery } from "styles/css-variables";
 import ImagePlaceholder from "img/recipe-placeholder.png";
@@ -14,386 +12,251 @@ import Loader from "img/burger.gif";
 import ShareModal from "../Modals/ShareModal";
 import DeleteModal from "../Modals/DeleteModal";
 import {
-  CategoryContainer,
+  ActionContainer,
   ActionIcon,
-  RecipeHeader,
   Category,
-  Date,
-  Details,
-  DetailsContainer,
-  Direction,
-  Divider,
-  DirectionsContainer,
+  CategoryContainer,
+  CategoryMeta,
+  Container,
+  DishType,
   FamilyName,
-  Footer,
-  IconContainer,
-  ImageBlock,
+  ImageContainer,
   Ingredient,
   IngredientsContainer,
-  Meta,
-  MetaDetails,
-  ShowContainer,
-  SubTitle,
-  Title,
-  HeaderGroup,
-  RatingContainer,
-  RatingCount,
   LoadContainer,
-  ActionContainer,
-  CategoryMeta,
-  DishType
+  MetaData,
+  Notes,
+  NotesContainer,
+  ServingsContainer,
+  ServingsLabel,
+  SubTitle,
+  StepsContainer,
+  Step,
+  Time,
+  TimeContainer,
+  TimeGroup,
+  TimeLabel,
+  Title,
+  Quantity
 } from "./RecipeStyledComponents";
 
 const authToken = `Bearer ${token}`;
 
-class Recipe extends React.Component {
-  state = {
-    recipe: {},
-    showShareModal: false,
-    showDeleteModal: false,
-    showMobile: window.matchMedia("(" + tabletMediaQuery + ")").matches,
-    loading: true
-  };
+const Recipe = ({ match }) => {
+  const [recipe, setRecipe] = useState({});
+  const [showShareModal, setShowShareModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+  const [showMobile, setShowMobile] = useState(
+    window.matchMedia("(" + tabletMediaQuery + ")").matches
+  );
 
-  handleMediaQueryChange = ({ matches }) => {
-    this.setState({ showMobile: matches });
-  };
+  useEffect(() => {
+    if (!Object.keys(recipe).length) {
+      const id = match.params.id;
+      axios
+        .get(`${API_URL}/recipes/${id}`, {
+          headers: { Authorization: authToken }
+        })
+        .then(({ data, status }) => {
+          if (status === 401) {
+            window.location.replace("/401");
+          }
+          setRecipe(data.data);
+          setLoading(false);
+        })
+        .catch(err => {
+          console.log(err);
+          if (err.request.status === 401) {
+            window.location.replace("/401");
+          }
 
-  componentDidMount = () => {
-    const id = this.props.match.params.id;
-    axios
-      .get(`${API_URL}/recipes/${id}`, {
-        headers: { Authorization: authToken }
-      })
-      .then(({ data, status }) => {
-        if (status === 401) {
-          window.location.replace("/401");
-        }
-        this.setState({ recipe: data.data, loading: false });
-      })
-      .catch(err => {
-        console.log(err);
-        if (err.request.status === 401) {
-          window.location.replace("/401");
-        }
-
-        this.setState({
-          error: "Something went wrong. Please refresh and try again."
+          setError("Something went wrong. Please refresh and try again.");
         });
-      });
+    }
+  }, []);
+
+  const handleMediaQueryChange = ({ matches }) => {
+    setShowMobile(matches);
   };
 
-  renderIngredients = () => {
-    const {
-      recipe: { ingredients }
-    } = this.state;
+  const renderIngredients = () => {
+    const { ingredients } = recipe;
 
     return (
       ingredients &&
       ingredients.map((ing, index) => {
+        const quantity = ing.quantity === "0" ? "" : ing.quantity;
         return (
-          <Ingredient key={`ingredient|${index}`}>{`${ing.quantity} ${
-            ing.measurement
-          } ${ing.name}`}</Ingredient>
+          <Ingredient key={`ingredient|${index}`}>
+            <Quantity>{`${quantity} ${ing.measurement} `}</Quantity>
+            {ing.name}
+          </Ingredient>
         );
       })
     );
   };
 
-  renderDirections = () => {
-    const {
-      recipe: { steps }
-    } = this.state;
+  const renderSteps = () => {
+    const { steps } = recipe;
 
     return (
       steps &&
       steps.map((step, index) => {
         return (
-          <Direction key={`dir|${index}`}>
+          <Step key={`dir|${index}`}>
             <span>Step {index + 1}</span> {step}
-          </Direction>
+          </Step>
         );
       })
     );
   };
 
-  renderFamilyName = () => {
-    const {
-      recipe: { family }
-    } = this.state;
+  const renderFamilyName = () => {
+    const { family } = recipe;
     return family && family.display_name;
   };
 
-  renderCategoryName = () => {
-    const {
-      recipe: { category }
-    } = this.state;
-    return category && category.name;
-  };
-
-  renderDate = () => {
-    const {
-      recipe: { created_at }
-    } = this.state;
-    return created_at && moment(created_at).format("MMM Do, YYYY");
-  };
-
-  handleDeleteRecipe = () => {
-    const id = this.props.match.params.id;
-    console.log("delete");
-    this.setState({ showDeleteModal: false });
+  const handleDeleteRecipe = () => {
+    const id = match.params.id;
+    setShowDeleteModal(false);
     axios
       .delete(`${API_URL}/recipes/${id}`, {
         headers: { Authorization: authToken }
       })
       .then(resp => {
         if (resp.status !== 200) {
-          this.setState({
-            error: "Something went wrong. Please refresh and try again."
-          });
+          setError("Something went wrong. Please refresh and try again.");
         } else {
           window.location.replace("/");
         }
       })
       .catch(err => {
         console.log(err);
-        this.setState({
-          error: "Something went wrong. Please refresh and try again."
-        });
+        setError("Something went wrong. Please refresh and try again.");
       });
   };
 
-  handleShareSuccess = () => {
-    this.setState({
-      success: "Your recipe has been shared successfully.",
-      showShareModal: false
-    });
+  const handleShareSuccess = () => {
+    setSuccess("Your recipe has been shared successfully.");
+    setShowShareModal(false);
   };
 
-  handleShareFailure = () => {
-    this.setState({
-      error: "Something went wrong sharing this recipe. Please try again.",
-      showShareModal: false
-    });
+  const handleShareFailure = () => {
+    setError("Something went wrong sharing this recipe. Please try again.");
+    setShowShareModal(false);
   };
 
-  handleRatingSubmit = rating => {
-    console.log(rating);
-
-    const data = {
-      rating: {
-        user_id: userId,
-        value: rating,
-        recipe_id: this.state.recipe.id
-      }
-    };
-
-    axios
-      .post(`${API_URL}/ratings`, data, {
-        headers: { Authorization: authToken }
-      })
-      .then(resp => {
-        console.log(resp);
-        this.setState({
-          success: "Rating Saved Successfully!",
-          recipe: { ...this.state.recipe, rating }
-        });
-      })
-      .catch(err => {
-        console.log(err);
-      });
+  const formatTime = time => {
+    const tempTimeArr = time.split(" ");
+    const formattedDuration = timeShortener(tempTimeArr[1]);
+    return `${tempTimeArr[0]} ${formattedDuration}`;
   };
 
-  render() {
-    const {
-      recipe,
-      showShareModal,
-      showDeleteModal,
-      showMobile,
-      loading,
-      success,
-      error
-    } = this.state;
-    return loading ? (
-      <LoadContainer>
-        <img alt="" src={Loader} style={{ height: "300px", width: "300px" }} />
-      </LoadContainer>
-    ) : (
-      <Layout recipe={!showMobile} recipeMobile={showMobile}>
-        <MediaQuery
-          query={tabletMediaQuery}
-          onChange={this.handleMediaQueryChange}
+  return loading ? (
+    <LoadContainer>
+      <img alt="" src={Loader} style={{ height: "300px", width: "300px" }} />
+    </LoadContainer>
+  ) : (
+    <Layout recipeMobile={showMobile}>
+      <MediaQuery query={tabletMediaQuery} onChange={handleMediaQueryChange} />
+      <FlashMessage visible={!!error} error onClose={() => setError("")}>
+        {error}
+      </FlashMessage>
+      <FlashMessage visible={!!success} success onClose={() => setSuccess("")}>
+        {success}
+      </FlashMessage>
+
+      {showShareModal && (
+        <ShareModal
+          onCancelClick={() => setShowShareModal(false)}
+          onSuccess={handleShareSuccess}
+          onFailure={handleShareFailure}
+          recipeId={recipe.id}
         />
-        <FlashMessage
-          visible={!!error}
-          error
-          onClose={() => this.setState({ error: "" })}
-        >
-          {error}
-        </FlashMessage>
-        <FlashMessage
-          visible={!!success}
-          success
-          onClose={() => this.setState({ success: "" })}
-        >
-          {success}
-        </FlashMessage>
+      )}
+      {showDeleteModal && (
+        <DeleteModal
+          onDeleteClick={handleDeleteRecipe}
+          onCancelClick={() => setShowDeleteModal(false)}
+        />
+      )}
+      <Container>
+        <ImageContainer url={recipe.image_url || ImagePlaceholder}>
+          <Title>{recipe.title}</Title>
+          <FamilyName>{renderFamilyName()}</FamilyName>
+        </ImageContainer>
 
-        {showShareModal && (
-          <ShareModal
-            onCancelClick={() => this.setState({ showShareModal: false })}
-            onSuccess={this.handleShareSuccess}
-            onFailure={this.handleShareFailure}
-            recipeId={recipe.id}
-          />
+        <MetaData>
+          <CategoryContainer>
+            <Icon
+              style={{ marginRight: "16px" }}
+              name="tags"
+              color={colors.black}
+            />
+            <CategoryMeta>
+              <Category>{recipe.category.name || "Category"}</Category>
+              <DishType>{recipe.dish_type.name || "Dish Type"}</DishType>
+            </CategoryMeta>
+          </CategoryContainer>
+          <TimeContainer>
+            <TimeGroup>
+              <Time>{formatTime(recipe.prep_time)}</Time>
+              <TimeLabel>Prep</TimeLabel>
+            </TimeGroup>
+            <TimeGroup>
+              <Time>{formatTime(recipe.cook_time)}</Time>
+              <TimeLabel>Cook</TimeLabel>
+            </TimeGroup>
+          </TimeContainer>
+          <ActionContainer>
+            <ActionIcon
+              name="share"
+              onClick={() => setShowShareModal(true)}
+              color={colors.black}
+              size="24px"
+            />
+            <ActionIcon
+              onClick={() =>
+                window.location.replace(`/recipes/${recipe.id}/edit`)
+              }
+              color={colors.black}
+              name="edit"
+              size="24px"
+            />
+            <ActionIcon
+              onClick={() => setShowDeleteModal(true)}
+              color={colors.black}
+              name="trash"
+              size="24px"
+            />
+          </ActionContainer>
+        </MetaData>
+
+        {recipe.notes && (
+          <NotesContainer>
+            <SubTitle>Notes</SubTitle>
+            <Notes>{recipe.notes}</Notes>
+          </NotesContainer>
         )}
-        {showDeleteModal && (
-          <DeleteModal
-            onDeleteClick={this.handleDeleteRecipe}
-            onCancelClick={() => this.setState({ showDeleteModal: false })}
-          />
-        )}
-        <ShowContainer>
-          <ImageBlock url={recipe.image_url || ImagePlaceholder}>
-            <Title>{recipe.title}</Title>
-            <Divider>
-              <hr />
-            </Divider>
-            <FamilyName>{this.renderFamilyName()}</FamilyName>
-          </ImageBlock>
-          <DetailsContainer>
-            <Details>
-              {!showMobile && (
-                <RecipeHeader>
-                  <HeaderGroup>
-                    <CategoryContainer>
-                      <Icon
-                        style={{ marginRight: "16px" }}
-                        name="tags"
-                        color={colors.black}
-                      />
-                      <CategoryMeta>
-                        <Category>
-                          {recipe.category.name || "category"}
-                        </Category>
-                        <DishType>
-                          {recipe.dish_type.name || "dish type"}
-                        </DishType>
-                      </CategoryMeta>
-                    </CategoryContainer>
 
-                    <RatingContainer>
-                      <Rating
-                        value={recipe.rating}
-                        rateable
-                        onSubmit={this.handleRatingSubmit}
-                      />
-                      <RatingCount>
-                        {recipe.rating_count || 0} Reviews
-                      </RatingCount>
-                    </RatingContainer>
-                  </HeaderGroup>
-                </RecipeHeader>
-              )}
-              <SubTitle>Notes</SubTitle>
-              <DirectionsContainer>{recipe.notes}</DirectionsContainer>
-              <SubTitle>Directions</SubTitle>
-              <DirectionsContainer>
-                {this.renderDirections()}
-              </DirectionsContainer>
-            </Details>
-            <IngredientsContainer>
-              {showMobile && (
-                <RecipeHeader>
-                  <IconContainer>
-                    <Icon name="tags" color={colors.black} />
-                  </IconContainer>
-                  <HeaderGroup>
-                    <CategoryContainer>
-                      <Category>{this.renderCategoryName()}</Category>
-                      <Date>{this.renderDate()}</Date>
-                    </CategoryContainer>
-                    <RatingContainer>
-                      <Rating value={recipe.rating} rateable />
-                      <RatingCount>
-                        {recipe.rating_count || 0} Reviews
-                      </RatingCount>
-                    </RatingContainer>
-                  </HeaderGroup>
-                </RecipeHeader>
-              )}
-              <ActionContainer>
-                <ActionIcon
-                  name="share"
-                  onClick={() => this.setState({ showShareModal: true })}
-                  color={colors.black}
-                  size="24px"
-                />
-                <ActionIcon
-                  onClick={() =>
-                    window.location.replace(`/recipes/${recipe.id}/edit`)
-                  }
-                  color={colors.black}
-                  name="edit"
-                  size="24px"
-                />
-                <ActionIcon
-                  onClick={() => this.setState({ showDeleteModal: true })}
-                  color={colors.black}
-                  name="trash"
-                  size="24px"
-                />
-              </ActionContainer>
+        <IngredientsContainer>
+          <SubTitle>Ingredients</SubTitle>
+          <ServingsContainer>
+            <ServingsLabel>Serving Size: {recipe.servings}</ServingsLabel>
+          </ServingsContainer>
+          {renderIngredients()}
+        </IngredientsContainer>
 
-              <SubTitle>Ingredients</SubTitle>
-              <ul style={{ paddingLeft: "0px" }}>{this.renderIngredients()}</ul>
-            </IngredientsContainer>
-            {!showMobile && (
-              <Footer>
-                <Meta>
-                  <IconContainer>
-                    <Icon name="clock" color={colors.white} />
-                  </IconContainer>
-                  <MetaDetails>
-                    <div>{recipe.prep_time || "-"}</div>
-                    <span>Prep Time</span>
-                  </MetaDetails>
-                </Meta>
-                <Meta>
-                  <IconContainer>
-                    <Icon name="clockAlarm" color={colors.white} />
-                  </IconContainer>
-                  <MetaDetails>
-                    <div>{recipe.cook_time || "-"}</div>
-                    <span>Cook Time</span>
-                  </MetaDetails>
-                </Meta>
-
-                <Meta>
-                  <IconContainer>
-                    <Icon name="utensils" color={colors.white} />
-                  </IconContainer>
-                  <MetaDetails>
-                    <div>{recipe.servings || "-"}</div>
-                    <span>Servings</span>
-                  </MetaDetails>
-                </Meta>
-                <Meta>
-                  <IconContainer>
-                    <Icon name="heartbeat" color={colors.white} />
-                  </IconContainer>
-                  <MetaDetails>
-                    <div>{recipe.calories || "-"}</div>
-                    <span>Calories</span>
-                  </MetaDetails>
-                </Meta>
-              </Footer>
-            )}
-          </DetailsContainer>
-        </ShowContainer>
-      </Layout>
-    );
-  }
-}
+        <StepsContainer>
+          <SubTitle>Directions</SubTitle>
+          {renderSteps()}
+        </StepsContainer>
+      </Container>
+    </Layout>
+  );
+};
 
 export default Recipe;

@@ -1,26 +1,31 @@
 import React from "react";
-import { colors } from "styles/css-variables";
-import { DISH_TYPE_ICON_MAP } from "utils";
+//import { colors } from "styles/css-variables";
+//import { DISH_TYPE_ICON_MAP } from "utils";
 import {
   Card,
   RecipeImage,
   Title,
   MetaData,
-  Footer,
+  //Footer,
   Content,
   LinkWrapper,
-  DishType,
-  DishTypeName
+  //DishType,
+  DishTypeName,
+  ImageContainer
 } from "./Styles";
-import Icon from "components/common/Icon/Icon";
-import Difficulty from "components/common/Difficulty";
+//import Icon from "components/common/Icon/Icon";
+//import Difficulty from "components/common/Difficulty";
 import PlaceholderImage from "img/recipe-placeholder.png";
 
 const RecipeCard = ({ data }) => {
   return (
     <Card>
       <LinkWrapper to={`/recipes/${data.id}`}>
-        <RecipeImage url={data.image_url || PlaceholderImage}></RecipeImage>
+        <ImageContainer>
+          <RecipeImage url={data.image_url || PlaceholderImage}>
+            <DishTypeName>{data.dish_type.name}</DishTypeName>
+          </RecipeImage>
+        </ImageContainer>
         <Content>
           <Title>{data.title}</Title>
           <MetaData>

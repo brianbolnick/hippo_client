@@ -42,15 +42,6 @@ export const Card = styled.div`
   ${media.tablet`
 		width: calc(50% - 32px);
 	`};
-
-  &:hover {
-    //box-shadow: 0px 0px 10px 5px #2121213d;
-    //transition: 0.2s;
-
-    ${RecipeImage} {
-      transform: scale(1.01);
-    }
-  }
 `;
 
 export const Rating = styled.span`
@@ -58,12 +49,29 @@ export const Rating = styled.span`
   font-weight: 700;
 `;
 
+export const ImageContainer = styled.div`
+  height: 220px;
+  position: relative;
+  transition: 0.2s;
+
+  &:hover {
+    transform: scale(1.01);
+  }
+`;
+
 export const RecipeImage = styled.div`
-  background-image: ${props => `url(${props.url})`};
-  height: 185px;
+  height: 100%;
+  width: 100%;
+  background-image: ${({ url }) => `
+		linear-gradient(
+			to bottom,
+			rgba(0, 0, 0, 0.01),
+			rgba(0, 0, 0, 0.3)
+		),
+		url(${url});
+	`};
   background-size: cover;
   background-position: center;
-  position: relative;
   border-radius: 8px;
 `;
 
@@ -85,7 +93,6 @@ export const Title = styled.div`
 
 export const MetaData = styled.div`
   color: ${colors.mutedGray};
-  text-transform: uppercase;
   font-size: 0.9rem;
   font-weight: 600;
   letter-spacing: 1px;
@@ -111,7 +118,10 @@ export const DishType = styled.div`
 `;
 
 export const DishTypeName = styled.div`
-  margin-left: 4px;
+  position: absolute;
+  bottom: 8px;
+  right: 16px;
+  color: ${colors.white};
 `;
 
 export const Content = styled.div`

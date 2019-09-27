@@ -28,19 +28,26 @@ const errorMap = {
 };
 
 export const DISH_TYPE_ICON_MAP = {
-	beverage: 'drink',
-	soup: 'dish',
-	appetizer: 'cheese',
-	main: 'main',
-	side: 'fries',
-	dessert: 'dessert',
-	salad: 'salad',
-	breakfast: 'breakfast',
-	bread: 'bread' 
-}
+  beverage: "drink",
+  soup: "dish",
+  appetizer: "cheese",
+  main: "main",
+  side: "fries",
+  dessert: "dessert",
+  salad: "salad",
+  breakfast: "breakfast",
+  bread: "bread"
+};
 
 export const handleNetworkErrors = err => {
   return (
     errorMap[err.response.status] || `Something unexpected occurred: ${err}`
   );
+};
+
+export const timeShortener = timeString => {
+  const normalizedTimeString = timeString.toLowerCase();
+  if (normalizedTimeString === "minutes") return "Mins";
+  if (normalizedTimeString === "minutes") return "Mins";
+  return timeString;
 };

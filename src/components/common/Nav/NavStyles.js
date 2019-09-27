@@ -6,24 +6,25 @@ import Button from "components/common/Button/Button";
 import Anchor from "components/common/Anchor/Anchor";
 
 export const Navbar = styled.div`
+  display: flex;
+  margin-left: auto;
+  margin-right: auto;
+  align-items: center;
+  justify-content: space-between;
+  position: fixed;
+  left: 0;
+  right: 0;
+  background-color: white;
+  font-size: 1rem;
+  z-index: 1000;
+  top: 0;
+  transition: 0.2s ease;
+  box-shadow: 0 0 0 transparent;
+  padding: 16px 5%;
 
-	display: flex;
-	margin-left: auto;
-	margin-right: auto;
-	align-items: center;
-	justify-content: space-between;
-	position: fixed;
-	left: 0;
-	right: 0;
-	background-color: white;
-	font-size: 1rem;
-	z-index: 1000;
-	top: 0;
-	transition: .2s ease;
-	box-shadow: 0 0 0 transparent;
-	padding: 16px 5%;
-
-	${({scrolling}) => scrolling && `
+  ${({ scrolling }) =>
+    scrolling &&
+    `
     padding-top: 10px;
     padding-bottom: 10px;
     box-shadow: 0 0 10px rgba(0,0,0,.2);
@@ -31,23 +32,29 @@ export const Navbar = styled.div`
 	`};
 
   ${({ recipe }) =>
-    recipe && `
+    recipe &&
+    `
 			padding-right: 32px;
 			background: transparent;
 	`};
 
-  ${({ auth }) => auth && `
+  ${({ auth }) =>
+    auth &&
+    `
 			background: transparent;
 	`};
 
-	${({menuOpen}) => menuOpen && `
+  ${({ menuOpen }) =>
+    menuOpen &&
+    `
 		background: white;
 	`};
-`;	
+`;
 
 export const Brand = styled.div`
   ${({ recipe }) =>
-	recipe && `    
+    recipe &&
+    `    
 		position: relative;
 		top: 16px;
 `};
@@ -91,7 +98,7 @@ export const NavLink = styled(Link)`
   margin-left: 32px;
   font-weight: 600;
   font-size: 40px;
-	font-family: ${raleway};
+  font-family: ${raleway};
 
   &:hover {
     color: ${colors.red};
@@ -102,7 +109,9 @@ export const NavLink = styled(Link)`
 export const BrandImage = styled.img`
   height: 64px;
 
-	${({small}) => small && `
+  ${({ small }) =>
+    small &&
+    `
 		height: 48px; 
 	`};
 
