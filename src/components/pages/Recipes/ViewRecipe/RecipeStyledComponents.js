@@ -128,7 +128,7 @@ export const TimeContainer = styled.div`
 		order: 3;
 		padding: 0;
 		flex: 100%;
-	margin-bottom: 32px;
+		margin-bottom: 32px;
 	`};
 `;
 export const TimeGroup = styled.div`
@@ -225,3 +225,10 @@ export const Step = styled.div`
   }
 `;
 export const StepsContainer = styled.div``;
+export const ServingsActionsGroup = styled.div`
+  display: flex;
+  align-items: center;
+`;
+export const ServingsIcon = styled(Icon)`
+  cursor: pointer;
+`;

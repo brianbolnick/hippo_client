@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { fraction, multiply } from "mathjs";
 import { API_URL, token, timeShortener } from "utils";
 import FlashMessage from "components/common/FlashMessage/FlashMessage";
 import Icon from "components/common/Icon/Icon";
@@ -27,8 +28,6 @@ import {
   MetaData,
   Notes,
   NotesContainer,
-  ServingsContainer,
-  ServingsLabel,
   SubTitle,
   StepsContainer,
   Step,
@@ -39,11 +38,13 @@ import {
   Title,
   Quantity
 } from "./RecipeStyledComponents";
+import ServingsForm from "./ServingsForm";
 
 const authToken = `Bearer ${token}`;
 
 const Recipe = ({ match }) => {
   const [recipe, setRecipe] = useState({});
+  const [ingredientsList, setIngredientsList] = useState([]);
   const [showShareModal, setShowShareModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -65,6 +66,7 @@ const Recipe = ({ match }) => {
             window.location.replace("/401");
           }
           setRecipe(data.data);
+          setIngredientsList(data.data.ingredients);
           setLoading(false);
         })
         .catch(err => {
@@ -83,12 +85,10 @@ const Recipe = ({ match }) => {
   };
 
   const renderIngredients = () => {
-    const { ingredients } = recipe;
-
     return (
-      ingredients &&
-      ingredients.map((ing, index) => {
-        const quantity = ing.quantity === "0" ? "" : ing.quantity;
+      ingredientsList &&
+      ingredientsList.map((ing, index) => {
+        const quantity = parseInt(ing.quantity) === 0 ? "" : ing.quantity;
         return (
           <Ingredient key={`ingredient|${index}`}>
             <Quantity>{`${quantity} ${ing.measurement} `}</Quantity>
@@ -153,6 +153,60 @@ const Recipe = ({ match }) => {
     const tempTimeArr = time.split(" ");
     const formattedDuration = timeShortener(tempTimeArr[1]);
     return `${tempTimeArr[0]} ${formattedDuration}`;
+  };
+
+  const getQuantityType = quantity => {
+    if (fraction(quantity).d === 1) return "number";
+    return "fraction";
+  };
+
+  const calculateQuantity = (quantity, serving, type) => {
+    switch (type) {
+      case "fraction": {
+        const frac = fraction(quantity);
+        const value = multiply(frac, serving);
+        return convertImproperFraction(value);
+      }
+      default:
+        return quantity * serving;
+    }
+  };
+
+  const updateIngredients = (ingredients, newServings) => {
+    return ingredients.map(ing => {
+      const type = getQuantityType(ing.quantity);
+      const quantity = calculateQuantity(ing.quantity, newServings, type);
+      return {
+        ...ing,
+        quantity
+      };
+    });
+  };
+
+  const convertImproperFraction = fraction => {
+    const numerator = fraction.n;
+    const denominator = fraction.d;
+
+    if (numerator % denominator === 0) {
+      return numerator / denominator;
+    }
+
+    const mix = Math.floor(numerator / denominator);
+    const newNumerator = numerator % denominator;
+    return `${displayMix(mix)}${newNumerator}/${denominator}`;
+  };
+
+  const displayMix = mix => {
+    if (mix) return `${mix} `;
+    return "";
+  };
+
+  const handleServingsChange = newServings => {
+    const newIngredientsList = updateIngredients(
+      [...recipe.ingredients],
+      newServings
+    );
+    setIngredientsList(newIngredientsList);
   };
 
   return loading ? (
@@ -244,9 +298,10 @@ const Recipe = ({ match }) => {
 
         <IngredientsContainer>
           <SubTitle>Ingredients</SubTitle>
-          <ServingsContainer>
-            <ServingsLabel>Serving Size: {recipe.servings}</ServingsLabel>
-          </ServingsContainer>
+          <ServingsForm
+            onChange={handleServingsChange}
+            currentServings={recipe.servings}
+          />
           {renderIngredients()}
         </IngredientsContainer>
 
