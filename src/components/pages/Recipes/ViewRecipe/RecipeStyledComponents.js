@@ -172,7 +172,13 @@ export const IngredientsContainer = styled.div`
   margin-bottom: 32px;
 `;
 
-export const Ingredient = styled.div`
+export const IngredientsWrapper = styled.ul`
+  display: flex;
+  flex-wrap: wrap;
+  padding-left: 18px;
+`;
+export const Ingredient = styled.li`
+  width: 50%;
   margin-bottom: 12px;
   font-family: ${avenir};
 `;

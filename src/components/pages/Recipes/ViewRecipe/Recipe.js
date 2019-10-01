@@ -24,6 +24,7 @@ import {
   ImageContainer,
   Ingredient,
   IngredientsContainer,
+  IngredientsWrapper,
   LoadContainer,
   MetaData,
   Notes,
@@ -302,7 +303,7 @@ const Recipe = ({ match }) => {
             onChange={handleServingsChange}
             currentServings={recipe.servings}
           />
-          {renderIngredients()}
+          <IngredientsWrapper>{renderIngredients()}</IngredientsWrapper>
         </IngredientsContainer>
 
         <StepsContainer>
