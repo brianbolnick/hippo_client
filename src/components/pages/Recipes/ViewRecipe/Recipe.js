@@ -162,15 +162,14 @@ const Recipe = ({ match }) => {
   };
 
   const calculateQuantity = (quantity, serving, type) => {
-    switch (type) {
-      case "fraction": {
-        const frac = fraction(quantity);
-        const value = multiply(frac, serving);
-        return convertImproperFraction(value);
-      }
-      default:
-        return quantity * serving;
+    if (type === "fraction") {
+      const frac = fraction(quantity);
+      const value = multiply(frac, serving);
+      return convertImproperFraction(value);
     }
+
+    const num = quantity * serving;
+    return Math.round(num * 2) / 2;
   };
 
   const updateIngredients = (ingredients, newServings) => {
