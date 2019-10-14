@@ -68,18 +68,18 @@ const DropBox = styled.div`
   background-position: center;
   background-repeat: no-repeat;
 
-  ${({ url, fileName }) =>
+  ${({ url, file }) =>
     url &&
-    fileName &&
+    file &&
     `
 			background-image: url('${url}');
 			border: solid 2px ${colors.darkGray};
 	`}
 
-  ${({ url, showReselect, fileName }) =>
+  ${({ url, showReselect, file }) =>
     url &&
     showReselect &&
-    fileName &&
+    file &&
     `background-image: linear-gradient(to bottom, rgba(0,0,0,0.5), rgba(0,0,0,0.4) ), url('${url}'); 
 			border: solid 2px ${colors.darkGray};
 `}
@@ -104,7 +104,7 @@ const Label = styled.div`
 `;
 
 const FileInput = (
-  { onChange, label, fileName, onClear, imageUrl },
+  { onChange, label, file, onClear, imageUrl },
   ...props
 ) => {
   const [showMobile, setShowMobile] = useState(
@@ -130,7 +130,7 @@ const FileInput = (
   };
 
   const renderContent = () => {
-    if (fileName) {
+    if (file) {
       return showReselect ? (
         <UploadButton secondary>Reselect</UploadButton>
       ) : null;
@@ -163,7 +163,7 @@ const FileInput = (
           <StyledButton>
             <DropBox
               url={imageUrl}
-              fileName={fileName}
+              file={file}
               showReselect={showReselect}
             >
               {renderContent()}
