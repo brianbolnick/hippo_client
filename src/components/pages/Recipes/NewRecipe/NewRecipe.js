@@ -52,6 +52,7 @@ class NewRecipe extends Component {
       dish_type_id: 1,
       notes: "",
       error: "",
+      imageUrl: "",
       loading: false,
       showMobile: window.matchMedia("(" + tabletMediaQuery + ")").matches
     };
@@ -127,26 +128,24 @@ class NewRecipe extends Component {
     );
   };
 
-	renderDifficulty = () => {
-	const difficulties = [
-		{ name: 'Easy', value: 1 },
-		{ name: 'Medium', value: 2},
-		{ name: 'Difficult', value: 3}
-	]
-		return (difficulties.map(diff => {
-				return (
-					<option key={`difficulty|${diff.name}`} value={diff.value}>
-						{diff.name}
-					</option>
-				);
-			})
-		);
-	};
+  renderDifficulty = () => {
+    const difficulties = [
+      { name: "Easy", value: 1 },
+      { name: "Medium", value: 2 },
+      { name: "Difficult", value: 3 }
+    ];
+    return difficulties.map(diff => {
+      return (
+        <option key={`difficulty|${diff.name}`} value={diff.value}>
+          {diff.name}
+        </option>
+      );
+    });
+  };
 
-
-	renderTimes = () => {
-		return AVAILABLE_TIMES.map(time => {
-			return (
+  renderTimes = () => {
+    return AVAILABLE_TIMES.map(time => {
+      return (
         <option key={time} value={time}>
           {" "}
           {time}{" "}
@@ -257,9 +256,16 @@ class NewRecipe extends Component {
   };
 
   handleUploadImage = e => {
-    this.setState({
-      image: e.target.files[0]
-    });
+    const image = e.target.files[0];
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      const imageUrl = reader.result;
+      this.setState({ imageUrl });
+    };
+
+    image && reader.readAsDataURL(image);
+
+    this.setState({ image: image });
   };
 
   removeImage = () => {
@@ -335,10 +341,10 @@ class NewRecipe extends Component {
               >
                 {this.renderDifficulty()}
               </Select>
-
             </FormRow>
             <FileInput
               fileName={this.state.image && this.state.image.name}
+              imageUrl={this.state.imageUrl}
               onChange={this.handleUploadImage}
               onClear={this.removeImage}
             />

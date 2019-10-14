@@ -11,7 +11,7 @@ export const LoadContainer = styled.div`
 `;
 
 export const Container = styled.div`
-  padding: 0 10%;
+  padding: 0 16%;
   ${media.tablet`
 		padding: 0;
 	`};

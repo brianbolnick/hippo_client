@@ -63,6 +63,26 @@ const DropBox = styled.div`
   justify-content: center;
   border-radius: 3px;
   padding: 32px;
+  height: 355px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  ${({ url, fileName }) =>
+    url &&
+    fileName &&
+    `
+			background-image: url('${url}');
+			border: solid 2px ${colors.darkGray};
+	`}
+
+  ${({ url, showReselect, fileName }) =>
+    url &&
+    showReselect &&
+    fileName &&
+    `background-image: linear-gradient(to bottom, rgba(0,0,0,0.5), rgba(0,0,0,0.4) ), url('${url}'); 
+			border: solid 2px ${colors.darkGray};
+`}
 `;
 
 const Description = styled.div`
@@ -74,6 +94,7 @@ const Description = styled.div`
 
 const UploadButton = styled(Button)`
   max-width: 100%;
+  background: white;
 `;
 
 const MobileContainer = styled.div``;
@@ -82,13 +103,47 @@ const Label = styled.div`
   margin-bottom: 8px;
 `;
 
-const FileInput = ({ onChange, label, fileName, onClear }, ...props) => {
+const FileInput = (
+  { onChange, label, fileName, onClear, imageUrl },
+  ...props
+) => {
   const [showMobile, setShowMobile] = useState(
     window.matchMedia("(" + phoneMediaQuery + ")").matches
   );
 
+  const [showReselect, setShowReselect] = useState(false);
+
   const handleMediaQueryChange = ({ matches }) => {
     setShowMobile(matches);
+  };
+
+  const handleEnter = () => {
+    if (imageUrl) {
+      setShowReselect(true);
+    }
+  };
+
+  const handleLeave = () => {
+    if (imageUrl && showReselect) {
+      setShowReselect(false);
+    }
+  };
+
+  const renderContent = () => {
+    if (fileName) {
+      return showReselect ? (
+        <UploadButton secondary>Reselect</UploadButton>
+      ) : null;
+    }
+
+    return (
+      <>
+        <StyledIcon name="upload" color={colors.darkGray} />
+        <Description>Drag and drop an image here!</Description>
+        <Divider>OR</Divider>
+        <UploadButton secondary>Click to Browse</UploadButton>
+      </>
+    );
   };
 
   return (
@@ -104,23 +159,15 @@ const FileInput = ({ onChange, label, fileName, onClear }, ...props) => {
           <input onChange={onChange} type="file" accept="image/*" {...props} />
         </MobileContainer>
       ) : (
-        <Container>
+        <Container onMouseEnter={handleEnter} onMouseLeave={handleLeave}>
           <StyledButton>
-            {fileName ? (
-              <DropBox>
-                <StyledIcon name="checkCircle" color={colors.green} />
-                <Description>{fileName}</Description>
-                <Divider />
-                <UploadButton secondary>Reselect</UploadButton>
-              </DropBox>
-            ) : (
-              <DropBox>
-                <StyledIcon name="upload" color={colors.darkGray} />
-                <Description>Drag and drop an image here!</Description>
-                <Divider>OR</Divider>
-                <UploadButton secondary>Click to Browse</UploadButton>
-              </DropBox>
-            )}
+            <DropBox
+              url={imageUrl}
+              fileName={fileName}
+              showReselect={showReselect}
+            >
+              {renderContent()}
+            </DropBox>
           </StyledButton>
           <input onChange={onChange} type="file" accept="image/*" {...props} />
         </Container>
