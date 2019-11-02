@@ -117,7 +117,7 @@ class Input extends React.Component {
           {this.renderIcon()}
           <StyledInput
             type={type}
-            onChange={e => onChange(e.target.value)}
+            onChange={onChange}
             placeholder={placeholder}
             inputState={inputState}
             icon={icon}

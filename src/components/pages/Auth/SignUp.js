@@ -84,6 +84,7 @@ class SignUp extends React.Component {
             const jwt = jwtDecode(resp.data.jwt);
             localStorage.setItem("auth_token", resp.data.jwt);
             localStorage.setItem("jwt", JSON.stringify(jwt));
+            window.location.replace("/");
           }
         });
       })
@@ -113,7 +114,7 @@ class SignUp extends React.Component {
                     label="Email"
                     icon="envelope"
                     placeholder="Email Address"
-                    onChange={val => this.setState({ email: val })}
+                    onChange={e => this.setState({ email: e.target.value })}
                   />
                   <Input
                     inputState={error.field === "name" ? "error" : ""}
@@ -121,7 +122,7 @@ class SignUp extends React.Component {
                     label="Full Name"
                     icon="user"
                     placeholder="Full Display Name"
-                    onChange={val => this.setState({ name: val })}
+                    onChange={e => this.setState({ name: e.target.value })}
                   />
 
                   <Input
@@ -130,7 +131,7 @@ class SignUp extends React.Component {
                     label="Password"
                     icon="lock"
                     placeholder="Password"
-                    onChange={val => this.setState({ password: val })}
+                    onChange={e => this.setState({ password: e.target.value })}
                   />
                   <Input
                     inputState={
@@ -140,8 +141,8 @@ class SignUp extends React.Component {
                     label="Confirm Password"
                     icon="lock"
                     placeholder="Confirm Password"
-                    onChange={val =>
-                      this.setState({ passwordConfirmation: val })
+                    onChange={e =>
+                      this.setState({ passwordConfirmation: e.target.value })
                     }
                   />
                   <Checkbox
@@ -163,7 +164,7 @@ class SignUp extends React.Component {
                       icon="users"
                       placeholder="Shared Family Code"
                       onChange={e =>
-                        this.setState({ joinCode: e.target.value })
+                        this.setState({ joinCode: e.target.e.target.valueue })
                       }
                     />
                   )}
@@ -197,7 +198,7 @@ class SignUp extends React.Component {
                     label="Family Join Code"
                     icon="users"
                     placeholder="Shared Family Code"
-                    onChange={val => this.setState({ joinCode: val })}
+                    onChange={e => this.setState({ joinCode: e.target.value })}
                   />
                   <Input
                     inputState={error.field === "family_name" ? "error" : ""}
@@ -205,7 +206,9 @@ class SignUp extends React.Component {
                     label="Family Display Name"
                     icon="users"
                     placeholder="Family Name"
-                    onChange={val => this.setState({ familyName: val })}
+                    onChange={e =>
+                      this.setState({ familyName: e.target.value })
+                    }
                   />
                   <Button loading={loading} type="submit">
                     Submit

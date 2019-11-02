@@ -76,14 +76,14 @@ class SignIn extends React.Component {
                     label="Email"
                     icon="envelope"
                     placeholder="Email Address"
-                    onChange={val => this.setState({ email: val })}
+                    onChange={e => this.setState({ email: e.target.value })}
                   />
                   <Input
                     type="password"
                     label="Password"
                     icon="lock"
                     placeholder="Password"
-                    onChange={val => this.setState({ password: val })}
+                    onChange={e => this.setState({ password: e.target.value })}
                   />
                   <Button type="submit" loading={loading}>
                     Submit

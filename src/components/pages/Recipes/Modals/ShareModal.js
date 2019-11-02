@@ -23,7 +23,8 @@ class ShareModal extends React.Component {
     sharedFamilyId: ""
   };
 
-  onCodeFieldChange = code => {
+  onCodeFieldChange = e => {
+    const code = e.target.value;
     if (code && code.length >= 3) {
       this.setState({ loading: true, joinCode: code }, () => {
         axios
