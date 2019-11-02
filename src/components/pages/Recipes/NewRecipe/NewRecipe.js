@@ -5,14 +5,42 @@ import { token, userId, familyId, API_URL } from "utils";
 import { colors, avenir, media } from "styles/css-variables";
 import Layout from "components/common/Layout";
 import FlashMessage from "components/common/FlashMessage";
+import Icon from "components/common/Icon/Icon";
 import FileInput from "components/common/FileInput";
+import Button from "components/common/Button";
+import ProgressSteps from "components/common/ProgressSteps";
 import Input from "./Input";
 import TextArea from "./TextArea";
 import Dropdown from "./Dropdown";
-import Button from "components/common/Button";
-import ProgressSteps from "components/common/ProgressSteps";
+import AddIngredientForm from "./AddIngredientForm";
 
 const TOTAL_STEPS = 5;
+
+export const Quantity = styled.span`
+  font-weight: 600;
+`;
+
+export const DeleteIcon = styled(Icon)`
+  height: 16px;
+  width: 16px;
+  min-width: 16px;
+  min-height: 16px;
+  margin-left: 8px;
+  cursor: pointer;
+  &:hover {
+    background-color: ${({ clear }) => (clear ? "" : colors.softRed)};
+    path {
+      fill: ${({ clear }) => (!clear ? "" : colors.red)};
+    }
+    border-radius: 50%;
+  }
+`;
+
+export const Notice = styled.div`
+  text-align: center;
+  width: 100%;
+  color: ${colors.offGray};
+`;
 
 const Title = styled.div`
   font-size: 1.5rem;
@@ -73,6 +101,32 @@ const PageContainer = styled.div`
   ${media.smallDesktop`
 		padding: 0;
 	`}
+`;
+
+export const IngredientsContainer = styled.div`
+  margin-bottom: 32px;
+`;
+
+export const IngredientsWrapper = styled.ul`
+  display: flex;
+  flex-wrap: wrap;
+  padding-left: 18px;
+`;
+export const Ingredient = styled.div`
+  width: 100%;
+  margin-bottom: 12px;
+  font-family: ${avenir};
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2px;
+  box-sizing: border-box;
+  &:hover {
+    padding-bottom: 1px;
+    border-bottom: solid 1px ${colors.mutedGray};
+    //box-shadow: 0 16px 38px -12px rgba(0, 0, 0, 0.56),
+    //0 4px 25px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
+  }
 `;
 
 class NewRecipe extends Component {
@@ -282,19 +336,28 @@ class NewRecipe extends Component {
     this.setState({ steps: steps.filter(x => x !== step) });
   };
 
-  //renderIngredients = () => {
-  //const { ingredients } = this.state;
-  //return ingredients.length ? (
-  //ingredients.map(ing => (
-  //<TempIngredient key={JSON.stringify(ing)}>
-  //<span>{`${ing.quantity} ${ing.measurement} ${ing.name}`}</span>
-  //<DeleteIcon name="close" onClick={() => this.deleteIngredient(ing)} />
-  //</TempIngredient>
-  //))
-  //) : (
-  //<Notice>Use the field above to add ingredients!</Notice>
-  //);
-  //};
+  renderIngredients = () => {
+    const { ingredients } = this.state;
+    return ingredients.length ? (
+      ingredients.map((ing, index) => {
+        const quantity = parseInt(ing.quantity) === 0 ? "" : ing.quantity;
+        return (
+          <Ingredient key={`ingredient|${index}`}>
+            <div>
+              - <Quantity>{`${quantity} ${ing.measurement} `}</Quantity>
+              {ing.name}
+            </div>
+            <DeleteIcon
+              name="close"
+              onClick={() => this.deleteIngredient(ing)}
+            />
+          </Ingredient>
+        );
+      })
+    ) : (
+      <Notice>Use the field above to add ingredients!</Notice>
+    );
+  };
 
   //renderSteps = () => {
   //const { steps } = this.state;
@@ -417,7 +480,8 @@ class NewRecipe extends Component {
     return (
       <StepContainer active={active}>
         <Title>What's in it?</Title>
-        <div>Ingredients</div>
+        <AddIngredientForm onSave={data => this.handleAddIngredients(data)} />
+        {this.renderIngredients()}
       </StepContainer>
     );
   };
