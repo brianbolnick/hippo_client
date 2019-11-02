@@ -115,7 +115,7 @@ class Input extends React.Component {
       onChange(value);
     };
 
-    const handleInputChangeDebounce = debounce(handleInputChange, 500);
+    const handleInputChangeDebounce = debounce(handleInputChange, 250);
 
     const onValueChange = event => {
       handleInputChangeDebounce(event.target.value);
