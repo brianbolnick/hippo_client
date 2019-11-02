@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { varela, colors, media, avenir } from "styles/css-variables";
+import { avenir, colors, media } from "styles/css-variables";
 import Icon from "components/common/Icon/Icon";
 import Input from "components/common/Input/Input";
 import Select from "components/common/Select/Select";
@@ -150,7 +150,7 @@ export const AddIngredientContainer = styled.div`
 `;
 
 export const AddIngredientLabel = styled.label`
-  font-family: ${varela};
+  font-family: ${avenir};
   margin-bottom: 16px;
 `;
 
@@ -189,6 +189,5 @@ export const Form = styled.form`
 		box-shadow: none;
 `}
 `;
-
 
 export const DirectionsContainer = styled.div``;

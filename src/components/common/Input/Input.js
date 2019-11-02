@@ -1,7 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
-import { colors, varela } from "styles/css-variables";
+import { debounce } from "lodash";
+import { colors, avenir } from "styles/css-variables";
 import Icon from "components/common/Icon/Icon";
 
 const StyledInput = styled.input`
@@ -70,7 +71,7 @@ const StyledIcon = styled(Icon)`
 const Wrapper = styled.div``;
 
 const Label = styled.label`
-  font-family: ${varela};
+  font-family: ${avenir};
 `;
 
 class Input extends React.Component {
@@ -110,6 +111,16 @@ class Input extends React.Component {
   render() {
     const { type, onChange, placeholder, label, icon, inputState } = this.props;
 
+    const handleInputChange = value => {
+      onChange(value);
+    };
+
+    const handleInputChangeDebounce = debounce(handleInputChange, 500);
+
+    const onValueChange = event => {
+      handleInputChangeDebounce(event.target.value);
+    };
+
     return (
       <Wrapper {...this.props}>
         {label && <Label>{label}</Label>}
@@ -117,13 +128,12 @@ class Input extends React.Component {
           {this.renderIcon()}
           <StyledInput
             type={type}
-            onChange={onChange}
+            onChange={onValueChange}
             placeholder={placeholder}
             inputState={inputState}
             icon={icon}
             onFocus={() => this.setState({ focus: true })}
             onBlur={() => this.setState({ focus: false })}
-            {...this.props}
           />
         </Container>
       </Wrapper>

@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { colors, rufina, media, varela } from "styles/css-variables";
+import { colors, rufina, media, avenir } from "styles/css-variables";
 import Button from "components/common/Button/Button";
 import Icon from "components/common/Icon/Icon";
 
@@ -31,7 +31,7 @@ export const InfoTitle = styled.div`
 `;
 
 export const InfoDescription = styled.div`
-  font-family: ${varela};
+  font-family: ${avenir};
   margin-top: 24px;
   font-size: 1.1rem;
   text-align: center;

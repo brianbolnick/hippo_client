@@ -1,12 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
-import { colors, varela } from "styles/css-variables";
+import { colors, avenir } from "styles/css-variables";
 import Select from "components/common/Select/Select";
 import Input from "components/common/Input/Input";
 
 const Label = styled.label`
-  font-family: ${varela};
+  font-family: ${avenir};
 `;
 
 const Wrapper = styled.div`

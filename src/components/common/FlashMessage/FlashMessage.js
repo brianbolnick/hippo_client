@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import Icon from "components/common/Icon/Icon";
-import { colors, varela, media } from "styles/css-variables";
+import { colors, avenir, media } from "styles/css-variables";
 
 const FlashContainer = styled.div`
   min-width: 500px;
@@ -9,7 +9,7 @@ const FlashContainer = styled.div`
   background-color: ${({ error, success }) =>
     error ? colors.darkRed : success ? colors.green : colors.black};
   color: ${colors.white};
-  font-family: ${varela};
+  font-family: ${avenir};
   text-align: center;
   border-radius: 3px 3px 0 0;
   padding: 16px;

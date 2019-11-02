@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { media, varela } from "styles/css-variables";
+import { media, avenir } from "styles/css-variables";
 
 export const ButtonContainer = styled.div`
   display: flex;
@@ -9,7 +9,7 @@ export const ButtonContainer = styled.div`
 `;
 
 export const ModalText = styled.div`
-  font-family: ${varela};
+  font-family: ${avenir};
   font-weight: 600;
   margin-top: 16px;
 `;

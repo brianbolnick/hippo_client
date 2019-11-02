@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { colors, media, avenir } from "styles/css-variables";
+import { colors, media, avenir, rufina, raleway } from "styles/css-variables";
 import Icon from "components/common/Icon/Icon";
 
 export const LoadContainer = styled.div`
@@ -30,6 +30,9 @@ export const ImageContainer = styled.div`
 	justify-content: flex-end;
 	padding: 32px;
 	box-sizing: border-box;
+  box-shadow: 0 16px 38px -12px rgba(0, 0, 0, 0.56),
+    0 4px 25px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
+
 
 	${({ url }) =>
     `
@@ -151,15 +154,20 @@ export const TimeLabel = styled.div`
 `;
 
 export const SubTitle = styled.div`
-  font-size: 1.5rem;
+  font-size: 1.75rem;
+  //font-size: 1.5rem;
   letter-spacing: 1px;
   //margin: 8px 0;
   font-weight: 600;
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
-  color: ${colors.red};
-  font-family: ${avenir};
+  //color: ${colors.red};
+  //font-family: ${avenir};
+	color: ${colors.black};
+	font-family: ${rufina};
+	margin-bottom: 16px;
+
 `;
 
 export const Notes = styled.div``;
@@ -222,12 +230,14 @@ export const Step = styled.div`
   border-radius: 2px;
   font-family: ${avenir};
   font-weight: 500;
+  flex-flow: row;
   span {
     font-weight: 500;
-    color: ${colors.offGray};
-    font-size: 1.1rem;
+    color: ${colors.black};
+    font-size: 2rem;
     margin-bottom: 16px;
-    font-family: ${avenir};
+    font-family: ${raleway};
+    margin-right: 24px;
   }
 `;
 export const StepsContainer = styled.div``;

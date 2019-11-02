@@ -108,7 +108,7 @@ const Recipe = ({ match }) => {
       steps.map((step, index) => {
         return (
           <Step key={`dir|${index}`}>
-            <span>Step {index + 1}</span> {step}
+            <span>{index + 1}</span> {step}
           </Step>
         );
       })

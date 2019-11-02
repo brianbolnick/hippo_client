@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
-import { colors, varela } from "styles/css-variables";
+import { colors, avenir } from "styles/css-variables";
 import Icon from "components/common/Icon/Icon";
 
 const StyledAddableInput = styled.textarea`
@@ -59,7 +59,7 @@ const StyledIcon = styled(Icon)`
 const Wrapper = styled.div``;
 
 const Label = styled.label`
-  font-family: ${varela};
+  font-family: ${avenir};
 `;
 
 const AddContainer = styled.div`

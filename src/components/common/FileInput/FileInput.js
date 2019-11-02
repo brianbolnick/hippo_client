@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Icon from "components/common/Icon/Icon";
 import Button from "components/common/Button/Button";
 import Divider from "components/common/Divider/Divider";
-import { colors, varela, phoneMediaQuery } from "styles/css-variables";
+import { colors, avenir, phoneMediaQuery } from "styles/css-variables";
 import MediaQuery from "components/common/MediaQuery/MediaQuery";
 
 const Container = styled.div`
@@ -14,8 +14,11 @@ const Container = styled.div`
   flex-flow: column;
   width: 100%;
   cursor: pointer;
-  margin: 8px;
+  //margin: 8px;
   margin-bottom: 24px;
+  box-shadow: 0 16px 38px -12px rgba(0, 0, 0, 0.56),
+    0 4px 25px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
+  border-radius: 32px;
 
   input[type="file"] {
     position: absolute;
@@ -26,6 +29,7 @@ const Container = styled.div`
     height: 100%;
     width: 100%;
     cursor: pointer;
+
     &:hover {
       div {
         box-shadow: 0 3px 25px rgba(0, 0, 0, 0.15),
@@ -56,14 +60,15 @@ const StyledButton = styled.div`
 const DropBox = styled.div`
   height: 100%;
   width: 100%;
-  border: dashed 2px ${colors.darkGray};
+  //border: dashed 1px ${colors.black};
   display: flex;
   align-items: center;
   flex-flow: column;
   justify-content: center;
   border-radius: 3px;
   padding: 32px;
-  height: 355px;
+	height: 320px;
+	//height: auto;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -73,7 +78,6 @@ const DropBox = styled.div`
     file &&
     `
 			background-image: url('${url}');
-			border: solid 2px ${colors.darkGray};
 	`}
 
   ${({ url, showReselect, file }) =>
@@ -81,15 +85,14 @@ const DropBox = styled.div`
     showReselect &&
     file &&
     `background-image: linear-gradient(to bottom, rgba(0,0,0,0.5), rgba(0,0,0,0.4) ), url('${url}'); 
-			border: solid 2px ${colors.darkGray};
 `}
 `;
 
 const Description = styled.div`
-  font-family: ${varela};
-  font-weight: 700;
+  font-family: ${avenir};
+  font-weight: 500;
   font-size: 18px;
-  color: ${colors.darkGray};
+  color: ${colors.black};
 `;
 
 const UploadButton = styled(Button)`
@@ -103,10 +106,7 @@ const Label = styled.div`
   margin-bottom: 8px;
 `;
 
-const FileInput = (
-  { onChange, label, file, onClear, imageUrl },
-  ...props
-) => {
+const FileInput = ({ onChange, label, file, onClear, imageUrl }, ...props) => {
   const [showMobile, setShowMobile] = useState(
     window.matchMedia("(" + phoneMediaQuery + ")").matches
   );
@@ -138,7 +138,7 @@ const FileInput = (
 
     return (
       <>
-        <StyledIcon name="upload" color={colors.darkGray} />
+        <StyledIcon name="camera" color={colors.mutedGray} />
         <Description>Drag and drop an image here!</Description>
         <Divider>OR</Divider>
         <UploadButton secondary>Click to Browse</UploadButton>
@@ -161,11 +161,7 @@ const FileInput = (
       ) : (
         <Container onMouseEnter={handleEnter} onMouseLeave={handleLeave}>
           <StyledButton>
-            <DropBox
-              url={imageUrl}
-              file={file}
-              showReselect={showReselect}
-            >
+            <DropBox url={imageUrl} file={file} showReselect={showReselect}>
               {renderContent()}
             </DropBox>
           </StyledButton>

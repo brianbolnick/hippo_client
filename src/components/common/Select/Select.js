@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
-import { colors, varela } from "styles/css-variables";
+import { colors, avenir } from "styles/css-variables";
 import Icon from "components/common/Icon/Icon";
 const Control = styled.div`
   box-sizing: border-box;
@@ -57,7 +57,7 @@ const IconContainer = styled(Icon)`
 `;
 const StyledSelect = styled.select`
   margin: 0;
-  font-family: ${varela};
+  font-family: ${avenir};
   align-items: center;
   justify-content: flex-start;
   position: relative;
@@ -112,7 +112,7 @@ const Container = styled.div`
 `;
 
 const Label = styled.label`
-  font-family: ${varela};
+  font-family: ${avenir};
 `;
 
 class Select extends React.Component {

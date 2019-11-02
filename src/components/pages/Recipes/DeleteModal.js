@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import Modal from "components/common/Modal/Modal";
 import Button from "components/common/Button/Button";
-import { varela } from "styles/css-variables";
+import { avenir } from "styles/css-variables";
 import styled from "styled-components";
 
 const ButtonContainer = styled.div`
@@ -13,7 +13,7 @@ const ButtonContainer = styled.div`
 `;
 
 const ModalText = styled.div`
-  font-family: ${varela};
+  font-family: ${avenir};
   font-weight: 600;
   margin-top: 16px;
 `;

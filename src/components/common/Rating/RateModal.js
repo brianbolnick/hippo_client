@@ -5,7 +5,7 @@ import Button from "components/common/Button/Button";
 import styled from "styled-components";
 import Star from "./Star";
 import PropTypes from "prop-types";
-import { media, varela, colors } from "styles/css-variables";
+import { media, avenir, colors } from "styles/css-variables";
 //import { API_URL, token, userId, familyId } from "utils";
 //import axios from "axios";
 
@@ -22,7 +22,7 @@ const RatingContainer = styled.div`
 
 const Error = styled.div`
   color: ${colors.red};
-  font-family: ${varela};
+  font-family: ${avenir};
   position: absolute;
   bottom: -14px;
   left: calc(50% - 181px);
@@ -66,7 +66,7 @@ const ButtonContainer = styled.div`
 `;
 
 const ModalText = styled.div`
-  font-family: ${varela};
+  font-family: ${avenir};
   font-weight: 600;
   margin: 16px;
   position: relative;

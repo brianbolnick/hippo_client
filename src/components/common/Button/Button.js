@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { colors, varela, spinAround } from "styles/css-variables";
+import { colors, avenir, spinAround } from "styles/css-variables";
 import { css } from "styled-components";
 import Icon from "components/common/Icon/Icon";
 
@@ -25,7 +25,7 @@ const loadingStyles = css`
 const StyledButton = styled.button`
   color: ${colors.white};
   font-size: 14px;
-  font-family: ${varela};
+  font-family: ${avenir};
   text-transform: uppercase;
   letter-spacing: 1px;
   cursor: pointer;
@@ -57,7 +57,7 @@ const StyledButton = styled.button`
 		text-shadow: none;
 		border: solid 2px ${colors.black};
 		color: ${colors.black};
-		font-weight: 700;
+		font-weight: 600;
 		padding: 12px 14px;
 		box-shadow: none;
 		:hover { 
@@ -127,7 +127,7 @@ const ButtonAsLink = styled.button`
     transition: all 0.2s ease;
   }
   font-size: 16px;
-  font-family: ${varela};
+  font-family: ${avenir};
   border: none;
   ${({ transparentBackground }) =>
     transparentBackground &&
@@ -155,7 +155,7 @@ const FixedButton = styled.button`
   margin-left: -125px;
   background-color: ${colors.blue};
   color: ${colors.white};
-  font-family: ${varela};
+  font-family: ${avenir};
   text-align: center;
   border-radius: 8px 8px 0 0;
   padding: 16px;

@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { colors, varela } from "styles/css-variables";
+import { colors, avenir } from "styles/css-variables";
 
 const Checkmark = styled.span`
   position: absolute;
@@ -65,7 +65,7 @@ const Container = styled.label`
 `;
 
 const StyledLabel = styled.span`
-  font-family: ${varela};
+  font-family: ${avenir};
   color: ${props => (props.disabled ? colors.gray : colors.black)};
   font-size: 16px;
 

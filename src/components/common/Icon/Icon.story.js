@@ -3,7 +3,7 @@ import { storiesOf } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 import Icon from "./Icon";
 import styled from "styled-components";
-import { varela, colors } from "styles/css-variables";
+import { avenir, colors } from "styles/css-variables";
 
 const iconList = [
   "addRecipe",
@@ -12,6 +12,7 @@ const iconList = [
   "book",
   "bread",
   "breakfast",
+  "camera",
   "checkCircle",
   "checkOpenCircle",
   "cheese",
@@ -31,8 +32,8 @@ const iconList = [
   "envelope",
   "family",
   "filter",
-	"fire",
-	"fries",
+  "fire",
+  "fries",
   "fruit",
   "heartbeat",
   "home",
@@ -63,7 +64,7 @@ const iconList = [
 ];
 const IconLabel = styled.span`
   margin: 0 0 10px 0;
-  font-family: ${varela};
+  font-family: ${avenir};
 `;
 
 const StyledContainer = styled.div`

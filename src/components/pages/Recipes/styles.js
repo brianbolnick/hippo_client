@@ -53,6 +53,7 @@ export const ImageBlock = styled.div`
 			),
 			url(${url});
 			background-repeat: no-repeat;
+			box-shadow: 0 16px 38px -12px rgba(0, 0, 0, 0.56), 0 4px 25px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
 	`};
 
   ${media.phone`
@@ -135,7 +136,7 @@ export const IngredientsContainer = styled.div`
 	height: auto;
 	width: 100%;
 	order: 1;
-padding: 8px 16px;
+	padding: 8px 16px;
 	`};
 `;
 

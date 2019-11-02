@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { colors, media, varela, rufina } from "styles/css-variables";
+import { colors, media, avenir, rufina } from "styles/css-variables";
 import DemoPic from "img/demo-pic.png";
 
 export const Actions = styled.div`
@@ -136,7 +136,7 @@ export const Title = styled.div`
 `;
 
 export const Description = styled.div`
-  font-family: ${varela};
+  font-family: ${avenir};
   margin-top: 10px;
   font-size: 1.3rem;
 `;
@@ -167,7 +167,7 @@ export const DescriptionTitle = styled.div`
 
 export const DescriptionText = styled.div`
   font-size: 1.5rem;
-  font-family: ${varela};
+  font-family: ${avenir};
   color: ${colors.lightGray};
   width: 75%;
   margin-top: 10px;

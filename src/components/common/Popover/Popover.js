@@ -2,7 +2,7 @@ import React, { Component, Fragment } from "react";
 import ReactDOM from "react-dom";
 import styled, { css } from "styled-components";
 import PropTypes from "prop-types";
-import { colors, varela } from "styles/css-variables";
+import { colors, avenir } from "styles/css-variables";
 const popoverTickTopOffset = 11;
 const popoverTickLeftOffset = -16;
 
@@ -27,7 +27,7 @@ const StyledPopover = styled.div`
   z-index: 9999;
   min-width: 130px;
   border-radius: 3px;
-  font-family: ${varela};
+  font-family: ${avenir};
   text-align: center;
   letter-spacing: 1px;
   :after {

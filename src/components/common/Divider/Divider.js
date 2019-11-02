@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { colors, varela } from "styles/css-variables";
+import { colors, avenir } from "styles/css-variables";
 
 const StyledDivider = styled.hr`
   line-height: 1em;
@@ -8,7 +8,7 @@ const StyledDivider = styled.hr`
   outline: 0;
   border: 0;
   color: ${colors.black};
-  font-family: ${varela};
+  font-family: ${avenir};
   font-weight: 700;
   text-align: center;
   height: 1.5em;
