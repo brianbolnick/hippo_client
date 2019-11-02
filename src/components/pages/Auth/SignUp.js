@@ -113,7 +113,7 @@ class SignUp extends React.Component {
                     label="Email"
                     icon="envelope"
                     placeholder="Email Address"
-                    onChange={e => this.setState({ email: e.target.value })}
+                    onChange={val => this.setState({ email: val })}
                   />
                   <Input
                     inputState={error.field === "name" ? "error" : ""}
@@ -121,7 +121,7 @@ class SignUp extends React.Component {
                     label="Full Name"
                     icon="user"
                     placeholder="Full Display Name"
-                    onChange={e => this.setState({ name: e.target.value })}
+                    onChange={val => this.setState({ name: val })}
                   />
 
                   <Input
@@ -130,7 +130,7 @@ class SignUp extends React.Component {
                     label="Password"
                     icon="lock"
                     placeholder="Password"
-                    onChange={e => this.setState({ password: e.target.value })}
+                    onChange={val => this.setState({ password: val })}
                   />
                   <Input
                     inputState={
@@ -140,8 +140,8 @@ class SignUp extends React.Component {
                     label="Confirm Password"
                     icon="lock"
                     placeholder="Confirm Password"
-                    onChange={e =>
-                      this.setState({ passwordConfirmation: e.target.value })
+                    onChange={val =>
+                      this.setState({ passwordConfirmation: val })
                     }
                   />
                   <Checkbox
@@ -197,7 +197,7 @@ class SignUp extends React.Component {
                     label="Family Join Code"
                     icon="users"
                     placeholder="Shared Family Code"
-                    onChange={e => this.setState({ joinCode: e.target.value })}
+                    onChange={val => this.setState({ joinCode: val })}
                   />
                   <Input
                     inputState={error.field === "family_name" ? "error" : ""}
@@ -205,9 +205,7 @@ class SignUp extends React.Component {
                     label="Family Display Name"
                     icon="users"
                     placeholder="Family Name"
-                    onChange={e =>
-                      this.setState({ familyName: e.target.value })
-                    }
+                    onChange={val => this.setState({ familyName: val })}
                   />
                   <Button loading={loading} type="submit">
                     Submit

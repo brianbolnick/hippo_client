@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { colors, avenir, media } from "styles/css-variables";
 import Layout from "components/common/Layout";
@@ -65,8 +65,6 @@ const PageContainer = styled.div`
 	`}
 `;
 
-const TextInput = styled.input``;
-
 const NewRecipe = () => {
   const [image, setImage] = useState(null);
   const [title, setTitle] = useState("");
@@ -111,12 +109,10 @@ const NewRecipe = () => {
               placeholder="Title"
               onChange={val => setTitle(title)}
               label="Recipe Title"
-              value={title}
             />
             <Textarea
               placeholder="Notes"
               label="Notes"
-              value={notes}
               onChange={val => setNotes(notes)}
             />
           </Column>
@@ -205,7 +201,7 @@ const NewRecipe = () => {
               Back
             </ActionButton>
           )}
-          {currentStep == TOTAL_STEPS ? (
+          {currentStep === TOTAL_STEPS ? (
             <ActionButton onClick={submitRecipe}>Finish</ActionButton>
           ) : (
             <ActionButton onClick={() => setCurrentStep(currentStep + 1)}>

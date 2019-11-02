@@ -42,8 +42,8 @@ class ControlledInput extends React.Component {
     selectVal: this.props.defaultSelectValue
   };
 
-  handleInputChange = e => {
-    this.setState({ inputVal: e.target.value }, () => {
+  handleInputChange = val => {
+    this.setState({ inputVal: val }, () => {
       this.props.onChange(`${this.state.inputVal} ${this.state.selectVal}`);
     });
   };

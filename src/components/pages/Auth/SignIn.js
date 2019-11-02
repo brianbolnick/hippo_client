@@ -61,42 +61,42 @@ class SignIn extends React.Component {
     const { loading, error } = this.state;
     return (
       <div style={{ height: "100%" }}>
-				<Layout auth fullScreen>
-        <PageWrapper>
-          <Block />
-          <FadedBlock />
-          <ActionsWrapper>
-            <FormWrapper>
-              <FormContainer onSubmit={this.handleFormSubmit}>
-                <FlashMessage visible={!!error.message} error>
-                  {error.message}
-                </FlashMessage>
-                <Input
-                  type="text"
-                  label="Email"
-                  icon="envelope"
-                  placeholder="Email Address"
-                  onChange={e => this.setState({ email: e.target.value })}
-                />
-                <Input
-                  type="password"
-                  label="Password"
-                  icon="lock"
-                  placeholder="Password"
-                  onChange={e => this.setState({ password: e.target.value })}
-                />
-                <Button type="submit" loading={loading}>
-                  Submit
-                </Button>
-                <p>
-                  Need an account? <Link to="/sign_up">Sign up now!</Link>
-                </p>
-              </FormContainer>
-            </FormWrapper>
-            <InfoBoxComponent />
-          </ActionsWrapper>
-        </PageWrapper>
-			</Layout>
+        <Layout auth fullScreen>
+          <PageWrapper>
+            <Block />
+            <FadedBlock />
+            <ActionsWrapper>
+              <FormWrapper>
+                <FormContainer onSubmit={this.handleFormSubmit}>
+                  <FlashMessage visible={!!error.message} error>
+                    {error.message}
+                  </FlashMessage>
+                  <Input
+                    type="text"
+                    label="Email"
+                    icon="envelope"
+                    placeholder="Email Address"
+                    onChange={val => this.setState({ email: val })}
+                  />
+                  <Input
+                    type="password"
+                    label="Password"
+                    icon="lock"
+                    placeholder="Password"
+                    onChange={val => this.setState({ password: val })}
+                  />
+                  <Button type="submit" loading={loading}>
+                    Submit
+                  </Button>
+                  <p>
+                    Need an account? <Link to="/sign_up">Sign up now!</Link>
+                  </p>
+                </FormContainer>
+              </FormWrapper>
+              <InfoBoxComponent />
+            </ActionsWrapper>
+          </PageWrapper>
+        </Layout>
       </div>
     );
   }

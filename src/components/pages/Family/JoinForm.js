@@ -39,7 +39,7 @@ class JoinForm extends React.Component {
           label="Join Code"
           icon="users"
           placeholder="Enter Shared Code"
-          onChange={e => this.setState({ join_code: e.target.value })}
+          onChange={val => this.setState({ join_code: val })}
         />
         <Button type="submit" loading={loading}>
           Submit

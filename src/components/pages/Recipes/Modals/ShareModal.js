@@ -5,7 +5,12 @@ import { API_URL, token, userId } from "utils";
 import Modal from "components/common/Modal/Modal";
 import ModalInput from "components/common/ModalInput/ModalInput";
 import Button from "components/common/Button/Button";
-import { ModalText, ButtonContainer, FormContainer, FormWrapper } from './ModalStyledComponents';
+import {
+  ModalText,
+  ButtonContainer,
+  FormContainer,
+  FormWrapper
+} from "./ModalStyledComponents";
 
 const authToken = `Bearer ${token}`;
 
@@ -18,8 +23,7 @@ class ShareModal extends React.Component {
     sharedFamilyId: ""
   };
 
-  onCodeFieldChange = e => {
-    const code = e.target.value;
+  onCodeFieldChange = code => {
     if (code && code.length >= 3) {
       this.setState({ loading: true, joinCode: code }, () => {
         axios
