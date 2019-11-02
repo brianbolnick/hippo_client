@@ -8,11 +8,11 @@ import FlashMessage from "components/common/FlashMessage";
 import FileInput from "components/common/FileInput";
 import Input from "./Input";
 import TextArea from "./TextArea";
+import Dropdown from "./Dropdown";
 import Button from "components/common/Button";
 import ProgressSteps from "components/common/ProgressSteps";
 
 const TOTAL_STEPS = 5;
-const AVAILABLE_TIMES = ["Mins", "Hrs", "Days"];
 
 const Title = styled.div`
   font-size: 1.5rem;
@@ -27,8 +27,8 @@ const Title = styled.div`
 `;
 
 const StepContainer = styled.div`
-  ${({ isHidden }) =>
-    isHidden &&
+  ${({ active }) =>
+    !active &&
     `
 		display: none;
 	`};
@@ -180,65 +180,92 @@ class NewRecipe extends Component {
   };
 
   renderCategories = () => {
-    return (
+    const list =
       this.state.categories &&
       this.state.categories.map(category => {
-        return (
-          <option key={`category|${category.id}`} value={category.id}>
-            {category.name}
-          </option>
-        );
-      })
+        return {
+          id: category.id,
+          title: category.name,
+          selected: this.state.category_id === category.id,
+          key: "category"
+        };
+      });
+
+    return (
+      <Dropdown
+        placeholder="Category"
+        onChange={item => this.setState({ category_id: item.id })}
+        items={list}
+        label="Category"
+      />
     );
   };
 
   renderDishTypes = () => {
-    return (
+    const list =
       this.state.dishTypes &&
       this.state.dishTypes.map(dishType => {
-        return (
-          <option key={`dishType|${dishType.id}`} value={dishType.id}>
-            {dishType.name}
-          </option>
-        );
-      })
+        return {
+          id: dishType.id,
+          title: dishType.name,
+          selected: this.state.dishType_id === dishType.id,
+          key: "dishType"
+        };
+      });
+
+    return (
+      <Dropdown
+        placeholder="Dish Type"
+        onChange={item => this.setState({ dish_type_id: item.id })}
+        items={list}
+        label="Dish Type"
+      />
     );
   };
 
   renderDifficulty = () => {
     const difficulties = [
-      { name: "Easy", value: 1 },
-      { name: "Medium", value: 2 },
-      { name: "Difficult", value: 3 }
+      { name: "Easy", id: 1 },
+      { name: "Medium", id: 2 },
+      { name: "Difficult", id: 3 }
     ];
-    return difficulties.map(diff => {
-      return (
-        <option key={`difficulty|${diff.name}`} value={diff.value}>
-          {diff.name}
-        </option>
-      );
+    const list = difficulties.map(diff => {
+      return {
+        id: diff.id,
+        title: diff.name,
+        selected: this.state.difficulty === diff.id,
+        key: "difficulty"
+      };
     });
-  };
 
-  renderTimes = () => {
-    return AVAILABLE_TIMES.map(time => {
-      return (
-        <option key={time} value={time}>
-          {" "}
-          {time}{" "}
-        </option>
-      );
-    });
+    return (
+      <Dropdown
+        placeholder="Dish Difficulty"
+        onChange={item => this.setState({ difficulty: item.id })}
+        items={list}
+        label="Difficulty"
+      />
+    );
   };
 
   renderServings = () => {
-    return [...Array(10).keys()].map(x => {
-      return (
-        <option key={`serving|${x + 1}`} value={x + 1}>
-          {x + 1}
-        </option>
-      );
+    const list = [...Array(10)].map((serving, index) => {
+      return {
+        id: index + 1,
+        title: index + 1,
+        selected: this.state.servings === index + 1,
+        key: "serving"
+      };
     });
+
+    return (
+      <Dropdown
+        placeholder="Serving Size"
+        onChange={item => this.setState({ servings: item })}
+        items={list}
+        label="Serving Size"
+      />
+    );
   };
 
   deleteIngredient = ing => {
@@ -312,7 +339,7 @@ class NewRecipe extends Component {
 
   renderStep1 = active => {
     return (
-      <StepContainer isHidden={!active}>
+      <StepContainer active={active}>
         <Title>What is it?</Title>
         <Columns>
           <Column flex={1}>
@@ -346,22 +373,49 @@ class NewRecipe extends Component {
 
   renderStep2 = active => {
     return (
-      <StepContainer isHidden={!active}>
+      <StepContainer active={active}>
         <Title>Tell me more.</Title>
-        <div>Prep Time</div>
-        <div>Cook Time</div>
-        <div>Servings</div>
-        <div>Calories</div>
-        <div>category</div>
-        <div>dish type</div>
-        <div>difficulty</div>
+        <Columns>
+          <Column flex={1}>
+            <div>Cook Time</div>
+
+            <Input
+              type="text"
+              placeholder="Prep Time"
+              onChange={e => this.setState({ prep_time: e.target.value })}
+              label="Prep Time"
+              value={this.state.prep_time}
+            />
+            <Input
+              type="text"
+              placeholder="Cook Time"
+              onChange={e => this.setState({ cook_time: e.target.value })}
+              label="Cook Time"
+              value={this.state.cook_time}
+            />
+            <Input
+              type="text"
+              placeholder="Calories"
+              onChange={e => this.setState({ calories: e.target.value })}
+              label="Calories"
+              value={this.state.calories}
+            />
+          </Column>
+
+          <Column flex={1}>
+            {this.renderCategories()}
+            {this.renderDishTypes()}
+            {this.renderServings()}
+            {this.renderDifficulty()}
+          </Column>
+        </Columns>
       </StepContainer>
     );
   };
 
   renderStep3 = active => {
     return (
-      <StepContainer isHidden={!active}>
+      <StepContainer active={active}>
         <Title>What's in it?</Title>
         <div>Ingredients</div>
       </StepContainer>
@@ -370,7 +424,7 @@ class NewRecipe extends Component {
 
   renderStep4 = active => {
     return (
-      <StepContainer isHidden={!active}>
+      <StepContainer active={active}>
         <Title>How is it made?</Title>
         <div>directions</div>
       </StepContainer>
@@ -379,7 +433,7 @@ class NewRecipe extends Component {
 
   renderStep5 = active => {
     return (
-      <StepContainer isHidden={!active}>
+      <StepContainer active={active}>
         <Title>Preview</Title>
 
         <div>Preview recipe</div>
