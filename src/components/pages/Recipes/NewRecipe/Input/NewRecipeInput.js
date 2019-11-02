@@ -6,23 +6,20 @@ import Icon from "components/common/Icon/Icon";
 
 const StyledInput = styled.input`
   color: ${colors.black};
-  border-style: solid;
-  padding: 0 1rem;
   transition: background-color 0.15s, border-color 0.15s;
-  border: ${({ inputState }) =>
+  border: none;
+  border-bottom: ${({ inputState }) =>
     inputState === "error"
       ? `solid 2px ${colors.darkRed}`
       : inputState === "success"
       ? `solid 2px ${colors.green}`
       : `solid 1px ${colors.lightGray}`};
-  height: 2.75em;
-  line-height: 2.4em;
-  border-radius: 4px;
-  font-size: 1em;
+  height: 1.75em;
+  font-size: 2em;
+  font-weight: 600;
   background-color: #fff;
   max-width: 100%;
   width: 100%;
-  //min-width: 100px;
 
   ${({ icon }) =>
     icon &&
@@ -36,15 +33,19 @@ const StyledInput = styled.input`
       inputState === "success" ? colors.green : colors.red};
     background-color: ${colors.white};
   }
+
+  &::placeholder {
+    font-weight: 200;
+    font-size: 16px;
+  }
 `;
 
 const Container = styled.div`
   display: flex;
   width: 100%;
-  margin-bottom: 15px;
-  margin-top: 8px;
+  margin: 24px 0;
   position: relative;
-  //min-width: 136px;
+  flex-flow: column;
 `;
 
 const StyledIcon = styled(Icon)`
@@ -70,6 +71,9 @@ const StyledIcon = styled(Icon)`
 const Wrapper = styled.div``;
 
 const Label = styled.label`
+  margin-top: 8px;
+  text-transform: uppercase;
+  font-size: 12px;
   font-family: ${avenir};
 `;
 
@@ -112,7 +116,6 @@ class Input extends React.Component {
 
     return (
       <Wrapper {...this.props}>
-        {label && <Label>{label}</Label>}
         <Container>
           {this.renderIcon()}
           <StyledInput
@@ -125,6 +128,7 @@ class Input extends React.Component {
             onBlur={() => this.setState({ focus: false })}
             {...this.props}
           />
+          {label && <Label>{label}</Label>}
         </Container>
       </Wrapper>
     );

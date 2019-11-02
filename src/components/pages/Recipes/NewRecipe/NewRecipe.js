@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { Component } from "react";
 import styled from "styled-components";
 import { colors, avenir, media } from "styles/css-variables";
 import Layout from "components/common/Layout";
 import FileInput from "components/common/FileInput";
+import Input from "./Input";
+import TextArea from "./TextArea";
 import Button from "components/common/Button";
-import Input from "components/common/Input";
-import Textarea from "components/common/Textarea";
 import ProgressSteps from "components/common/ProgressSteps";
 
 const TOTAL_STEPS = 5;
@@ -22,7 +22,13 @@ const Title = styled.div`
   font-family: ${avenir};
 `;
 
-const StepContainer = styled.div``;
+const StepContainer = styled.div`
+  ${({ isHidden }) =>
+    isHidden &&
+    `
+		display: none;
+	`};
+`;
 
 const Columns = styled.div`
   display: flex;
@@ -44,7 +50,7 @@ const Column = styled.div`
 	`};
 
   &:not(:last-child) {
-    margin-right: 32px;
+    margin-right: 48px;
   }
 `;
 
@@ -58,71 +64,64 @@ const ActionButton = styled(Button)`
 `;
 
 const PageContainer = styled.div`
-  padding: 0 16%;
+  padding: 0 12%;
 
   ${media.smallDesktop`
 		padding: 0;
 	`}
 `;
 
-const NewRecipe = () => {
-  const [image, setImage] = useState(null);
-  const [title, setTitle] = useState("");
-  const [notes, setNotes] = useState("");
-  const [imageUrl, setImageUrl] = useState("");
-  const [currentStep, setCurrentStep] = useState(1);
+class NewRecipe extends Component {
+  state = { image: null, title: "", notes: "", imageUrl: "", currentStep: 1 };
 
-  const handleUploadImage = e => {
+  componentDidMount = () => {
+    console.log(this.state);
+  };
+
+  handleUploadImage = e => {
     const image = e.target.files[0];
     const reader = new FileReader();
     reader.onloadend = () => {
       const imageUrl = reader.result;
-      setImageUrl(imageUrl);
+      this.setState({ imageUrl });
     };
 
     image && reader.readAsDataURL(image);
 
-    setImage(image);
+    this.setState({ image });
   };
 
-  const removeImage = () => {
-    setImage(null);
+  removeImage = () => {
     this.setState({ image: null });
   };
 
-  const STEP_MAP = {
-    1: () => <Step1 />,
-    2: () => <Step2 />,
-    3: () => <Step3 />,
-    4: () => <Step4 />,
-    5: () => <Step5 />
-  };
-
-  const Step1 = () => {
+  renderStep1 = active => {
     return (
-      <StepContainer>
+      <StepContainer isHidden={!active}>
         <Title>What is it?</Title>
         <Columns>
           <Column flex={1}>
             <Input
               type="text"
-              placeholder="Title"
-              onChange={val => setTitle(title)}
+              placeholder="What's it called?"
+              onChange={e => this.setState({ title: e.target.value })}
               label="Recipe Title"
+              value={this.state.title}
             />
-            <Textarea
-              placeholder="Notes"
+            <TextArea
+              placeholder="What's special about it?"
               label="Notes"
-              onChange={val => setNotes(notes)}
+              onChange={e => this.setState({ notes: e.target.value })}
+              value={this.state.notes}
             />
           </Column>
 
           <Column flex={1.5}>
             <FileInput
-              onChange={handleUploadImage}
-              file={image}
-              onClear={removeImage}
-              imageUrl={imageUrl}
+              onChange={this.handleUploadImage}
+              file={this.state.image}
+              onClear={this.removeImage}
+              imageUrl={this.state.imageUrl}
             />
           </Column>
         </Columns>
@@ -130,9 +129,9 @@ const NewRecipe = () => {
     );
   };
 
-  const Step2 = () => {
+  renderStep2 = active => {
     return (
-      <StepContainer>
+      <StepContainer isHidden={!active}>
         <Title>Tell me more.</Title>
         <div>Prep Time</div>
         <div>Cook Time</div>
@@ -145,27 +144,27 @@ const NewRecipe = () => {
     );
   };
 
-  const Step3 = () => {
+  renderStep3 = active => {
     return (
-      <StepContainer>
+      <StepContainer isHidden={!active}>
         <Title>What's in it?</Title>
         <div>Ingredients</div>
       </StepContainer>
     );
   };
 
-  const Step4 = () => {
+  renderStep4 = active => {
     return (
-      <StepContainer>
+      <StepContainer isHidden={!active}>
         <Title>How is it made?</Title>
         <div>directions</div>
       </StepContainer>
     );
   };
 
-  const Step5 = () => {
+  renderStep5 = active => {
     return (
-      <StepContainer>
+      <StepContainer isHidden={!active}>
         <Title>Preview</Title>
 
         <div>Preview recipe</div>
@@ -173,45 +172,50 @@ const NewRecipe = () => {
     );
   };
 
-  const renderCurrentStepView = () => {
-    const component = STEP_MAP[currentStep];
-    return <>{component()}</>;
+  submitRecipe = () => {
+    console.log("submit", this.state);
   };
 
-  const submitRecipe = () => {
-    console.log("submit");
-  };
+  render() {
+    const { currentStep } = this.state;
 
-  return (
-    <Layout>
-      <PageContainer>
-        <ProgressSteps
-          step={currentStep}
-          totalSteps={TOTAL_STEPS}
-          title="New Recipe"
-          color={colors.blue}
-        />
-        {renderCurrentStepView()}
-        <StepOptions>
-          {currentStep > 1 && (
-            <ActionButton
-              secondary
-              onClick={() => setCurrentStep(currentStep - 1)}
-            >
-              Back
-            </ActionButton>
-          )}
-          {currentStep === TOTAL_STEPS ? (
-            <ActionButton onClick={submitRecipe}>Finish</ActionButton>
-          ) : (
-            <ActionButton onClick={() => setCurrentStep(currentStep + 1)}>
-              Next
-            </ActionButton>
-          )}
-        </StepOptions>
-      </PageContainer>
-    </Layout>
-  );
-};
+    return (
+      <Layout>
+        <PageContainer>
+          <ProgressSteps
+            step={currentStep}
+            totalSteps={TOTAL_STEPS}
+            title="New Recipe"
+            color={colors.softRed}
+          />
+          {this.renderStep1(currentStep === 1)}
+          {this.renderStep2(currentStep === 2)}
+          {this.renderStep3(currentStep === 3)}
+          {this.renderStep4(currentStep === 4)}
+          {this.renderStep5(currentStep === 5)}
+          <StepOptions>
+            {currentStep > 1 && (
+              <ActionButton
+                secondary
+                onClick={() => this.setState({ currentStep: currentStep - 1 })}
+              >
+                Back
+              </ActionButton>
+            )}
+            {currentStep === TOTAL_STEPS ? (
+              <ActionButton onClick={this.submitRecipe}>Finish</ActionButton>
+            ) : (
+              <ActionButton
+                onClick={() => this.setState({ currentStep: currentStep + 1 })}
+              >
+                Next
+              </ActionButton>
+            )}
+          </StepOptions>
+        </PageContainer>
+      </Layout>
+    );
+  }
+}
 
 export default NewRecipe;
