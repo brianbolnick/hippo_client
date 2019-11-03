@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import styled from "styled-components";
 import axios from "axios";
 import { token, userId, familyId, API_URL } from "utils";
-import { colors, avenir, media } from "styles/css-variables";
+import { colors, avenir, media, raleway } from "styles/css-variables";
 import Layout from "components/common/Layout";
 import FlashMessage from "components/common/FlashMessage";
 import Icon from "components/common/Icon/Icon";
@@ -13,6 +13,7 @@ import Input from "./Input";
 import TextArea from "./TextArea";
 import Dropdown from "./Dropdown";
 import AddIngredientForm from "./AddIngredientForm";
+import AddableInput from "./AddableInput";
 
 const TOTAL_STEPS = 5;
 
@@ -126,6 +127,39 @@ export const Ingredient = styled.div`
     border-bottom: solid 1px ${colors.mutedGray};
     //box-shadow: 0 16px 38px -12px rgba(0, 0, 0, 0.56),
     //0 4px 25px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
+  }
+`;
+
+const Step = styled.div`
+  letter-spacing: 1px;
+  width: 100%;
+  display: flex;
+  flex-flow: column;
+  box-sizing: border-box;
+  border-radius: 2px;
+  font-family: ${avenir};
+  font-weight: 500;
+  flex-flow: row;
+  span {
+    font-weight: 500;
+    color: ${colors.black};
+    font-size: 2rem;
+    margin-bottom: 16px;
+    font-family: ${raleway};
+    margin-right: 24px;
+  }
+`;
+
+const DirectionsContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  padding: 16px;
+  transition: 0.1s;
+  margin-bottom: 32px;
+  &:hover {
+    border-radius: 8px;
+    box-shadow: 0 15px 5px -11px rgba(0, 0, 0, 0.26),
+      0 4px 25px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
   }
 `;
 
@@ -359,29 +393,27 @@ class NewRecipe extends Component {
     );
   };
 
-  //renderSteps = () => {
-  //const { steps } = this.state;
-  //return steps.length
-  //? steps.map((step, index) => {
-  //return (
-  //<TempDirection
-  //key={JSON.stringify(step)}
-  //style={{ alignItems: "center" }}
-  //>
-  //<span>{index + 1}</span>
-  //<TempDirectionContainer>
-  //<div>{step}</div>
-  //<DeleteIcon
-  //name="close"
-  //onClick={() => this.deleteStep(step)}
-  //clear
-  ///>
-  //</TempDirectionContainer>
-  //</TempDirection>
-  //);
-  //})
-  //: null;
-  //};
+  renderSteps = () => {
+    const { steps } = this.state;
+
+    return (
+      steps &&
+      steps.map((step, index) => {
+        return (
+          <DirectionsContainer>
+            <Step key={`dir|${index}`}>
+              <span>{index + 1}</span> {step}
+            </Step>
+            <DeleteIcon
+              name="close"
+              onClick={() => this.deleteStep(step)}
+              clear
+            />
+          </DirectionsContainer>
+        );
+      })
+    );
+  };
 
   handleUploadImage = e => {
     const image = e.target.files[0];
@@ -490,7 +522,12 @@ class NewRecipe extends Component {
     return (
       <StepContainer active={active}>
         <Title>How is it made?</Title>
-        <div>directions</div>
+        <AddableInput
+          onAddClick={this.handleAddSteps}
+          label="Directions"
+          placeholder="Click + to add a new step"
+        />
+        {this.renderSteps()}
       </StepContainer>
     );
   };
