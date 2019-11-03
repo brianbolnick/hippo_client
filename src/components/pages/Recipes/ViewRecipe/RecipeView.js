@@ -55,18 +55,10 @@ const Recipe = ({ recipe }) => {
     );
   };
 
-  //TODO
   const renderFamilyName = () => {
-    return "Some Family Name";
-    //const { family } = recipe;
-    //return family && family.display_name;
+    const { family } = recipe;
+    return family && family.display_name;
   };
-
-  //const formatTime = time => {
-  //const tempTimeArr = time.split(" ");
-  //const formattedDuration = timeShortener(tempTimeArr[1]);
-  //return `${tempTimeArr[0]} ${formattedDuration}`;
-  //};
 
   return (
     <Container>
@@ -85,8 +77,12 @@ const Recipe = ({ recipe }) => {
             color={colors.black}
           />
           <CategoryMeta>
-            <Category>{"Category"}</Category>
-            <DishType>{"Dish Type"}</DishType>
+            <Category>
+              {(recipe.category && recipe.category.name) || "Category"}
+            </Category>
+            <DishType>
+              {(recipe.dish_type && recipe.dish_type.name) || "Dish Type"}
+            </DishType>
           </CategoryMeta>
         </CategoryContainer>
         <TimeContainer>

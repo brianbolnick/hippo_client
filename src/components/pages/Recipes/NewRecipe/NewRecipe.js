@@ -64,14 +64,21 @@ class NewRecipe extends Component {
     });
   };
 
+  getFamily = () => {
+    return axios.get(`${API_URL}/family/${familyId}`, {
+      headers: { Authorization: `Bearer ${token}` }
+    });
+  };
+
   componentDidMount = () => {
     axios
-      .all([this.getCategories(), this.getDishTypes()])
+      .all([this.getCategories(), this.getDishTypes(), this.getFamily()])
       .then(
-        axios.spread((categoryData, dishTypeData) => {
+        axios.spread((categoryData, dishTypeData, familyData) => {
           const categories = categoryData.data.data;
           const dishTypes = dishTypeData.data.data;
-          this.setState({ categories, dishTypes });
+          const family = familyData.data.data;
+          this.setState({ categories, dishTypes, family });
         })
       )
       .catch(err => {
@@ -400,47 +407,26 @@ class NewRecipe extends Component {
   };
 
   renderStep5 = active => {
-    //const {
-    //title,
-    //prep_time,
-    //cook_time,
-    //calories,
-    //servings,
-    //difficulty,
-    //ingredients,
-    //steps,
-    //family_id,
-    //user_id,
-    //category_id,
-    //dish_type_id,
-    //notes,
-    //imageUrl
-    //} = this.state
+    const {
+      image,
+      currentStep,
+      error,
+      loading,
+      categories,
+      dishTypes,
+      ...recipe
+    } = this.state;
 
-    const { image, currentStep, error, loading, ...recipe } = this.state;
-
-    //const recipe = {
-    //title,
-    //prep_time,
-    //cook_time,
-    //calories,
-    //servings,
-    //difficulty,
-    //ingredients,
-    //steps,
-    //family_id,
-    //user_id,
-    //category_id,
-    //dish_type_id,
-    //notes,
-    //imageUrl
-    //}
+    const category =
+      categories && categories.find(cat => cat.id === recipe.category_id);
+    const dish_type =
+      dishTypes && dishTypes.find(dt => dt.id === recipe.dish_type_id);
 
     return (
       <StepContainer active={active}>
         <Title>Preview</Title>
 
-        <RecipePreview recipe={recipe} />
+        <RecipePreview recipe={{ ...recipe, category, dish_type }} />
       </StepContainer>
     );
   };
