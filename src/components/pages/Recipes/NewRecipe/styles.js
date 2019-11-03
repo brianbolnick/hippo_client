@@ -90,16 +90,6 @@ export const PageContainer = styled.div`
 	`}
 `;
 
-//export const IngredientsContainer = styled.div`
-//margin-bottom: 32px;
-//`;
-
-//export const IngredientsWrapper = styled.ul`
-//display: flex;
-//flex-wrap: wrap;
-//padding-left: 18px;
-//`;
-
 export const Ingredient = styled.div`
   width: 100%;
   margin-bottom: 12px;
@@ -112,8 +102,6 @@ export const Ingredient = styled.div`
   &:hover {
     padding-bottom: 1px;
     border-bottom: solid 1px ${colors.mutedGray};
-    //box-shadow: 0 16px 38px -12px rgba(0, 0, 0, 0.56),
-    //0 4px 25px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
   }
 `;
 

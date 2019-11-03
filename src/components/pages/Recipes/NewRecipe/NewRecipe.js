@@ -6,6 +6,7 @@ import Layout from "components/common/Layout";
 import FlashMessage from "components/common/FlashMessage";
 import FileInput from "components/common/FileInput";
 import ProgressSteps from "components/common/ProgressSteps";
+import RecipePreview from "components/pages/Recipes/ViewRecipe/RecipeView";
 import Input from "./Input";
 import TextArea from "./TextArea";
 import Dropdown from "./Dropdown";
@@ -399,11 +400,47 @@ class NewRecipe extends Component {
   };
 
   renderStep5 = active => {
+    //const {
+    //title,
+    //prep_time,
+    //cook_time,
+    //calories,
+    //servings,
+    //difficulty,
+    //ingredients,
+    //steps,
+    //family_id,
+    //user_id,
+    //category_id,
+    //dish_type_id,
+    //notes,
+    //imageUrl
+    //} = this.state
+
+    const { image, currentStep, error, loading, ...recipe } = this.state;
+
+    //const recipe = {
+    //title,
+    //prep_time,
+    //cook_time,
+    //calories,
+    //servings,
+    //difficulty,
+    //ingredients,
+    //steps,
+    //family_id,
+    //user_id,
+    //category_id,
+    //dish_type_id,
+    //notes,
+    //imageUrl
+    //}
+
     return (
       <StepContainer active={active}>
         <Title>Preview</Title>
 
-        <div>Preview recipe</div>
+        <RecipePreview recipe={recipe} />
       </StepContainer>
     );
   };

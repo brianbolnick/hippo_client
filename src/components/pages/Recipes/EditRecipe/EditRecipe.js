@@ -27,7 +27,7 @@ import {
   StepsContainer,
   TempDirection,
   TempIngredient,
-  TempIngredientsContainer,
+  TempIngredientsContainer
 } from "../NewRecipe/NewRecipeStyledComponents";
 
 const AVAILABLE_TIMES = ["Mins", "Hrs", "Days"];
