@@ -87,44 +87,50 @@ class NewRecipe extends Component {
       });
   };
 
-  //handleSubmit = e => {
-  //e.preventDefault();
+  handleSubmit = e => {
+    e.preventDefault();
 
-  //this.setState({ loading: true });
-  //const data = new FormData();
+    this.setState({ loading: true });
+    const data = new FormData();
 
-  //const stateData = { ...this.state };
-  //delete stateData.loading;
-  //delete stateData.error;
-  //delete stateData.categories;
-  //delete stateData.dishTypes;
-  //delete stateData.showMobile;
-  //Object.keys(stateData).forEach(obj => {
-  //const val = stateData[obj];
-  //if (val instanceof Array) {
-  //data.append(obj, JSON.stringify(val));
-  //} else {
-  //data.append(obj, val);
-  //}
-  //});
+    const {
+      currentStep,
+      error,
+      loading,
+      categories,
+      dishTypes,
+      family,
+      imageUrl,
+      ...recipe
+    } = this.state;
 
-  //const authToken = `Bearer ${token}`;
-  //axios
-  //.post(`${API_URL}/recipes`, data, {
-  //headers: { Authorization: authToken }
-  //})
-  //.then(resp => {
-  //const id = resp.data.data.id;
-  //window.location.replace(`/recipes/${id}`);
-  //})
-  //.catch(err => {
-  //console.log(err);
-  //this.setState({
-  //error: { message: "Something went wrong. Please try again." },
-  //loading: false
-  //});
-  //});
-  //};
+    Object.keys(recipe).forEach(obj => {
+      const val = recipe[obj];
+      if (val instanceof Array) {
+        data.append(obj, JSON.stringify(val));
+      } else {
+        data.append(obj, val);
+      }
+    });
+
+    const authToken = `Bearer ${token}`;
+    axios
+      .post(`${API_URL}/recipes`, data, {
+        headers: { Authorization: authToken }
+      })
+      .then(resp => {
+        const id = resp.data.data.id;
+        window.location.replace(`/recipes/${id}`);
+      })
+      .catch(err => {
+        console.log(err);
+        this.setState({
+          error: { message: "Something went wrong. Please try again." },
+          loading: false
+        });
+      });
+  };
+
   handleAddIngredients = ing => {
     if (ing) {
       const ingredients = [...this.state.ingredients];
@@ -223,7 +229,7 @@ class NewRecipe extends Component {
     return (
       <Dropdown
         placeholder="Serving Size"
-        onChange={item => this.setState({ servings: item })}
+        onChange={item => this.setState({ servings: item.id })}
         items={list}
         label="Serving Size"
       />
@@ -431,12 +437,8 @@ class NewRecipe extends Component {
     );
   };
 
-  submitRecipe = () => {
-    console.log("submit", this.state);
-  };
-
   render() {
-    const { currentStep, error } = this.state;
+    const { currentStep, error, loading } = this.state;
 
     return (
       <Layout>
@@ -465,7 +467,9 @@ class NewRecipe extends Component {
               </ActionButton>
             )}
             {currentStep === TOTAL_STEPS ? (
-              <ActionButton onClick={this.submitRecipe}>Finish</ActionButton>
+              <ActionButton onClick={this.handleSubmit} loading={loading}>
+                Finish
+              </ActionButton>
             ) : (
               <ActionButton
                 onClick={() => this.setState({ currentStep: currentStep + 1 })}
