@@ -61,7 +61,7 @@ class SignIn extends React.Component {
     const { loading, error } = this.state;
     return (
       <div style={{ height: "100%" }}>
-        <Layout auth fullScreen>
+        <Layout auth fullScreen hideFooter>
           <PageWrapper>
             <Block />
             <FadedBlock />

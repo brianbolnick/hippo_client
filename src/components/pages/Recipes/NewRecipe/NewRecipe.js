@@ -441,7 +441,7 @@ class NewRecipe extends Component {
     const { currentStep, error, loading } = this.state;
 
     return (
-      <Layout>
+      <Layout hideFooter>
         <FlashMessage visible={!!error.message} error>
           {error.message}
         </FlashMessage>

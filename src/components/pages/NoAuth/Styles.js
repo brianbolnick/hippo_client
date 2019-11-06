@@ -53,40 +53,6 @@ export const CurveSection = styled.section`
 	`};
 `;
 
-export const Footer = styled.div`
-  background: ${colors.lightGray};
-  height: 200px;
-  padding: 64px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 32px;
-  height: 100%;
-  ${media.phone`
-	padding: 32px;
-	`};
-`;
-
-export const FooterLinks = styled.div`
-  display: flex;
-  flex-flow: column;
-  height: 100%;
-  a {
-    color: ${colors.black};
-    font-size: 1.7rem;
-    transition: all 0.2s ease;
-    margin: 10px 0;
-    text-decoration: none;
-    width: 100%;
-    text-align: center;
-    font-weight: 600;
-    &:hover {
-      color: ${colors.red};
-      transition: all 0.2s ease;
-    }
-  }
-`;
-
 export const Block = styled.div`
   width: 1500px;
   height: 1500px;

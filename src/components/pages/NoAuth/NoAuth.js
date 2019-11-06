@@ -1,21 +1,17 @@
 import React from "react";
-import { NewLogo } from "styles/css-variables";
 import {
   Description,
   Actions,
   Hero,
   Curve,
-  Footer,
   Content,
   Header,
   Title,
   DemoContainer,
   SubDescriptionContainer,
   DescriptionTitle,
-  FooterLinks,
   CurveSection
 } from "./Styles";
-import { Brand, BrandImage } from "components/common/Nav/NavStyles";
 import Layout from "components/common/Layout/Layout";
 import Button from "components/common/Button/Button";
 import { Link } from "react-router-dom";
@@ -96,20 +92,6 @@ class NoAuth extends React.Component {
 					<section style={{ position: "relative", top: "1200px" }}>
 						<Block />
 					</section> */}
-          <Footer>
-            <Brand>
-              <BrandImage src={NewLogo} alt="" />
-            </Brand>
-            <FooterLinks>
-              <a
-                href="mailto:brianbolnick+web@gmail.com"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Contact
-              </a>
-            </FooterLinks>
-          </Footer>
         </Content>
       </Layout>
     );

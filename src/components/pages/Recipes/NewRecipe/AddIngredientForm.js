@@ -1,7 +1,13 @@
 import React, { useState } from "react";
 import Button from "components/common/Button/Button";
 import { colors } from "styles/css-variables";
-import { AddIngredientContainer, AddIngredientLabel, StyledSelect, StyledInput } from './NewRecipeStyledComponents';
+import {
+  AddIngredientContainer,
+  AddIngredientLabel,
+  StyledSelect,
+  StyledInput
+} from "./NewRecipeStyledComponents";
+//import StyledInput from "./Input";
 
 const MEASUREMENTS = [
   "tsp",

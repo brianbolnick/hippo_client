@@ -7,18 +7,22 @@ import Icon from "components/common/Icon/Icon";
 const StyledTextarea = styled.textarea`
   color: ${colors.black};
   transition: background-color 0.15s, border-color 0.15s;
-  border: ${({ inputState }) =>
+  border: none;
+  border-bottom: ${({ inputState }) =>
     inputState === "error"
       ? `solid 2px ${colors.darkRed}`
+      : inputState === "success"
+      ? `solid 2px ${colors.green}`
       : `solid 1px ${colors.lightGray}`};
+  height: 1.75em;
+  //font-size:2em;
+  //font-weight: 600;
+  font-size: 1.25rem;
+  font-weight: 400;
+
   background-color: #fff;
   max-width: 100%;
   width: 100%;
-  height: 10em;
-  padding: 0.75rem;
-  box-sizing: border-box;
-  font-size: 1rem;
-  font-weight: 400;
 
   ${({ icon }) =>
     icon &&
@@ -28,12 +32,14 @@ const StyledTextarea = styled.textarea`
 
   &:focus {
     outline: none;
-    border-color: ${colors.red};
+    border-color: ${({ inputState }) =>
+      inputState === "success" ? colors.green : colors.red};
     background-color: ${colors.white};
   }
 
   &::placeholder {
     font-weight: 200;
+    font-size: 16px;
   }
 `;
 
