@@ -1,3 +1,5 @@
+import client from "../apolloClient";
+
 let backendHost;
 const apiVersion = "v1";
 
@@ -18,6 +20,7 @@ export const token = localStorage.getItem("auth_token");
 export const signOut = () => {
   localStorage.removeItem("jwt");
   localStorage.removeItem("auth_token");
+  client.resetStore();
   window.location.replace("/");
 };
 
@@ -46,8 +49,10 @@ export const handleNetworkErrors = err => {
 };
 
 export const timeShortener = timeString => {
+  if (!timeString) return "";
   const normalizedTimeString = timeString.toLowerCase();
-  if (normalizedTimeString === "minutes") return "Mins";
-  if (normalizedTimeString === "minutes") return "Mins";
+  if (normalizedTimeString === "minutes") return "Min";
+  if (normalizedTimeString === "seconds") return "Sec";
+  if (normalizedTimeString === "hours") return "Hr";
   return timeString;
 };

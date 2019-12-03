@@ -6,6 +6,8 @@ import { BrowserRouter as Router } from "react-router-dom";
 import { createGlobalStyle } from "styled-components";
 import AvenirNext from "fonts/AvenirNext.otf";
 import AvenirNextBold from "fonts/AvenirNextBold.otf";
+import { ApolloProvider } from "@apollo/react-hooks";
+import client from "./apolloClient";
 
 const GlobalStyles = createGlobalStyle`
 	@font-face {
@@ -42,7 +44,9 @@ ReactDOM.render(
   <Router>
     <>
       <GlobalStyles />
-      <App />
+      <ApolloProvider client={client}>
+        <App />
+      </ApolloProvider>
     </>
   </Router>,
   document.getElementById("root")

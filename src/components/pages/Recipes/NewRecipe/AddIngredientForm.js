@@ -31,12 +31,13 @@ const AddIngredientForm = ({ onSave }) => {
   const [error, setError] = useState("");
 
   const handleAdd = e => {
+    //TODO add focus on first form after submit
     e.preventDefault();
-    onSave({
-      quantity,
-      measurement,
-      name
-    });
+    const rawIngredient = `${quantity} ${measurement} ${name}`;
+    onSave([{ quantity, measurement, name }, rawIngredient]);
+    setQuantity("");
+    setMeasurement("tsp");
+    setName("");
   };
 
   const verifyQuantity = e => {
@@ -57,18 +58,20 @@ const AddIngredientForm = ({ onSave }) => {
   };
 
   return (
-    <div style={{ marginBottom: "16px" }}>
+    <form style={{ marginBottom: "16px" }} onSubmit={handleAdd}>
       <AddIngredientLabel>Ingredients</AddIngredientLabel>
       {error && <div style={{ color: colors.red }}>{error} </div>}
       <AddIngredientContainer>
         <StyledInput
           onChange={e => verifyQuantity(e)}
           placeholder="Quantity"
+          value={quantity}
           type="text"
         />
         <StyledSelect
           onChange={e => setMeasurement(e.target.value)}
           placeholder="Measurement"
+          value={measurement}
         >
           {renderMeasurements()}
         </StyledSelect>
@@ -76,13 +79,14 @@ const AddIngredientForm = ({ onSave }) => {
         <StyledInput
           placeholder="Name"
           type="text"
+          value={name}
           onChange={e => setName(e.target.value)}
         />
       </AddIngredientContainer>
-      <Button secondary onClick={handleAdd} disabled={!!error}>
+      <Button type="submit" secondary disabled={!!error}>
         Add Ingredient
       </Button>
-    </div>
+    </form>
   );
 };
 export default AddIngredientForm;

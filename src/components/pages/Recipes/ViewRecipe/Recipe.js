@@ -1,7 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import axios from "axios";
-import { fraction, multiply } from "mathjs";
+import get from "lodash/get";
+//import { fraction, multiply } from "mathjs";
 import { API_URL, token, timeShortener } from "utils";
+import { useQuery } from "@apollo/react-hooks";
+import { gql } from "apollo-boost";
 import FlashMessage from "components/common/FlashMessage/FlashMessage";
 import Icon from "components/common/Icon/Icon";
 import Layout from "components/common/Layout/Layout";
@@ -36,50 +39,76 @@ import {
   TimeContainer,
   TimeGroup,
   TimeLabel,
-  Title,
-  Quantity
+  Title
+  //Quantity
 } from "./RecipeStyledComponents";
-import ServingsForm from "./ServingsForm";
+//import ServingsForm from "./ServingsForm";
 
 const authToken = `Bearer ${token}`;
 
+const GET_RECIPE_QUERY = gql`
+  query recipeId($recipeId: Int!) {
+    recipeQuery(recipeId: $recipeId) {
+      calories
+      category {
+        id
+        name
+      }
+      cookTime
+      difficulty
+      dishType {
+        id
+        name
+      }
+      family {
+        id
+        displayName
+        isBeta
+      }
+      familyId
+      id
+      imageUrl
+      rawIngredients
+      isPublic
+      notes
+      prepTime
+      servings
+      steps
+      title
+      type
+      user {
+        id
+        name
+        isBeta
+      }
+    }
+  }
+`;
+
 const Recipe = ({ match }) => {
-  const [recipe, setRecipe] = useState({});
-  const [ingredientsList, setIngredientsList] = useState([]);
+  //TODO: handle errors
+  const recipeId = parseInt(match.params.id);
+  const { data, networkStatus } = useQuery(GET_RECIPE_QUERY, {
+    variables: { recipeId }
+  });
+
+  const recipe = get(data, "recipeQuery", {});
+  const ingredients = get(recipe, "rawIngredients", []);
+  //const servings = get(recipe, "servings", 1);
+
+  //const [ingredientsList, setIngredientsList] = useState(ingredients);
+  //const [currentServings, setCurrentServings] = useState(servings);
   const [showShareModal, setShowShareModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [showMobile, setShowMobile] = useState(
     window.matchMedia("(" + tabletMediaQuery + ")").matches
   );
 
-  useEffect(() => {
-    if (!Object.keys(recipe).length) {
-      const id = match.params.id;
-      axios
-        .get(`${API_URL}/recipes/${id}`, {
-          headers: { Authorization: authToken }
-        })
-        .then(({ data, status }) => {
-          if (status === 401) {
-            window.location.replace("/401");
-          }
-          setRecipe(data.data);
-          setIngredientsList(data.data.ingredients);
-          setLoading(false);
-        })
-        .catch(err => {
-          console.log(err);
-          if (err.request.status === 401) {
-            window.location.replace("/401");
-          }
-
-          setError("Something went wrong. Please refresh and try again.");
-        });
-    }
-  }, []);
+  //useEffect(() => {
+  //ingredients.length && setIngredientsList(ingredients);
+  //}, [recipe]);
 
   const handleMediaQueryChange = ({ matches }) => {
     setShowMobile(matches);
@@ -87,18 +116,27 @@ const Recipe = ({ match }) => {
 
   const renderIngredients = () => {
     return (
-      ingredientsList &&
-      ingredientsList.map((ing, index) => {
-        const quantity = parseInt(ing.quantity) === 0 ? "" : ing.quantity;
-        return (
-          <Ingredient key={`ingredient|${index}`}>
-            <Quantity>{`${quantity} ${ing.measurement} `}</Quantity>
-            {ing.name}
-          </Ingredient>
-        );
+      ingredients &&
+      ingredients.map((ing, index) => {
+        return <Ingredient key={`ingredient|${index}`}>{ing}</Ingredient>;
       })
     );
   };
+
+  //const renderIngredients = () => {
+  //return (
+  //ingredientsList &&
+  //ingredientsList.map((ing, index) => {
+  //const quantity = parseInt(ing.quantity) === 0 ? "" : ing.quantity;
+  //return (
+  //<Ingredient key={`ingredient|${index}`}>
+  //<Quantity>{`${quantity} ${ing.measurement} `}</Quantity>
+  //{ing.name}
+  //</Ingredient>
+  //);
+  //})
+  //);
+  //};
 
   const renderSteps = () => {
     const { steps } = recipe;
@@ -117,7 +155,7 @@ const Recipe = ({ match }) => {
 
   const renderFamilyName = () => {
     const { family } = recipe;
-    return family && family.display_name;
+    return family && family.displayName;
   };
 
   const handleDeleteRecipe = () => {
@@ -156,60 +194,61 @@ const Recipe = ({ match }) => {
     return `${tempTimeArr[0]} ${formattedDuration}`;
   };
 
-  const getQuantityType = quantity => {
-    if (fraction(quantity).d === 1) return "number";
-    return "fraction";
-  };
+  //const getQuantityType = quantity => {
+  //if (fraction(quantity).d === 1) return "number";
+  //return "fraction";
+  //};
 
-  const calculateQuantity = (quantity, serving, type) => {
-    if (type === "fraction") {
-      const frac = fraction(quantity);
-      const value = multiply(frac, serving);
-      return convertImproperFraction(value);
-    }
+  //const calculateQuantity = (quantity, serving, type) => {
+  //if (type === "fraction") {
+  //const frac = fraction(quantity);
+  //const value = multiply(frac, serving);
+  //return convertImproperFraction(value);
+  //}
 
-    const num = quantity * serving;
-    return Math.round(num * 2) / 2;
-  };
+  //const num = quantity * serving;
+  //return Math.round(num * 2) / 2;
+  //};
 
-  const updateIngredients = (ingredients, newServings) => {
-    return ingredients.map(ing => {
-      const type = getQuantityType(ing.quantity);
-      const quantity = calculateQuantity(ing.quantity, newServings, type);
-      return {
-        ...ing,
-        quantity
-      };
-    });
-  };
+  //const updateIngredients = (ingredients, newServings) => {
+  //return ingredients.map(ing => {
+  //const type = getQuantityType(ing.quantity);
+  //const quantity = calculateQuantity(ing.quantity, newServings, type);
+  //return {
+  //...ing,
+  //quantity
+  //};
+  //});
+  //};
 
-  const convertImproperFraction = fraction => {
-    const numerator = fraction.n;
-    const denominator = fraction.d;
+  //const convertImproperFraction = fraction => {
+  //const numerator = fraction.n;
+  //const denominator = fraction.d;
 
-    if (numerator % denominator === 0) {
-      return numerator / denominator;
-    }
+  //if (numerator % denominator === 0) {
+  //return numerator / denominator;
+  //}
 
-    const mix = Math.floor(numerator / denominator);
-    const newNumerator = numerator % denominator;
-    return `${displayMix(mix)}${newNumerator}/${denominator}`;
-  };
+  //const mix = Math.floor(numerator / denominator);
+  //const newNumerator = numerator % denominator;
+  //return `${displayMix(mix)}${newNumerator}/${denominator}`;
+  //};
 
-  const displayMix = mix => {
-    if (mix) return `${mix} `;
-    return "";
-  };
+  //const displayMix = mix => {
+  //if (mix) return `${mix} `;
+  //return "";
+  //};
 
-  const handleServingsChange = newServings => {
-    const newIngredientsList = updateIngredients(
-      [...recipe.ingredients],
-      newServings
-    );
-    setIngredientsList(newIngredientsList);
-  };
+  //const handleServingsChange = newServings => {
+  //const newIngredientsList = updateIngredients(
+  //[...recipe.ingredients],
+  //newServings
+  //);
+  //setCurrentServings(newServings);
+  //setIngredientsList(newIngredientsList);
+  //};
 
-  return loading ? (
+  return networkStatus !== 7 ? (
     <LoadContainer>
       <img alt="" src={Loader} style={{ height: "300px", width: "300px" }} />
     </LoadContainer>
@@ -238,7 +277,7 @@ const Recipe = ({ match }) => {
         />
       )}
       <Container>
-        <ImageContainer url={recipe.image_url || ImagePlaceholder}>
+        <ImageContainer url={recipe.imageUrl || ImagePlaceholder}>
           <Title>{recipe.title}</Title>
           <FamilyName>{renderFamilyName()}</FamilyName>
         </ImageContainer>
@@ -252,16 +291,16 @@ const Recipe = ({ match }) => {
             />
             <CategoryMeta>
               <Category>{recipe.category.name || "Category"}</Category>
-              <DishType>{recipe.dish_type.name || "Dish Type"}</DishType>
+              <DishType>{recipe.dishType.name || "Dish Type"}</DishType>
             </CategoryMeta>
           </CategoryContainer>
           <TimeContainer>
             <TimeGroup>
-              <Time>{formatTime(recipe.prep_time)}</Time>
+              <Time>{formatTime(recipe.prepTime)}</Time>
               <TimeLabel>Prep</TimeLabel>
             </TimeGroup>
             <TimeGroup>
-              <Time>{formatTime(recipe.cook_time)}</Time>
+              <Time>{formatTime(recipe.cookTime)}</Time>
               <TimeLabel>Cook</TimeLabel>
             </TimeGroup>
           </TimeContainer>
@@ -298,10 +337,12 @@ const Recipe = ({ match }) => {
 
         <IngredientsContainer>
           <SubTitle>Ingredients</SubTitle>
+          {/*
           <ServingsForm
             onChange={handleServingsChange}
-            currentServings={recipe.servings}
+            currentServings={currentServings}
           />
+					*/}
           <IngredientsWrapper>{renderIngredients()}</IngredientsWrapper>
         </IngredientsContainer>
 

@@ -13,7 +13,7 @@ import Dropdown from "./Dropdown";
 import AddIngredientForm from "./AddIngredientForm";
 import AddableInput from "./AddableInput";
 import {
-  Quantity,
+  //Quantity,
   DeleteIcon,
   Notice,
   Title,
@@ -41,6 +41,7 @@ class NewRecipe extends Component {
     servings: 1,
     difficulty: 1,
     ingredients: [],
+    raw_ingredients: [],
     steps: [],
     family_id: familyId,
     user_id: userId,
@@ -113,6 +114,8 @@ class NewRecipe extends Component {
       }
     });
 
+    //recipe.raw_ingredients = this.state.ingredients;
+
     const authToken = `Bearer ${token}`;
     axios
       .post(`${API_URL}/recipes`, data, {
@@ -132,10 +135,15 @@ class NewRecipe extends Component {
   };
 
   handleAddIngredients = ing => {
-    if (ing) {
+    const [ingredient, rawIngredient] = ing;
+    console.log("ING", ingredient);
+    console.log("RAW ING", rawIngredient);
+    if (ingredient && rawIngredient) {
       const ingredients = [...this.state.ingredients];
-      ingredients.push(ing);
-      this.setState({ ingredients });
+      const raw_ingredients = [...this.state.raw_ingredients];
+      ingredients.push(ingredient);
+      raw_ingredients.push(rawIngredient);
+      this.setState({ ingredients, raw_ingredients });
     }
   };
 
@@ -238,10 +246,17 @@ class NewRecipe extends Component {
 
   deleteIngredient = ing => {
     const ingredients = [...this.state.ingredients];
+    const raw_ingredients = [...this.state.raw_ingredients];
+    const filteredIngredients = ingredients.filter(
+      x => JSON.stringify(x) !== JSON.stringify(ing)
+    );
+    const filteredRawIngredients = raw_ingredients.filter(
+      x => JSON.stringify(x) !== JSON.stringify(ing)
+    );
+
     this.setState({
-      ingredients: ingredients.filter(
-        x => JSON.stringify(x) !== JSON.stringify(ing)
-      )
+      ingredients: filteredIngredients,
+      raw_ingredients: filteredRawIngredients
     });
   };
 
@@ -251,16 +266,12 @@ class NewRecipe extends Component {
   };
 
   renderIngredients = () => {
-    const { ingredients } = this.state;
-    return ingredients.length ? (
-      ingredients.map((ing, index) => {
-        const quantity = parseInt(ing.quantity) === 0 ? "" : ing.quantity;
+    const { raw_ingredients } = this.state;
+    return raw_ingredients.length ? (
+      raw_ingredients.map((ing, index) => {
         return (
           <Ingredient key={`ingredient|${index}`}>
-            <div>
-              - <Quantity>{`${quantity} ${ing.measurement} `}</Quantity>
-              {ing.name}
-            </div>
+            <div>- {ing}</div>
             <DeleteIcon
               name="close"
               onClick={() => this.deleteIngredient(ing)}
@@ -272,6 +283,29 @@ class NewRecipe extends Component {
       <Notice>Use the field above to add ingredients!</Notice>
     );
   };
+
+  //renderIngredients = () => {
+  //const { ingredients } = this.state;
+  //return ingredients.length ? (
+  //ingredients.map((ing, index) => {
+  //const quantity = parseInt(ing.quantity) === 0 ? "" : ing.quantity;
+  //return (
+  //<Ingredient key={`ingredient|${index}`}>
+  //<div>
+  //- <Quantity>{`${quantity} ${ing.measurement} `}</Quantity>
+  //{ing.name}
+  //</div>
+  //<DeleteIcon
+  //name="close"
+  //onClick={() => this.deleteIngredient(ing)}
+  ///>
+  //</Ingredient>
+  //);
+  //})
+  //) : (
+  //<Notice>Use the field above to add ingredients!</Notice>
+  //);
+  //};
 
   renderSteps = () => {
     const { steps } = this.state;

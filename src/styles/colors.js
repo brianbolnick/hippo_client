@@ -6,6 +6,7 @@ export const yellow = "#FED766";
 //export const blue = '	#009FFD';
 //export const blue = "#3FA7D6";
 export const blue = "#009FB7";
+//export const blue = "#4D7BF3";
 //export const darkBlue = "#3489B0";
 export const darkBlue = "#0091A7";
 
@@ -65,6 +66,6 @@ export default {
   yellow,
   purple,
   primaryGradient,
-	darkPrimaryGradient,
-	disabledGradient
+  darkPrimaryGradient,
+  disabledGradient
 };

@@ -23,22 +23,31 @@ import {
   TimeContainer,
   TimeGroup,
   TimeLabel,
-  Title,
-  Quantity
+  Title
+  //Quantity
 } from "./RecipeStyledComponents";
 
 const Recipe = ({ recipe }) => {
   const renderIngredients = () => {
-    return recipe.ingredients.map((ing, index) => {
-      const quantity = parseInt(ing.quantity) === 0 ? "" : ing.quantity;
-      return (
-        <Ingredient key={`ingredient|${index}`}>
-          <Quantity>{`${quantity} ${ing.measurement} `}</Quantity>
-          {ing.name}
-        </Ingredient>
-      );
-    });
+    return (
+      recipe.raw_ingredients &&
+      recipe.raw_ingredients.map((ing, index) => {
+        return <Ingredient key={`ingredient|${index}`}>{ing}</Ingredient>;
+      })
+    );
   };
+
+  //const renderIngredients = () => {
+  //return recipe.ingredients.map((ing, index) => {
+  //const quantity = parseInt(ing.quantity) === 0 ? "" : ing.quantity;
+  //return (
+  //<Ingredient key={`ingredient|${index}`}>
+  //<Quantity>{`${quantity} ${ing.measurement} `}</Quantity>
+  //{ing.name}
+  //</Ingredient>
+  //);
+  //});
+  //};
 
   const renderSteps = () => {
     const { steps } = recipe;
