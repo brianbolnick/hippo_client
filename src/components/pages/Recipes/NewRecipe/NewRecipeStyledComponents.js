@@ -160,7 +160,7 @@ export const StyledSelect = styled(Select)`
 `;
 
 export const StyledInput = styled(Input)`
-  width: 33%;
+  width: 100%;
   & input {
     width: 100%;
   }
