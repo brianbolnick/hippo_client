@@ -91,9 +91,17 @@ class NewRecipe extends Component {
   handleSubmit = e => {
     e.preventDefault();
 
-    this.setState({ loading: true });
-    const data = new FormData();
+    if (!this.state.title || !this.state.prep_time || !this.state.cook_time) {
+      this.setState({
+        error: "Title, Prep Time, and Cook Time can't be blank."
+      });
+    } else {
+      this.submitRecipe();
+    }
+  };
 
+  submitRecipe = () => {
+    this.setState({ loading: true });
     const {
       currentStep,
       error,
@@ -105,17 +113,18 @@ class NewRecipe extends Component {
       ...recipe
     } = this.state;
 
+    const data = new FormData();
+
     Object.keys(recipe).forEach(obj => {
       const val = recipe[obj];
-      if (val instanceof Array) {
+      if (val && val instanceof Array) {
         data.append(obj, JSON.stringify(val));
-      } else {
+      } else if (val) {
         data.append(obj, val);
       }
     });
 
     //recipe.raw_ingredients = this.state.ingredients;
-
     const authToken = `Bearer ${token}`;
     axios
       .post(`${API_URL}/recipes`, data, {
@@ -136,8 +145,8 @@ class NewRecipe extends Component {
 
   handleAddIngredients = ing => {
     const [ingredient, rawIngredient] = ing;
-    console.log("ING", ingredient);
-    console.log("RAW ING", rawIngredient);
+    //console.log("ING", ingredient);
+    //console.log("RAW ING", rawIngredient);
     if (ingredient && rawIngredient) {
       const ingredients = [...this.state.ingredients];
       const raw_ingredients = [...this.state.raw_ingredients];
@@ -476,7 +485,11 @@ class NewRecipe extends Component {
 
     return (
       <Layout hideFooter>
-        <FlashMessage visible={!!error} error>
+        <FlashMessage
+          visible={!!error}
+          error
+          onClose={() => this.setState({ error: "" })}
+        >
           {error}
         </FlashMessage>
         <PageContainer>
