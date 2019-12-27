@@ -11,7 +11,7 @@ import Input from "./Input";
 import TextArea from "./TextArea";
 import Dropdown from "./Dropdown";
 import AddIngredientForm from "./AddIngredientForm";
-import AddableInput from "./AddableInput";
+import AddStepForm from "./AddStepForm";
 import {
   //Quantity,
   DeleteIcon,
@@ -84,7 +84,7 @@ class NewRecipe extends Component {
       )
       .catch(err => {
         console.log(err);
-        this.setState({ error: { message: "Something went wrong." } });
+        this.setState({ error: "Something went wrong." });
       });
   };
 
@@ -128,7 +128,7 @@ class NewRecipe extends Component {
       .catch(err => {
         console.log(err);
         this.setState({
-          error: { message: "Something went wrong. Please try again." },
+          error: "Something went wrong. Please try again.",
           loading: false
         });
       });
@@ -331,15 +331,19 @@ class NewRecipe extends Component {
 
   handleUploadImage = e => {
     const image = e.target.files[0];
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      const imageUrl = reader.result;
-      this.setState({ imageUrl });
-    };
+    if (image.size <= 102400) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const imageUrl = reader.result;
+        this.setState({ imageUrl });
+      };
 
-    image && reader.readAsDataURL(image);
+      image && reader.readAsDataURL(image);
 
-    this.setState({ image });
+      this.setState({ image });
+    } else {
+      this.setState({ error: "File size is too large. Must be 100kb or less" });
+    }
   };
 
   removeImage = () => {
@@ -436,11 +440,7 @@ class NewRecipe extends Component {
     return (
       <StepContainer active={active}>
         <Title>How is it made?</Title>
-        <AddableInput
-          onAddClick={this.handleAddSteps}
-          label="Directions"
-          placeholder="Click + to add a new step"
-        />
+        <AddStepForm onSave={data => this.handleAddSteps(data)} />
         {this.renderSteps()}
       </StepContainer>
     );
@@ -476,8 +476,8 @@ class NewRecipe extends Component {
 
     return (
       <Layout hideFooter>
-        <FlashMessage visible={!!error.message} error>
-          {error.message}
+        <FlashMessage visible={!!error} error>
+          {error}
         </FlashMessage>
         <PageContainer>
           <ProgressSteps
