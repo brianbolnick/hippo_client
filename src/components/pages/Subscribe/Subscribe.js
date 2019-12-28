@@ -4,9 +4,12 @@ import Form from "./Form";
 
 const View = () => {
   return (
-    <Elements>
-      <Form />
-    </Elements>
+    <>
+      <div>THIS IS ALL FAKE STUFF</div>
+      <Elements>
+        <Form />
+      </Elements>
+    </>
   );
 };
 

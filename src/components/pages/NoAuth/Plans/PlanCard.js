@@ -20,18 +20,22 @@ const ChefItems = () => (
     <Item>10 recipes</Item>
     <Item>2 people per family</Item>
     <Item off>Meal Plans</Item>
-    <Item off>Shopping Lists</Item>
-    <Item off>Import recipes from other sites</Item>
+    <Item off>Grocery and Shopping Lists</Item>
+    <Item off>Search for Recipes By Ingredient</Item>
+    <Item off>Import Recipes from Other Sites</Item>
+    <Item off>Automatic Nutrition Facts (also searchable!)</Item>
   </Inclusions>
 );
 
 const MasterClassItems = () => (
   <Inclusions>
-    <Item>Unlimited recipes</Item>
-    <Item>Unlimited family members</Item>
+    <Item>Unlimited Recipes</Item>
+    <Item>Unlimited Family Members</Item>
     <Item>Meal Plans</Item>
-    <Item>Shopping Lists</Item>
-    <Item>Import recipes from other sites</Item>
+    <Item>Grocery and Shopping Lists</Item>
+    <Item>Search for Recipes By Ingredient</Item>
+    <Item>Import Recipes from Other Sites</Item>
+    <Item>Automatic Nutrition Facts (also searchable!)</Item>
   </Inclusions>
 );
 
@@ -41,8 +45,7 @@ const PlanCard = ({ title }) => {
     return (
       <>
         <DollarSign>$</DollarSign>
-        9.99
-        <Month>month</Month>
+        39.99
       </>
     );
   };

@@ -16,6 +16,7 @@ import Unauthorized from "./pages/Unauthorized";
 import Subscribe from "./pages/Subscribe";
 import Test from "./pages/Test";
 import NoAuth from "./pages/NoAuth/NoAuth";
+import Upsell from "./pages/Upsell";
 import { jwt } from "utils";
 
 const HiddenRoute = ({ component: Component, isAuthenticated, ...rest }) => {
@@ -24,6 +25,17 @@ const HiddenRoute = ({ component: Component, isAuthenticated, ...rest }) => {
       {...rest}
       render={props =>
         isAuthenticated ? <Component {...props} /> : <NoAuth {...props} />
+      }
+    />
+  );
+};
+
+const PremiumRoute = ({ component: Component, isPremium, ...rest }) => {
+  return (
+    <Route
+      {...rest}
+      render={props =>
+        isPremium ? <Component {...props} /> : <Upsell {...props} />
       }
     />
   );
@@ -89,9 +101,9 @@ class App extends Component {
             exact
             component={Recipe}
           />
-          <AuthRoute
+          <PremiumRoute
             path="/meal_plans"
-            isAuthenticated={this.isLoggedIn()}
+            isPremium={false}
             exact
             component={MealPlans}
           />

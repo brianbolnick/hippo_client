@@ -33,8 +33,9 @@ const StyledInput = styled.input`
   &:focus {
     outline: none;
     border-color: ${({ inputState }) =>
-      inputState === "success" ? colors.green : colors.red};
+      inputState === "success" ? colors.green : colors.black};
     background-color: ${colors.white};
+    border-width: 1px;
   }
 `;
 
@@ -62,7 +63,7 @@ const StyledIcon = styled(Icon)`
     focus &&
     `
 			path {
-				fill: ${inputState === "success" ? colors.green : colors.red};
+				fill: ${inputState === "success" ? colors.green : colors.black};
 			}
 	`};
 `;
