@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { avenir, colors, media } from "styles/css-variables";
 import Icon from "components/common/Icon/Icon";
-import Input from "components/common/Input/Input";
+import Input from "./Input";
 import Select from "components/common/Select/Select";
 
 export const ButtonContainer = styled.div`
@@ -84,7 +84,7 @@ export const DeleteIcon = styled(Icon)`
   margin-left: 8px;
   cursor: pointer;
   &:hover {
-    background-color: ${({ clear }) => (clear ? "" : colors.darkRed)};
+    background-color: ${({ clear }) => (clear ? "" : colors.black)};
     path {
       fill: ${({ clear }) => (!clear ? "" : colors.red)};
     }

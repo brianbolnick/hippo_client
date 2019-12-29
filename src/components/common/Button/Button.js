@@ -31,8 +31,7 @@ const StyledButton = styled.button`
   cursor: pointer;
   border: none;
   border-radius: 4px;
-  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.2);
-  padding: 14px 16px;
+  padding: 12px 14px;
   font-weight: 500;
   text-align: center;
   background: ${colors.primaryGradient};
@@ -50,8 +49,8 @@ const StyledButton = styled.button`
 		border-radius: 50%;
 	`};
 
-  ${({ secondary }) =>
-    secondary &&
+  ${({ secondary_DEPRECATED }) =>
+    secondary_DEPRECATED &&
     `
 		background:  transparent;
 		text-shadow: none;
@@ -71,27 +70,37 @@ const StyledButton = styled.button`
   ${({ disabled }) =>
     disabled &&
     `
-
-    background: ${colors.disabledGradient};
-		text-shadow: none;
-		color: ${colors.black};
-		cursor: not-allowed;
-		:hover { 
-			transform: none;
-			background: ${colors.disabledGradient};
+		&&& { 
+			background: ${colors.white};
+			text-shadow: none;
+			border: solid 2px ${colors.mutedGray};
+			color: ${colors.mutedGray};
+			cursor: not-allowed;
+			font-weight: 600;
+			padding: 12px 14px;
+			box-shadow: none;
+			:hover { 
+				transform: none;
+			background: ${colors.white};
+			}
 		}
 	`};
 
-  ${({ tertiary }) =>
-    tertiary &&
+  ${({ secondary }) =>
+    secondary &&
     `
-		background:  transparent;
+		background: ${colors.whiteSmoke};
 		text-shadow: none;
-		border:  solid 2px ${colors.white};
-		color: ${colors.white};
+		color: ${colors.black};
+		font-weight: 600;
+		padding: 12px 14px;
+		box-shadow: none;
 		:hover { 
-			border: solid 2px ${colors.white};
+			transform: none;
+			box-shadow: none;
+			background: ${colors.lightGray};
 		}
+
 	`};
 
   ${({ loading }) =>

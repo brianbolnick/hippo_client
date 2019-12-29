@@ -15,11 +15,6 @@ storiesOf("Button", module)
       Secondary
     </Button>
   ))
-  .add("Tertiary", () => (
-    <Button onClick={action("click")} tertiary>
-      Tertiary
-    </Button>
-  ))
   .add("Loading", () => <Button loading>Secondary</Button>)
   .add("As Link", () => <Button asLink>Button Link</Button>)
   .add("Fixed CTA", () => (

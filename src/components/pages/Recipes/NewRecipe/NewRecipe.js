@@ -14,7 +14,7 @@ import AddIngredientForm from "./AddIngredientForm";
 import AddStepForm from "./AddStepForm";
 import {
   //Quantity,
-  DeleteIcon,
+  ActionIcon,
   Notice,
   Title,
   StepContainer,
@@ -23,10 +23,10 @@ import {
   StepOptions,
   ActionButton,
   PageContainer,
-  Ingredient,
   Step,
   DirectionsContainer
 } from "./styles";
+import Ingredient from "./Ingredient";
 
 const TOTAL_STEPS = 5;
 
@@ -277,17 +277,14 @@ class NewRecipe extends Component {
   renderIngredients = () => {
     const { raw_ingredients } = this.state;
     return raw_ingredients.length ? (
-      raw_ingredients.map((ing, index) => {
-        return (
-          <Ingredient key={`ingredient|${index}`}>
-            <div>- {ing}</div>
-            <DeleteIcon
-              name="close"
-              onClick={() => this.deleteIngredient(ing)}
-            />
-          </Ingredient>
-        );
-      })
+      raw_ingredients.map((ing, index) => (
+        <Ingredient
+          key={`ingredient|${index}`}
+          ingredient={ing}
+          onUpdate={newIng => console.log("update", newIng)}
+          onDelete={newIng => this.deleteIngredient(newIng)}
+        />
+      ))
     ) : (
       <Notice>Use the field above to add ingredients!</Notice>
     );
@@ -304,7 +301,7 @@ class NewRecipe extends Component {
   //- <Quantity>{`${quantity} ${ing.measurement} `}</Quantity>
   //{ing.name}
   //</div>
-  //<DeleteIcon
+  //<ActionIcon
   //name="close"
   //onClick={() => this.deleteIngredient(ing)}
   ///>
@@ -327,11 +324,7 @@ class NewRecipe extends Component {
             <Step key={`dir|${index}`}>
               <span>{index + 1}</span> {step}
             </Step>
-            <DeleteIcon
-              name="close"
-              onClick={() => this.deleteStep(step)}
-              clear
-            />
+            <ActionIcon name="close" onClick={() => this.deleteStep(step)} />
           </DirectionsContainer>
         );
       })

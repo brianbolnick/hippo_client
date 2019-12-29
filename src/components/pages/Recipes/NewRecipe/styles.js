@@ -7,7 +7,7 @@ export const Quantity = styled.span`
   font-weight: 600;
 `;
 
-export const DeleteIcon = styled(Icon)`
+export const ActionIcon = styled(Icon)`
   height: 16px;
   width: 16px;
   min-width: 16px;
@@ -15,12 +15,14 @@ export const DeleteIcon = styled(Icon)`
   margin-left: 8px;
   cursor: pointer;
   &:hover {
-    background-color: ${({ clear }) => (clear ? "" : colors.softRed)};
     path {
-      fill: ${({ clear }) => (!clear ? "" : colors.red)};
+      fill: ${colors.red};
     }
-    border-radius: 50%;
   }
+`;
+
+export const ActionsContainer = styled.div`
+  display: flex;
 `;
 
 export const Notice = styled.div`
@@ -90,7 +92,7 @@ export const PageContainer = styled.div`
 	`}
 `;
 
-export const Ingredient = styled.div`
+export const EditIngredientContainer = styled.div`
   width: 100%;
   margin-bottom: 12px;
   font-family: ${avenir};
