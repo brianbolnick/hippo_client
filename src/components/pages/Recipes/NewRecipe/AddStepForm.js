@@ -4,7 +4,7 @@ import {
   AddIngredientContainer,
   AddIngredientLabel,
   StyledInput
-} from "./NewRecipeStyledComponents";
+} from "./NewRecipeStyles";
 
 const AddStepForm = ({ onSave }) => {
   const [step, setStep] = useState("");

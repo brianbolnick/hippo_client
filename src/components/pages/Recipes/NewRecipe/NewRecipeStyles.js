@@ -2,6 +2,7 @@ import styled from "styled-components/macro";
 import { colors, avenir, media } from "styles/css-variables";
 import Icon from "components/common/Icon/Icon";
 import Button from "components/common/Button";
+import Input from "./Input";
 
 export const Quantity = styled.span`
   font-weight: 600;
@@ -90,4 +91,20 @@ export const PageContainer = styled.div`
   ${media.smallDesktop`
 		padding: 0;
 	`}
+`;
+
+export const AddIngredientContainer = styled.div`
+  display: flex;
+  flex-flow: row;
+`;
+export const AddIngredientLabel = styled.label`
+  font-family: ${avenir};
+  margin-bottom: 16px;
+`;
+
+export const StyledInput = styled(Input)`
+  width: 100%;
+  & input {
+    width: 100%;
+  }
 `;

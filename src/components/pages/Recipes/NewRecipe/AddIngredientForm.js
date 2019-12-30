@@ -4,7 +4,7 @@ import {
   AddIngredientContainer,
   AddIngredientLabel,
   StyledInput
-} from "./NewRecipeStyledComponents";
+} from "./NewRecipeStyles";
 
 const AddIngredientForm = ({ onSave }) => {
   const [ingredient, setIngredient] = useState("");

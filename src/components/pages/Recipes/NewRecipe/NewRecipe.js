@@ -21,7 +21,7 @@ import {
   StepOptions,
   ActionButton,
   PageContainer
-} from "./styles";
+} from "./NewRecipeStyles";
 import Ingredient from "./Ingredient";
 import Step from "./Step";
 
