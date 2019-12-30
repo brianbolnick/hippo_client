@@ -13,8 +13,7 @@ import Dropdown from "./Dropdown";
 import AddIngredientForm from "./AddIngredientForm";
 import AddStepForm from "./AddStepForm";
 import {
-  //Quantity,
-  ActionIcon,
+  //ActionIcon,
   Notice,
   Title,
   StepContainer,
@@ -22,11 +21,12 @@ import {
   Column,
   StepOptions,
   ActionButton,
-  PageContainer,
-  Step,
-  DirectionsContainer
+  PageContainer
+  //Step,
+  //DirectionsContainer
 } from "./styles";
 import Ingredient from "./Ingredient";
+import Step from "./Step";
 
 const TOTAL_STEPS = 5;
 
@@ -40,7 +40,6 @@ class NewRecipe extends Component {
     calories: "",
     servings: 1,
     difficulty: 1,
-    //ingredients: [],
     raw_ingredients: [],
     steps: [],
     family_id: familyId,
@@ -124,7 +123,6 @@ class NewRecipe extends Component {
       }
     });
 
-    //recipe.raw_ingredients = this.state.ingredients;
     const authToken = `Bearer ${token}`;
     axios
       .post(`${API_URL}/recipes`, data, {
@@ -145,21 +143,14 @@ class NewRecipe extends Component {
 
   handleAddIngredients = rawIngredient => {
     if (rawIngredient) {
-      //const ingredients = [...this.state.ingredients];
       const raw_ingredients = [...this.state.raw_ingredients, rawIngredient];
-      //ingredients.push(ingredient);
-      //raw_ingredients.push(rawIngredient);
-      this.setState({
-        //ingredients,
-        raw_ingredients
-      });
+      this.setState({ raw_ingredients });
     }
   };
 
   handleAddSteps = step => {
     if (step) {
       const steps = [...this.state.steps, step];
-      //steps.push(step);
       this.setState({ steps });
     }
   };
@@ -254,19 +245,13 @@ class NewRecipe extends Component {
   };
 
   deleteIngredient = ing => {
-    //const ingredients = [...this.state.ingredients];
     const raw_ingredients = [...this.state.raw_ingredients];
-    //const filteredIngredients = ingredients.filter(
-    //x => JSON.stringify(x) !== JSON.stringify(ing)
-    //);
+
     const filteredRawIngredients = raw_ingredients.filter(
       x => JSON.stringify(x) !== JSON.stringify(ing)
     );
 
-    this.setState({
-      //ingredients: filteredIngredients,
-      raw_ingredients: filteredRawIngredients
-    });
+    this.setState({ raw_ingredients: filteredRawIngredients });
   };
 
   updateIngredient = (oldIng, newIng) => {
@@ -280,6 +265,14 @@ class NewRecipe extends Component {
   deleteStep = step => {
     const steps = [...this.state.steps];
     this.setState({ steps: steps.filter(x => x !== step) });
+  };
+
+  updateStep = (oldStep, newStep) => {
+    const steps = [...this.state.steps];
+    const index = steps.indexOf(oldStep);
+    steps[index] = newStep;
+
+    this.setState({ steps });
   };
 
   renderIngredients = () => {
@@ -298,29 +291,6 @@ class NewRecipe extends Component {
     );
   };
 
-  //renderIngredients = () => {
-  //const { ingredients } = this.state;
-  //return ingredients.length ? (
-  //ingredients.map((ing, index) => {
-  //const quantity = parseInt(ing.quantity) === 0 ? "" : ing.quantity;
-  //return (
-  //<Ingredient key={`ingredient|${index}`}>
-  //<div>
-  //- <Quantity>{`${quantity} ${ing.measurement} `}</Quantity>
-  //{ing.name}
-  //</div>
-  //<ActionIcon
-  //name="close"
-  //onClick={() => this.deleteIngredient(ing)}
-  ///>
-  //</Ingredient>
-  //);
-  //})
-  //) : (
-  //<Notice>Use the field above to add ingredients!</Notice>
-  //);
-  //};
-
   renderSteps = () => {
     const { steps } = this.state;
 
@@ -328,12 +298,13 @@ class NewRecipe extends Component {
       steps &&
       steps.map((step, index) => {
         return (
-          <DirectionsContainer>
-            <Step key={`dir|${index}`}>
-              <span>{index + 1}</span> {step}
-            </Step>
-            <ActionIcon name="close" onClick={() => this.deleteStep(step)} />
-          </DirectionsContainer>
+          <Step
+            key={`step|${index}`}
+            stepNumber={index + 1}
+            step={step}
+            onUpdate={this.updateStep}
+            onDelete={this.deleteStep}
+          />
         );
       })
     );

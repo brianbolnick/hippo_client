@@ -21,11 +21,6 @@ const PageTitle = styled.div`
 const MainDescription = styled.div`
   font-size: 1.5rem;
 `;
-const Emphasis = styled.span`
-  font-weight: 700;
-  color: ${colors.red};
-`;
-
 const ButtonContainer = styled(Button)`
   margin: 40px auto;
   margin-bottom: 16px;

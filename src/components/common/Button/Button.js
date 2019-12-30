@@ -77,7 +77,7 @@ const StyledButton = styled.button`
 			color: ${colors.mutedGray};
 			cursor: not-allowed;
 			font-weight: 600;
-			padding: 12px 14px;
+			padding: 10px 12px;
 			box-shadow: none;
 			:hover { 
 				transform: none;

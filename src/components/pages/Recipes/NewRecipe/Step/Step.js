@@ -1,15 +1,17 @@
 import React, { useState, useEffect, useRef } from "react";
 import {
   ActionIcon,
-  IngredientContainer,
+  StepContainer,
   ActionsContainer,
   EditInput,
-  EditContainer
-} from "./IngredientStyles";
+  EditContainer,
+  StepNumber,
+  InputContainer
+} from "./StepStyles";
 
-const Ingredient = ({ ingredient, onUpdate, onDelete }) => {
+const Step = ({ step, stepNumber, onUpdate, onDelete }) => {
   const [isEditMode, setIsEditMode] = useState(false);
-  const [editValue, setEditValue] = useState(ingredient);
+  const [editValue, setEditValue] = useState(step);
 
   const editRef = useRef();
 
@@ -19,33 +21,39 @@ const Ingredient = ({ ingredient, onUpdate, onDelete }) => {
 
   const handleEditSave = () => {
     setIsEditMode(false);
-    onUpdate(ingredient, editValue);
+    onUpdate(step, editValue);
   };
 
   const handleKeyPress = event => event.key === "Enter" && handleEditSave();
 
   return isEditMode ? (
     <EditContainer>
-      <EditInput
-        ref={editRef}
-        value={editValue}
-        onChange={e => setEditValue(e.target.value)}
-        onKeyPress={handleKeyPress}
-      />
+      <InputContainer>
+        <StepNumber>{stepNumber}</StepNumber>
+        <EditInput
+          ref={editRef}
+          value={editValue}
+          onChange={e => setEditValue(e.target.value)}
+          onKeyPress={handleKeyPress}
+        />
+      </InputContainer>
+
       <ActionsContainer>
         <ActionIcon name="checkCircle" onClick={handleEditSave} />
         <ActionIcon name="close" onClick={() => setIsEditMode(false)} />
       </ActionsContainer>
     </EditContainer>
   ) : (
-    <IngredientContainer>
-      <div>- {ingredient}</div>
+    <StepContainer>
+      <div>
+        <StepNumber>{stepNumber}</StepNumber> {step}
+      </div>
       <ActionsContainer>
         <ActionIcon name="edit" onClick={() => setIsEditMode(true)} />
-        <ActionIcon name="trash" onClick={() => onDelete(ingredient)} />
+        <ActionIcon name="trash" onClick={() => onDelete(step)} />
       </ActionsContainer>
-    </IngredientContainer>
+    </StepContainer>
   );
 };
 
-export default Ingredient;
+export default Step;

@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import { colors, avenir, media, raleway } from "styles/css-variables";
+import styled from "styled-components/macro";
+import { colors, avenir, media } from "styles/css-variables";
 import Icon from "components/common/Icon/Icon";
 import Button from "components/common/Button";
 
@@ -90,52 +90,4 @@ export const PageContainer = styled.div`
   ${media.smallDesktop`
 		padding: 0;
 	`}
-`;
-
-export const EditIngredientContainer = styled.div`
-  width: 100%;
-  margin-bottom: 12px;
-  font-family: ${avenir};
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 2px;
-  box-sizing: border-box;
-  &:hover {
-    padding-bottom: 1px;
-    border-bottom: solid 1px ${colors.mutedGray};
-  }
-`;
-
-export const Step = styled.div`
-  letter-spacing: 1px;
-  width: 100%;
-  display: flex;
-  flex-flow: column;
-  box-sizing: border-box;
-  border-radius: 2px;
-  font-family: ${avenir};
-  font-weight: 500;
-  flex-flow: row;
-  span {
-    font-weight: 500;
-    color: ${colors.black};
-    font-size: 2rem;
-    margin-bottom: 16px;
-    font-family: ${raleway};
-    margin-right: 24px;
-  }
-`;
-
-export const DirectionsContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  padding: 16px;
-  transition: 0.1s;
-  margin-bottom: 32px;
-  &:hover {
-    border-radius: 8px;
-    box-shadow: 0 15px 5px -11px rgba(0, 0, 0, 0.26),
-      0 4px 25px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
-  }
 `;

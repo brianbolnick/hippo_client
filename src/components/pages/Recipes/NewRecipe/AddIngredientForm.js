@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { parse } from "recipe-ingredient-parser";
 import Button from "components/common/Button/Button";
 import {
   AddIngredientContainer,
@@ -12,7 +11,6 @@ const AddIngredientForm = ({ onSave }) => {
 
   const handleAdd = e => {
     e.preventDefault();
-    //const { quantity, unit: measurement, ingredient: name } = parse(ingredient);
     onSave(ingredient);
     setIngredient("");
   };

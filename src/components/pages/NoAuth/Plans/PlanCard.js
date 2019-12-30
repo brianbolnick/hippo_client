@@ -9,8 +9,7 @@ import {
   Divider,
   Inclusions,
   Item,
-  DollarSign,
-  Month
+  DollarSign
 } from "./styles";
 import MasterClass from "img/mc.svg";
 import Chef from "img/chefPlan.svg";
