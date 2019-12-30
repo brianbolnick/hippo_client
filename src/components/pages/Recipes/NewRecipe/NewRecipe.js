@@ -13,7 +13,6 @@ import Dropdown from "./Dropdown";
 import AddIngredientForm from "./AddIngredientForm";
 import AddStepForm from "./AddStepForm";
 import {
-  //ActionIcon,
   Notice,
   Title,
   StepContainer,
@@ -22,8 +21,6 @@ import {
   StepOptions,
   ActionButton,
   PageContainer
-  //Step,
-  //DirectionsContainer
 } from "./styles";
 import Ingredient from "./Ingredient";
 import Step from "./Step";
