@@ -12,8 +12,8 @@ const AddIngredientForm = ({ onSave }) => {
 
   const handleAdd = e => {
     e.preventDefault();
-    const { quantity, unit: measurement, ingredient: name } = parse(ingredient);
-    onSave([{ quantity, measurement, name }, ingredient]);
+    //const { quantity, unit: measurement, ingredient: name } = parse(ingredient);
+    onSave(ingredient);
     setIngredient("");
   };
 

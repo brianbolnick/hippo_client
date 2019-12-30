@@ -1,10 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import get from "lodash/get";
-//import { fraction, multiply } from "mathjs";
 import { API_URL, token, timeShortener } from "utils";
 import { useQuery } from "@apollo/react-hooks";
-import { gql } from "apollo-boost";
 import FlashMessage from "components/common/FlashMessage/FlashMessage";
 import Icon from "components/common/Icon/Icon";
 import Layout from "components/common/Layout/Layout";
@@ -15,6 +13,7 @@ import ImagePlaceholder from "img/recipe-placeholder.png";
 import Loader from "img/burger.gif";
 import ShareModal from "../Modals/ShareModal";
 import DeleteModal from "../Modals/DeleteModal";
+import { createParsedIngredients } from "./helpers";
 import {
   ActionContainer,
   ActionIcon,
@@ -39,51 +38,13 @@ import {
   TimeContainer,
   TimeGroup,
   TimeLabel,
-  Title
-  //Quantity
+  Title,
+  Quantity
 } from "./RecipeStyledComponents";
-//import ServingsForm from "./ServingsForm";
+import GET_RECIPE_QUERY from "./getRecipeQuery";
+import ServingsForm from "./ServingsForm";
 
 const authToken = `Bearer ${token}`;
-
-const GET_RECIPE_QUERY = gql`
-  query recipeId($recipeId: Int!) {
-    recipeQuery(recipeId: $recipeId) {
-      calories
-      category {
-        id
-        name
-      }
-      cookTime
-      difficulty
-      dishType {
-        id
-        name
-      }
-      family {
-        id
-        displayName
-        isBeta
-      }
-      familyId
-      id
-      imageUrl
-      rawIngredients
-      isPublic
-      notes
-      prepTime
-      servings
-      steps
-      title
-      type
-      user {
-        id
-        name
-        isBeta
-      }
-    }
-  }
-`;
 
 const Recipe = ({ match }) => {
   //TODO: handle errors
@@ -94,10 +55,9 @@ const Recipe = ({ match }) => {
 
   const recipe = get(data, "recipeQuery", {});
   const ingredients = get(recipe, "rawIngredients", []);
-  //const servings = get(recipe, "servings", 1);
+  const servings = get(recipe, "servings", 1);
 
-  //const [ingredientsList, setIngredientsList] = useState(ingredients);
-  //const [currentServings, setCurrentServings] = useState(servings);
+  const [parsedIngredients, setParsedIngredients] = useState({});
   const [showShareModal, setShowShareModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [error, setError] = useState("");
@@ -106,9 +66,11 @@ const Recipe = ({ match }) => {
     window.matchMedia("(" + tabletMediaQuery + ")").matches
   );
 
-  //useEffect(() => {
-  //ingredients.length && setIngredientsList(ingredients);
-  //}, [recipe]);
+  useEffect(() => {
+    const parsedIngs = createParsedIngredients(ingredients);
+    console.log(parsedIngs);
+    setParsedIngredients(parsedIngs);
+  }, [recipe]);
 
   const handleMediaQueryChange = ({ matches }) => {
     setShowMobile(matches);
@@ -118,25 +80,18 @@ const Recipe = ({ match }) => {
     return (
       ingredients &&
       ingredients.map((ing, index) => {
-        return <Ingredient key={`ingredient|${index}`}>{ing}</Ingredient>;
+        const parsedIng = parsedIngredients[ing];
+        return (
+          parsedIng && (
+            <Ingredient key={`ingredient|${index}`}>
+              <Quantity>{`${parsedIng.quantity} ${parsedIng.unit} `}</Quantity>
+              {parsedIng.ingredient}
+            </Ingredient>
+          )
+        );
       })
     );
   };
-
-  //const renderIngredients = () => {
-  //return (
-  //ingredientsList &&
-  //ingredientsList.map((ing, index) => {
-  //const quantity = parseInt(ing.quantity) === 0 ? "" : ing.quantity;
-  //return (
-  //<Ingredient key={`ingredient|${index}`}>
-  //<Quantity>{`${quantity} ${ing.measurement} `}</Quantity>
-  //{ing.name}
-  //</Ingredient>
-  //);
-  //})
-  //);
-  //};
 
   const renderSteps = () => {
     const { steps } = recipe;
@@ -194,59 +149,14 @@ const Recipe = ({ match }) => {
     return `${tempTimeArr[0]} ${formattedDuration}`;
   };
 
-  //const getQuantityType = quantity => {
-  //if (fraction(quantity).d === 1) return "number";
-  //return "fraction";
-  //};
+  const handleServingsChange = newServingFactor => {
+    const newParsedIngredients = createParsedIngredients(
+      ingredients,
+      newServingFactor
+    );
 
-  //const calculateQuantity = (quantity, serving, type) => {
-  //if (type === "fraction") {
-  //const frac = fraction(quantity);
-  //const value = multiply(frac, serving);
-  //return convertImproperFraction(value);
-  //}
-
-  //const num = quantity * serving;
-  //return Math.round(num * 2) / 2;
-  //};
-
-  //const updateIngredients = (ingredients, newServings) => {
-  //return ingredients.map(ing => {
-  //const type = getQuantityType(ing.quantity);
-  //const quantity = calculateQuantity(ing.quantity, newServings, type);
-  //return {
-  //...ing,
-  //quantity
-  //};
-  //});
-  //};
-
-  //const convertImproperFraction = fraction => {
-  //const numerator = fraction.n;
-  //const denominator = fraction.d;
-
-  //if (numerator % denominator === 0) {
-  //return numerator / denominator;
-  //}
-
-  //const mix = Math.floor(numerator / denominator);
-  //const newNumerator = numerator % denominator;
-  //return `${displayMix(mix)}${newNumerator}/${denominator}`;
-  //};
-
-  //const displayMix = mix => {
-  //if (mix) return `${mix} `;
-  //return "";
-  //};
-
-  //const handleServingsChange = newServings => {
-  //const newIngredientsList = updateIngredients(
-  //[...recipe.ingredients],
-  //newServings
-  //);
-  //setCurrentServings(newServings);
-  //setIngredientsList(newIngredientsList);
-  //};
+    setParsedIngredients(newParsedIngredients);
+  };
 
   return networkStatus !== 7 ? (
     <LoadContainer>
@@ -337,12 +247,10 @@ const Recipe = ({ match }) => {
 
         <IngredientsContainer>
           <SubTitle>Ingredients</SubTitle>
-          {/*
           <ServingsForm
             onChange={handleServingsChange}
-            currentServings={currentServings}
+            currentServings={parseInt(servings)}
           />
-					*/}
           <IngredientsWrapper>{renderIngredients()}</IngredientsWrapper>
         </IngredientsContainer>
 

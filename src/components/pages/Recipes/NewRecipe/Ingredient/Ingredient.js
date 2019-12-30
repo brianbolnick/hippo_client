@@ -22,12 +22,15 @@ const Ingredient = ({ ingredient, onUpdate, onDelete }) => {
     onUpdate(ingredient, editValue);
   };
 
+  const handleKeyPress = event => event.key === "Enter" && handleEditSave();
+
   return isEditMode ? (
     <EditContainer>
       <EditInput
         ref={editRef}
         value={editValue}
         onChange={e => setEditValue(e.target.value)}
+        onKeyPress={handleKeyPress}
       />
       <ActionsContainer>
         <ActionIcon name="checkCircle" onClick={handleEditSave} />

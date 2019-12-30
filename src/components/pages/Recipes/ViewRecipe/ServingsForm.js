@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { colors } from "styles/css-variables";
+import PropTypes from "prop-types";
 import {
   ServingsContainer,
   ServingsActionsGroup,
@@ -18,7 +19,7 @@ const ServingsForm = ({ currentServings, onChange }) => {
   };
 
   const onMinus = () => {
-    if (servings !== 0) {
+    if (servings !== 1) {
       const newServings = servings - 1;
       setServings(newServings);
       const servingsFactor = newServings / currentServings;
@@ -49,6 +50,11 @@ const ServingsForm = ({ currentServings, onChange }) => {
       </ServingsLabel>
     </ServingsContainer>
   );
+};
+
+ServingsForm.propTypes = {
+  currentServings: PropTypes.number.isRequired,
+  onChange: PropTypes.func.isRequired
 };
 
 export default ServingsForm;

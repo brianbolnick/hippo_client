@@ -40,7 +40,7 @@ class NewRecipe extends Component {
     calories: "",
     servings: 1,
     difficulty: 1,
-    ingredients: [],
+    //ingredients: [],
     raw_ingredients: [],
     steps: [],
     family_id: familyId,
@@ -143,23 +143,23 @@ class NewRecipe extends Component {
       });
   };
 
-  handleAddIngredients = ing => {
-    const [ingredient, rawIngredient] = ing;
-    //console.log("ING", ingredient);
-    //console.log("RAW ING", rawIngredient);
-    if (ingredient && rawIngredient) {
-      const ingredients = [...this.state.ingredients];
-      const raw_ingredients = [...this.state.raw_ingredients];
-      ingredients.push(ingredient);
-      raw_ingredients.push(rawIngredient);
-      this.setState({ ingredients, raw_ingredients });
+  handleAddIngredients = rawIngredient => {
+    if (rawIngredient) {
+      //const ingredients = [...this.state.ingredients];
+      const raw_ingredients = [...this.state.raw_ingredients, rawIngredient];
+      //ingredients.push(ingredient);
+      //raw_ingredients.push(rawIngredient);
+      this.setState({
+        //ingredients,
+        raw_ingredients
+      });
     }
   };
 
   handleAddSteps = step => {
     if (step) {
-      const steps = [...this.state.steps];
-      steps.push(step);
+      const steps = [...this.state.steps, step];
+      //steps.push(step);
       this.setState({ steps });
     }
   };
@@ -254,19 +254,27 @@ class NewRecipe extends Component {
   };
 
   deleteIngredient = ing => {
-    const ingredients = [...this.state.ingredients];
+    //const ingredients = [...this.state.ingredients];
     const raw_ingredients = [...this.state.raw_ingredients];
-    const filteredIngredients = ingredients.filter(
-      x => JSON.stringify(x) !== JSON.stringify(ing)
-    );
+    //const filteredIngredients = ingredients.filter(
+    //x => JSON.stringify(x) !== JSON.stringify(ing)
+    //);
     const filteredRawIngredients = raw_ingredients.filter(
       x => JSON.stringify(x) !== JSON.stringify(ing)
     );
 
     this.setState({
-      ingredients: filteredIngredients,
+      //ingredients: filteredIngredients,
       raw_ingredients: filteredRawIngredients
     });
+  };
+
+  updateIngredient = (oldIng, newIng) => {
+    const raw_ingredients = [...this.state.raw_ingredients];
+    const index = raw_ingredients.indexOf(oldIng);
+    raw_ingredients[index] = newIng;
+
+    this.setState({ raw_ingredients });
   };
 
   deleteStep = step => {
@@ -281,8 +289,8 @@ class NewRecipe extends Component {
         <Ingredient
           key={`ingredient|${index}`}
           ingredient={ing}
-          onUpdate={newIng => console.log("update", newIng)}
-          onDelete={newIng => this.deleteIngredient(newIng)}
+          onUpdate={this.updateIngredient}
+          onDelete={this.deleteIngredient}
         />
       ))
     ) : (
