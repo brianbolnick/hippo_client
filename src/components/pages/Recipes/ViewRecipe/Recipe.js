@@ -47,11 +47,13 @@ import ServingsForm from "./ServingsForm";
 const authToken = `Bearer ${token}`;
 
 const Recipe = ({ match }) => {
-  //TODO: handle errors
   const recipeId = parseInt(match.params.id);
-  const { data, networkStatus } = useQuery(GET_RECIPE_QUERY, {
-    variables: { recipeId }
-  });
+  const { data, networkStatus, error: queryError } = useQuery(
+    GET_RECIPE_QUERY,
+    {
+      variables: { recipeId }
+    }
+  );
 
   const recipe = get(data, "recipeQuery", {});
   const ingredients = get(recipe, "rawIngredients", []);
@@ -66,9 +68,15 @@ const Recipe = ({ match }) => {
     window.matchMedia("(" + tabletMediaQuery + ")").matches
   );
 
+  if (queryError) {
+    if (queryError.message.toLowerCase().includes("unauthorized")) {
+      window.location.replace("/401");
+    }
+    setError(queryError.message);
+  }
+
   useEffect(() => {
     const parsedIngs = createParsedIngredients(ingredients);
-    console.log(parsedIngs);
     setParsedIngredients(parsedIngs);
   }, [recipe]);
 
@@ -158,7 +166,7 @@ const Recipe = ({ match }) => {
     setParsedIngredients(newParsedIngredients);
   };
 
-  return networkStatus !== 7 ? (
+  return networkStatus !== 7 || queryError ? (
     <LoadContainer>
       <img alt="" src={Loader} style={{ height: "300px", width: "300px" }} />
     </LoadContainer>
