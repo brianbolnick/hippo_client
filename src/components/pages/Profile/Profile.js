@@ -49,7 +49,7 @@ const Card = styled.div`
 
   ${media.tablet`
 		width: 100%;
-	margin: 16px;
+		margin: 16px;
 	`};
 `;
 

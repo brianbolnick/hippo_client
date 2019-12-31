@@ -30,6 +30,8 @@ export const createParsedIngredients = (ingredients, servingFactor = 1) => {
       ingredient
     };
 
+    console.log(acc[ing]);
+
     return acc;
   }, {});
 };

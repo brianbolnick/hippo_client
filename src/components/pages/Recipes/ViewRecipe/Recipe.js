@@ -84,15 +84,27 @@ const Recipe = ({ match }) => {
     setShowMobile(matches);
   };
 
+  const displayUnits = parsedIngredient => {
+    if (!parsedIngredient) return null;
+    if (parsedIngredient.quantity && parsedIngredient.unit) {
+      return `${parsedIngredient.quantity} ${parsedIngredient.unit} `;
+    }
+    if (parsedIngredient.quantity) return `${parsedIngredient.quantity} `;
+    if (parsedIngredient.unit) return `${parsedIngredient.unit} `;
+    return null;
+  };
+
   const renderIngredients = () => {
     return (
       ingredients &&
       ingredients.map((ing, index) => {
         const parsedIng = parsedIngredients[ing];
+        const quantityAndUnit = displayUnits(parsedIng);
+
         return (
           parsedIng && (
             <Ingredient key={`ingredient|${index}`}>
-              <Quantity>{`${parsedIng.quantity} ${parsedIng.unit} `}</Quantity>
+              <Quantity>{quantityAndUnit}</Quantity>
               {parsedIng.ingredient}
             </Ingredient>
           )
