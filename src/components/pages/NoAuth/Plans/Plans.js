@@ -21,7 +21,7 @@ const Plans = () => {
       </PlanDescription>
       <CardContainer>
         <PlanCard title="Chef" />
-        <PlanCard title="Master Class" />
+        <PlanCard title="Master Class (Coming Soon)" />
       </CardContainer>
 
       <Link to="/sign_up">

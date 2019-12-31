@@ -22,6 +22,10 @@ const Footer = styled.div`
   clip-path: polygon(50% 16%, 100% 1%, 100% 100%, 0 100%, 0 0);
   ${media.phone`
 		padding: 32px;
+    padding: 64px;
+    padding-bottom: 24px;
+    height: 140px;
+    flex-flow: column-reverse;
 	`};
 `;
 
@@ -30,7 +34,7 @@ const FooterLinks = styled.div`
   flex-flow: column;
   a {
     color: ${colors.black};
-    font-size: 1.7rem;
+    font-size: 1.6rem;
     transition: all 0.2s ease;
     margin: 10px 0;
     text-decoration: none;
@@ -41,6 +45,10 @@ const FooterLinks = styled.div`
       color: ${colors.red};
       transition: all 0.2s ease;
     }
+
+    ${media.phone`
+		font-size: 1.4rem;	
+	`};
   }
 `;
 
@@ -78,6 +86,23 @@ const Content = styled.div`
 		height: 100%;
 		padding-top: 0;
 	`};
+`;
+
+const Copyright = styled.div`
+	text-transform: uppercase;
+	color: ${colors.black}
+	margin-bottom: 8px;
+	text-align: center;
+
+	a {
+	color: ${colors.black}
+		font-weight: 800;
+		text-decoration: none;
+
+		&:hover {
+			color: ${colors.darkGray};
+		}
+	}
 `;
 
 const Layout = ({
@@ -128,6 +153,17 @@ const Layout = ({
           <Brand>
             <BrandImage src={NewLogo} alt="" />
           </Brand>
+          <Copyright>
+            Developed by
+            <a
+              href="//brianbolnick.com"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {" "}
+              Brian Bolnick
+            </a>
+          </Copyright>
           <FooterLinks>
             <a
               href="mailto:brianbolnick+web@gmail.com"
