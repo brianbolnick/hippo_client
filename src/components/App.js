@@ -9,7 +9,7 @@ import Recipe from "./pages/Recipes/ViewRecipe";
 import NewRecipe from "./pages/Recipes/NewRecipe";
 import EditRecipe from "./pages/Recipes/EditRecipe";
 import About from "./pages/About";
-import Family from "./pages/Family/Family";
+import Profile from "./pages/Profile";
 import MealPlans from "./pages/MealPlans";
 import NotFound from "./pages/NotFound";
 import Unauthorized from "./pages/Unauthorized";
@@ -108,9 +108,9 @@ class App extends Component {
             component={MealPlans}
           />
           <AuthRoute
-            path="/family"
+            path="/profile"
             exact
-            component={Family}
+            component={Profile}
             isAuthenticated={this.isLoggedIn()}
           />
           <Route path="/sign_up" exact component={SignUp} />
