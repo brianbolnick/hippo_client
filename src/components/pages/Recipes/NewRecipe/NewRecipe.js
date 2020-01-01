@@ -47,8 +47,8 @@ const NewRecipe = props => {
   const [loading, setLoading] = useState(false);
   const [categories, setCategories] = useState([]);
   const [dishTypes, setDishTypes] = useState([]);
-
   const [createRecipe] = useCreateRecipeMutation();
+  const [family, setFamily] = useState({});
 
   const getCategories = () => {
     return axios.get(`${API_URL}/categories`, {
@@ -75,8 +75,10 @@ const NewRecipe = props => {
         axios.spread((categoryData, dishTypeData, familyData) => {
           const categories = categoryData.data.data;
           const dishTypes = dishTypeData.data.data;
+          const fam = familyData.data.data;
           setCategories(categories);
           setDishTypes(dishTypes);
+          setFamily(fam);
         })
       )
       .catch(err => {
@@ -122,31 +124,6 @@ const NewRecipe = props => {
     });
 
     createRecipe(vars);
-    //const data = new FormData();
-
-    //Object.keys(recipe).forEach(obj => {
-    //const val = recipe[obj];
-    //if (val && val instanceof Array) {
-    //data.append(obj, JSON.stringify(val));
-    //} else if (val) {
-    //data.append(obj, val);
-    //}
-    //});
-
-    //const authToken = `Bearer ${token}`;
-    //axios
-    //.post(`${API_URL}/recipes`, data, {
-    //headers: { Authorization: authToken }
-    //})
-    //.then(resp => {
-    //const id = resp.data.data.id;
-    //window.location.replace(`/recipes/${id}`);
-    //})
-    //.catch(err => {
-    //console.log(err);
-    //setLoading(false);
-    //setError("Something went wrong. Please try again.");
-    //});
   };
 
   const handleAddIngredients = rawIngredient => {
@@ -197,6 +174,7 @@ const NewRecipe = props => {
         };
       });
 
+    //TODO: set default value
     return (
       <Dropdown
         placeholder="Dish Type"
@@ -323,7 +301,6 @@ const NewRecipe = props => {
     }
   }) => {
     if (validity.valid) {
-      //const image = e.target.files[0];
       //TODO: increase this
       if (image.size <= 1003349) {
         setImage(image);
@@ -450,7 +427,7 @@ const NewRecipe = props => {
       servings,
       difficulty,
       rawIngredients,
-      steps, //for some reason empty
+      steps,
       familyId,
       userId,
       categoryId,
@@ -460,16 +437,15 @@ const NewRecipe = props => {
     };
 
     const category =
-      categories && categories.find(cat => cat.id === recipe.category_id);
-    const dish_type =
-      dishTypes && dishTypes.find(dt => dt.id === recipe.dish_type_id);
+      categories && categories.find(cat => cat.id === recipe.categoryId);
+    const dishType =
+      dishTypes && dishTypes.find(dt => dt.id === recipe.dishTypeId);
 
-    //TODO: preview isnt working so well
     return (
       <StepContainer active={active}>
         <Title>Preview</Title>
 
-        <RecipePreview recipe={{ ...recipe, category, dish_type }} />
+        <RecipePreview recipe={{ ...recipe, category, dishType, family }} />
       </StepContainer>
     );
   };

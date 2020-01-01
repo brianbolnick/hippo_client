@@ -1,20 +1,5 @@
 import { useMutation } from "@apollo/react-hooks";
-import { CREATE_RECIPE_MUTATION, GET_RECIPE_QUERY } from "../apollo";
-
-//const updateRecipeCache = (cache, { data }) => {
-////const existingRecipeQuery = cache.readQuery({
-////query: GET_RECIPE_QUERY
-////});
-
-//console.log("IN UPDATE");
-////TODO: verify
-////const newRecipe = data.recipe;
-
-////cache.writeQuery({
-////query: GET_RECIPE_QUERY,
-////data
-////});
-//};
+import { CREATE_RECIPE_MUTATION } from "../apollo";
 
 const useCreateRecipeMutation = () => {
   const [mutate] = useMutation(CREATE_RECIPE_MUTATION, {
@@ -25,11 +10,8 @@ const useCreateRecipeMutation = () => {
   });
 
   const createRecipe = variables => {
-    console.log("variables", variables);
-
     mutate({
       variables
-      //update: updateRecipeCache,
     });
   };
 

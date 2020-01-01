@@ -24,30 +24,17 @@ import {
   TimeGroup,
   TimeLabel,
   Title
-  //Quantity
 } from "./RecipeStyledComponents";
 
 const Recipe = ({ recipe }) => {
   const renderIngredients = () => {
     return (
-      recipe.raw_ingredients &&
-      recipe.raw_ingredients.map((ing, index) => {
+      recipe.rawIngredients &&
+      recipe.rawIngredients.map((ing, index) => {
         return <Ingredient key={`ingredient|${index}`}>{ing}</Ingredient>;
       })
     );
   };
-
-  //const renderIngredients = () => {
-  //return recipe.ingredients.map((ing, index) => {
-  //const quantity = parseInt(ing.quantity) === 0 ? "" : ing.quantity;
-  //return (
-  //<Ingredient key={`ingredient|${index}`}>
-  //<Quantity>{`${quantity} ${ing.measurement} `}</Quantity>
-  //{ing.name}
-  //</Ingredient>
-  //);
-  //});
-  //};
 
   const renderSteps = () => {
     const { steps } = recipe;
@@ -71,9 +58,7 @@ const Recipe = ({ recipe }) => {
 
   return (
     <Container>
-      <ImageContainer
-        url={recipe.image_url || recipe.imageUrl || ImagePlaceholder}
-      >
+      <ImageContainer url={recipe.imageUrl || ImagePlaceholder}>
         <Title>{recipe.title}</Title>
         <FamilyName>{renderFamilyName()}</FamilyName>
       </ImageContainer>
@@ -90,17 +75,17 @@ const Recipe = ({ recipe }) => {
               {(recipe.category && recipe.category.name) || "Category"}
             </Category>
             <DishType>
-              {(recipe.dish_type && recipe.dish_type.name) || "Dish Type"}
+              {(recipe.dishType && recipe.dishType.name) || "Dish Type"}
             </DishType>
           </CategoryMeta>
         </CategoryContainer>
         <TimeContainer>
           <TimeGroup>
-            <Time>{recipe.prep_time}</Time>
+            <Time>{recipe.prepTime}</Time>
             <TimeLabel>Prep</TimeLabel>
           </TimeGroup>
           <TimeGroup>
-            <Time>{recipe.cook_time}</Time>
+            <Time>{recipe.cookTime}</Time>
             <TimeLabel>Cook</TimeLabel>
           </TimeGroup>
         </TimeContainer>
