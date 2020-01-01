@@ -1,5 +1,5 @@
 import { useMutation } from "@apollo/react-hooks";
-import { CREATE_RECIPE_MUTATION, GET_RECIPE_QUERY } from "../apollo";
+import { UPDATE_RECIPE_MUTATION, GET_RECIPE_QUERY } from "../apollo";
 
 const updateRecipeCache = (cache, { data }) => {
   const existingRecipeQuery = cache.readQuery({
@@ -17,7 +17,7 @@ const updateRecipeCache = (cache, { data }) => {
 };
 
 const useUpdateRecipeMutation = () => {
-  const [mutate] = useMutation(CREATE_RECIPE_MUTATION, {
+  const [mutate] = useMutation(UPDATE_RECIPE_MUTATION, {
     onCompleted({ updateRecipe }) {
       const id = updateRecipe.id;
       window.location.replace(`/recipes/${id}`);

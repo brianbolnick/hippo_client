@@ -1,2 +1,2 @@
-import EditRecipe from './EditRecipe';
-export default EditRecipe
+import EditRecipe from "../NewRecipe/EditRecipe";
+export default EditRecipe;

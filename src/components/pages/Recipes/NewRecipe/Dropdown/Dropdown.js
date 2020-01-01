@@ -13,9 +13,20 @@ import {
   Container
 } from "./DropdownStyles";
 
-const Dropdown = ({ label, title, items, onChange, placeholder }) => {
+const Dropdown = ({
+  label,
+  title,
+  items,
+  onChange,
+  placeholder,
+  defaultValue
+}) => {
+  const current = items.find(x => x.id === parseInt(defaultValue));
+  const initial = defaultValue && current ? current.title : title;
+
   const [listOpen, setListOpen] = useState(false);
-  const [headerTitle, setHeaderTitle] = useState(title);
+  const [headerTitle, setHeaderTitle] = useState(initial);
+
   const node = useRef();
 
   const handleClick = e => {
