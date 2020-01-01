@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { token, userId, familyId, API_URL } from "utils";
 import { colors } from "styles/css-variables";
@@ -24,142 +24,153 @@ import {
 } from "./NewRecipeStyles";
 import Ingredient from "./Ingredient";
 import Step from "./Step";
+import { useCreateRecipeMutation } from "../hooks";
 
 const TOTAL_STEPS = 5;
 
-class NewRecipe extends Component {
-  state = {
-    image: null,
-    currentStep: 1,
-    title: "",
-    prep_time: "",
-    cook_time: "",
-    calories: "",
-    servings: 1,
-    difficulty: 1,
-    raw_ingredients: [],
-    steps: [],
-    family_id: familyId,
-    user_id: userId,
-    category_id: 1,
-    dish_type_id: 1,
-    notes: "",
-    error: "",
-    imageUrl: "",
-    loading: false
-  };
+const NewRecipe = props => {
+  const [image, setImage] = useState(null);
+  const [currentStep, setCurrentStep] = useState(1);
+  const [title, setTitle] = useState("");
+  const [prepTime, setPrepTime] = useState("");
+  const [cookTime, setCookTime] = useState("");
+  const [calories, setCalories] = useState("");
+  const [servings, setServings] = useState(1);
+  const [difficulty, setDifficulty] = useState(1);
+  const [rawIngredients, setRawIngredients] = useState([]);
+  const [steps, setSteps] = useState([]);
+  const [categoryId, setCategoryId] = useState(1);
+  const [dishTypeId, setDishTypeId] = useState(1);
+  const [notes, setNotes] = useState("");
+  const [error, setError] = useState("");
+  const [imageUrl, setImageUrl] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [categories, setCategories] = useState([]);
+  const [dishTypes, setDishTypes] = useState([]);
 
-  getCategories = () => {
+  const [createRecipe] = useCreateRecipeMutation();
+
+  const getCategories = () => {
     return axios.get(`${API_URL}/categories`, {
       headers: { Authorization: `Bearer ${token}` }
     });
   };
 
-  getDishTypes = () => {
+  const getDishTypes = () => {
     return axios.get(`${API_URL}/dish_types`, {
       headers: { Authorization: `Bearer ${token}` }
     });
   };
 
-  getFamily = () => {
+  const getFamily = () => {
     return axios.get(`${API_URL}/family/${familyId}`, {
       headers: { Authorization: `Bearer ${token}` }
     });
   };
 
-  componentDidMount = () => {
+  useEffect(() => {
     axios
-      .all([this.getCategories(), this.getDishTypes(), this.getFamily()])
+      .all([getCategories(), getDishTypes(), getFamily()])
       .then(
         axios.spread((categoryData, dishTypeData, familyData) => {
           const categories = categoryData.data.data;
           const dishTypes = dishTypeData.data.data;
-          const family = familyData.data.data;
-          this.setState({ categories, dishTypes, family });
+          setCategories(categories);
+          setDishTypes(dishTypes);
         })
       )
       .catch(err => {
         console.log(err);
-        this.setState({ error: "Something went wrong." });
+        setError("Something went wrong.");
       });
-  };
+  }, []);
 
-  handleSubmit = e => {
+  const handleSubmit = e => {
     e.preventDefault();
 
-    if (!this.state.title || !this.state.prep_time || !this.state.cook_time) {
-      this.setState({
-        error: "Title, Prep Time, and Cook Time can't be blank."
-      });
+    if (!title || !prepTime || !cookTime) {
+      setError("Title, Prep Time, and Cook Time can't be blank.");
     } else {
-      this.submitRecipe();
+      submitRecipe();
     }
   };
 
-  submitRecipe = () => {
-    this.setState({ loading: true });
-    const {
-      currentStep,
-      error,
-      loading,
-      categories,
-      dishTypes,
-      family,
-      imageUrl,
-      ...recipe
-    } = this.state;
+  const submitRecipe = () => {
+    setLoading(true);
+    const vars = {
+      image,
+      title,
+      prepTime,
+      cookTime,
+      calories,
+      servings,
+      difficulty,
+      rawIngredients,
+      steps,
+      familyId,
+      userId,
+      categoryId,
+      dishTypeId,
+      notes
+    };
 
-    const data = new FormData();
-
-    Object.keys(recipe).forEach(obj => {
-      const val = recipe[obj];
-      if (val && val instanceof Array) {
-        data.append(obj, JSON.stringify(val));
-      } else if (val) {
-        data.append(obj, val);
+    //clean up empty vars
+    Object.keys(vars).forEach(v => {
+      if (!vars[v]) {
+        delete vars[v];
       }
     });
 
-    const authToken = `Bearer ${token}`;
-    axios
-      .post(`${API_URL}/recipes`, data, {
-        headers: { Authorization: authToken }
-      })
-      .then(resp => {
-        const id = resp.data.data.id;
-        window.location.replace(`/recipes/${id}`);
-      })
-      .catch(err => {
-        console.log(err);
-        this.setState({
-          error: "Something went wrong. Please try again.",
-          loading: false
-        });
-      });
+    createRecipe(vars);
+    //const data = new FormData();
+
+    //Object.keys(recipe).forEach(obj => {
+    //const val = recipe[obj];
+    //if (val && val instanceof Array) {
+    //data.append(obj, JSON.stringify(val));
+    //} else if (val) {
+    //data.append(obj, val);
+    //}
+    //});
+
+    //const authToken = `Bearer ${token}`;
+    //axios
+    //.post(`${API_URL}/recipes`, data, {
+    //headers: { Authorization: authToken }
+    //})
+    //.then(resp => {
+    //const id = resp.data.data.id;
+    //window.location.replace(`/recipes/${id}`);
+    //})
+    //.catch(err => {
+    //console.log(err);
+    //setLoading(false);
+    //setError("Something went wrong. Please try again.");
+    //});
   };
 
-  handleAddIngredients = rawIngredient => {
+  const handleAddIngredients = rawIngredient => {
     if (rawIngredient) {
-      const raw_ingredients = [...this.state.raw_ingredients, rawIngredient];
-      this.setState({ raw_ingredients });
+      const newRawIngredients = [...rawIngredients, rawIngredient];
+      setRawIngredients(newRawIngredients);
     }
   };
 
-  handleAddSteps = step => {
+  const handleAddSteps = step => {
     if (step) {
-      const steps = [...this.state.steps, step];
-      this.setState({ steps });
+      const newSteps = [...steps, step];
+      setSteps(newSteps);
     }
   };
 
-  renderCategories = () => {
+  const renderCategories = () => {
     const list =
-      this.state.categories &&
-      this.state.categories.map(category => {
+      categories &&
+      categories.map(category => {
         return {
           id: category.id,
           title: category.name,
-          selected: this.state.category_id === category.id,
+          selected: categoryId === category.id,
           key: "category"
         };
       });
@@ -167,21 +178,21 @@ class NewRecipe extends Component {
     return (
       <Dropdown
         placeholder="Category"
-        onChange={item => this.setState({ category_id: item.id })}
+        onChange={item => setCategoryId(item.id)}
         items={list}
         label="Category"
       />
     );
   };
 
-  renderDishTypes = () => {
+  const renderDishTypes = () => {
     const list =
-      this.state.dishTypes &&
-      this.state.dishTypes.map(dishType => {
+      dishTypes &&
+      dishTypes.map(dishType => {
         return {
           id: dishType.id,
           title: dishType.name,
-          selected: this.state.dishType_id === dishType.id,
+          selected: dishTypeId === dishType.id,
           key: "dishType"
         };
       });
@@ -189,24 +200,25 @@ class NewRecipe extends Component {
     return (
       <Dropdown
         placeholder="Dish Type"
-        onChange={item => this.setState({ dish_type_id: item.id })}
+        onChange={item => setDishTypeId(item.id)}
         items={list}
         label="Dish Type"
       />
     );
   };
 
-  renderDifficulty = () => {
+  const renderDifficulty = () => {
     const difficulties = [
       { name: "Easy", id: 1 },
       { name: "Medium", id: 2 },
       { name: "Difficult", id: 3 }
     ];
+
     const list = difficulties.map(diff => {
       return {
         id: diff.id,
         title: diff.name,
-        selected: this.state.difficulty === diff.id,
+        selected: difficulty === diff.id,
         key: "difficulty"
       };
     });
@@ -214,19 +226,19 @@ class NewRecipe extends Component {
     return (
       <Dropdown
         placeholder="Dish Difficulty"
-        onChange={item => this.setState({ difficulty: item.id })}
+        onChange={item => setDifficulty(item.id)}
         items={list}
         label="Difficulty"
       />
     );
   };
 
-  renderServings = () => {
+  const renderServings = () => {
     const list = [...Array(10)].map((serving, index) => {
       return {
         id: index + 1,
         title: index + 1,
-        selected: this.state.servings === index + 1,
+        selected: servings === index + 1,
         key: "serving"
       };
     });
@@ -234,53 +246,52 @@ class NewRecipe extends Component {
     return (
       <Dropdown
         placeholder="Serving Size"
-        onChange={item => this.setState({ servings: item.id })}
+        onChange={item => setServings(item.id)}
         items={list}
         label="Serving Size"
       />
     );
   };
 
-  deleteIngredient = ing => {
-    const raw_ingredients = [...this.state.raw_ingredients];
+  const deleteIngredient = ing => {
+    const newRawIngredients = [...rawIngredients];
 
-    const filteredRawIngredients = raw_ingredients.filter(
+    const filteredRawIngredients = newRawIngredients.filter(
       x => JSON.stringify(x) !== JSON.stringify(ing)
     );
 
-    this.setState({ raw_ingredients: filteredRawIngredients });
+    setRawIngredients(filteredRawIngredients);
   };
 
-  updateIngredient = (oldIng, newIng) => {
-    const raw_ingredients = [...this.state.raw_ingredients];
-    const index = raw_ingredients.indexOf(oldIng);
-    raw_ingredients[index] = newIng;
+  const updateIngredient = (oldIng, newIng) => {
+    const newRawIngredients = [...rawIngredients];
+    const index = newRawIngredients.indexOf(oldIng);
+    newRawIngredients[index] = newIng;
 
-    this.setState({ raw_ingredients });
+    setRawIngredients(newRawIngredients);
   };
 
-  deleteStep = step => {
-    const steps = [...this.state.steps];
-    this.setState({ steps: steps.filter(x => x !== step) });
+  const deleteStep = step => {
+    const newSteps = [...steps];
+    setSteps(newSteps.filter(x => x !== step));
   };
 
-  updateStep = (oldStep, newStep) => {
-    const steps = [...this.state.steps];
-    const index = steps.indexOf(oldStep);
-    steps[index] = newStep;
+  const updateStep = (oldStep, newStep) => {
+    const newSteps = [...steps];
+    const index = newSteps.indexOf(oldStep);
+    newSteps[index] = newStep;
 
-    this.setState({ steps });
+    setSteps(newSteps);
   };
 
-  renderIngredients = () => {
-    const { raw_ingredients } = this.state;
-    return raw_ingredients.length ? (
-      raw_ingredients.map((ing, index) => (
+  const renderIngredients = () => {
+    return rawIngredients.length ? (
+      rawIngredients.map((ing, index) => (
         <Ingredient
           key={`ingredient|${index}`}
           ingredient={ing}
-          onUpdate={this.updateIngredient}
-          onDelete={this.deleteIngredient}
+          onUpdate={updateIngredient}
+          onDelete={deleteIngredient}
         />
       ))
     ) : (
@@ -288,9 +299,7 @@ class NewRecipe extends Component {
     );
   };
 
-  renderSteps = () => {
-    const { steps } = this.state;
-
+  const renderSteps = () => {
     return (
       steps &&
       steps.map((step, index) => {
@@ -299,36 +308,43 @@ class NewRecipe extends Component {
             key={`step|${index}`}
             stepNumber={index + 1}
             step={step}
-            onUpdate={this.updateStep}
-            onDelete={this.deleteStep}
+            onUpdate={updateStep}
+            onDelete={deleteStep}
           />
         );
       })
     );
   };
 
-  handleUploadImage = e => {
-    const image = e.target.files[0];
-    if (image.size <= 102400) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        const imageUrl = reader.result;
-        this.setState({ imageUrl });
-      };
+  const handleUploadImage = ({
+    target: {
+      validity,
+      files: [image]
+    }
+  }) => {
+    if (validity.valid) {
+      //const image = e.target.files[0];
+      //TODO: increase this
+      if (image.size <= 1003349) {
+        setImage(image);
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          const imageUrl = reader.result;
+          setImageUrl(imageUrl);
+        };
 
-      image && reader.readAsDataURL(image);
-
-      this.setState({ image });
-    } else {
-      this.setState({ error: "File size is too large. Must be 100kb or less" });
+        image && reader.readAsDataURL(image);
+      } else {
+        setError("File size is too large. Must be 1mb or less");
+      }
     }
   };
 
-  removeImage = () => {
-    this.setState({ image: null });
+  const removeImage = () => {
+    setImage(null);
   };
 
-  renderStep1 = active => {
+  const renderStep1 = active => {
     return (
       <StepContainer active={active}>
         <Title>What is it?</Title>
@@ -337,24 +353,24 @@ class NewRecipe extends Component {
             <Input
               type="text"
               placeholder="What's it called?"
-              onChange={e => this.setState({ title: e.target.value })}
+              onChange={e => setTitle(e.target.value)}
               label="Recipe Title"
-              value={this.state.title}
+              value={title}
             />
             <TextArea
               placeholder="What's special about it?"
               label="Notes"
-              onChange={e => this.setState({ notes: e.target.value })}
-              value={this.state.notes}
+              onChange={e => setNotes(e.target.value)}
+              value={notes}
             />
           </Column>
 
           <Column flex={1.5}>
             <FileInput
-              onChange={this.handleUploadImage}
-              file={this.state.image}
-              onClear={this.removeImage}
-              imageUrl={this.state.imageUrl}
+              onChange={handleUploadImage}
+              file={image}
+              onClear={removeImage}
+              imageUrl={imageUrl}
             />
           </Column>
         </Columns>
@@ -362,7 +378,7 @@ class NewRecipe extends Component {
     );
   };
 
-  renderStep2 = active => {
+  const renderStep2 = active => {
     return (
       <StepContainer active={active}>
         <Title>Tell me more.</Title>
@@ -373,73 +389,82 @@ class NewRecipe extends Component {
             <Input
               type="text"
               placeholder="Prep Time"
-              onChange={e => this.setState({ prep_time: e.target.value })}
+              onChange={e => setPrepTime(e.target.value)}
               label="Prep Time"
-              value={this.state.prep_time}
+              value={prepTime}
             />
             <Input
               type="text"
               placeholder="Cook Time"
-              onChange={e => this.setState({ cook_time: e.target.value })}
+              onChange={e => setCookTime(e.target.value)}
               label="Cook Time"
-              value={this.state.cook_time}
+              value={cookTime}
             />
             <Input
               type="text"
               placeholder="Calories"
-              onChange={e => this.setState({ calories: e.target.value })}
+              onChange={e => setCalories(e.target.value)}
               label="Calories"
-              value={this.state.calories}
+              value={calories}
             />
           </Column>
 
           <Column flex={1}>
-            {this.renderCategories()}
-            {this.renderDishTypes()}
-            {this.renderServings()}
-            {this.renderDifficulty()}
+            {renderCategories()}
+            {renderDishTypes()}
+            {renderServings()}
+            {renderDifficulty()}
           </Column>
         </Columns>
       </StepContainer>
     );
   };
 
-  renderStep3 = active => {
+  const renderStep3 = active => {
     return (
       <StepContainer active={active}>
         <Title>What's in it?</Title>
-        <AddIngredientForm onSave={data => this.handleAddIngredients(data)} />
-        {this.renderIngredients()}
+        <AddIngredientForm onSave={data => handleAddIngredients(data)} />
+        {renderIngredients()}
       </StepContainer>
     );
   };
 
-  renderStep4 = active => {
+  const renderStep4 = active => {
     return (
       <StepContainer active={active}>
         <Title>How is it made?</Title>
-        <AddStepForm onSave={data => this.handleAddSteps(data)} />
-        {this.renderSteps()}
+        <AddStepForm onSave={data => handleAddSteps(data)} />
+        {renderSteps()}
       </StepContainer>
     );
   };
 
-  renderStep5 = active => {
-    const {
+  const renderStep5 = active => {
+    const recipe = {
       image,
-      currentStep,
-      error,
-      loading,
-      categories,
-      dishTypes,
-      ...recipe
-    } = this.state;
+      title,
+      prepTime,
+      cookTime,
+      calories,
+      servings,
+      difficulty,
+      rawIngredients,
+      steps, //for some reason empty
+      familyId,
+      userId,
+      categoryId,
+      dishTypeId,
+      notes,
+      imageUrl
+    };
 
     const category =
       categories && categories.find(cat => cat.id === recipe.category_id);
     const dish_type =
       dishTypes && dishTypes.find(dt => dt.id === recipe.dish_type_id);
 
+    //TODO: preview isnt working so well
     return (
       <StepContainer active={active}>
         <Title>Preview</Title>
@@ -449,55 +474,45 @@ class NewRecipe extends Component {
     );
   };
 
-  render() {
-    const { currentStep, error, loading } = this.state;
-
-    return (
-      <Layout hideFooter>
-        <FlashMessage
-          visible={!!error}
-          error
-          onClose={() => this.setState({ error: "" })}
-        >
-          {error}
-        </FlashMessage>
-        <PageContainer>
-          <ProgressSteps
-            step={currentStep}
-            totalSteps={TOTAL_STEPS}
-            title="New Recipe"
-            color={colors.softRed}
-          />
-          {this.renderStep1(currentStep === 1)}
-          {this.renderStep2(currentStep === 2)}
-          {this.renderStep3(currentStep === 3)}
-          {this.renderStep4(currentStep === 4)}
-          {this.renderStep5(currentStep === 5)}
-          <StepOptions>
-            {currentStep > 1 && (
-              <ActionButton
-                secondary
-                onClick={() => this.setState({ currentStep: currentStep - 1 })}
-              >
-                Back
-              </ActionButton>
-            )}
-            {currentStep === TOTAL_STEPS ? (
-              <ActionButton onClick={this.handleSubmit} loading={loading}>
-                Finish
-              </ActionButton>
-            ) : (
-              <ActionButton
-                onClick={() => this.setState({ currentStep: currentStep + 1 })}
-              >
-                Next
-              </ActionButton>
-            )}
-          </StepOptions>
-        </PageContainer>
-      </Layout>
-    );
-  }
-}
+  return (
+    <Layout hideFooter>
+      <FlashMessage visible={!!error} error onClose={() => setError("")}>
+        {error}
+      </FlashMessage>
+      <PageContainer>
+        <ProgressSteps
+          step={currentStep}
+          totalSteps={TOTAL_STEPS}
+          title="New Recipe"
+          color={colors.softRed}
+        />
+        {renderStep1(currentStep === 1)}
+        {renderStep2(currentStep === 2)}
+        {renderStep3(currentStep === 3)}
+        {renderStep4(currentStep === 4)}
+        {renderStep5(currentStep === 5)}
+        <StepOptions>
+          {currentStep > 1 && (
+            <ActionButton
+              secondary
+              onClick={() => setCurrentStep(currentStep - 1)}
+            >
+              Back
+            </ActionButton>
+          )}
+          {currentStep === TOTAL_STEPS ? (
+            <ActionButton onClick={handleSubmit} loading={loading}>
+              Finish
+            </ActionButton>
+          ) : (
+            <ActionButton onClick={() => setCurrentStep(currentStep + 1)}>
+              Next
+            </ActionButton>
+          )}
+        </StepOptions>
+      </PageContainer>
+    </Layout>
+  );
+};
 
 export default NewRecipe;

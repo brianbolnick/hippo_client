@@ -56,3 +56,5 @@ export const timeShortener = timeString => {
   if (normalizedTimeString === "hours") return "Hr";
   return timeString;
 };
+
+export { default as recipeScraper } from "./scrapers";
