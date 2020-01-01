@@ -20,7 +20,7 @@ export default gql`
     $userId: Int!
     $image: Upload
   ) {
-    createRecipe(
+    updateRecipe(
       calories: $calories
       categoryId: $categoryId
       cookTime: $cookTime

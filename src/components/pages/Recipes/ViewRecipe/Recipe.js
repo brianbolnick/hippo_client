@@ -241,7 +241,6 @@ const Recipe = ({ match }) => {
               color={colors.black}
               size="24px"
             />
-            {/*
             <ActionIcon
               onClick={() =>
                 window.location.replace(`/recipes/${recipe.id}/edit`)
@@ -250,7 +249,6 @@ const Recipe = ({ match }) => {
               name="edit"
               size="24px"
             />
-						*/}
             <ActionIcon
               onClick={() => setShowDeleteModal(true)}
               color={colors.black}

@@ -68,19 +68,21 @@ const EditRecipeView = ({ recipe, categories, dishTypes, family }) => {
     setLoading(true);
     const vars = {
       image,
+      imageUrl: !image ? imageUrl : null,
       title,
       prepTime,
       cookTime,
       calories,
-      servings,
-      difficulty,
+      servings: parseInt(servings),
+      difficulty: parseInt(difficulty),
       rawIngredients,
       steps,
       familyId,
       userId,
       categoryId,
       dishTypeId,
-      notes
+      notes,
+      id: recipe.id
     };
 
     //clean up empty vars
@@ -90,10 +92,8 @@ const EditRecipeView = ({ recipe, categories, dishTypes, family }) => {
       }
     });
 
-    console.log("submit on update", vars);
-
     setLoading(false);
-    //updateRecipe(vars);
+    updateRecipe(vars);
   };
 
   const handleAddIngredients = rawIngredient => {
