@@ -9,20 +9,23 @@ import {
   Divider,
   Inclusions,
   Item,
-  DollarSign
+  DollarSign,
+  Month
 } from "./styles";
 import MasterClass from "img/mc.svg";
 import Chef from "img/chefPlan.svg";
 
 const ChefItems = () => (
   <Inclusions>
-    <Item>10 recipes</Item>
+    <Item>5 recipes</Item>
     <Item>2 people per family</Item>
     <Item off>Meal Plans</Item>
     <Item off>Grocery and Shopping Lists</Item>
     <Item off>Search for Recipes By Ingredient</Item>
     <Item off>Import Recipes from Other Sites</Item>
-    <Item off>Automatic Nutrition Facts (also searchable!)</Item>
+    <Item off>Automatic Nutrition Information</Item>
+    <Item off>Step by Step Mode</Item>
+    <Item off>Additional sorting and filtering</Item>
   </Inclusions>
 );
 
@@ -34,7 +37,9 @@ const MasterClassItems = () => (
     <Item>Grocery and Shopping Lists</Item>
     <Item>Search for Recipes By Ingredient</Item>
     <Item>Import Recipes from Other Sites</Item>
-    <Item>Automatic Nutrition Facts (also searchable!)</Item>
+    <Item>Automatic Nutrition Information</Item>
+    <Item>Step by Step Mode</Item>
+    <Item>Additional sorting and filtering</Item>
   </Inclusions>
 );
 
@@ -44,7 +49,8 @@ const PlanCard = ({ title }) => {
     return (
       <>
         <DollarSign>$</DollarSign>
-        39.99
+        9.99
+        <Month>month</Month>
       </>
     );
   };

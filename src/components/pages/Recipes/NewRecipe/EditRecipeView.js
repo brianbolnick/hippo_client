@@ -49,7 +49,6 @@ const EditRecipeView = ({ recipe, categories, dishTypes, family }) => {
   );
   const [notes, setNotes] = useState(get(recipe, "notes", ""));
   const [error, setError] = useState("");
-  //TODO: get image showing
   const [imageUrl, setImageUrl] = useState(get(recipe, "imageUrl", ""));
   const [loading, setLoading] = useState(false);
   const [updateRecipe] = useUpdateRecipeMutation();

@@ -73,17 +73,15 @@ const DropBox = styled.div`
   background-position: center;
   background-repeat: no-repeat;
 
-  ${({ url, file }) =>
+  ${({ url }) =>
     url &&
-    file &&
     `
 			background-image: url('${url}');
 	`}
 
-  ${({ url, showReselect, file }) =>
+  ${({ url, showReselect }) =>
     url &&
     showReselect &&
-    file &&
     `background-image: linear-gradient(to bottom, rgba(0,0,0,0.5), rgba(0,0,0,0.4) ), url('${url}'); 
 `}
 `;
@@ -130,7 +128,7 @@ const FileInput = ({ onChange, label, file, onClear, imageUrl }, ...props) => {
   };
 
   const renderContent = () => {
-    if (file) {
+    if (file || imageUrl) {
       return showReselect ? (
         <UploadButton secondary>Reselect</UploadButton>
       ) : null;
