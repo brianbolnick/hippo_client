@@ -32,7 +32,7 @@ const ChefItems = () => (
 const MasterClassItems = () => (
   <Inclusions>
     <Item>Unlimited Recipes</Item>
-    <Item>Unlimited Family Members</Item>
+    <Item>6 people per family</Item>
     <Item>Meal Plans</Item>
     <Item>Grocery and Shopping Lists</Item>
     <Item>Search for Recipes By Ingredient</Item>

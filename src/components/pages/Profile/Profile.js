@@ -63,10 +63,10 @@ const Family = () => {
   const users = get(family, "users", []);
 
   recipeScraper(
-    "https://www.foodnetwork.com/recipes/food-network-kitchen/bell-pepper-keto-nachos-5224931"
+    "https://www.foodnetwork.com/recipes/rachael-ray/super-nachos-recipe-1914057"
   )
     .then(recipe => {
-      console.log("recipe", JSON.stringify(recipe));
+      console.log("recipe", recipe);
     })
     .catch(error => {
       // do something with error

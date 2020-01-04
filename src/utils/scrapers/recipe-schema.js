@@ -1,16 +1,14 @@
 function Recipe() {
-  this.name = "";
-  this.ingredients = [];
-  this.instructions = [];
-  this.time = {
-    prep: "",
-    cook: "",
-    active: "",
-    inactive: "",
-    ready: "",
-    total: ""
-  };
+  this.title = "";
+  this.rawIngredients = [];
+  this.steps = [];
+  this.cookTime = "";
+  this.prepTime = "";
   this.servings = "";
+  this.imageUrl = "";
+  this.difficulty = "";
+  this.notes = "";
+  //TODO: empty categories?
 }
 
 export default Recipe;

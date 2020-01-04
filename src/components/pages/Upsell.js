@@ -59,15 +59,17 @@ export default () => {
         <Divider full margin="40px" />
         <FeatureContainer>
           <Title>Get More With Premium</Title>
+
           <FeatureItem>Unlimited Recipes</FeatureItem>
-          <FeatureItem>Unlimited Family Members</FeatureItem>
+          <FeatureItem>6 people per family</FeatureItem>
           <FeatureItem>Meal Plans</FeatureItem>
           <FeatureItem>Grocery and Shopping Lists</FeatureItem>
           <FeatureItem>Search for Recipes By Ingredient</FeatureItem>
           <FeatureItem>Import Recipes from Other Sites</FeatureItem>
-          <FeatureItem>
-            Automatic Nutrition Facts (also searchable!)
-          </FeatureItem>
+          <FeatureItem>Automatic Nutrition Information</FeatureItem>
+          <FeatureItem>Step by Step Mode</FeatureItem>
+          <FeatureItem>Additional sorting and filtering</FeatureItem>
+          <br />
           <FeatureItem>And More To Come!</FeatureItem>
         </FeatureContainer>
 

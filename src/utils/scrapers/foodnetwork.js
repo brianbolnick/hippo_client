@@ -1,6 +1,7 @@
 import request from "request";
 import cheerio from "cheerio";
 import RecipeSchema from "./recipe-schema";
+import { DIFFICULTIES_MAP } from "./utils";
 
 const foodNetwork = url => {
   const Recipe = new RecipeSchema();
@@ -12,15 +13,21 @@ const foodNetwork = url => {
         if (!error && response.statusCode == 200) {
           const $ = cheerio.load(html);
 
-          Recipe.name = $(".o-AssetTitle__a-HeadlineText")
+          Recipe.title = $(".o-AssetTitle__a-HeadlineText")
             .first()
             .text();
+
+          Recipe.imageUrl =
+            "https:" +
+            $("img.m-MediaBlock__a-Image.a-Image").first()[0].attribs.src;
+
+          debugger;
           $(".o-Ingredients__a-Ingredient, .o-Ingredients__a-SubHeadline").each(
             (i, el) => {
               const item = $(el)
                 .text()
                 .replace(/\s\s+/g, "");
-              Recipe.ingredients.push(item);
+              Recipe.rawIngredients.push(item);
             }
           );
 
@@ -29,7 +36,7 @@ const foodNetwork = url => {
               .text()
               .replace(/\s\s+/g, "");
             if (step !== "") {
-              Recipe.instructions.push(step);
+              Recipe.steps.push(step);
             }
           });
 
@@ -40,22 +47,17 @@ const foodNetwork = url => {
               .split(":");
             switch (timeItem[0]) {
               case "Prep":
-                Recipe.time.prep = timeItem[1];
-                break;
-              case "Active":
-                Recipe.time.active = timeItem[1];
-                break;
-              case "Inactive":
-                Recipe.time.inactive = timeItem[1];
+                Recipe.prepTime = timeItem[1];
                 break;
               case "Cook":
-                Recipe.time.cook = timeItem[1];
+                Recipe.cookTime = timeItem[1];
                 break;
-              case "Total":
-                Recipe.time.total = timeItem[1];
+              case "Level":
+                Recipe.difficulty =
+                  DIFFICULTIES_MAP[timeItem[1].toLowerCase()] || 1;
                 break;
               case "Yield":
-                Recipe.servings = timeItem[1];
+                Recipe.servings = parseInt(timeItem[1].match(/\d+/)[0]);
                 break;
               default:
                 break;
@@ -63,9 +65,9 @@ const foodNetwork = url => {
           });
 
           if (
-            !Recipe.name ||
-            !Recipe.ingredients.length ||
-            !Recipe.instructions.length
+            !Recipe.title ||
+            !Recipe.rawIngredients.length ||
+            !Recipe.steps.length
           ) {
             reject(new Error("No recipe found on page"));
           } else {
