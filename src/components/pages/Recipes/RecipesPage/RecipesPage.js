@@ -1,13 +1,15 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import Button from "components/common/Button/Button";
-import FlashMessage from "components/common/FlashMessage/FlashMessage";
-import Layout from "components/common/Layout/Layout";
-import RecipesTab from "./RecipesTab";
-import Search from "components/common/Search";
-import Tab from "components/common/Tabs/Tab";
-import TabPane from "components/common/Tabs/TabPane";
-import Tabs from "components/common/Tabs/Tabs";
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import Button from 'components/common/Button/Button';
+import ActionButton from 'components/common/ActionButton/ActionButton';
+import FlashMessage from 'components/common/FlashMessage/FlashMessage';
+import Layout from 'components/common/Layout/Layout';
+import RecipesTab from './RecipesTab';
+import Search from 'components/common/Search';
+import Tab from 'components/common/Tabs/Tab';
+import TabPane from 'components/common/Tabs/TabPane';
+import Tabs from 'components/common/Tabs/Tabs';
+import NewModal from '../Modals/NewModal';
 import {
   SearchWrapper,
   TabLink,
@@ -15,15 +17,31 @@ import {
   NewButtonContainer,
   OptionsContainer,
   Header
-} from "./RecipesPageStyledComponents";
+} from './RecipesPageStyledComponents';
 
-const Recipes = () => {
-  const [error, setError] = useState("");
-  const [searchTerm, setSearchTerm] = useState("");
+const Recipes = ({ history }) => {
+  const [error, setError] = useState('');
+  const [searchTerm, setSearchTerm] = useState('');
+  const [showNewModal, setShowNewModal] = useState(false);
+
+  const LIST = [
+    {
+      id: 0,
+      title: 'Import URL',
+      key: 'import',
+      onClick: () => setShowNewModal(true)
+    },
+    {
+      id: 1,
+      title: 'Create',
+      key: 'create',
+      onClick: () => history.push('/recipes/new')
+    }
+  ];
 
   return (
     <Layout>
-      <FlashMessage visible={!!error} error onClose={() => setError("")}>
+      <FlashMessage visible={!!error} error onClose={() => setError('')}>
         {error}
       </FlashMessage>
       <Tabs defaultActiveTab="family" asyncRender>
@@ -41,10 +59,15 @@ const Recipes = () => {
               <Search onChange={val => setSearchTerm(val)} />
             </SearchWrapper>
             <NewButtonContainer>
-              <Link to="/recipes/new">
-                <Button icon="plus" />
-              </Link>
+              <ActionButton actionName="New" items={LIST} />
             </NewButtonContainer>
+            {/* TODO: conditionally show based on membership */}
+            {showNewModal && (
+              <NewModal
+                history={history}
+                onCancelClick={() => setShowNewModal(false)}
+              />
+            )}
           </OptionsContainer>
         </Header>
         <TabPane name="family" asyncRender>

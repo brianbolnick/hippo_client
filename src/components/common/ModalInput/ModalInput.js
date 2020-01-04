@@ -1,8 +1,8 @@
-import React from "react";
-import PropTypes from "prop-types";
-import styled from "styled-components";
-import { media, colors, avenir, raleway } from "styles/css-variables";
-import Icon from "components/common/Icon/Icon";
+import React from 'react';
+import PropTypes from 'prop-types';
+import styled from 'styled-components';
+import { media, colors, avenir, raleway } from 'styles/css-variables';
+import Icon from 'components/common/Icon/Icon';
 
 const StyledInput = styled.input`
   color: ${colors.black};
@@ -10,15 +10,15 @@ const StyledInput = styled.input`
   padding: 0 1rem;
   border: none;
   border-bottom: ${({ inputState }) =>
-    inputState === "error"
+    inputState === 'error'
       ? `solid 2px ${colors.darkRed}`
-      : inputState === "success"
+      : inputState === 'success'
       ? `solid 2px ${colors.green}`
       : `solid 2px ${colors.lightGray}`};
   line-height: 2em;
   max-width: 100%;
   width: 100%;
-  font-size: 2em;
+  font-size: ${({ fontSize }) => `${fontSize}em`};
   text-align: center;
   font-family: ${raleway};
 
@@ -31,7 +31,7 @@ const StyledInput = styled.input`
   &:focus {
     outline: none;
     border-color: ${({ inputState }) =>
-      inputState === "success" ? colors.green : colors.red};
+      inputState === 'success' ? colors.green : colors.red};
   }
 
   ::placeholder {
@@ -65,22 +65,21 @@ const Container = styled.div`
   margin-bottom: 15px;
   margin-top: 8px;
   position: relative;
-  //min-width: 136px;
 `;
 
 const StyledIcon = styled(Icon)`
   pointer-events: none;
   position: absolute;
-  top: 12px;
+  top: ${({ fontSize }) => `${6 * fontSize}px`};
   z-index: 4;
   left: 0px;
-  width: 32px;
-  height: 32px;
+  width: ${({ fontSize }) => `${16 * fontSize}px`};
+  height: ${({ fontSize }) => `${16 * fontSize}px`};
   ${({ focus, inputState }) =>
     focus &&
     `
 			path {
-				fill: ${inputState === "success" ? colors.green : colors.red};
+				fill: ${inputState === 'success' ? colors.green : colors.red};
 			}
 	`};
 `;
@@ -102,33 +101,43 @@ class ModalInput extends React.Component {
   };
 
   render() {
-    const { type, onChange, placeholder, label, icon, inputState } = this.props;
+    const {
+      fontSize,
+      type,
+      onChange,
+      placeholder,
+      label,
+      icon,
+      inputState
+    } = this.props;
 
     return (
       <Wrapper {...this.props}>
         <Container>
           {icon && (
             <StyledIcon
+              fontSize={fontSize}
               label={label}
               focus={this.state.focus}
               inputState={inputState}
               color={
-                inputState === "error"
+                inputState === 'error'
                   ? colors.darkRed
-                  : inputState === "success"
+                  : inputState === 'success'
                   ? colors.green
-                  : "#dbdbdb"
+                  : '#dbdbdb'
               }
               name={
-                inputState === "success"
-                  ? "checkCircle"
-                  : inputState === "error"
-                  ? "close"
+                inputState === 'success'
+                  ? 'checkCircle'
+                  : inputState === 'error'
+                  ? 'close'
                   : icon
               }
             />
           )}
           <StyledInput
+            fontSize={fontSize}
             type={type}
             onChange={onChange}
             placeholder={placeholder}
@@ -151,7 +160,12 @@ ModalInput.propTypes = {
   placeholder: PropTypes.string,
   label: PropTypes.string,
   icon: PropTypes.string,
-  inputState: PropTypes.string
+  inputState: PropTypes.string,
+  fontSize: PropTypes.number
+};
+
+ModalInput.defaultProps = {
+  fontSize: 2
 };
 
 export default ModalInput;

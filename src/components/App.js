@@ -1,24 +1,26 @@
-import React, { Component } from "react";
-import { Route, withRouter, Switch, Redirect } from "react-router-dom";
-import { StripeProvider } from "react-stripe-elements";
-import SignIn from "./pages/Auth/SignIn";
-import SignUp from "./pages/Auth/SignUp";
-import Logout from "./pages/Auth/Logout";
-import Recipes from "./pages/Recipes/RecipesPage";
-import Recipe from "./pages/Recipes/ViewRecipe";
-import NewRecipe from "./pages/Recipes/NewRecipe";
-import EditRecipe from "./pages/Recipes/EditRecipe";
-import ImportRecipe from "./pages/Recipes/ImportRecipe";
-import About from "./pages/About";
-import Profile from "./pages/Profile";
-import MealPlans from "./pages/MealPlans";
-import NotFound from "./pages/NotFound";
-import Unauthorized from "./pages/Unauthorized";
-import Subscribe from "./pages/Subscribe";
-import Test from "./pages/Test";
-import NoAuth from "./pages/NoAuth/NoAuth";
-import Upsell from "./pages/Upsell";
-import { jwt } from "utils";
+import React, { Component } from 'react';
+import { Route, withRouter, Switch, Redirect } from 'react-router-dom';
+import { StripeProvider } from 'react-stripe-elements';
+import SignIn from './pages/Auth/SignIn';
+import SignUp from './pages/Auth/SignUp';
+import Logout from './pages/Auth/Logout';
+import Recipes from './pages/Recipes/RecipesPage';
+import Recipe from './pages/Recipes/ViewRecipe';
+import NewRecipe from './pages/Recipes/NewRecipe';
+import EditRecipe from './pages/Recipes/EditRecipe';
+import ImportRecipe from './pages/Recipes/ImportRecipe';
+import About from './pages/About';
+import Profile from './pages/Profile';
+import MealPlans from './pages/MealPlans';
+import NotFound from './pages/NotFound';
+import Unauthorized from './pages/Unauthorized';
+import Subscribe from './pages/Subscribe';
+import Test from './pages/Test';
+import NoAuth from './pages/NoAuth/NoAuth';
+import Upsell from './pages/Upsell';
+import { jwt } from 'utils';
+
+const IS_PREMIUM = true;
 
 const HiddenRoute = ({ component: Component, isAuthenticated, ...rest }) => {
   return (
@@ -52,7 +54,7 @@ const AuthRoute = ({ component: Component, isAuthenticated, ...rest }) => {
         ) : (
           <Redirect
             to={{
-              pathname: "/sign_in",
+              pathname: '/sign_in',
               state: { from: props.location }
             }}
           />
@@ -95,9 +97,9 @@ class App extends Component {
             exact
             component={EditRecipe}
           />
-          <AuthRoute
+          <PremiumRoute
             path="/recipes/new/import"
-            isAuthenticated={this.isLoggedIn()}
+            isPremium={IS_PREMIUM}
             exact
             component={ImportRecipe}
           />
@@ -109,7 +111,7 @@ class App extends Component {
           />
           <PremiumRoute
             path="/meal_plans"
-            isPremium={false}
+            isPremium={IS_PREMIUM}
             exact
             component={MealPlans}
           />
