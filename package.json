@@ -15,9 +15,8 @@
     "cheerio": "^1.0.0-rc.3",
     "domain-parser": "^0.0.5",
     "fraction.js": "^4.0.12",
-    " yarn run test:unitgraphql": "^14.5.8",
+    "graphql": "^14.5.8",
     "graphql-tag": "^2.10.1",
-    "husky": "^3.1.0",
     "jwt-decode": "^2.2.0",
     "lodash": "^4.17.11",
     "moment": "^2.22.2",
@@ -42,18 +41,29 @@
     "build-storybook": "NODE_PATH=src build-storybook -s ./public,./src",
     "deploy-storybook": "storybook-to-ghpages"
   },
+  "lint-staged": {
+    "src/**/*.{js,jsx,ts,tsx,json,css}": [
+      "prettier --write",
+      "eslint --fix --config react-app --max-warnings 0",
+      "git add"
+    ]
+  },
   "eslintConfig": {
     "extends": "react-app"
-	},
-	"husky": { 
-		"hooks": {
-			"pre-commit": "yarn test --bail"
-		}
-	},
-	"browserslist": [
-		">0.2%",
-		"not dead",
-		"not ie <= 11",
+  },
+    "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged && yarn test"
+    }
+  },
+  "prettier": {
+    "singleQuote": true,
+    "trailingComma": "none"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
     "not op_mini all"
   ],
   "devDependencies": {
@@ -64,6 +74,11 @@
     "@storybook/addon-links": "^5.0.6",
     "@storybook/addons": "^5.0.6",
     "@storybook/react": "^5.0.6",
-    "@storybook/storybook-deployer": "^2.3.0"
+    "@storybook/storybook-deployer": "^2.3.0",
+    "eslint-config-react-app": "^5.1.0",
+    "eslint-plugin-react": "^7.17.0",
+    "husky": "^3.1.0",
+    "lint-staged": "^9.5.0",
+    "prettier": "^1.19.1"
   }
 }
