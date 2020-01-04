@@ -35,7 +35,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "cross-env CI=true react-scripts test --env=jsdom",
+    "test": "react-scripts test",
     "eject": "react-scripts eject",
     "storybook": "NODE_PATH=src start-storybook -p 9009 -s ./public,./src",
     "build-storybook": "NODE_PATH=src build-storybook -s ./public,./src",
@@ -50,12 +50,8 @@
   },
   "eslintConfig": {
     "extends": "react-app"
-  },
-    "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged && yarn test"
-    }
-  },
+	},
+	"husky": { "hooks": { "pre-commit": "CI=true react-scripts test" } },
   "prettier": {
     "singleQuote": true,
     "trailingComma": "none"
