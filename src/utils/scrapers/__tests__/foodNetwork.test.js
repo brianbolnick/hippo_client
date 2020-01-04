@@ -37,7 +37,7 @@ describe("foodNetwork.com", () => {
       expect(recipe.imageUrl).toEqual(imageUrl);
 
       /* NOTES */
-      const notes = "";
+      const notes = `Original source: ${RECIPE_URL}`;
       expect(recipe.notes).toEqual(notes);
 
       /* DIFFICULTY */

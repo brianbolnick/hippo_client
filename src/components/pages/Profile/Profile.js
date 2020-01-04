@@ -6,7 +6,6 @@ import get from "lodash/get";
 import Layout from "components/common/Layout/Layout";
 import Loader from "img/burger.gif";
 import { media } from "styles/css-variables";
-import { recipeScraper } from "utils";
 
 const LoadContainer = styled.div`
   display: flex;
@@ -61,17 +60,6 @@ const Family = () => {
 
   const family = get(data, "familyQuery", {});
   const users = get(family, "users", []);
-
-  recipeScraper(
-    "https://www.foodnetwork.com/recipes/rachael-ray/super-nachos-recipe-1914057"
-  )
-    .then(recipe => {
-      console.log("recipe", recipe);
-    })
-    .catch(error => {
-      // do something with error
-      console.log("error", error);
-    });
 
   const renderUsers = () => {
     return users.map(user => {

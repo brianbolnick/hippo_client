@@ -24,11 +24,17 @@ import {
 } from "./NewRecipeStyles";
 import Ingredient from "./Ingredient";
 import Step from "./Step";
-import { useUpdateRecipeMutation } from "../hooks";
+import { useUpdateRecipeMutation, useCreateRecipeMutation } from "../hooks";
 
 const TOTAL_STEPS = 5;
 
-const EditRecipeView = ({ recipe, categories, dishTypes, family }) => {
+const EditRecipeView = ({
+  recipe,
+  categories,
+  dishTypes,
+  family,
+  isImportedRecipe
+}) => {
   const [image, setImage] = useState(null);
   const [currentStep, setCurrentStep] = useState(1);
   const [title, setTitle] = useState(get(recipe, "title", ""));
@@ -41,17 +47,14 @@ const EditRecipeView = ({ recipe, categories, dishTypes, family }) => {
     get(recipe, "rawIngredients", [])
   );
   const [steps, setSteps] = useState(get(recipe, "steps", []));
-  const [categoryId, setCategoryId] = useState(
-    get(recipe, "category.id", null)
-  );
-  const [dishTypeId, setDishTypeId] = useState(
-    get(recipe, "dishType.id", null)
-  );
+  const [categoryId, setCategoryId] = useState(get(recipe, "category.id", 1));
+  const [dishTypeId, setDishTypeId] = useState(get(recipe, "dishType.id", 1));
   const [notes, setNotes] = useState(get(recipe, "notes", ""));
   const [error, setError] = useState("");
   const [imageUrl, setImageUrl] = useState(get(recipe, "imageUrl", ""));
   const [loading, setLoading] = useState(false);
   const [updateRecipe] = useUpdateRecipeMutation();
+  const [createRecipe] = useCreateRecipeMutation();
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -92,7 +95,7 @@ const EditRecipeView = ({ recipe, categories, dishTypes, family }) => {
     });
 
     setLoading(false);
-    updateRecipe(vars);
+    isImportedRecipe ? createRecipe(vars) : updateRecipe(vars);
   };
 
   const handleAddIngredients = rawIngredient => {
@@ -126,7 +129,7 @@ const EditRecipeView = ({ recipe, categories, dishTypes, family }) => {
         placeholder="Category"
         onChange={item => setCategoryId(item.id)}
         items={list}
-        defaultValue={categoryId || recipe.category.id}
+        defaultValue={categoryId}
         label="Category"
       />
     );
@@ -147,7 +150,7 @@ const EditRecipeView = ({ recipe, categories, dishTypes, family }) => {
     return (
       <Dropdown
         placeholder="Dish Type"
-        defaultValue={dishTypeId || recipe.dishType.id}
+        defaultValue={dishTypeId}
         onChange={item => setDishTypeId(item.id)}
         items={list}
         label="Dish Type"

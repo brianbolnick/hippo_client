@@ -21,7 +21,6 @@ const foodNetwork = url => {
             "https:" +
             $("img.m-MediaBlock__a-Image.a-Image").first()[0].attribs.src;
 
-          debugger;
           $(".o-Ingredients__a-Ingredient, .o-Ingredients__a-SubHeadline").each(
             (i, el) => {
               const item = $(el)
@@ -63,6 +62,8 @@ const foodNetwork = url => {
                 break;
             }
           });
+
+          Recipe.notes = `Original source: ${url}`;
 
           if (
             !Recipe.title ||
