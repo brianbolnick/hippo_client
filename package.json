@@ -45,7 +45,7 @@
   "lint-staged": {
     "src/**/*.{js,jsx,ts,tsx,json,css}": [
       "prettier --write",
-      "eslint --fix --config react-app",
+      "eslint --fix --config react-app --max-warnings 0",
       "git add"
     ]
   },

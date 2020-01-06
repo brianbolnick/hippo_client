@@ -1,6 +1,4 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import Button from 'components/common/Button/Button';
 import ActionButton from 'components/common/ActionButton/ActionButton';
 import FlashMessage from 'components/common/FlashMessage/FlashMessage';
 import Layout from 'components/common/Layout/Layout';
@@ -24,18 +22,18 @@ const Recipes = ({ history }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [showNewModal, setShowNewModal] = useState(false);
 
-  const LIST = [
-    {
-      id: 0,
-      title: 'Import URL',
-      key: 'import',
-      onClick: () => setShowNewModal(true)
-    },
+  const ACTION_LIST = [
     {
       id: 1,
       title: 'Create',
       key: 'create',
       onClick: () => history.push('/recipes/new')
+    },
+    {
+      id: 0,
+      title: 'Import URL',
+      key: 'import',
+      onClick: () => setShowNewModal(true)
     }
   ];
 
@@ -59,7 +57,7 @@ const Recipes = ({ history }) => {
               <Search onChange={val => setSearchTerm(val)} />
             </SearchWrapper>
             <NewButtonContainer>
-              <ActionButton actionName="New" items={LIST} />
+              <ActionButton actionName="New" items={ACTION_LIST} />
             </NewButtonContainer>
             {/* TODO: conditionally show based on membership */}
             {showNewModal && (

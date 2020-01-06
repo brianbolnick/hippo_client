@@ -16,7 +16,7 @@ export const Container = styled.div`
   box-sizing: border-box;
 `;
 
-export const Header = styled.div`
+export const Button = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -29,9 +29,12 @@ export const Header = styled.div`
   border-radius: 4px;
   text-align: center;
   margin-bottom: 1px;
-  background: ${colors.whiteSmoke};
-  text-shadow: none;
-  color: ${colors.black};
+  //background: ${colors.whiteSmoke};
+  background: ${colors.primaryGradient};
+  //text-shadow: none;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.3);
+  //color: ${colors.black};
+  color: ${colors.white};
   font-weight: 600;
   position: relative;
   bottom: 3px;
@@ -46,6 +49,7 @@ export const Header = styled.div`
     transform: none;
     box-shadow: none;
     background: ${colors.lightGray};
+    background: ${colors.darkPrimaryGradient};
   }
 
   ${({ active }) =>
@@ -55,9 +59,11 @@ export const Header = styled.div`
     background: ${colors.white};
 		border: solid 2px ${colors.black};
 		padding: 10px 12px;
+		color: ${colors.black};
 
 		:hover {
 			background: ${colors.white};
+			color: ${colors.black};
 		}
 
 		${ListIcon} {
@@ -68,7 +74,7 @@ export const Header = styled.div`
 	`};
 `;
 
-export const HeaderTitle = styled.div`
+export const ButtonTitle = styled.div`
   font-weight: 300;
   font-family: ${avenir};
   font-weight: 500;

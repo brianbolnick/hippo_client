@@ -117,14 +117,14 @@ const NewModal = ({ onCancelClick, history }) => {
           </ModalText>
 
           <ButtonContainer>
+            <Button secondary onClick={onCancelClick}>
+              Cancel
+            </Button>
             <Button
               disabled={!urlValid}
               onClick={() => history.push(`/recipes/new/import?srcUrl=${url}`)}
             >
               Import
-            </Button>
-            <Button secondary onClick={onCancelClick}>
-              Cancel
             </Button>
           </ButtonContainer>
         </FormContainer>

@@ -2,8 +2,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import {
   ActionButtonContainer,
-  Header,
-  HeaderTitle,
+  Button,
+  ButtonTitle,
   List,
   ListItem,
   ListIcon,
@@ -37,13 +37,6 @@ const ActionButton = ({
       document.removeEventListener('mousedown', handleClick);
     };
   }, []);
-  //const handleMouseLeave = () => {
-  //!listHovered && setListOpen(false);
-  //};
-
-  //const handleMouseEnterList = () => {
-  //listOpen && setListHovered(true);
-  //};
 
   const handleItemClick = item => {
     item.onClick();
@@ -54,10 +47,10 @@ const ActionButton = ({
     <Container>
       {label && <Label>{label}</Label>}
       <ActionButtonContainer ref={node}>
-        <Header onClick={() => setListOpen(!listOpen)} active={listOpen}>
-          <HeaderTitle>{actionName}</HeaderTitle>
+        <Button onClick={() => setListOpen(!listOpen)} active={listOpen}>
+          <ButtonTitle>{actionName}</ButtonTitle>
           <ListIcon name="chevronDown" size="32px" />
-        </Header>
+        </Button>
         <List open={listOpen}>
           {items.map(item => (
             <ListItem key={item.id} onClick={() => handleItemClick(item)}>
@@ -77,8 +70,7 @@ ActionButton.propTypes = {
       name: PropTypes.string,
       onClick: PropTypes.func.isRequired
     })
-  ),
-  placeholder: PropTypes.string
+  )
 };
 
 export default ActionButton;

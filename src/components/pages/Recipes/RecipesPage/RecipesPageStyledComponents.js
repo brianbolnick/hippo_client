@@ -1,18 +1,18 @@
-import styled from "styled-components";
-import { media } from "styles/css-variables";
-import Tooltip from "components/common/Tooltip/Tooltip";
-import {  avenir, fadeInDown, colors } from "styles/css-variables";
+import styled from 'styled-components';
+import { media } from 'styles/css-variables';
+import Tooltip from 'components/common/Tooltip/Tooltip';
+import { avenir, fadeInDown, colors } from 'styles/css-variables';
 
 export const RecipeList = styled.div`
   display: flex;
   flex-flow: row;
   flex-wrap: wrap;
-	justify-content: flex-start;
-	margin-left: 36px;
-	flex: 5;
-	height: 100%;
+  justify-content: flex-start;
+  margin-left: 36px;
+  flex: 5;
+  height: 100%;
 
-	${media.tablet`
+  ${media.tablet`
 		justify-content: center;
 		margin-left: 0;
 	`}
@@ -32,28 +32,27 @@ export const TabsContainer = styled.div`
 `;
 
 export const FiltersContainer = styled.div`
-	height: 100%;
-	flex: 1;
+  height: 100%;
+  flex: 1;
 `;
 
 export const FilterOptions = styled.div`
-	padding: 8px 0;
-	font-size: 0.9rem;
-	font-weight: 400;
+  padding: 8px 0;
+  font-size: 0.9rem;
+  font-weight: 400;
 `;
 
 export const FilterItemGroup = styled.div`
-	display: flex;
-	justify-content: space-between;
-	position: relative;
-	width: 100%;
-    margin: 8px 0;
-    box-sizing: border-box;
-    width: calc(100% - 0px);
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  width: 100%;
+  margin: 8px 0;
+  box-sizing: border-box;
+  width: calc(100% - 0px);
 `;
 
-export const FilterItem = styled.div`
-`;
+export const FilterItem = styled.div``;
 
 export const NewButtonContainer = styled.div``;
 
@@ -62,6 +61,7 @@ export const OptionsContainer = styled.div`
   align-items: center;
   ${media.phone`
     flex-flow: column;
+		width: 100%;
 	`}
 `;
 
@@ -77,8 +77,8 @@ export const Header = styled.div`
 `;
 
 export const RecipeContent = styled.div`
-	display: flex;
-	height: 100%;
+  display: flex;
+  height: 100%;
 `;
 
 export const ButtonContainer = styled.button`
@@ -124,7 +124,6 @@ export const ActionButtonContainer = styled.div`
   }
 `;
 
-
 export const StyledTooltip = styled(Tooltip)``;
 
 export const LoadContainer = styled.div`
@@ -157,33 +156,33 @@ export const NoRecipesImage = styled.img`
 `;
 
 export const FilterGroup = styled.div`
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
 `;
 
 export const ClearFilters = styled.div`
-	font-size: 0.7rem;
-	color: ${colors.red};
-	cursor: pointer;
+  font-size: 0.7rem;
+  color: ${colors.red};
+  cursor: pointer;
 
-	&:hover {
-		text-decoration: underline;
-	}
+  &:hover {
+    text-decoration: underline;
+  }
 `;
 
 export const FilterTitle = styled.div`
-	font-size: 1.2rem;
-	font-family: ${avenir};
-	font-weight: 600;
+  font-size: 1.2rem;
+  font-family: ${avenir};
+  font-weight: 600;
 `;
 
 export const SearchWrapper = styled.div`
-	width: 32vw;
-	margin-right: 32px;
+  width: 32vw;
+  margin-right: 32px;
   ${media.phone`
 		width: 100%;
+	margin-right: 0;
 	`}
-
 `;

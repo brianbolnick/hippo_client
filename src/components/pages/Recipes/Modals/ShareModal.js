@@ -1,26 +1,26 @@
-import React from "react";
-import axios from "axios";
-import PropTypes from "prop-types";
-import { API_URL, token, userId } from "utils";
-import Modal from "components/common/Modal/Modal";
-import ModalInput from "components/common/ModalInput/ModalInput";
-import Button from "components/common/Button/Button";
+import React from 'react';
+import axios from 'axios';
+import PropTypes from 'prop-types';
+import { API_URL, token, userId } from 'utils';
+import Modal from 'components/common/Modal/Modal';
+import ModalInput from 'components/common/ModalInput/ModalInput';
+import Button from 'components/common/Button/Button';
 import {
   ModalText,
   ButtonContainer,
   FormContainer,
   FormWrapper
-} from "./ModalStyledComponents";
+} from './ModalStyledComponents';
 
 const authToken = `Bearer ${token}`;
 
 class ShareModal extends React.Component {
   state = {
     loading: false,
-    error: "",
+    error: '',
     joinCodeValid: false,
-    joinCode: "",
-    sharedFamilyId: ""
+    joinCode: '',
+    sharedFamilyId: ''
   };
 
   onCodeFieldChange = e => {
@@ -46,7 +46,7 @@ class ShareModal extends React.Component {
             this.setState({
               joinCodeValid: false,
               loading: false,
-              familyName: ""
+              familyName: ''
             });
           });
       });
@@ -87,7 +87,7 @@ class ShareModal extends React.Component {
           <FormContainer onSubmit={this.handleFormSubmit}>
             <ModalInput
               inputState={
-                joinCodeValid ? "success" : joinCode.length ? "error" : ""
+                joinCodeValid ? 'success' : joinCode.length ? 'error' : ''
               }
               type="text"
               icon="users"
@@ -100,11 +100,12 @@ class ShareModal extends React.Component {
             </ModalText>
 
             <ButtonContainer>
-              <Button loading={loading} type="submit" disabled={!joinCodeValid}>
-                Share
-              </Button>
               <Button secondary onClick={onCancelClick}>
                 Cancel
+              </Button>
+
+              <Button loading={loading} type="submit" disabled={!joinCodeValid}>
+                Share
               </Button>
             </ButtonContainer>
           </FormContainer>

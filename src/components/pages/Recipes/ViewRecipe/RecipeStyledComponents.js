@@ -1,6 +1,6 @@
-import styled from "styled-components";
-import { colors, media, avenir, rufina, raleway } from "styles/css-variables";
-import Icon from "components/common/Icon/Icon";
+import styled from 'styled-components';
+import { colors, media, avenir, rufina, raleway } from 'styles/css-variables';
+import Icon from 'components/common/Icon/Icon';
 
 export const LoadContainer = styled.div`
   display: flex;
@@ -184,11 +184,21 @@ export const IngredientsWrapper = styled.ul`
   display: flex;
   flex-wrap: wrap;
   padding-left: 18px;
+
+  ${media.phone`
+		width: 100%;
+	flex-flow: column;
+	`};
 `;
+
 export const Ingredient = styled.li`
   width: 50%;
   margin-bottom: 12px;
   font-family: ${avenir};
+
+  ${media.phone`
+		width: 100%;
+	`};
 `;
 export const ServingsLabel = styled.div`
   font-family: ${avenir};
