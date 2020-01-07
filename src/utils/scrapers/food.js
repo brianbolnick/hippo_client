@@ -1,52 +1,71 @@
-import request from "request";
-import cheerio from "cheerio";
-import RecipeSchema from "./recipe-schema";
+import cheerio from 'cheerio';
+import RecipeSchema from './recipe-schema';
+import { serverScraper } from './';
 
 const food = url => {
   const Recipe = new RecipeSchema();
   return new Promise((resolve, reject) => {
-    if (!url.includes("food.com/recipe/")) {
+    if (!url.includes('food.com/recipe/')) {
       reject(new Error("url provided must include 'food.com/recipe/'"));
     } else {
-      request(url, (error, response, html) => {
-        if (!error && response.statusCode == 200) {
-          const $ = cheerio.load(html);
+      serverScraper(url)
+        .then(res => {
+          const $ = cheerio.load(res.data);
 
-          Recipe.name = $(".recipe-title").text();
+          Recipe.title = $('.recipe-title').text();
 
-          $(".recipe-ingredients__item").each((i, el) => {
+          $('.recipe-ingredients__item').each((i, el) => {
             const item = $(el)
               .text()
-              .replace(/\s\s+/g, " ")
+              .replace(/\s\s+/g, ' ')
+              .replace('⁄', '/')
               .trim();
-            Recipe.ingredients.push(item);
+            Recipe.rawIngredients.push(item);
           });
 
-          $(".recipe-directions__step").each((i, el) => {
+          $('.recipe-directions__step').each((i, el) => {
             const step = $(el)
               .text()
-              .replace(/\s\s+/g, "");
-            Recipe.instructions.push(step);
+              .replace(/\s\s+/g, '');
+            Recipe.steps.push(step);
           });
 
-          Recipe.time.total = $(".recipe-facts__time")
-            .children()
-            .last()
-            .text();
+          Recipe.notes = `Original source: ${url}`;
+          Recipe.imageUrl = $('link[rel="image_src"]').attr('href');
+          Recipe.servings = $('.recipe-facts__servings')
+            .first()
+            .text()
+            .match(/\d+/)[0];
+
+          const timeStr = $('.recipe-facts__time')
+            .first()
+            .text()
+            .match(/\d+.+/)[0];
+          const number = timeStr.match(/\d+/)[0];
+          const unit = timeStr.split(number)[1];
+          Recipe.cookTime = `${number} ${unit}`;
+          Recipe.prepTime = '0';
+
+          Recipe.calories = $('p.recipe-nutrition__item.bold')
+            .text()
+            .match(/\d+/)[0];
+
+          debugger;
 
           if (
-            !Recipe.name ||
-            !Recipe.ingredients.length ||
-            !Recipe.instructions.length
+            !Recipe.title ||
+            !Recipe.rawIngredients.length ||
+            !Recipe.steps.length
           ) {
-            reject(new Error("No recipe found on page"));
+            reject(new Error('No recipe found on page'));
           } else {
             resolve(Recipe);
           }
-        } else {
-          reject(new Error("No recipe found on page"));
-        }
-      });
+        })
+        .catch(err => {
+          console.log(err);
+          reject(new Error(err));
+        });
     }
   });
 };

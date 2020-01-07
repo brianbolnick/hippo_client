@@ -112,6 +112,7 @@ const NewModal = ({ onCancelClick, history }) => {
                 <PopoverItem>foodnetwork.com</PopoverItem>
                 <PopoverItem>allrecipes.com</PopoverItem>
                 <PopoverItem>damndelicious.com</PopoverItem>
+                <PopoverItem>food.com</PopoverItem>
                 <PopoverMessage>More coming soon!</PopoverMessage>
               </PopoverContents>
             </Popover>

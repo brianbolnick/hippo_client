@@ -57,6 +57,11 @@ export const timeShortener = timeString => {
   return timeString;
 };
 
-export const AVAILABLE_DOMAINS = ['foodnetwork', 'allrecipes', 'damndelicious'];
+export const AVAILABLE_DOMAINS = [
+  'foodnetwork',
+  'allrecipes',
+  'damndelicious',
+  'food'
+];
 
 export { default as recipeScraper } from './scrapers';

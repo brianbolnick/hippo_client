@@ -1,5 +1,5 @@
-import { parse } from "recipe-ingredient-parser";
-import Fraction from "fraction.js";
+import { parse } from 'recipe-ingredient-parser';
+import Fraction from 'fraction.js';
 
 /**
  * Maps an ingredient string to a parsed result
@@ -44,8 +44,8 @@ const calculateQuantity = (quantity, serving) => {
   const newQuantity = quantity * serving;
 
   if (
-    getQuantityType(quantity) === "fraction" ||
-    getQuantityType(newQuantity) === "fraction"
+    getQuantityType(quantity) === 'fraction' ||
+    getQuantityType(newQuantity) === 'fraction'
   ) {
     const frac = createFraction(quantity);
     const value = frac.mul(serving);
@@ -79,10 +79,10 @@ const createFraction = val => new Fraction(val).simplify();
  **/
 const displayMix = mix => {
   if (mix) return `${mix} `;
-  return "";
+  return '';
 };
 
 const getQuantityType = quantity => {
-  if (createFraction(quantity).d === 1) return "number";
-  return "fraction";
+  if (createFraction(quantity).d === 1) return 'number';
+  return 'fraction';
 };
