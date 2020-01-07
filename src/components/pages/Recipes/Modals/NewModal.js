@@ -57,9 +57,11 @@ export const PopoverContents = styled.div`
   text-align: left;
 `;
 
-export const PopoverItem = styled.div``;
+export const PopoverItem = styled.div`
+  margin-bottom: 8px;
+`;
 export const PopoverMessage = styled.div`
-  margin-top: 8px;
+  margin-top: 32px;
 `;
 
 const NewModal = ({ onCancelClick, history }) => {
@@ -109,10 +111,10 @@ const NewModal = ({ onCancelClick, history }) => {
             This feature is only available with
             <Popover target={<PopoverTarget>certain sites</PopoverTarget>}>
               <PopoverContents>
-                <PopoverItem>foodnetwork.com</PopoverItem>
-                <PopoverItem>allrecipes.com</PopoverItem>
-                <PopoverItem>damndelicious.com</PopoverItem>
-                <PopoverItem>food.com</PopoverItem>
+                <PopoverItem>- foodnetwork.com</PopoverItem>
+                <PopoverItem>- allrecipes.com</PopoverItem>
+                <PopoverItem>- damndelicious.com</PopoverItem>
+                <PopoverItem>- food.com</PopoverItem>
                 <PopoverMessage>More coming soon!</PopoverMessage>
               </PopoverContents>
             </Popover>
