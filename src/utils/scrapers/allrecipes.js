@@ -20,6 +20,7 @@ const allRecipes = url => {
           } else {
             reject(new Error('No recipe found on page'));
           }
+          Recipe.notes = `Original source: ${url}`;
           resolve(Recipe);
         })
         .catch(err => {
@@ -61,10 +62,13 @@ const newAllRecipes = ($, Recipe) => {
       .trim();
     Recipe.rawIngredients.push(ingredient);
   });
+
   $($('.instructions-section-item').find('p')).each((i, el) => {
     const instruction = $(el).text();
     Recipe.steps.push(instruction);
   });
+
+  Recipe.imageUrl = $('img.rec-photo').first()[0].attribs.src;
 };
 
 const oldAllRecipes = ($, Recipe) => {
@@ -88,6 +92,18 @@ const oldAllRecipes = ($, Recipe) => {
 
   Recipe.prepTime = $('time[itemprop=prepTime]').text();
   Recipe.cookTime = $('time[itemprop=cookTime]').text();
+  Recipe.imageUrl = $('img.rec-photo').first()[0].attribs.src;
+  Recipe.calories = $('span.calorie-count')
+    .text()
+    .match(/\d+/)[0];
+
+  Recipe.servings = $('meta#metaRecipeServings').attr('content');
+  //$($('.nutrition-summary-facts').find('span')).each((n, el) => {
+  //const item = $(el).text();
+  //if (item.toLowerCase().includes('calories')) {
+  //Recipe.calories = item.match(/\d+/)[0];
+  //}
+  //});
 };
 
 export default allRecipes;

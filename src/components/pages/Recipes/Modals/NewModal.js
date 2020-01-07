@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+//import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import debounce from 'lodash/debounce';
 import parseDomain from 'parse-domain';
@@ -110,6 +110,7 @@ const NewModal = ({ onCancelClick, history }) => {
             <Popover target={<PopoverTarget>certain sites</PopoverTarget>}>
               <PopoverContents>
                 <PopoverItem>foodnetwork.com</PopoverItem>
+                <PopoverItem>allrecipes.com</PopoverItem>
                 <PopoverMessage>More coming soon!</PopoverMessage>
               </PopoverContents>
             </Popover>
