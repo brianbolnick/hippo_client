@@ -11,7 +11,7 @@ import budgetbytes from './budgetbytes';
 //import closetcooking from "./closetcooking";
 import cookieandkate from './cookieandkate';
 //import copykat from "./copykat";
-//import damndelicious from "./damndelicious";
+import damndelicious from './damndelicious';
 import eatingwell from './eatingwell';
 import epicurious from './epicurious';
 import finecooking from './finecooking';
@@ -43,7 +43,7 @@ const domains = {
   //closetcooking,
   cookieandkate, //broken
   //copykat,
-  //damndelicious,
+  damndelicious,
   eatingwell, //broken
   epicurious, //time doesnt work
   finecooking, //broken
