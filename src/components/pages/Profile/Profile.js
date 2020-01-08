@@ -1,19 +1,11 @@
-import React from "react";
-import { useQuery } from "@apollo/react-hooks";
-import styled from "styled-components/macro";
-import GET_FAMILY_QUERY from "./getFamilyQuery";
-import get from "lodash/get";
-import Layout from "components/common/Layout/Layout";
-import Loader from "img/burger.gif";
-import { media } from "styles/css-variables";
-
-const LoadContainer = styled.div`
-  display: flex;
-  height: 100%;
-  width: 100%;
-  justify-content: center;
-  align-items: center;
-`;
+import React from 'react';
+import { useQuery } from '@apollo/react-hooks';
+import styled from 'styled-components/macro';
+import GET_FAMILY_QUERY from './getFamilyQuery';
+import get from 'lodash/get';
+import Layout from 'components/common/Layout/Layout';
+import PageLoader from 'components/common/PageLoader';
+import { media, colors } from 'styles/css-variables';
 
 const Container = styled.div`
   display: flex;
@@ -53,13 +45,21 @@ const Card = styled.div`
 	`};
 `;
 
+const Warning = styled.div`
+  font-size: 40px;
+  font-weight: 800;
+  color: ${colors.red};
+  text-align: center;
+  margin-bottom: 40px;
+`;
+
 const UsersContainer = styled.div``;
 
 const Family = () => {
   const { data, networkStatus, loading } = useQuery(GET_FAMILY_QUERY);
 
-  const family = get(data, "familyQuery", {});
-  const users = get(family, "users", []);
+  const family = get(data, 'familyQuery', {});
+  const users = get(family, 'users', []);
 
   const renderUsers = () => {
     return users.map(user => {
@@ -72,18 +72,17 @@ const Family = () => {
   };
 
   return networkStatus !== 7 || loading ? (
-    <LoadContainer>
-      <img alt="" src={Loader} style={{ height: "300px", width: "300px" }} />
-    </LoadContainer>
+    <PageLoader />
   ) : (
     <Layout>
+      <Warning>PAGE UNDER CONSTRUCTION</Warning>
       <Container>
         <Card>
           <Group>Family</Group>
           <MetaDetails>Name: {family.displayName}</MetaDetails>
           <MetaDetails>Family Code: {family.joinCode}</MetaDetails>
           <MetaDetails>
-            Membership: {family.isPremium ? "Master Class" : "Free (Upgrade)"}
+            Membership: {family.isPremium ? 'Master Class' : 'Free (Upgrade)'}
           </MetaDetails>
 
           <div>
