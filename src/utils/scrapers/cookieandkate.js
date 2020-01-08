@@ -1,39 +1,39 @@
-import request from "request";
-import cheerio from "cheerio";
-import RecipeSchema from "./recipe-schema";
+import request from 'request';
+import cheerio from 'cheerio';
+import RecipeSchema from './recipe-schema';
 
 const cookieAndKate = url => {
   const Recipe = new RecipeSchema();
   return new Promise((resolve, reject) => {
-    if (!url.includes("cookieandkate.com/")) {
+    if (!url.includes('cookieandkate.com/')) {
       reject(new Error("url provided must include 'cookieandkate.com/'"));
     } else {
       request(url, (error, response, html) => {
-        if (!error && response.statusCode == 200) {
+        if (!error && response.statusCode === 200) {
           const $ = cheerio.load(html);
 
-          Recipe.name = $(".tasty-recipes")
-            .children("h2")
+          Recipe.name = $('.tasty-recipes')
+            .children('h2')
             .text();
 
-          $(".tasty-recipe-ingredients")
-            .find("h4, li")
+          $('.tasty-recipe-ingredients')
+            .find('h4, li')
             .each((i, el) => {
               Recipe.ingredients.push($(el).text());
             });
 
-          $(".tasty-recipe-instructions")
-            .find("li")
+          $('.tasty-recipe-instructions')
+            .find('li')
             .each((i, el) => {
               Recipe.instructions.push($(el).text());
             });
 
-          Recipe.time.prep = $(".tasty-recipes-prep-time").text();
-          Recipe.time.cook = $(".tasty-recipes-cook-time").text();
-          Recipe.time.total = $(".tasty-recipes-total-time").text();
+          Recipe.time.prep = $('.tasty-recipes-prep-time').text();
+          Recipe.time.cook = $('.tasty-recipes-cook-time').text();
+          Recipe.time.total = $('.tasty-recipes-total-time').text();
 
-          $(".tasty-recipes-yield-scale").remove();
-          Recipe.servings = $(".tasty-recipes-yield")
+          $('.tasty-recipes-yield-scale').remove();
+          Recipe.servings = $('.tasty-recipes-yield')
             .text()
             .trim();
 
@@ -42,12 +42,12 @@ const cookieAndKate = url => {
             !Recipe.ingredients.length ||
             !Recipe.instructions.length
           ) {
-            reject(new Error("No recipe found on page"));
+            reject(new Error('No recipe found on page'));
           } else {
             resolve(Recipe);
           }
         } else {
-          reject(new Error("No recipe found on page"));
+          reject(new Error('No recipe found on page'));
         }
       });
     }

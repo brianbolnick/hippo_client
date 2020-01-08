@@ -1,4 +1,4 @@
-import request from "request";
+//import request from 'request';
 //import RecipeSchema from "./recipe-schema";
 
 //const urlRe = /\/(\d\d\d\d)\//;
@@ -25,7 +25,7 @@ import request from "request";
 //json: true
 //},
 //(error, response, body) => {
-//if (!error && response.statusCode == 200 && body) {
+//if (!error && response.statusCode === 200 && body) {
 //Recipe.name = body.Title.trim();
 //Recipe.ingredients = body.Ingredients.map(i =>
 //i.Description.trim()

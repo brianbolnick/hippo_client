@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import { useQuery } from "@apollo/react-hooks";
-import get from "lodash/get";
-import { token, familyId, API_URL } from "utils";
-import { GET_RECIPE_QUERY } from "../apollo";
-import RecipeView from "./EditRecipeView";
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { useQuery } from '@apollo/react-hooks';
+import get from 'lodash/get';
+import PageLoader from 'components/common/PageLoader';
+import { token, familyId, API_URL } from 'utils';
+import { GET_RECIPE_QUERY } from '../apollo';
+import RecipeView from './EditRecipeView';
 
 const EditRecipe = ({ match }) => {
   const recipeId = parseInt(match.params.id);
@@ -12,7 +13,7 @@ const EditRecipe = ({ match }) => {
     variables: { recipeId }
   });
 
-  const recipe = get(data, "recipeQuery", {});
+  const recipe = get(data, 'recipeQuery', {});
 
   const [categories, setCategories] = useState([]);
   const [dishTypes, setDishTypes] = useState([]);
@@ -63,7 +64,7 @@ const EditRecipe = ({ match }) => {
     networkStatus !== 7 ||
     loadingData
   )
-    return <div>loading</div>;
+    return <PageLoader />;
 
   return (
     <RecipeView

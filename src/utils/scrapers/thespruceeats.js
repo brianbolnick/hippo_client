@@ -1,20 +1,20 @@
-import request from "request";
-import cheerio from "cheerio";
-import RecipeSchema from "./recipe-schema";
+import request from 'request';
+import cheerio from 'cheerio';
+import RecipeSchema from './recipe-schema';
 
 const theSpruceEats = url => {
   const Recipe = new RecipeSchema();
   return new Promise((resolve, reject) => {
-    if (!url.includes("thespruceeats.com/")) {
+    if (!url.includes('thespruceeats.com/')) {
       reject(new Error("url provided must include 'thespruceeats.com/'"));
     } else {
       request(url, (error, response, html) => {
-        if (!error && response.statusCode == 200) {
+        if (!error && response.statusCode === 200) {
           const $ = cheerio.load(html);
 
-          Recipe.name = $(".heading__title").text();
+          Recipe.name = $('.heading__title').text();
 
-          $(".simple-list__item").each((i, el) => {
+          $('.simple-list__item').each((i, el) => {
             Recipe.ingredients.push(
               $(el)
                 .text()
@@ -22,14 +22,14 @@ const theSpruceEats = url => {
             );
           });
 
-          $(".section-content")
-            .find("ol")
-            .find("p")
+          $('.section-content')
+            .find('ol')
+            .find('p')
             .each((i, el) => {
               Recipe.instructions.push($(el).text());
             });
 
-          let metaText = $(".meta-text__data");
+          let metaText = $('.meta-text__data');
           Recipe.time.total = metaText.first().text();
           Recipe.time.prep = $(metaText.get(1)).text();
           Recipe.time.cook = $(metaText.get(2)).text();
@@ -41,12 +41,12 @@ const theSpruceEats = url => {
             !Recipe.ingredients.length ||
             !Recipe.instructions.length
           ) {
-            reject(new Error("No recipe found on page"));
+            reject(new Error('No recipe found on page'));
           } else {
             resolve(Recipe);
           }
         } else {
-          reject(new Error("No recipe found on page"));
+          reject(new Error('No recipe found on page'));
         }
       });
     }

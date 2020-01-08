@@ -1,8 +1,8 @@
-import styled from "styled-components/macro";
-import { colors, avenir, media } from "styles/css-variables";
-import Icon from "components/common/Icon/Icon";
-import Button from "components/common/Button";
-import Input from "./Input";
+import styled from 'styled-components/macro';
+import { colors, avenir, media } from 'styles/css-variables';
+import Icon from 'components/common/Icon/Icon';
+import Button from 'components/common/Button';
+import Input from './Input';
 
 export const Quantity = styled.span`
   font-weight: 600;

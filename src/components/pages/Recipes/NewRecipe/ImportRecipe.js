@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { token, familyId, API_URL } from 'utils';
+import { token, familyId, API_URL, recipeScraper } from 'utils';
 import queryString from 'query-string';
+import PageLoader from 'components/common/PageLoader';
 import RecipeView from './EditRecipeView';
-import { recipeScraper } from 'utils';
 
 const ImportRecipe = ({ location }) => {
   const [categories, setCategories] = useState([]);
@@ -64,7 +64,7 @@ const ImportRecipe = ({ location }) => {
       });
   }, [location.search]);
 
-  if (!Object.keys(recipe).length || loadingData) return <div>loading</div>;
+  if (!Object.keys(recipe).length || loadingData) return <PageLoader />;
 
   return (
     <RecipeView

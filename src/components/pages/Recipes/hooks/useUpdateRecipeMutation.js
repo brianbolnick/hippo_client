@@ -1,12 +1,15 @@
-import { useMutation } from "@apollo/react-hooks";
-import { UPDATE_RECIPE_MUTATION, GET_RECIPE_QUERY } from "../apollo";
+import { useMutation } from '@apollo/react-hooks';
+import {
+  UPDATE_RECIPE_MUTATION
+  //GET_RECIPE_QUERY
+} from '../apollo';
 
 const updateRecipeCache = (cache, { data }) => {
-  const existingRecipeQuery = cache.readQuery({
-    query: GET_RECIPE_QUERY
-  });
+  //const existingRecipeQuery = cache.readQuery({
+  //query: GET_RECIPE_QUERY
+  //});
 
-  console.log("IN UPDATE");
+  console.log('IN UPDATE');
   //TODO: verify
   //const newRecipe = data.recipe;
 

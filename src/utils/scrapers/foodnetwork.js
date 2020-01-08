@@ -1,61 +1,61 @@
-import request from "request";
-import cheerio from "cheerio";
-import RecipeSchema from "./recipe-schema";
-import { DIFFICULTIES_MAP } from "./utils";
+import request from 'request';
+import cheerio from 'cheerio';
+import RecipeSchema from './recipe-schema';
+import { DIFFICULTIES_MAP } from './utils';
 
 const foodNetwork = url => {
   const Recipe = new RecipeSchema();
   return new Promise((resolve, reject) => {
-    if (!url.includes("foodnetwork.com/recipes/")) {
+    if (!url.includes('foodnetwork.com/recipes/')) {
       reject(new Error("url provided must include 'foodnetwork.com/recipes/'"));
     } else {
       request(url, (error, response, html) => {
-        if (!error && response.statusCode == 200) {
+        if (!error && response.statusCode === 200) {
           const $ = cheerio.load(html);
 
-          Recipe.title = $(".o-AssetTitle__a-HeadlineText")
+          Recipe.title = $('.o-AssetTitle__a-HeadlineText')
             .first()
             .text();
 
           Recipe.imageUrl =
-            "https:" +
-            $("img.m-MediaBlock__a-Image.a-Image").first()[0].attribs.src;
+            'https:' +
+            $('img.m-MediaBlock__a-Image.a-Image').first()[0].attribs.src;
 
-          $(".o-Ingredients__a-Ingredient, .o-Ingredients__a-SubHeadline").each(
+          $('.o-Ingredients__a-Ingredient, .o-Ingredients__a-SubHeadline').each(
             (i, el) => {
               const item = $(el)
                 .text()
-                .replace(/\s\s+/g, "");
+                .replace(/\s\s+/g, '');
               Recipe.rawIngredients.push(item);
             }
           );
 
-          $(".o-Method__m-Step").each((i, el) => {
+          $('.o-Method__m-Step').each((i, el) => {
             const step = $(el)
               .text()
-              .replace(/\s\s+/g, "");
-            if (step !== "") {
+              .replace(/\s\s+/g, '');
+            if (step !== '') {
               Recipe.steps.push(step);
             }
           });
 
-          $(".o-RecipeInfo li").each((i, el) => {
+          $('.o-RecipeInfo li').each((i, el) => {
             let timeItem = $(el)
               .text()
-              .replace(/\s\s+/g, "")
-              .split(":");
+              .replace(/\s\s+/g, '')
+              .split(':');
             switch (timeItem[0]) {
-              case "Prep":
+              case 'Prep':
                 Recipe.prepTime = timeItem[1];
                 break;
-              case "Cook":
+              case 'Cook':
                 Recipe.cookTime = timeItem[1];
                 break;
-              case "Level":
+              case 'Level':
                 Recipe.difficulty =
                   DIFFICULTIES_MAP[timeItem[1].toLowerCase()] || 1;
                 break;
-              case "Yield":
+              case 'Yield':
                 Recipe.servings = parseInt(timeItem[1].match(/\d+/)[0]);
                 break;
               default:
@@ -70,12 +70,12 @@ const foodNetwork = url => {
             !Recipe.rawIngredients.length ||
             !Recipe.steps.length
           ) {
-            reject(new Error("No recipe found on page"));
+            reject(new Error('No recipe found on page'));
           } else {
             resolve(Recipe);
           }
         } else {
-          reject(new Error("No recipe found on page"));
+          reject(new Error('No recipe found on page'));
         }
       });
     }
