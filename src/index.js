@@ -1,13 +1,13 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import * as serviceWorker from "./serviceWorker";
-import App from "./components/App";
-import { BrowserRouter as Router } from "react-router-dom";
-import { createGlobalStyle } from "styled-components";
-import AvenirNext from "fonts/AvenirNext.otf";
-import AvenirNextBold from "fonts/AvenirNextBold.otf";
-import { ApolloProvider } from "@apollo/react-hooks";
-import client from "./apolloClient";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import * as serviceWorker from './serviceWorker';
+import App from './components/App';
+import { BrowserRouter as Router } from 'react-router-dom';
+import { createGlobalStyle } from 'styled-components';
+import AvenirNext from 'fonts/AvenirNext.otf';
+import AvenirNextBold from 'fonts/AvenirNextBold.otf';
+import { ApolloProvider } from '@apollo/react-hooks';
+import client from './apolloClient';
 
 const GlobalStyles = createGlobalStyle`
 	@font-face {
@@ -29,7 +29,7 @@ const GlobalStyles = createGlobalStyle`
 	body {
 		margin: 0;
 		padding: 0;
-		font-family: 'Lato', sans-serif;
+		font-family: 'Avenir Next', sans-serif;
 		font-size: 16px;
 		letter-spacing: 0.05em;
 	}
@@ -49,7 +49,7 @@ ReactDOM.render(
       </ApolloProvider>
     </>
   </Router>,
-  document.getElementById("root")
+  document.getElementById('root')
 );
 
 serviceWorker.unregister();
