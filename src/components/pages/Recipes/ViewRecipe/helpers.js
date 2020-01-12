@@ -41,16 +41,19 @@ export const createParsedIngredients = (ingredients, servingFactor = 1) => {
  * based on the serving size
  */
 const calculateQuantity = (quantity, serving) => {
-  const newQuantity = quantity * serving;
+  const newQuantity = parseInt(quantity) * serving;
 
-  if (
-    getQuantityType(quantity) === 'fraction' ||
-    getQuantityType(newQuantity) === 'fraction'
-  ) {
+  const newQuantityType = getQuantityType(newQuantity);
+  const quantityType = getQuantityType(quantity);
+
+  debugger;
+  if (quantityType === 'fraction' || newQuantityType === 'fraction') {
     const frac = createFraction(quantity);
     const value = frac.mul(serving);
     return convertImproperFraction(value);
   }
+
+  if (newQuantity === 'empty') return '';
 
   return newQuantity;
 };
@@ -72,7 +75,9 @@ const convertImproperFraction = fraction => {
   return `${displayMix(mix)}${newNumerator}/${denominator}`;
 };
 
-const createFraction = val => new Fraction(val).simplify();
+const createFraction = val => {
+  return new Fraction(parseInt(val)).simplify();
+};
 
 /**
  *	Helper for displaying mixed fractions
@@ -83,6 +88,9 @@ const displayMix = mix => {
 };
 
 const getQuantityType = quantity => {
-  if (createFraction(quantity).d === 1) return 'number';
+  const frac = createFraction(quantity);
+  if (frac.d === 1) return 'number';
+  if (isNaN(frac.n) || isNaN(frac.d)) return 'empty';
+
   return 'fraction';
 };
