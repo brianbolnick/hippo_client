@@ -46,7 +46,6 @@ const calculateQuantity = (quantity, serving) => {
   const newQuantityType = getQuantityType(newQuantity);
   const quantityType = getQuantityType(quantity);
 
-  debugger;
   if (quantityType === 'fraction' || newQuantityType === 'fraction') {
     const frac = createFraction(quantity);
     const value = frac.mul(serving);
