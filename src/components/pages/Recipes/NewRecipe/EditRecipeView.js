@@ -1,17 +1,17 @@
-import React, { useState } from "react";
-import get from "lodash/get";
-import { userId, familyId } from "utils";
-import { colors } from "styles/css-variables";
-import Layout from "components/common/Layout";
-import FlashMessage from "components/common/FlashMessage";
-import FileInput from "components/common/FileInput";
-import ProgressSteps from "components/common/ProgressSteps";
-import RecipePreview from "components/pages/Recipes/ViewRecipe/RecipeView";
-import Input from "./Input";
-import TextArea from "./TextArea";
-import Dropdown from "./Dropdown";
-import AddIngredientForm from "./AddIngredientForm";
-import AddStepForm from "./AddStepForm";
+import React, { useState } from 'react';
+import get from 'lodash/get';
+import { userId, familyId } from 'utils';
+import { colors } from 'styles/css-variables';
+import Layout from 'components/common/Layout';
+import FlashMessage from 'components/common/FlashMessage';
+import FileInput from 'components/common/FileInput';
+import ProgressSteps from 'components/common/ProgressSteps';
+import RecipePreview from 'components/pages/Recipes/ViewRecipe/RecipeView';
+import Input from './Input';
+import TextArea from './TextArea';
+import Dropdown from './Dropdown';
+import AddIngredientForm from './AddIngredientForm';
+import AddStepForm from './AddStepForm';
 import {
   Notice,
   Title,
@@ -21,10 +21,10 @@ import {
   StepOptions,
   ActionButton,
   PageContainer
-} from "./NewRecipeStyles";
-import Ingredient from "./Ingredient";
-import Step from "./Step";
-import { useUpdateRecipeMutation, useCreateRecipeMutation } from "../hooks";
+} from './NewRecipeStyles';
+import Ingredient from './Ingredient';
+import Step from './Step';
+import { useUpdateRecipeMutation, useCreateRecipeMutation } from '../hooks';
 
 const TOTAL_STEPS = 5;
 
@@ -37,21 +37,21 @@ const EditRecipeView = ({
 }) => {
   const [image, setImage] = useState(null);
   const [currentStep, setCurrentStep] = useState(1);
-  const [title, setTitle] = useState(get(recipe, "title", ""));
-  const [prepTime, setPrepTime] = useState(get(recipe, "prepTime", ""));
-  const [cookTime, setCookTime] = useState(get(recipe, "cookTime", ""));
-  const [calories, setCalories] = useState(get(recipe, "calories", ""));
-  const [servings, setServings] = useState(get(recipe, "servings", 1));
-  const [difficulty, setDifficulty] = useState(get(recipe, "difficulty", 1));
+  const [title, setTitle] = useState(get(recipe, 'title', ''));
+  const [prepTime, setPrepTime] = useState(get(recipe, 'prepTime', ''));
+  const [cookTime, setCookTime] = useState(get(recipe, 'cookTime', ''));
+  const [calories, setCalories] = useState(get(recipe, 'calories', ''));
+  const [servings, setServings] = useState(get(recipe, 'servings', 1));
+  const [difficulty, setDifficulty] = useState(get(recipe, 'difficulty', 1));
   const [rawIngredients, setRawIngredients] = useState(
-    get(recipe, "rawIngredients", [])
+    get(recipe, 'rawIngredients', [])
   );
-  const [steps, setSteps] = useState(get(recipe, "steps", []));
-  const [categoryId, setCategoryId] = useState(get(recipe, "category.id", 1));
-  const [dishTypeId, setDishTypeId] = useState(get(recipe, "dishType.id", 1));
-  const [notes, setNotes] = useState(get(recipe, "notes", ""));
-  const [error, setError] = useState("");
-  const [imageUrl, setImageUrl] = useState(get(recipe, "imageUrl", ""));
+  const [steps, setSteps] = useState(get(recipe, 'steps', []));
+  const [categoryId, setCategoryId] = useState(get(recipe, 'category.id', 1));
+  const [dishTypeId, setDishTypeId] = useState(get(recipe, 'dishType.id', 1));
+  const [notes, setNotes] = useState(get(recipe, 'notes', ''));
+  const [error, setError] = useState('');
+  const [imageUrl, setImageUrl] = useState(get(recipe, 'imageUrl', ''));
   const [loading, setLoading] = useState(false);
   const [updateRecipe] = useUpdateRecipeMutation();
   const [createRecipe] = useCreateRecipeMutation();
@@ -120,7 +120,7 @@ const EditRecipeView = ({
           id: category.id,
           title: category.name,
           selected: categoryId === category.id,
-          key: "category"
+          key: 'category'
         };
       });
 
@@ -143,7 +143,7 @@ const EditRecipeView = ({
           id: dishType.id,
           title: dishType.name,
           selected: dishTypeId === dishType.id,
-          key: "dishType"
+          key: 'dishType'
         };
       });
 
@@ -160,9 +160,9 @@ const EditRecipeView = ({
 
   const renderDifficulty = () => {
     const difficulties = [
-      { name: "Easy", id: 1 },
-      { name: "Medium", id: 2 },
-      { name: "Difficult", id: 3 }
+      { name: 'Easy', id: 1 },
+      { name: 'Medium', id: 2 },
+      { name: 'Difficult', id: 3 }
     ];
 
     const list = difficulties.map(diff => {
@@ -170,7 +170,7 @@ const EditRecipeView = ({
         id: diff.id,
         title: diff.name,
         selected: difficulty === diff.id,
-        key: "difficulty"
+        key: 'difficulty'
       };
     });
 
@@ -191,7 +191,7 @@ const EditRecipeView = ({
         id: index + 1,
         title: index + 1,
         selected: servings === index + 1,
-        key: "serving"
+        key: 'serving'
       };
     });
 
@@ -281,12 +281,14 @@ const EditRecipeView = ({
         const reader = new FileReader();
         reader.onloadend = () => {
           const imageUrl = reader.result;
-          setImageUrl(imageUrl);
+          const formattedImageUrl = imageUrl.replace(' ', '+');
+          console.log(formattedImageUrl);
+          setImageUrl(formattedImageUrl);
         };
 
         image && reader.readAsDataURL(image);
       } else {
-        setError("File size is too large. Must be 1mb or less");
+        setError('File size is too large. Must be 1mb or less');
       }
     }
   };
@@ -426,7 +428,7 @@ const EditRecipeView = ({
 
   return (
     <Layout hideFooter>
-      <FlashMessage visible={!!error} error onClose={() => setError("")}>
+      <FlashMessage visible={!!error} error onClose={() => setError('')}>
         {error}
       </FlashMessage>
       <PageContainer>

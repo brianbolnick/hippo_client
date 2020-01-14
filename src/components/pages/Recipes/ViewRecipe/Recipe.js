@@ -1,19 +1,19 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import get from "lodash/get";
-import { API_URL, token, timeShortener } from "utils";
-import { useQuery } from "@apollo/react-hooks";
-import FlashMessage from "components/common/FlashMessage/FlashMessage";
-import Icon from "components/common/Icon/Icon";
-import Layout from "components/common/Layout/Layout";
-import MediaQuery from "components/common/MediaQuery/MediaQuery";
-import { colors } from "styles/css-variables";
-import { tabletMediaQuery } from "styles/css-variables";
-import ImagePlaceholder from "img/recipe-placeholder.png";
-import Loader from "img/burger.gif";
-import ShareModal from "../Modals/ShareModal";
-import DeleteModal from "../Modals/DeleteModal";
-import { createParsedIngredients } from "./helpers";
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import get from 'lodash/get';
+import { API_URL, token, timeShortener } from 'utils';
+import { useQuery } from '@apollo/react-hooks';
+import FlashMessage from 'components/common/FlashMessage/FlashMessage';
+import Icon from 'components/common/Icon/Icon';
+import Layout from 'components/common/Layout/Layout';
+import MediaQuery from 'components/common/MediaQuery/MediaQuery';
+import { colors } from 'styles/css-variables';
+import { tabletMediaQuery } from 'styles/css-variables';
+import ImagePlaceholder from 'img/recipe-placeholder.png';
+import Loader from 'img/burger.gif';
+import ShareModal from '../Modals/ShareModal';
+import DeleteModal from '../Modals/DeleteModal';
+import { createParsedIngredients } from './helpers';
 import {
   ActionContainer,
   ActionIcon,
@@ -40,9 +40,9 @@ import {
   TimeLabel,
   Title,
   Quantity
-} from "./RecipeStyledComponents";
-import GET_RECIPE_QUERY from "./getRecipeQuery";
-import ServingsForm from "./ServingsForm";
+} from './RecipeStyledComponents';
+import GET_RECIPE_QUERY from './getRecipeQuery';
+import ServingsForm from './ServingsForm';
 
 const authToken = `Bearer ${token}`;
 
@@ -55,22 +55,22 @@ const Recipe = ({ match }) => {
     }
   );
 
-  const recipe = get(data, "recipeQuery", {});
-  const ingredients = get(recipe, "rawIngredients", []);
-  const servings = get(recipe, "servings", 1);
+  const recipe = get(data, 'recipeQuery', {});
+  const ingredients = get(recipe, 'rawIngredients', []);
+  const servings = get(recipe, 'servings', 1);
 
   const [parsedIngredients, setParsedIngredients] = useState({});
   const [showShareModal, setShowShareModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
   const [showMobile, setShowMobile] = useState(
-    window.matchMedia("(" + tabletMediaQuery + ")").matches
+    window.matchMedia('(' + tabletMediaQuery + ')').matches
   );
 
   if (queryError) {
-    if (queryError.message.toLowerCase().includes("unauthorized")) {
-      window.location.replace("/401");
+    if (queryError.message.toLowerCase().includes('unauthorized')) {
+      window.location.replace('/401');
     }
     setError(queryError.message);
   }
@@ -78,7 +78,7 @@ const Recipe = ({ match }) => {
   useEffect(() => {
     const parsedIngs = createParsedIngredients(ingredients);
     setParsedIngredients(parsedIngs);
-  }, [recipe]);
+  }, [recipe, ingredients]);
 
   const handleMediaQueryChange = ({ matches }) => {
     setShowMobile(matches);
@@ -142,29 +142,29 @@ const Recipe = ({ match }) => {
       })
       .then(resp => {
         if (resp.status !== 200) {
-          setError("Something went wrong. Please refresh and try again.");
+          setError('Something went wrong. Please refresh and try again.');
         } else {
-          window.location.replace("/");
+          window.location.replace('/');
         }
       })
       .catch(err => {
         console.log(err);
-        setError("Something went wrong. Please refresh and try again.");
+        setError('Something went wrong. Please refresh and try again.');
       });
   };
 
   const handleShareSuccess = () => {
-    setSuccess("Your recipe has been shared successfully.");
+    setSuccess('Your recipe has been shared successfully.');
     setShowShareModal(false);
   };
 
   const handleShareFailure = () => {
-    setError("Something went wrong sharing this recipe. Please try again.");
+    setError('Something went wrong sharing this recipe. Please try again.');
     setShowShareModal(false);
   };
 
   const formatTime = time => {
-    const tempTimeArr = time.split(" ");
+    const tempTimeArr = time.split(' ');
     const formattedDuration = timeShortener(tempTimeArr[1]);
     return `${tempTimeArr[0]} ${formattedDuration}`;
   };
@@ -180,15 +180,15 @@ const Recipe = ({ match }) => {
 
   return networkStatus !== 7 || queryError ? (
     <LoadContainer>
-      <img alt="" src={Loader} style={{ height: "300px", width: "300px" }} />
+      <img alt="" src={Loader} style={{ height: '300px', width: '300px' }} />
     </LoadContainer>
   ) : (
     <Layout recipeMobile={showMobile}>
       <MediaQuery query={tabletMediaQuery} onChange={handleMediaQueryChange} />
-      <FlashMessage visible={!!error} error onClose={() => setError("")}>
+      <FlashMessage visible={!!error} error onClose={() => setError('')}>
         {error}
       </FlashMessage>
-      <FlashMessage visible={!!success} success onClose={() => setSuccess("")}>
+      <FlashMessage visible={!!success} success onClose={() => setSuccess('')}>
         {success}
       </FlashMessage>
 
@@ -215,13 +215,13 @@ const Recipe = ({ match }) => {
         <MetaData>
           <CategoryContainer>
             <Icon
-              style={{ marginRight: "16px" }}
+              style={{ marginRight: '16px' }}
               name="tags"
               color={colors.black}
             />
             <CategoryMeta>
-              <Category>{recipe.category.name || "Category"}</Category>
-              <DishType>{recipe.dishType.name || "Dish Type"}</DishType>
+              <Category>{recipe.category.name || 'Category'}</Category>
+              <DishType>{recipe.dishType.name || 'Dish Type'}</DishType>
             </CategoryMeta>
           </CategoryContainer>
           <TimeContainer>
