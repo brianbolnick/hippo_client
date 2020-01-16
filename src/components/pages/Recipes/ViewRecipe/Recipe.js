@@ -13,7 +13,6 @@ import ImagePlaceholder from 'img/recipe-placeholder.png';
 import Loader from 'img/burger.gif';
 import ShareModal from '../Modals/ShareModal';
 import DeleteModal from '../Modals/DeleteModal';
-import { createParsedIngredients } from './helpers';
 import {
   ActionContainer,
   ActionIcon,
@@ -43,6 +42,7 @@ import {
 } from './RecipeStyledComponents';
 import GET_RECIPE_QUERY from './getRecipeQuery';
 import ServingsForm from './ServingsForm';
+import convertIngredients from 'ingredient-math';
 
 const authToken = `Bearer ${token}`;
 
@@ -76,7 +76,7 @@ const Recipe = ({ match }) => {
   }
 
   useEffect(() => {
-    const parsedIngs = createParsedIngredients(ingredients);
+    const parsedIngs = convertIngredients(ingredients, 1);
     setParsedIngredients(parsedIngs);
   }, [recipe, ingredients]);
 
@@ -170,7 +170,7 @@ const Recipe = ({ match }) => {
   };
 
   const handleServingsChange = newServingFactor => {
-    const newParsedIngredients = createParsedIngredients(
+    const newParsedIngredients = convertIngredients(
       ingredients,
       newServingFactor
     );

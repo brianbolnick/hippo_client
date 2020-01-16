@@ -14,9 +14,9 @@
     "axios": "^0.18.0",
     "cheerio": "^1.0.0-rc.3",
     "domain-parser": "^0.0.5",
-    "fraction.js": "^4.0.12",
     "graphql": "^14.5.8",
     "graphql-tag": "^2.10.1",
+    "ingredient-math": "0.1.2",
     "jwt-decode": "^2.2.0",
     "lodash": "^4.17.11",
     "moment": "^2.22.2",
@@ -28,7 +28,6 @@
     "react-scripts": "^2.1.2",
     "react-stripe-elements": "^6.0.1",
     "react-test-renderer": "^16.12.0",
-    "recipe-ingredient-parser": "^1.5.6",
     "request": "^2.88.0",
     "styled-components": "^4.0.3"
   },
@@ -40,7 +39,7 @@
     "storybook": "NODE_PATH=src start-storybook -p 9009 -s ./public,./src",
     "build-storybook": "NODE_PATH=src build-storybook -s ./public,./src",
     "deploy-storybook": "storybook-to-ghpages",
- "lint": "lint-staged"
+    "lint": "lint-staged"
   },
   "lint-staged": {
     "src/**/*.{js,jsx,ts,tsx,json,css}": [
