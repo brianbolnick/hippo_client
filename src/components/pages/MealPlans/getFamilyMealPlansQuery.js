@@ -6,6 +6,7 @@ export default gql`
       mealPlans {
         id
         archived
+        insertedAt
         family {
           displayName
         }

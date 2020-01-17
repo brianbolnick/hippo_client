@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 //import { colors } from "styles/css-variables";
 //import { DISH_TYPE_ICON_MAP } from "utils";
 import {
@@ -12,18 +12,20 @@ import {
   //DishType,
   DishTypeName,
   ImageContainer
-} from "./Styles";
+} from './Styles';
 //import Icon from "components/common/Icon/Icon";
 //import Difficulty from "components/common/Difficulty";
-import PlaceholderImage from "img/recipe-placeholder.png";
+import PlaceholderImage from 'img/recipe-placeholder.png';
 
 const RecipeCard = ({ data }) => {
+  const image = data.image_url || data.imageUrl || PlaceholderImage;
+  const dishType = data.dish_type || data.dishType;
   return (
     <Card>
       <LinkWrapper to={`/recipes/${data.id}`}>
         <ImageContainer>
-          <RecipeImage url={data.image_url || PlaceholderImage}>
-            <DishTypeName>{data.dish_type.name}</DishTypeName>
+          <RecipeImage url={image}>
+            <DishTypeName>{dishType.name}</DishTypeName>
           </RecipeImage>
         </ImageContainer>
         <Content>
