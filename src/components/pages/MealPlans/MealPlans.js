@@ -5,6 +5,7 @@ import moment from 'moment';
 import styled from 'styled-components/macro';
 import Layout from 'components/common/Layout/Layout';
 import Button from 'components/common/Button';
+import Collapse from 'components/common/Collapse';
 import PageLoader from 'components/common/PageLoader';
 import RecipeCard from 'components/common/Recipe/RecipeCard';
 import { familyId } from 'utils';
@@ -76,18 +77,25 @@ const MealPlan = ({ data }) => {
   const isActive = !data.archived;
 
   return (
-    <MealPlanContainer active={isActive}>
-      <PlanHeader>
-        <Date active={isActive}>{date}</Date>
-        {isActive && <ActiveTag>Active</ActiveTag>}
-      </PlanHeader>
-
-      <RecipesContainer active={isActive}>
-        {recipes.map(recipe => {
-          return <RecipeCard key={recipe.id} data={recipe} />;
-        })}
-      </RecipesContainer>
-    </MealPlanContainer>
+    <Collapse
+      label={
+        <PlanHeader>
+          <Date active={isActive}>{date}</Date>
+          {isActive && <ActiveTag>Active</ActiveTag>}
+        </PlanHeader>
+      }
+      defaultOpen={isActive}
+      divider
+      large
+    >
+      <MealPlanContainer active={isActive}>
+        <RecipesContainer active={isActive}>
+          {recipes.map(recipe => {
+            return <RecipeCard key={recipe.id} data={recipe} />;
+          })}
+        </RecipesContainer>
+      </MealPlanContainer>
+    </Collapse>
   );
 };
 
