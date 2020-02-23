@@ -1,16 +1,16 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import styled from "styled-components";
-import { colors, rufina, media, avenir } from "styles/css-variables";
-import Button from "components/common/Button/Button";
-import Icon from "components/common/Icon/Icon";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import styled from 'styled-components/macro';
+import { colors, rufina, media, avenir } from 'styles/css-variables';
+import Button from 'components/common/Button/Button';
+import Icon from 'components/common/Icon/Icon';
 
 export const InfoBoxComponent = () => (
   <InfoBox>
     <Icon
       name="utensils"
       color={colors.black}
-      style={{ width: "80px", height: "80px" }}
+      style={{ width: '80px', height: '80px' }}
     />
     <InfoTitle> Your Recipes Are Just Clicks Away.</InfoTitle>
     <InfoDescription>

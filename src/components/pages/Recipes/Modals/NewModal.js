@@ -8,7 +8,7 @@ import Button from 'components/common/Button/Button';
 import Popover from 'components/common/Popover';
 import { AVAILABLE_DOMAINS } from 'utils';
 import ModalInput from 'components/common/ModalInput/ModalInput';
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 import { colors, media, avenir } from 'styles/css-variables';
 
 export const ButtonContainer = styled.div`

@@ -3,6 +3,17 @@ import { media } from 'styles/css-variables';
 import Tooltip from 'components/common/Tooltip/Tooltip';
 import { avenir, fadeInDown, colors } from 'styles/css-variables';
 
+export const Container = styled.div`
+  display: flex;
+  flex-flow: row;
+  width: 100%;
+`;
+
+export const RecipesContainer = styled.div`
+  padding: 16px;
+  flex: 3;
+`;
+
 export const RecipeList = styled.div`
   display: flex;
   flex-flow: row;

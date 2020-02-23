@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 import { colors, media, avenir, rufina, raleway } from 'styles/css-variables';
 import Icon from 'components/common/Icon/Icon';
 

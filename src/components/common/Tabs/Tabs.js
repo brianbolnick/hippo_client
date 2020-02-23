@@ -1,12 +1,12 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import styled from 'styled-components';
-import TabPane from "./TabPane";
-import Tab from "./Tab";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import styled from 'styled-components/macro';
+import TabPane from './TabPane';
+import Tab from './Tab';
 
 const Container = styled.div`
-	height: 100%;
-	`
+  height: 100%;
+`;
 
 class Tabs extends Component {
   state = {
@@ -47,11 +47,11 @@ class Tabs extends Component {
       return newChild;
     }
 
-    if (child.type === Tab || child.type.displayName === "Tab") {
+    if (child.type === Tab || child.type.displayName === 'Tab') {
       return this.enrichTab(child);
     }
 
-    if (child.type === TabPane || child.type.displayName === "TabPane") {
+    if (child.type === TabPane || child.type.displayName === 'TabPane') {
       return this.enrichTabPane(child);
     }
     return child;

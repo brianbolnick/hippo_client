@@ -1,6 +1,6 @@
-import React from "react";
-import styled from "styled-components";
-import { colors, avenir } from "styles/css-variables";
+import React from 'react';
+import styled from 'styled-components/macro';
+import { colors, avenir } from 'styles/css-variables';
 
 const Checkmark = styled.span`
   position: absolute;
@@ -8,7 +8,8 @@ const Checkmark = styled.span`
   left: 0;
   height: 18px;
   width: 18px;
-  //border: ${({ disabled }) => disabled ? `solid 2px ${colors.mutedGray}` : `solid 2px ${colors.red}`};
+  //border: ${({ disabled }) =>
+    disabled ? `solid 2px ${colors.mutedGray}` : `solid 2px ${colors.red}`};
   border-radius: 4px;
   background-color: ${colors.lightGray};
   &:after {
@@ -37,8 +38,8 @@ const Container = styled.label`
   input {
     opacity: 0;
     cursor: pointer;
-		margin-left: -15px;
-	}
+    margin-left: -15px;
+  }
 
   input:checked ~ ${Checkmark} {
     background-color: ${colors.black};
@@ -59,7 +60,7 @@ const Container = styled.label`
     transform: rotate(45deg);
 
     &:hover {
-      cursor: ${props => (props.disabled ? "initial" : "")};
+      cursor: ${props => (props.disabled ? 'initial' : '')};
     }
   }
 `;
@@ -70,11 +71,18 @@ const StyledLabel = styled.span`
   font-size: 16px;
 
   &:hover {
-    cursor: ${props => (props.disabled ? "default" : " ")};
+    cursor: ${props => (props.disabled ? 'default' : ' ')};
   }
 `;
 
-const Checkbox = ({ checked, onChange, disabled, value, children, ...rest }) => (
+const Checkbox = ({
+  checked,
+  onChange,
+  disabled,
+  value,
+  children,
+  ...rest
+}) => (
   <Container {...rest}>
     <StyledLabel disabled={disabled}>{children}</StyledLabel>
     <input

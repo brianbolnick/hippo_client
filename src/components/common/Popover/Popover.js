@@ -1,14 +1,14 @@
-import React, { Component, Fragment } from "react";
-import ReactDOM from "react-dom";
-import styled, { css } from "styled-components";
-import PropTypes from "prop-types";
-import { colors, avenir } from "styles/css-variables";
+import React, { Component, Fragment } from 'react';
+import ReactDOM from 'react-dom';
+import styled, { css } from 'styled-components/macro';
+import PropTypes from 'prop-types';
+import { colors, avenir } from 'styles/css-variables';
 const popoverTickTopOffset = 11;
 const popoverTickLeftOffset = -16;
 
 const popoverTick = css`
   display: block;
-  content: "";
+  content: '';
   position: absolute;
   left: ${props => props.tickLeft};
   top: -9px;
@@ -52,21 +52,21 @@ class Popover extends Component {
 
   componentDidMount = () => {
     this.setPosition(this.props);
-    document.addEventListener("click", this.handleClose, false);
+    document.addEventListener('click', this.handleClose, false);
   };
 
   componentWillUnmount = () => {
-    document.removeEventListener("click", this.handleClose, false);
+    document.removeEventListener('click', this.handleClose, false);
   };
 
   componentDidUpdate = (prevProps, prevState) => {
     if (this.state.isOpen) {
-      document.addEventListener("click", this.handleClose, false);
+      document.addEventListener('click', this.handleClose, false);
       if (prevState.position === this.state.position) {
         this.setPosition(this.props);
       }
     } else {
-      document.removeEventListener("click", this.handleClose, false);
+      document.removeEventListener('click', this.handleClose, false);
     }
   };
 
@@ -118,7 +118,7 @@ class Popover extends Component {
       if (this.props.leftOffset) {
         tickLeft -= this.props.leftOffset;
       }
-      tickLeft += "px";
+      tickLeft += 'px';
 
       this.setState({
         position: {
@@ -139,7 +139,7 @@ class Popover extends Component {
       !this.targetEl.contains(e.target)
     ) {
       this.setState({ isOpen: false });
-      document.removeEventListener("click", this.handleClose, false);
+      document.removeEventListener('click', this.handleClose, false);
     }
   };
 
@@ -148,7 +148,7 @@ class Popover extends Component {
       ref: el => (this.targetEl = ReactDOM.findDOMNode(el)),
       onMouseOver: () => this.setState({ isOpen: true }),
       onMouseOut: () => this.setState({ isOpen: false }),
-      "aria-haspopup": "true"
+      'aria-haspopup': 'true'
     });
   };
 

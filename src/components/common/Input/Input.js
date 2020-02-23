@@ -1,8 +1,8 @@
-import React from "react";
-import PropTypes from "prop-types";
-import styled from "styled-components";
-import { colors, avenir } from "styles/css-variables";
-import Icon from "components/common/Icon/Icon";
+import React from 'react';
+import PropTypes from 'prop-types';
+import styled from 'styled-components/macro';
+import { colors, avenir } from 'styles/css-variables';
+import Icon from 'components/common/Icon/Icon';
 
 const StyledInput = styled.input`
   color: ${colors.black};
@@ -10,9 +10,9 @@ const StyledInput = styled.input`
   padding: 0 1rem;
   transition: background-color 0.15s, border-color 0.15s;
   border: ${({ inputState }) =>
-    inputState === "error"
+    inputState === 'error'
       ? `solid 2px ${colors.darkRed}`
-      : inputState === "success"
+      : inputState === 'success'
       ? `solid 2px ${colors.green}`
       : `solid 1px ${colors.lightGray}`};
   height: 2.75em;
@@ -33,7 +33,7 @@ const StyledInput = styled.input`
   &:focus {
     outline: none;
     border-color: ${({ inputState }) =>
-      inputState === "success" ? colors.green : colors.black};
+      inputState === 'success' ? colors.green : colors.black};
     background-color: ${colors.white};
     border-width: 1px;
   }
@@ -63,7 +63,7 @@ const StyledIcon = styled(Icon)`
     focus &&
     `
 			path {
-				fill: ${inputState === "success" ? colors.green : colors.black};
+				fill: ${inputState === 'success' ? colors.green : colors.black};
 			}
 	`};
 `;
@@ -82,17 +82,17 @@ class Input extends React.Component {
   renderIcon = () => {
     const { label, icon, inputState } = this.props;
     const color =
-      inputState === "error"
+      inputState === 'error'
         ? colors.darkRed
-        : inputState === "success"
+        : inputState === 'success'
         ? colors.green
-        : "#dbdbdb";
+        : '#dbdbdb';
 
     const name =
-      inputState === "success"
-        ? "checkCircle"
-        : inputState === "error"
-        ? "close"
+      inputState === 'success'
+        ? 'checkCircle'
+        : inputState === 'error'
+        ? 'close'
         : icon;
 
     return (

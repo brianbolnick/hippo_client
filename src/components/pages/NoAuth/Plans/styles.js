@@ -1,6 +1,6 @@
-import styled from "styled-components";
-import { Link } from "react-router-dom";
-import { colors, avenir, media } from "styles/css-variables";
+import styled from 'styled-components/macro';
+import { Link } from 'react-router-dom';
+import { colors, avenir, media } from 'styles/css-variables';
 
 export const PlanSection = styled.div`
   text-align: center;

@@ -1,4 +1,5 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import { useQuery } from '@apollo/react-hooks';
 import get from 'lodash/get';
 import moment from 'moment';
@@ -66,12 +67,6 @@ const RecipesContainer = styled.div`
 `;
 
 const MealPlan = ({ data }) => {
-  //const family = get(data, 'family', {});
-  //<div>
-  //<div>Family</div>
-  //<div>{family.displayName}</div>
-  //</div>
-
   const recipes = get(data, 'recipes', []);
   const date = moment(data.insertedAt).format('MMMM Do, YYYY');
   const isActive = !data.archived;
@@ -106,9 +101,9 @@ const MealPlans = () => {
       variables: { familyId }
     }
   );
+  const history = useHistory();
 
   const mealPlans = get(data, 'mealPlansQuery.mealPlans', []);
-  console.log('plans', mealPlans);
 
   return networkStatus !== 7 || queryError ? (
     <PageLoader />
@@ -117,7 +112,9 @@ const MealPlans = () => {
       <PageContainer>
         <TitleContainer>
           <Title>Meal Plans</Title>
-          <Button onClick={() => console.log('click')}>Create New</Button>
+          <Button onClick={() => history.push('/meal_plans/create')}>
+            Create New
+          </Button>
         </TitleContainer>
         <PlansContainer>
           {mealPlans.map(plan => (

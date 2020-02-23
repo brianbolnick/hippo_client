@@ -1,9 +1,9 @@
-import styled from "styled-components";
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import { colors, avenir, spinAround } from "styles/css-variables";
-import { css } from "styled-components";
-import Icon from "components/common/Icon/Icon";
+import styled from 'styled-components/macro';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { colors, avenir, spinAround } from 'styles/css-variables';
+import { css } from 'styled-components/macro';
+import Icon from 'components/common/Icon/Icon';
 
 const loadingStyles = css`
   animation: ${spinAround} 0.5s infinite linear;
@@ -11,7 +11,7 @@ const loadingStyles = css`
   border-radius: 290486px;
   border-right-color: transparent;
   border-top-color: transparent;
-  content: "";
+  content: '';
   display: block;
   height: 1em;
   position: relative;

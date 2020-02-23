@@ -1,6 +1,6 @@
-import styled from "styled-components";
-import { colors, rufina, avenir } from "styles/css-variables";
-import Icon from "components/common/Icon/Icon";
+import styled from 'styled-components/macro';
+import { colors, rufina, avenir } from 'styles/css-variables';
+import Icon from 'components/common/Icon/Icon';
 
 //export const ActionIcon = styled(Icon)`
 //height: 40px;

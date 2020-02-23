@@ -1,8 +1,8 @@
-import React from "react";
-import { storiesOf } from "@storybook/react";
-import styled from "styled-components";
-import { colors } from "styles/css-variables";
-import _ from "lodash";
+import React from 'react';
+import { storiesOf } from '@storybook/react';
+import styled from 'styled-components/macro';
+import { colors } from 'styles/css-variables';
+import _ from 'lodash';
 
 const ColorContainer = styled.div`
   width: 150px;
@@ -36,13 +36,13 @@ const Color = ({ color, name }) => {
   );
 };
 
-storiesOf("Colors", module).add("Colors", () => {
+storiesOf('Colors', module).add('Colors', () => {
   const colorsList = _.pickBy(
     colors,
-    (color, name) => typeof color === "string"
+    (color, name) => typeof color === 'string'
   );
   return (
-    <div style={{ display: "flex", flexWrap: "wrap" }}>
+    <div style={{ display: 'flex', flexWrap: 'wrap' }}>
       {_.map(colorsList, (color, name) => {
         return <Color color={color} name={name} />;
       })}

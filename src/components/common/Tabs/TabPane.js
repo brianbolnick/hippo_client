@@ -1,11 +1,11 @@
-import React from "react";
-import styled from "styled-components";
-import PropTypes from "prop-types";
+import React from 'react';
+import styled from 'styled-components/macro';
+import PropTypes from 'prop-types';
 
 const StyledTabPane = styled.div`
-  display: ${props => (props.isActive ? "block" : "none")};
-	height: auto;
-	width: 100%;
+  display: ${props => (props.isActive ? 'block' : 'none')};
+  height: auto;
+  width: 100%;
 `;
 
 const TabPane = ({ isActive, asyncRender, children }) => {

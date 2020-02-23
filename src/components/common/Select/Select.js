@@ -1,8 +1,8 @@
-import React from "react";
-import PropTypes from "prop-types";
-import styled from "styled-components";
-import { colors, avenir } from "styles/css-variables";
-import Icon from "components/common/Icon/Icon";
+import React from 'react';
+import PropTypes from 'prop-types';
+import styled from 'styled-components/macro';
+import { colors, avenir } from 'styles/css-variables';
+import Icon from 'components/common/Icon/Icon';
 const Control = styled.div`
   box-sizing: border-box;
   clear: both;
@@ -25,7 +25,7 @@ const SelectWrapper = styled.div`
     border-radius: 2px;
     border-right: 0;
     border-top: 0;
-    content: " ";
+    content: ' ';
     display: block;
     height: 0.625em;
     margin-top: -0.4375em;
@@ -72,7 +72,7 @@ const StyledSelect = styled.select`
   padding: 0 1rem;
   transition: background-color 0.15s, border-color 0.15s;
   border: ${({ inputState }) =>
-    inputState === "error"
+    inputState === 'error'
       ? `solid 2px ${colors.darkRed}`
       : `solid 1px ${colors.lightGray}`};
 
@@ -123,7 +123,7 @@ class Select extends React.Component {
   renderIcon = () => {
     const { label, icon, inputState } = this.props;
 
-    const color = inputState === "error" ? colors.darkRed : "#dbdbdb";
+    const color = inputState === 'error' ? colors.darkRed : '#dbdbdb';
     return (
       icon && (
         <IconContainer

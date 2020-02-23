@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
-import PropTypes from "prop-types";
-import styled from "styled-components";
-import Nav from "components/common/Nav/Nav";
-import { NewLogo } from "styles/css-variables";
-import { colors, media } from "styles/css-variables";
-import { Brand, BrandImage } from "components/common/Nav/NavStyles";
+import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import styled from 'styled-components/macro';
+import Nav from 'components/common/Nav/Nav';
+import { NewLogo } from 'styles/css-variables';
+import { colors, media } from 'styles/css-variables';
+import { Brand, BrandImage } from 'components/common/Nav/NavStyles';
 
 const Page = styled.div`
   display: flex;
@@ -53,7 +53,7 @@ const FooterLinks = styled.div`
 `;
 
 const Content = styled.div`
-  width: ${({ recipe, fullScreen }) => (recipe || fullScreen ? "100%" : "90%")};
+  width: ${({ recipe, fullScreen }) => (recipe || fullScreen ? '100%' : '90%')};
   margin: 0 auto;
   height: 100%;
   box-sizing: border-box;
@@ -111,15 +111,16 @@ const Layout = ({
   auth,
   fullScreen,
   children,
-  hideFooter
+  hideFooter,
+  fixed
 }) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolling, setScrolling] = useState(false);
 
   useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener('scroll', handleScroll);
     return () => {
-      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener('scroll', handleScroll);
     };
   });
 
@@ -131,13 +132,14 @@ const Layout = ({
     setScrolling(isScrolling || false);
   };
   return (
-    <Page>
+    <Page fixed={fixed}>
       <Nav
         scrolling={scrolling}
         auth={auth}
         recipe={recipe}
         setMenuOpen={setMenuOpen}
         menuOpen={menuOpen}
+        fullScreen={fullScreen}
       />
       <Content
         recipeMobile={recipeMobile}
@@ -160,7 +162,7 @@ const Layout = ({
               target="_blank"
               rel="noopener noreferrer"
             >
-              {" "}
+              {' '}
               Brian Bolnick
             </a>
           </Copyright>

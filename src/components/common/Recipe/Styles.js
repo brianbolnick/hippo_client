@@ -1,6 +1,6 @@
-import styled from "styled-components";
-import { colors, avenir, media } from "styles/css-variables";
-import { Link } from "react-router-dom";
+import styled from 'styled-components/macro';
+import { colors, avenir, media } from 'styles/css-variables';
+import { Link } from 'react-router-dom';
 
 export const LinkWrapper = styled(Link)`
   text-decoration: none;

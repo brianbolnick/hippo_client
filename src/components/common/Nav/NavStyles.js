@@ -1,9 +1,9 @@
-import { Link } from "react-router-dom";
-import styled from "styled-components";
-import { colors, media, raleway } from "styles/css-variables";
-import Icon from "components/common/Icon/Icon";
-import Button from "components/common/Button/Button";
-import Anchor from "components/common/Anchor/Anchor";
+import { Link } from 'react-router-dom';
+import styled from 'styled-components/macro';
+import { colors, media, raleway } from 'styles/css-variables';
+import Icon from 'components/common/Icon/Icon';
+import Button from 'components/common/Button/Button';
+import Anchor from 'components/common/Anchor/Anchor';
 
 export const Navbar = styled.div`
   display: flex;
@@ -29,6 +29,12 @@ export const Navbar = styled.div`
     padding-bottom: 10px;
     box-shadow: 0 0 10px rgba(0,0,0,.2);
     transition: .2s ease;
+	`};
+
+  ${({ fullScreen }) =>
+    fullScreen &&
+    `
+  padding: 16px 1%;
 	`};
 
   ${({ recipe }) =>

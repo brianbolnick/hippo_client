@@ -1,6 +1,6 @@
-import styled from "styled-components";
-import Icon from "components/common/Icon/Icon";
-import { colors, avenir } from "styles/css-variables";
+import styled from 'styled-components/macro';
+import Icon from 'components/common/Icon/Icon';
+import { colors, avenir } from 'styles/css-variables';
 
 export const DropdownContainer = styled.div`
   user-select: none;

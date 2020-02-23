@@ -1,12 +1,19 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import PropTypes from "prop-types";
-import { NewLogo, WhiteLogo, BlackLogo } from "styles/css-variables.js";
-import { Navbar, Brand, BrandImage } from "./NavStyles";
-import NavIcon from "./NavIcon";
-import NavMenu from "./NavMenu";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { NewLogo, WhiteLogo, BlackLogo } from 'styles/css-variables.js';
+import { Navbar, Brand, BrandImage } from './NavStyles';
+import NavIcon from './NavIcon';
+import NavMenu from './NavMenu';
 
-const Nav = ({ scrolling, menuOpen, setMenuOpen, recipe, auth }) => {
+const Nav = ({
+  scrolling,
+  menuOpen,
+  setMenuOpen,
+  recipe,
+  auth,
+  fullScreen
+}) => {
   const renderLogo = () => {
     if (recipe && menuOpen) return BlackLogo;
     if (recipe) return WhiteLogo;
@@ -19,6 +26,7 @@ const Nav = ({ scrolling, menuOpen, setMenuOpen, recipe, auth }) => {
       recipe={recipe}
       auth={auth}
       scrolling={scrolling || undefined}
+      fullScreen={fullScreen}
     >
       <Brand recipe={recipe}>
         <Link to="/">

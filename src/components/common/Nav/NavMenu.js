@@ -1,9 +1,9 @@
-import React from "react";
-import styled from "styled-components";
-import PropTypes from "prop-types";
-import { token } from "utils";
-import { colors } from "styles/css-variables";
-import { NavLink } from "./NavStyles";
+import React from 'react';
+import styled from 'styled-components/macro';
+import PropTypes from 'prop-types';
+import { token } from 'utils';
+import { colors } from 'styles/css-variables';
+import { NavLink } from './NavStyles';
 
 const Container = styled.div`
   position: fixed;

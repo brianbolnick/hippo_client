@@ -1,7 +1,7 @@
-import styled from "styled-components";
-import { colors, rufina, media, avenir } from "styles/css-variables";
-import Button from "components/common/Button/Button";
-import Icon from "components/common/Icon/Icon";
+import styled from 'styled-components/macro';
+import { colors, rufina, media, avenir } from 'styles/css-variables';
+import Button from 'components/common/Button/Button';
+import Icon from 'components/common/Icon/Icon';
 
 //New Form Styles
 export const ShowContainer = styled.div`
@@ -146,7 +146,7 @@ export const Ingredient = styled.li`
   list-style: none;
   border-bottom: solid 1px rgb(0, 0, 0, 0.05);
   padding-bottom: 8px;
-  font-family: "Avenir Next";
+  font-family: 'Avenir Next';
 `;
 
 export const Details = styled.div`

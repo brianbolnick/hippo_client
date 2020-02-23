@@ -1,11 +1,11 @@
-import { css, keyframes } from "styled-components";
-import cols from "./colors";
-import TextLogo from "../img/hippo-text.svg";
-import WhiteLogo from "../img/hippo-text-white.svg";
+import { css, keyframes } from 'styled-components/macro';
+import cols from './colors';
+import TextLogo from '../img/hippo-text.svg';
+import WhiteLogo from '../img/hippo-text-white.svg';
 //export { default as NewLogo } from "../img/new-logo.svg";
-export { default as NewLogo } from "../img/new-logo.png";
-export { default as BlackLogo } from "../img/new-logo-black.png";
-export { default as WhiteLogo } from "../img/new-logo-white.png";
+export { default as NewLogo } from '../img/new-logo.png';
+export { default as BlackLogo } from '../img/new-logo-black.png';
+export { default as WhiteLogo } from '../img/new-logo-white.png';
 
 // Fonts
 export const sourceSans = "'Source Sans Pro', sans-serif";
@@ -19,10 +19,10 @@ export const avenir = "'Avenir Next', sans-serif";
 export const colors = cols;
 
 // Responsive design
-export const phoneMediaQuery = "max-width: 768px";
-export const tabletMediaQuery = "max-width: 957px";
-export const smallDesktopMediaQuery = "max-width: 1200px";
-export const desktopMediaQuery = "min-width: 1200px";
+export const phoneMediaQuery = 'max-width: 768px';
+export const tabletMediaQuery = 'max-width: 957px';
+export const smallDesktopMediaQuery = 'max-width: 1200px';
+export const desktopMediaQuery = 'min-width: 1200px';
 
 export const Logo = TextLogo;
 export const LogoWhite = WhiteLogo;

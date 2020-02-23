@@ -1,9 +1,9 @@
-import React, { Component } from "react";
-import styled from "styled-components";
-import PropTypes from "prop-types";
-import Star from "./Star";
-import Popover from "components/common/Popover/Popover";
-import RateModal from "./RateModal";
+import React, { Component } from 'react';
+import styled from 'styled-components/macro';
+import PropTypes from 'prop-types';
+import Star from './Star';
+import Popover from 'components/common/Popover/Popover';
+import RateModal from './RateModal';
 
 const StyledSpan = styled.span``;
 const RatingContainer = styled.div`
@@ -63,8 +63,8 @@ class Rating extends Component {
         {showRateModal && (
           <RateModal
             onCancelClick={() => this.setState({ showRateModal: false })}
-            onSuccess={() => console.log("success")}
-            onFailire={() => console.log("success")}
+            onSuccess={() => console.log('success')}
+            onFailire={() => console.log('success')}
             onSubmit={this.handleSubmit}
           />
         )}
@@ -84,8 +84,8 @@ class Rating extends Component {
 Rating.propTypes = {
   value: PropTypes.number.isRequired,
   rateable: PropTypes.bool,
-	onSubmit: PropTypes.func,
-	small: PropTypes.bool
-}
+  onSubmit: PropTypes.func,
+  small: PropTypes.bool
+};
 
 export default Rating;

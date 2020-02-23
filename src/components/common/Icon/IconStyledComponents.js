@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import { colors } from "styles/css-variables";
+import styled from 'styled-components/macro';
+import { colors } from 'styles/css-variables';
 
 export const IconSvg = styled.svg`
   width: 100%;

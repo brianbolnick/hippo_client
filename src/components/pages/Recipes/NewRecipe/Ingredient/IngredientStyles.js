@@ -1,6 +1,6 @@
-import styled from "styled-components";
-import { colors, avenir } from "styles/css-variables";
-import Icon from "components/common/Icon/Icon";
+import styled from 'styled-components/macro';
+import { colors, avenir } from 'styles/css-variables';
+import Icon from 'components/common/Icon/Icon';
 
 export const IngredientContainer = styled.div`
   width: 100%;

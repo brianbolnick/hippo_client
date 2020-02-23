@@ -1,20 +1,20 @@
-import styled, { css } from "styled-components";
-import { colors, avenir } from "styles/css-variables";
+import styled, { css } from 'styled-components/macro';
+import { colors, avenir } from 'styles/css-variables';
 
 export const positions = {
-  topLeft: "top-left",
-  top: "top",
-  topRight: "top-right",
-  right: "right",
-  bottomRight: "bottom-right",
-  bottom: "bottom",
-  bottomLeft: "bottom-left",
-  left: "left"
+  topLeft: 'top-left',
+  top: 'top',
+  topRight: 'top-right',
+  right: 'right',
+  bottomRight: 'bottom-right',
+  bottom: 'bottom',
+  bottomLeft: 'bottom-left',
+  left: 'left'
 };
 
 export const types = {
-  default: "",
-  arrow: "arrow"
+  default: '',
+  arrow: 'arrow'
 };
 
 const carrotStyles = `

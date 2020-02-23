@@ -1,10 +1,10 @@
-import React, { useState } from "react";
-import styled from "styled-components";
-import Icon from "components/common/Icon/Icon";
-import Button from "components/common/Button/Button";
-import Divider from "components/common/Divider/Divider";
-import { colors, avenir, phoneMediaQuery } from "styles/css-variables";
-import MediaQuery from "components/common/MediaQuery/MediaQuery";
+import React, { useState } from 'react';
+import styled from 'styled-components/macro';
+import Icon from 'components/common/Icon/Icon';
+import Button from 'components/common/Button/Button';
+import Divider from 'components/common/Divider/Divider';
+import { colors, avenir, phoneMediaQuery } from 'styles/css-variables';
+import MediaQuery from 'components/common/MediaQuery/MediaQuery';
 
 const Container = styled.div`
   position: relative;
@@ -20,7 +20,7 @@ const Container = styled.div`
     0 4px 25px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
   border-radius: 32px;
 
-  input[type="file"] {
+  input[type='file'] {
     position: absolute;
     left: 0;
     top: 0;
@@ -106,7 +106,7 @@ const Label = styled.div`
 
 const FileInput = ({ onChange, label, file, onClear, imageUrl }, ...props) => {
   const [showMobile, setShowMobile] = useState(
-    window.matchMedia("(" + phoneMediaQuery + ")").matches
+    window.matchMedia('(' + phoneMediaQuery + ')').matches
   );
 
   const [showReselect, setShowReselect] = useState(false);

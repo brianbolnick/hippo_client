@@ -1,7 +1,7 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import styled from "styled-components";
-import { fadeIn, scaleUp } from "styles/css-variables";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import styled from 'styled-components/macro';
+import { fadeIn, scaleUp } from 'styles/css-variables';
 
 const Overlay = styled.div`
   display: flex;
@@ -22,7 +22,7 @@ const Overlay = styled.div`
 const StyledModal = styled.div`
   display: inline-block;
   position: relative;
-  width: ${({ width }) => (width ? width : "50%")};
+  width: ${({ width }) => (width ? width : '50%')};
   animation: ${scaleUp} 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
   @media (max-width: 1320px) {
     width: 90%;
@@ -52,13 +52,13 @@ class Modal extends Component {
   }
 
   componentDidMount() {
-    window.addEventListener("keyup", this.handleKeyUp, false);
-    document.addEventListener("click", this.handleOutsideClick, false);
+    window.addEventListener('keyup', this.handleKeyUp, false);
+    document.addEventListener('click', this.handleOutsideClick, false);
   }
 
   componentWillUnmount() {
-    window.removeEventListener("keyup", this.handleKeyUp, false);
-    document.removeEventListener("click", this.handleOutsideClick, false);
+    window.removeEventListener('keyup', this.handleKeyUp, false);
+    document.removeEventListener('click', this.handleOutsideClick, false);
   }
 
   handleKeyUp(e) {
@@ -67,7 +67,7 @@ class Modal extends Component {
       27: () => {
         e.preventDefault();
         onCloseRequest && onCloseRequest();
-        window.removeEventListener("keyup", this.handleKeyUp, false);
+        window.removeEventListener('keyup', this.handleKeyUp, false);
       }
     };
 
@@ -80,7 +80,7 @@ class Modal extends Component {
     const { onCloseRequest } = this.props;
     if (this.wrapperRef && !this.wrapperRef.contains(e.target)) {
       onCloseRequest && onCloseRequest();
-      document.removeEventListener("click", this.handleOutsideClick, false);
+      document.removeEventListener('click', this.handleOutsideClick, false);
     }
   }
 

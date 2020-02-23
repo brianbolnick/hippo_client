@@ -1,7 +1,7 @@
-import React from "react";
-import styled from "styled-components";
-import Icon from "components/common/Icon/Icon";
-import { colors, avenir, media } from "styles/css-variables";
+import React from 'react';
+import styled from 'styled-components/macro';
+import Icon from 'components/common/Icon/Icon';
+import { colors, avenir, media } from 'styles/css-variables';
 
 const FlashContainer = styled.div`
   min-width: 500px;

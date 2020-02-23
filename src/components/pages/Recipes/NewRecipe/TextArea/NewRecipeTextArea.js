@@ -1,17 +1,17 @@
-import React from "react";
-import PropTypes from "prop-types";
-import styled from "styled-components";
-import { colors, avenir } from "styles/css-variables";
-import Icon from "components/common/Icon/Icon";
+import React from 'react';
+import PropTypes from 'prop-types';
+import styled from 'styled-components/macro';
+import { colors, avenir } from 'styles/css-variables';
+import Icon from 'components/common/Icon/Icon';
 
 const StyledTextarea = styled.textarea`
   color: ${colors.black};
   transition: background-color 0.15s, border-color 0.15s;
   border: none;
   border-bottom: ${({ inputState }) =>
-    inputState === "error"
+    inputState === 'error'
       ? `solid 2px ${colors.darkRed}`
-      : inputState === "success"
+      : inputState === 'success'
       ? `solid 2px ${colors.green}`
       : `solid 1px ${colors.lightGray}`};
   height: 1.75em;
@@ -33,7 +33,7 @@ const StyledTextarea = styled.textarea`
   &:focus {
     outline: none;
     border-color: ${({ inputState }) =>
-      inputState === "success" ? colors.green : colors.red};
+      inputState === 'success' ? colors.green : colors.red};
     background-color: ${colors.white};
   }
 
@@ -86,7 +86,7 @@ class Textarea extends React.Component {
             <StyledIcon
               label={label}
               focus={this.state.focus}
-              color={inputState === "error" ? colors.darkRed : "#dbdbdb"}
+              color={inputState === 'error' ? colors.darkRed : '#dbdbdb'}
               name={icon}
             />
           )}

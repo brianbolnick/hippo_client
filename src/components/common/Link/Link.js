@@ -1,8 +1,8 @@
-import styled from "styled-components";
-import React from "react";
-import PropTypes from "prop-types";
-import { colors, avenir } from "styles/css-variables";
-import { Link as RouterLink } from "react-router-dom";
+import styled from 'styled-components/macro';
+import React from 'react';
+import PropTypes from 'prop-types';
+import { colors, avenir } from 'styles/css-variables';
+import { Link as RouterLink } from 'react-router-dom';
 
 const StyledLink = styled(RouterLink)`
   color: ${colors.black};

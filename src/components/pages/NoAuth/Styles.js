@@ -1,6 +1,6 @@
-import styled from "styled-components";
-import { colors, media, avenir, rufina } from "styles/css-variables";
-import DemoPic from "img/demo-pic.png";
+import styled from 'styled-components/macro';
+import { colors, media, avenir, rufina } from 'styles/css-variables';
+import DemoPic from 'img/demo-pic.png';
 
 export const Actions = styled.div`
   margin-top: 16px;

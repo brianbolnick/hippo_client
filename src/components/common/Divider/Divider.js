@@ -1,6 +1,6 @@
-import React from "react";
-import styled from "styled-components";
-import { colors, avenir } from "styles/css-variables";
+import React from 'react';
+import styled from 'styled-components/macro';
+import { colors, avenir } from 'styles/css-variables';
 
 const StyledDivider = styled.hr`
   line-height: 1em;
@@ -13,11 +13,11 @@ const StyledDivider = styled.hr`
   text-align: center;
   height: 1.5em;
   opacity: 0.5;
-  width: ${({ full }) => (full ? "100%" : "50%")};
-	margin: ${({margin}) => `${margin} auto`};
+  width: ${({ full }) => (full ? '100%' : '50%')};
+  margin: ${({ margin }) => `${margin} auto`};
 
   &:before {
-    content: "";
+    content: '';
     background: linear-gradient(to right, transparent, #818078, transparent);
     position: absolute;
     left: 0;
@@ -39,11 +39,11 @@ const StyledDivider = styled.hr`
 `;
 
 const Divider = ({ children, full, margin }) => {
-  return <StyledDivider full={full} data-content={children} margin={margin}/>;
+  return <StyledDivider full={full} data-content={children} margin={margin} />;
 };
 
 Divider.defaultProps = {
-	margin: '16px'
-}
+  margin: '16px'
+};
 
-export default Divider
+export default Divider;

@@ -1,8 +1,8 @@
-import React from "react";
-import PropTypes from "prop-types";
-import styled from "styled-components";
-import { colors, avenir } from "styles/css-variables";
-import Icon from "components/common/Icon/Icon";
+import React from 'react';
+import PropTypes from 'prop-types';
+import styled from 'styled-components/macro';
+import { colors, avenir } from 'styles/css-variables';
+import Icon from 'components/common/Icon/Icon';
 
 const StyledAddableInput = styled.textarea`
   color: ${colors.black};
@@ -10,7 +10,7 @@ const StyledAddableInput = styled.textarea`
   padding: 0 1rem;
   transition: background-color 0.15s, border-color 0.15s;
   border: ${({ inputState }) =>
-    inputState === "error"
+    inputState === 'error'
       ? `solid 2px ${colors.darkRed}`
       : `solid 1px ${colors.lightGray}`};
   height: 2.75em;
@@ -100,7 +100,7 @@ class AddableInput extends React.Component {
             <StyledIcon
               label={label}
               focus={this.state.focus}
-              color={inputState === "error" ? colors.darkRed : "#dbdbdb"}
+              color={inputState === 'error' ? colors.darkRed : '#dbdbdb'}
               name={icon}
             />
           )}
@@ -116,7 +116,7 @@ class AddableInput extends React.Component {
           <AddContainer
             onClick={() => {
               onAddClick(this.state.text);
-              this.setState({ text: "" });
+              this.setState({ text: '' });
             }}
           >
             <AddIcon name="plus" />

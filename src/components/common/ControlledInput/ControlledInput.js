@@ -1,9 +1,9 @@
-import React from "react";
-import PropTypes from "prop-types";
-import styled from "styled-components";
-import { colors, avenir } from "styles/css-variables";
-import Select from "components/common/Select/Select";
-import Input from "components/common/Input/Input";
+import React from 'react';
+import PropTypes from 'prop-types';
+import styled from 'styled-components/macro';
+import { colors, avenir } from 'styles/css-variables';
+import Select from 'components/common/Select/Select';
+import Input from 'components/common/Input/Input';
 
 const Label = styled.label`
   font-family: ${avenir};
@@ -38,7 +38,7 @@ const StyledInput = styled(Input)`
 
 class ControlledInput extends React.Component {
   state = {
-    inputVal: "",
+    inputVal: '',
     selectVal: this.props.defaultSelectValue
   };
 

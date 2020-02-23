@@ -1,7 +1,7 @@
-import styled from "styled-components";
-import React from "react";
-import PropTypes from "prop-types";
-import { colors, avenir } from "styles/css-variables";
+import styled from 'styled-components/macro';
+import React from 'react';
+import PropTypes from 'prop-types';
+import { colors, avenir } from 'styles/css-variables';
 
 const StyledAnchor = styled.a`
   color: ${colors.black};

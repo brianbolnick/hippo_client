@@ -1,10 +1,10 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import Button from "components/common/Button";
-import Layout from "components/common/Layout/Layout";
-import styled from "styled-components";
-import { avenir, colors } from "styles/css-variables.js";
-import Divider from "components/common/Divider";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import Button from 'components/common/Button';
+import Layout from 'components/common/Layout/Layout';
+import styled from 'styled-components/macro';
+import { avenir, colors } from 'styles/css-variables.js';
+import Divider from 'components/common/Divider';
 
 const Container = styled.div`
   width: 70%;

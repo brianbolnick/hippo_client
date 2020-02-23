@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import * as serviceWorker from './serviceWorker';
 import App from './components/App';
 import { BrowserRouter as Router } from 'react-router-dom';
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle } from 'styled-components/macro';
 import AvenirNext from 'fonts/AvenirNext.otf';
 import AvenirNextBold from 'fonts/AvenirNextBold.otf';
 import { ApolloProvider } from '@apollo/react-hooks';

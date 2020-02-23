@@ -1,6 +1,6 @@
-import React from "react";
-import { storiesOf } from "@storybook/react";
-import styled from "styled-components";
+import React from 'react';
+import { storiesOf } from '@storybook/react';
+import styled from 'styled-components/macro';
 
 import {
   IconDish,
@@ -12,10 +12,10 @@ import {
   IconMessage,
   IconShare,
   IconTrash,
-	IconUser,
-	IconFries,
-	IconFire
-} from "./";
+  IconUser,
+  IconFries,
+  IconFire
+} from './';
 
 const Grid = styled.div`
   display: grid;
@@ -35,18 +35,18 @@ const Name = styled.div`
 `;
 
 const iconList = [
-  { name: "IconDish", icon: IconDish },
-  { name: "IconClock", icon: IconClock },
-  { name: "IconCog", icon: IconCog },
-  { name: "IconEdit", icon: IconEdit },
-  { name: "IconHome", icon: IconHome },
-  { name: "IconMixer", icon: IconMixer },
-  { name: "IconMessage", icon: IconMessage },
-  { name: "IconShare", icon: IconShare },
-  { name: "IconTrash", icon: IconTrash },
-  { name: "IconUser", icon: IconUser },
-  { name: "IconFries", icon: IconFries },
-  { name: "IconFire", icon: IconFire },
+  { name: 'IconDish', icon: IconDish },
+  { name: 'IconClock', icon: IconClock },
+  { name: 'IconCog', icon: IconCog },
+  { name: 'IconEdit', icon: IconEdit },
+  { name: 'IconHome', icon: IconHome },
+  { name: 'IconMixer', icon: IconMixer },
+  { name: 'IconMessage', icon: IconMessage },
+  { name: 'IconShare', icon: IconShare },
+  { name: 'IconTrash', icon: IconTrash },
+  { name: 'IconUser', icon: IconUser },
+  { name: 'IconFries', icon: IconFries },
+  { name: 'IconFire', icon: IconFire }
 ];
 
 function IconsGrid() {
@@ -62,4 +62,4 @@ function IconsGrid() {
   );
 }
 
-storiesOf("Custom Icon", module).add("Icons", () => <IconsGrid />);
+storiesOf('Custom Icon', module).add('Icons', () => <IconsGrid />);

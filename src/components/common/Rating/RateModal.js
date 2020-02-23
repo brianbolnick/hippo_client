@@ -1,11 +1,11 @@
-import React from "react";
-import Modal from "components/common/Modal/Modal";
-import ModalInput from "components/common/ModalInput/ModalInput";
-import Button from "components/common/Button/Button";
-import styled from "styled-components";
-import Star from "./Star";
-import PropTypes from "prop-types";
-import { media, avenir, colors } from "styles/css-variables";
+import React from 'react';
+import Modal from 'components/common/Modal/Modal';
+import ModalInput from 'components/common/ModalInput/ModalInput';
+import Button from 'components/common/Button/Button';
+import styled from 'styled-components/macro';
+import Star from './Star';
+import PropTypes from 'prop-types';
+import { media, avenir, colors } from 'styles/css-variables';
 //import { API_URL, token, userId, familyId } from "utils";
 //import axios from "axios";
 
@@ -73,7 +73,7 @@ const ModalText = styled.div`
 `;
 
 class RateModal extends React.Component {
-  state = { loading: false, error: "", ratingValid: false, rating: 0 };
+  state = { loading: false, error: '', ratingValid: false, rating: 0 };
 
   isRatingValid = rating => {
     const regex = /^[0-5]{0,1}(\.\d{1,2})?$/;
@@ -83,13 +83,13 @@ class RateModal extends React.Component {
   handleRatingChange = e => {
     const rating = e.target.value;
     if (this.isRatingValid(rating)) {
-      this.setState({ rating: rating, error: "", ratingValid: true });
+      this.setState({ rating: rating, error: '', ratingValid: true });
     } else {
       this.setState({
         error:
           rating.length <= 4
-            ? "Rating must be a number between 0 and 5"
-            : "Rating must have no more than 2 decimal places.",
+            ? 'Rating must be a number between 0 and 5'
+            : 'Rating must have no more than 2 decimal places.',
         ratingValid: false
       });
     }
@@ -140,8 +140,8 @@ class RateModal extends React.Component {
               label="Rate this recipe!"
               placeholder="Type Rating"
               onChange={this.handleRatingChange}
-              style={{ fontSize: "3rem", width: "60%", margin: "0 auto" }}
-              inputState={ratingValid ? "success" : error ? "error" : ""}
+              style={{ fontSize: '3rem', width: '60%', margin: '0 auto' }}
+              inputState={ratingValid ? 'success' : error ? 'error' : ''}
             />
 
             <ModalText>

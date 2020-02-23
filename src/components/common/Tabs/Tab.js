@@ -1,7 +1,7 @@
-import React from "react";
-import styled from "styled-components";
-import PropTypes from "prop-types";
-import { colors } from "styles/css-variables";
+import React from 'react';
+import styled from 'styled-components/macro';
+import PropTypes from 'prop-types';
+import { colors } from 'styles/css-variables';
 
 const StyledTab = styled.div`
   margin-right: 16px;

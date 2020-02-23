@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import { media, avenir } from "styles/css-variables";
+import styled from 'styled-components/macro';
+import { media, avenir } from 'styles/css-variables';
 
 export const ButtonContainer = styled.div`
   display: flex;
@@ -37,4 +37,3 @@ export const FormWrapper = styled.div`
 	width: 100%;
 	`};
 `;
-
