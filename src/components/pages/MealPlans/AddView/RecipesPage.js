@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-//import Button from 'components/common/Button';
 import FlashMessage from 'components/common/FlashMessage/FlashMessage';
 import Layout from 'components/common/Layout/Layout';
 import RecipesTab from './RecipesTab';
