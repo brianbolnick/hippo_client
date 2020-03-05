@@ -11,6 +11,7 @@ const useRecipesPageQueries = recipeType => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  //TODO: create dish type query and use GQL for all these
   const getCategories = () =>
     axios.get(`${API_URL}/categories`, {
       headers: { Authorization: authToken }

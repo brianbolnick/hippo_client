@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Loader from 'img/burger.gif';
 import NoRecipes from 'img/food_icon.gif';
 import { tabletMediaQuery } from 'styles/css-variables';
-import RecipeCard from 'components/common/Recipe/RecipeCard';
+import AddableRecipeCard from './AddableRecipeCard';
 import MediaQuery from 'components/common/MediaQuery/MediaQuery';
 import Collapse from 'components/common/Collapse';
 import Checkbox from 'components/common/Checkbox';
@@ -137,7 +137,7 @@ const RecipesTab = ({ onError, searchTerm, recipeType }) => {
   const renderRecipes = () => {
     return filteredRecipes.length ? (
       filteredRecipes.map(recipe => {
-        return <RecipeCard key={`recipe|${recipe.id}`} data={recipe} />;
+        return <AddableRecipeCard key={`recipe|${recipe.id}`} data={recipe} />;
       })
     ) : (
       <LoadContainer>
