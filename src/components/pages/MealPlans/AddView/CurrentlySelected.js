@@ -16,8 +16,22 @@ const Drawer = styled.div`
   box-sizing: border-box;
 `;
 
-const CurrentlySelected = () => {
-  return <Drawer>something</Drawer>;
+const CurrentlySelected = ({ selectedRecipes, recipes }) => {
+  return (
+    <Drawer>
+      {Object.keys(selectedRecipes).map(recipeId => {
+        if (!selectedRecipes[recipeId]) return null;
+
+        const recipe = recipes[recipeId];
+
+        return (
+          <pre key={`selectedMenu|${recipeId}`}>
+            {recipe.title} ({recipe.type})
+          </pre>
+        );
+      })}
+    </Drawer>
+  );
 };
 
 export default CurrentlySelected;

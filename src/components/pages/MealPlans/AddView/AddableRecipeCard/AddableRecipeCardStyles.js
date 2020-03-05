@@ -18,6 +18,19 @@ export const SelectedIndicator = styled.div`
 	`};
 `;
 
+export const ImageContainer = styled.div`
+  height: 220px;
+  position: relative;
+  border: solid 4px white;
+
+  ${({ isSelected }) =>
+    isSelected &&
+    `
+    border: solid 4px ${colors.blue};
+    border-radius: 12px;
+	`};
+`;
+
 export const Card = styled.div`
   width: calc(20% - 32px);
   margin: 10px 16px;
@@ -36,28 +49,19 @@ export const Card = styled.div`
 		width: calc(50% - 32px);
 	`};
 
+  ${({ isSelected }) =>
+    !isSelected &&
+    `
   &:hover {
     ${SelectedIndicator} {
       background-color: ${`${colors.blue}99`};
     }
+
+    ${ImageContainer} {
+      border: solid 4px ${`${colors.blue}99`};
+      border-radius: 12px;
+    }
   }
-`;
-
-export const ImageContainer = styled.div`
-  height: 220px;
-  position: relative;
-  border: solid 4px white;
-
-  &:hover {
-    border: solid 4px ${colors.blue};
-    border-radius: 12px;
-  }
-
-  ${({ isSelected }) =>
-    isSelected &&
-    `
-    border: solid 4px ${colors.blue};
-    border-radius: 12px;
 	`};
 `;
 

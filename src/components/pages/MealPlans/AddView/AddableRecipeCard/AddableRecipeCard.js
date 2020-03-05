@@ -11,11 +11,14 @@ import {
 } from './AddableRecipeCardStyles';
 import PlaceholderImage from 'img/recipe-placeholder.png';
 
-const RecipeCard = ({ data, isSelected }) => {
+const RecipeCard = ({ data, isSelected, onSelectRecipes }) => {
   const image = data.image_url || data.imageUrl || PlaceholderImage;
   const dishType = data.dish_type || data.dishType;
   return (
-    <Card onClick={() => console.log('click', data)}>
+    <Card
+      onClick={() => onSelectRecipes(data.id, !isSelected)}
+      isSelected={isSelected}
+    >
       <SelectedIndicator isSelected={isSelected} />
       <ImageContainer isSelected={isSelected}>
         <RecipeImage url={image}>

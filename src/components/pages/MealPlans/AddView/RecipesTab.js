@@ -21,7 +21,6 @@ import {
   FilterItemGroup,
   FilterItem
 } from './RecipesPageStyledComponents';
-import useRecipesPageQueries from '../hooks/useRecipesPageQueries';
 
 const difficulties = [
   { name: 'Easy', id: 1 },
@@ -29,17 +28,16 @@ const difficulties = [
   { name: 'Hard', id: 3 }
 ];
 
-const RecipesTab = ({ onError, searchTerm, recipeType }) => {
-  const {
-    recipes,
-    categories,
-    dishTypes,
-    loading,
-    error
-  } = useRecipesPageQueries(recipeType);
-
-  if (error) onError(error);
-
+const RecipesTab = ({
+  searchTerm,
+  recipeType,
+  selectedRecipes,
+  onSelectRecipes,
+  recipes,
+  categories,
+  dishTypes,
+  loading
+}) => {
   const createInitialFilterList = group => {
     return group.reduce((acc, val) => {
       acc[val.id] = false;
@@ -137,7 +135,14 @@ const RecipesTab = ({ onError, searchTerm, recipeType }) => {
   const renderRecipes = () => {
     return filteredRecipes.length ? (
       filteredRecipes.map(recipe => {
-        return <AddableRecipeCard key={`recipe|${recipe.id}`} data={recipe} />;
+        return (
+          <AddableRecipeCard
+            key={`recipe|${recipe.id}`}
+            data={recipe}
+            isSelected={selectedRecipes[recipe.id]}
+            onSelectRecipes={onSelectRecipes}
+          />
+        );
       })
     ) : (
       <LoadContainer>

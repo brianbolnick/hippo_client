@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import FlashMessage from 'components/common/FlashMessage/FlashMessage';
 import Layout from 'components/common/Layout/Layout';
 import RecipesTab from './RecipesTab';
@@ -16,10 +16,42 @@ import {
   RecipesContainer
 } from './RecipesPageStyledComponents';
 import CurrentlySelected from './CurrentlySelected';
+import useRecipesPageQueries from '../hooks/useRecipesPageQueries';
 
 const Recipes = ({ history }) => {
-  const [error, setError] = useState('');
+  const {
+    recipes: familyRecipes,
+    categories,
+    dishTypes,
+    loading: loadingRecipes,
+    error: recipeError
+  } = useRecipesPageQueries('recipes');
+
+  const {
+    recipes: sharedRecipes,
+    loading: loadingSharedRecipes,
+    error: sharedError
+  } = useRecipesPageQueries('shared_recipes');
+
+  const [error, setError] = useState(recipeError || sharedError || '');
   const [searchTerm, setSearchTerm] = useState('');
+
+  //TODO: load selected recipes from current meal plan
+  const [selectedRecipes, setSelectedRecipes] = useState({});
+
+  const handleSelectRecipe = (recipeId, isSelected) => {
+    setSelectedRecipes({ ...selectedRecipes, [recipeId]: isSelected });
+  };
+
+  const groupRecipes = useCallback(() => {
+    const combinedRecipes = familyRecipes.concat(sharedRecipes);
+    return combinedRecipes.reduce((acc, recipe) => {
+      acc[recipe.id] = recipe;
+      return acc;
+    }, {});
+  }, [sharedRecipes, familyRecipes]);
+
+  const groupedRecipes = groupRecipes();
 
   return (
     <Layout fullScreen hideFooter fixed>
@@ -48,20 +80,33 @@ const Recipes = ({ history }) => {
               <RecipesTab
                 title="Family Recipes"
                 recipeType="recipes"
-                onError={err => setError(err)}
                 searchTerm={searchTerm}
+                onSelectRecipes={handleSelectRecipe}
+                selectedRecipes={selectedRecipes}
+                recipes={familyRecipes}
+                categories={categories}
+                dishTypes={dishTypes}
+                loading={loadingRecipes}
               />
             </TabPane>
             <TabPane name="shared" asyncRender>
               <RecipesTab
                 title="Shared Recipes"
                 recipeType="shared_recipes"
-                onError={err => setError(err)}
+                onSelectRecipes={handleSelectRecipe}
+                selectedRecipes={selectedRecipes}
+                recipes={sharedRecipes}
+                categories={categories}
+                dishTypes={dishTypes}
+                loading={loadingSharedRecipes}
               />
             </TabPane>
           </Tabs>
         </RecipesContainer>
-        <CurrentlySelected />
+        <CurrentlySelected
+          selectedRecipes={selectedRecipes}
+          recipes={groupedRecipes}
+        />
       </Container>
     </Layout>
   );
