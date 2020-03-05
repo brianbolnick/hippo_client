@@ -17,24 +17,23 @@ export const Container = styled.div`
 	`};
 `;
 export const ImageContainer = styled.div`
-	height: 30rem
-	width: 100%;
-	border-radius: 16px;
-	background-size: cover !important;
-	background-position: center !important;
-	background-repeat: no-repeat;
-	position: relative;
-	display: flex;
-	flex-flow: column;
-	align-items: flex-start;
-	justify-content: flex-end;
-	padding: 32px;
-	box-sizing: border-box;
+  height: 30rem;
+  width: 100%;
+  border-radius: 16px;
+  background-size: cover !important;
+  background-position: center !important;
+  background-repeat: no-repeat;
+  position: relative;
+  display: flex;
+  flex-flow: column;
+  align-items: flex-start;
+  justify-content: flex-end;
+  padding: 32px;
+  box-sizing: border-box;
   box-shadow: 0 16px 38px -12px rgba(0, 0, 0, 0.56),
     0 4px 25px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
 
-
-	${({ url }) =>
+  ${({ url }) =>
     `
 		background: linear-gradient(
 			to bottom,

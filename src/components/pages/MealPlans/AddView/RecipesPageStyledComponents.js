@@ -11,7 +11,9 @@ export const Container = styled.div`
 
 export const RecipesContainer = styled.div`
   padding: 16px;
-  flex: 3;
+  position: relative;
+  width: 75%;
+  box-sizing: border-box;
 `;
 
 export const RecipeList = styled.div`

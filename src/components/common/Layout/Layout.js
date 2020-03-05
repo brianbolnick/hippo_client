@@ -5,7 +5,6 @@ import Nav from 'components/common/Nav/Nav';
 import { NewLogo } from 'styles/css-variables';
 import { colors, media } from 'styles/css-variables';
 import { Brand, BrandImage } from 'components/common/Nav/NavStyles';
-
 const Page = styled.div`
   display: flex;
   flex-flow: column;
