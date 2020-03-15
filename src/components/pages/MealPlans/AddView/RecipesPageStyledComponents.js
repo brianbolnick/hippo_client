@@ -3,16 +3,19 @@ import { media } from 'styles/css-variables';
 import Tooltip from 'components/common/Tooltip/Tooltip';
 import { avenir, fadeInDown, colors } from 'styles/css-variables';
 
+export const Page = styled.div``;
+
 export const Container = styled.div`
   display: flex;
   flex-flow: row;
-  width: 100%;
+  width: 75%;
+  margin-top: 64px;
 `;
 
 export const RecipesContainer = styled.div`
   padding: 16px;
   position: relative;
-  width: 75%;
+  width: 100%;
   box-sizing: border-box;
 `;
 
@@ -189,13 +192,4 @@ export const FilterTitle = styled.div`
   font-size: 1.2rem;
   font-family: ${avenir};
   font-weight: 600;
-`;
-
-export const SearchWrapper = styled.div`
-  width: 32vw;
-  margin-right: 32px;
-  ${media.phone`
-		width: 100%;
-	margin-right: 0;
-	`}
 `;

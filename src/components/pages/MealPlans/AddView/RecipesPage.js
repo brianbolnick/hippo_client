@@ -1,19 +1,18 @@
 import React, { useState, useCallback } from 'react';
 import FlashMessage from 'components/common/FlashMessage/FlashMessage';
-import Layout from 'components/common/Layout/Layout';
+import Nav from '../Nav';
 import RecipesTab from './RecipesTab';
-import Search from 'components/common/Search';
 import Tab from 'components/common/Tabs/Tab';
 import TabPane from 'components/common/Tabs/TabPane';
 import Tabs from 'components/common/Tabs/Tabs';
 import {
-  SearchWrapper,
   TabLink,
   TabsContainer,
   OptionsContainer,
   Header,
   Container,
-  RecipesContainer
+  RecipesContainer,
+  Page
 } from './RecipesPageStyledComponents';
 import CurrentlySelected from './CurrentlySelected';
 import useRecipesPageQueries from '../hooks/useRecipesPageQueries';
@@ -35,6 +34,7 @@ const Recipes = ({ history }) => {
 
   const [error, setError] = useState(recipeError || sharedError || '');
   const [searchTerm, setSearchTerm] = useState('');
+  const [menuOpen, setMenuOpen] = useState(false);
 
   //TODO: load selected recipes from current meal plan
   const [selectedRecipes, setSelectedRecipes] = useState({});
@@ -54,10 +54,18 @@ const Recipes = ({ history }) => {
   const groupedRecipes = groupRecipes();
 
   return (
-    <Layout fullScreen hideFooter fixed>
+    <Page>
       <FlashMessage visible={!!error} error onClose={() => setError('')}>
         {error}
       </FlashMessage>
+
+      <Nav setSearchTerm={setSearchTerm} />
+      <CurrentlySelected
+        selectedRecipes={selectedRecipes}
+        recipes={groupedRecipes}
+        menuOpen={menuOpen}
+        setMenuOpen={setMenuOpen}
+      />
       <Container>
         <RecipesContainer>
           <Tabs defaultActiveTab="family" asyncRender>
@@ -70,11 +78,7 @@ const Recipes = ({ history }) => {
                   <TabLink>Shared</TabLink>
                 </Tab>
               </TabsContainer>
-              <OptionsContainer>
-                <SearchWrapper>
-                  <Search onChange={val => setSearchTerm(val)} />
-                </SearchWrapper>
-              </OptionsContainer>
+              <OptionsContainer></OptionsContainer>
             </Header>
             <TabPane name="family" asyncRender>
               <RecipesTab
@@ -103,12 +107,8 @@ const Recipes = ({ history }) => {
             </TabPane>
           </Tabs>
         </RecipesContainer>
-        <CurrentlySelected
-          selectedRecipes={selectedRecipes}
-          recipes={groupedRecipes}
-        />
       </Container>
-    </Layout>
+    </Page>
   );
 };
 

@@ -38,6 +38,7 @@ const useRecipesPageQueries = recipeType => {
           const categories = categoryData.data.data;
           const dishTypes = dishTypeData.data.data;
 
+          console.log('recipes', recipes);
           setLoading(false);
           setCategories(categories);
           setDishTypes(dishTypes);

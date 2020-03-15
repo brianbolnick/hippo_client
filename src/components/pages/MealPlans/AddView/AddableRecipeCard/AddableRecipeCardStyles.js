@@ -14,7 +14,7 @@ export const SelectedIndicator = styled.div`
   ${({ isSelected }) =>
     isSelected &&
     `
-		background-color: ${colors.blue};
+		background-color: ${colors.black};
 	`};
 `;
 
@@ -26,13 +26,13 @@ export const ImageContainer = styled.div`
   ${({ isSelected }) =>
     isSelected &&
     `
-    border: solid 4px ${colors.blue};
+    border: solid 4px ${colors.black};
     border-radius: 12px;
 	`};
 `;
 
 export const Card = styled.div`
-  width: calc(20% - 32px);
+  width: calc(25% - 32px);
   margin: 10px 16px;
   position: relative;
   overflow: hidden;
@@ -54,11 +54,11 @@ export const Card = styled.div`
     `
   &:hover {
     ${SelectedIndicator} {
-      background-color: ${`${colors.blue}99`};
+      background-color: ${`${colors.black}99`};
     }
 
     ${ImageContainer} {
-      border: solid 4px ${`${colors.blue}99`};
+      border: solid 4px ${`${colors.black}99`};
       border-radius: 12px;
     }
   }
