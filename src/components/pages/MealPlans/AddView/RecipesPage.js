@@ -15,7 +15,7 @@ import {
   Page
 } from './RecipesPageStyledComponents';
 import CurrentlySelected from './CurrentlySelected';
-import useRecipesPageQueries from '../hooks/useRecipesPageQueries';
+import { useMealPlansMutation, useRecipesPageQueries } from '../hooks';
 
 const Recipes = ({ history }) => {
   const {
@@ -39,6 +39,8 @@ const Recipes = ({ history }) => {
   //TODO: load selected recipes from current meal plan
   const [selectedRecipes, setSelectedRecipes] = useState({});
 
+  const [updateMealPlan] = useMealPlansMutation();
+
   const handleSelectRecipe = (recipeId, isSelected) => {
     setSelectedRecipes({ ...selectedRecipes, [recipeId]: isSelected });
   };
@@ -51,13 +53,14 @@ const Recipes = ({ history }) => {
     const savedRecipes = Object.keys(selectedRecipes).reduce(
       (acc, recipeId) => {
         if (selectedRecipes[recipeId]) {
-          return [...acc, recipeId];
+          return [...acc, JSON.parse(recipeId)];
         }
         return acc;
       },
       []
     );
-    console.log('save', savedRecipes);
+
+    updateMealPlan({ recipeIds: savedRecipes, id: 10 });
   };
 
   const groupRecipes = useCallback(() => {
