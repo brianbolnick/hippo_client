@@ -43,6 +43,23 @@ const Recipes = ({ history }) => {
     setSelectedRecipes({ ...selectedRecipes, [recipeId]: isSelected });
   };
 
+  const handleDeleteRecipe = recipeId => {
+    setSelectedRecipes({ ...selectedRecipes, [recipeId]: false });
+  };
+
+  const handleSave = () => {
+    const savedRecipes = Object.keys(selectedRecipes).reduce(
+      (acc, recipeId) => {
+        if (selectedRecipes[recipeId]) {
+          return [...acc, recipeId];
+        }
+        return acc;
+      },
+      []
+    );
+    console.log('save', savedRecipes);
+  };
+
   const groupRecipes = useCallback(() => {
     const combinedRecipes = familyRecipes.concat(sharedRecipes);
     return combinedRecipes.reduce((acc, recipe) => {
@@ -65,6 +82,8 @@ const Recipes = ({ history }) => {
         recipes={groupedRecipes}
         menuOpen={menuOpen}
         setMenuOpen={setMenuOpen}
+        onDelete={handleDeleteRecipe}
+        onSave={handleSave}
       />
       <Container>
         <RecipesContainer>

@@ -5,6 +5,7 @@ import styled from 'styled-components/macro';
 import { NavMenu, NavIcon } from '../Nav';
 import { colors } from 'styles/css-variables';
 import Icon from 'components/common/Icon/Icon';
+import Button from 'components/common/Button/Button';
 import PlaceholderImage from 'img/recipe-placeholder.png';
 
 const Drawer = styled.div`
@@ -91,20 +92,41 @@ const StyledIcon = styled(Icon)`
   }
 `;
 
+const OptionsContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: calc(25% - 32px);
+  position: fixed;
+  background: white;
+  bottom: 0;
+  padding-top: 16px;
+  border-top: solid 1px #f4f4f4;
+`;
+
+const Content = styled.div`
+  margin-bottom: 74px;
+`;
+
 const CurrentlySelected = ({
   selectedRecipes,
   recipes,
   menuOpen,
-  setMenuOpen
+  setMenuOpen,
+  onDelete,
+  onSave
 }) => {
   //TODO: memoize list stuff here, as well as each recipe card
   //shouldnt rerender whole list when one card updates
   const today = moment().format('MMMM Do, YYYY');
   const renderRecipes = useCallback(() => {
-    const filteredRecipes = Object.keys(selectedRecipes).map(recipeId => {
-      if (!selectedRecipes[recipeId]) return null;
-      return recipes[recipeId];
-    });
+    const filteredRecipes = Object.keys(selectedRecipes).reduce(
+      (acc, recipeId) => {
+        if (selectedRecipes[recipeId]) return [...acc, recipes[recipeId]];
+        return acc;
+      },
+      []
+    );
 
     const groupedRecipes = groupBy(filteredRecipes, rec => rec.dish_type.name);
 
@@ -125,7 +147,7 @@ const CurrentlySelected = ({
                 <StyledIcon
                   name="close"
                   size="20px"
-                  onClick={() => console.log('cick')}
+                  onClick={() => onDelete(recipe.id)}
                 />
               </RecipeContainer>
             );
@@ -133,16 +155,21 @@ const CurrentlySelected = ({
         </DishTypeContainer>
       );
     });
-  }, [selectedRecipes, recipes]);
+  }, [selectedRecipes, recipes, onDelete]);
 
   return (
     <Drawer>
       <NavIcon open={menuOpen} onClick={() => setMenuOpen(!menuOpen)} />
       <NavMenu menuOpen={menuOpen} />
 
-      <Title>Selections</Title>
-      <Date>{today}</Date>
-      {renderRecipes()}
+      <Content>
+        <Title>Selections</Title>
+        <Date>{today}</Date>
+        {renderRecipes()}
+      </Content>
+      <OptionsContainer>
+        <Button onClick={onSave}>Save Meal Plan</Button>
+      </OptionsContainer>
     </Drawer>
   );
 };

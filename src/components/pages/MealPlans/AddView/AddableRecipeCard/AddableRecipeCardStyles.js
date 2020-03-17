@@ -11,10 +11,27 @@ export const SelectedIndicator = styled.div`
   border: solid 2px white;
   z-index: 1;
 
+  & ::after {
+    content: '';
+    position: absolute;
+
+    ${({ isSelected }) =>
+      isSelected &&
+      `
+			left: 6px;
+			top: 2px;
+			width: 3px;
+			height: 8px;
+			border: solid ${colors.white};
+			border-width: 0 2px 2px 0px;
+			transform: rotate(45deg);
+	`};
+  }
+
   ${({ isSelected }) =>
     isSelected &&
     `
-		background-color: ${colors.yellow};
+		background-color: ${colors.black};
 	`};
 `;
 
@@ -26,7 +43,7 @@ export const ImageContainer = styled.div`
   ${({ isSelected }) =>
     isSelected &&
     `
-    border: solid 4px ${colors.yellow};
+    border: solid 4px ${colors.black};
     border-radius: 12px;
 	`};
 `;
@@ -54,11 +71,11 @@ export const Card = styled.div`
     `
   &:hover {
     ${SelectedIndicator} {
-      background-color: ${`${colors.yellow}99`};
+      background-color: ${`${colors.black}99`};
     }
 
     ${ImageContainer} {
-      border: solid 4px ${`${colors.yellow}99`};
+      border: solid 4px ${`${colors.black}99`};
       border-radius: 12px;
     }
   }
