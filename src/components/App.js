@@ -122,6 +122,13 @@ class App extends Component {
             exact
             component={AddMealPlan}
           />
+          <PremiumRoute
+            path="/meal_plans/:id/edit"
+            isPremium={IS_PREMIUM}
+            exact
+            component={AddMealPlan}
+          />
+
           <AuthRoute
             path="/profile"
             exact

@@ -1,4 +1,5 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import FlashMessage from 'components/common/FlashMessage/FlashMessage';
 import Nav from '../Nav';
 import RecipesTab from './RecipesTab';
@@ -15,7 +16,11 @@ import {
   Page
 } from './RecipesPageStyledComponents';
 import CurrentlySelected from './CurrentlySelected';
-import { useMealPlansMutation, useRecipesPageQueries } from '../hooks';
+import {
+  useMealPlanQuery,
+  useMealPlansMutation,
+  useRecipesPageQueries
+} from '../hooks';
 
 const Recipes = ({ history }) => {
   const {
@@ -36,8 +41,32 @@ const Recipes = ({ history }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [menuOpen, setMenuOpen] = useState(false);
 
-  //TODO: load selected recipes from current meal plan
+  const { id } = useParams();
+
+  const {
+    data: mealPlanData,
+    error: mealPlanError,
+    loading: loadingMealPlans
+  } = useMealPlanQuery({ id: id ? JSON.parse(id) : null });
+
+  if (mealPlanError)
+    setError('There was an error fetching recipes for this meal plan.');
+
   const [selectedRecipes, setSelectedRecipes] = useState({});
+
+  useEffect(() => {
+    const buildInitialRecipes = () => {
+      if (!mealPlanData.recipes) return {};
+      return mealPlanData.recipes.reduce(
+        (acc, rec) => ({ ...acc, [rec.id]: true }),
+        {}
+      );
+    };
+
+    const initialRecipes = buildInitialRecipes();
+
+    setSelectedRecipes(initialRecipes);
+  }, [mealPlanData]);
 
   const [updateMealPlan] = useMealPlansMutation();
 
@@ -87,6 +116,7 @@ const Recipes = ({ history }) => {
         setMenuOpen={setMenuOpen}
         onDelete={handleDeleteRecipe}
         onSave={handleSave}
+        loading={loadingMealPlans || loadingRecipes}
       />
       <Container>
         <RecipesContainer>
