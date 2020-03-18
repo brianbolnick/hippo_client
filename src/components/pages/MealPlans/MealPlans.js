@@ -26,7 +26,9 @@ const Title = styled.div`
   margin-bottom: 16px;
 `;
 
-const PlansContainer = styled.div``;
+const PlansContainer = styled.div`
+  min-height: 53vh;
+`;
 
 const TitleContainer = styled.div`
   display: flex;
@@ -64,6 +66,24 @@ const ActiveTag = styled.div`
 const RecipesContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
+`;
+
+const EmptyMessage = styled.div`
+  font-size: 4rem;
+  font-weight: 700;
+  margin-bottom: 24px;
+`;
+
+const NoContent = styled.div`
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+`;
+
+const EmptySub = styled.div`
+  font-size: 2rem;
+  color: ${colors.darkGray};
 `;
 
 const MealPlan = ({ data }) => {
@@ -105,6 +125,15 @@ const MealPlans = () => {
 
   const mealPlans = get(data, 'mealPlansQuery.mealPlans', []);
 
+  const NoContentMessage = () => {
+    return (
+      <NoContent>
+        <EmptyMessage>You have no meal plans.</EmptyMessage>
+        <EmptySub>Create one now!</EmptySub>
+      </NoContent>
+    );
+  };
+
   return networkStatus !== 7 || queryError ? (
     <PageLoader />
   ) : (
@@ -117,6 +146,7 @@ const MealPlans = () => {
           </Button>
         </TitleContainer>
         <PlansContainer>
+          {!mealPlans.length && <NoContentMessage />}
           {mealPlans.map(plan => (
             <MealPlan data={plan} key={plan.id} />
           ))}
