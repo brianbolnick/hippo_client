@@ -1,5 +1,6 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import get from 'lodash/get';
 import FlashMessage from 'components/common/FlashMessage/FlashMessage';
 import Nav from '../Nav';
 import RecipesTab from './RecipesTab';
@@ -19,7 +20,8 @@ import CurrentlySelected from './CurrentlySelected';
 import {
   useMealPlanQuery,
   useMealPlansMutation,
-  useRecipesPageQueries
+  useRecipesPageQueries,
+  useCreateMealPlan
 } from '../hooks';
 
 const Recipes = ({ history }) => {
@@ -69,6 +71,7 @@ const Recipes = ({ history }) => {
   }, [mealPlanData]);
 
   const [updateMealPlan] = useMealPlansMutation();
+  const [createMealPlan] = useCreateMealPlan();
 
   const handleSelectRecipe = (recipeId, isSelected) => {
     setSelectedRecipes({ ...selectedRecipes, [recipeId]: isSelected });
@@ -89,7 +92,14 @@ const Recipes = ({ history }) => {
       []
     );
 
-    updateMealPlan({ recipeIds: savedRecipes, id: 10 });
+    if (!id) {
+      createMealPlan({ recipeIds: savedRecipes }).then(({ data }) => {
+        const newId = get(data, 'createMealPlan.id');
+        updateMealPlan({ recipeIds: savedRecipes, id: newId });
+      });
+    } else {
+      updateMealPlan({ recipeIds: savedRecipes, id });
+    }
   };
 
   const groupRecipes = useCallback(() => {
