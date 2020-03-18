@@ -98,7 +98,7 @@ const Recipes = ({ history }) => {
         updateMealPlan({ recipeIds: savedRecipes, id: newId });
       });
     } else {
-      updateMealPlan({ recipeIds: savedRecipes, id });
+      updateMealPlan({ recipeIds: savedRecipes, id: JSON.parse(id) });
     }
   };
 
