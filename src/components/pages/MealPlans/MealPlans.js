@@ -86,6 +86,13 @@ const EmptySub = styled.div`
   color: ${colors.darkGray};
 `;
 
+const OptionsContainer = styled.div`
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
+
 const MealPlan = ({ data }) => {
   const recipes = get(data, 'recipes', []);
   const date = moment(data.insertedAt).format('MMMM Do, YYYY');
@@ -104,6 +111,10 @@ const MealPlan = ({ data }) => {
       large
     >
       <MealPlanContainer active={isActive}>
+        <OptionsContainer>
+          <div>Shopping List</div>
+          <div>Edit</div>
+        </OptionsContainer>
         <RecipesContainer active={isActive}>
           {recipes.map(recipe => {
             return <RecipeCard key={recipe.id} data={recipe} />;
