@@ -6,6 +6,8 @@ import moment from 'moment';
 import styled from 'styled-components/macro';
 import Layout from 'components/common/Layout/Layout';
 import Button from 'components/common/Button';
+import Link from 'components/common/Link/Link';
+import Icon from 'components/common/Icon/Icon';
 import Collapse from 'components/common/Collapse';
 import PageLoader from 'components/common/PageLoader';
 import RecipeCard from 'components/common/Recipe/RecipeCard';
@@ -87,10 +89,23 @@ const EmptySub = styled.div`
 `;
 
 const OptionsContainer = styled.div`
-  padding: 8px;
+  padding: 8px 16px;
   display: flex;
   align-items: center;
   justify-content: space-between;
+`;
+
+const EditLink = styled(Link)`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  &:hover {
+    svg > path {
+      fill: ${colors.red};
+      transition: all 0.2s ease;
+    }
+  }
 `;
 
 const MealPlan = ({ data }) => {
@@ -112,8 +127,16 @@ const MealPlan = ({ data }) => {
     >
       <MealPlanContainer active={isActive}>
         <OptionsContainer>
-          <div>Shopping List</div>
-          <div>Edit</div>
+          <Link to={`/meal_plans/${data.id}/shopping_list`}>
+            <Button secondary small icon="list">
+              Shopping List
+            </Button>
+          </Link>
+
+          <EditLink to={`/meal_plans/${data.id}/edit`}>
+            <Icon name="edit" size="16px" />
+            <div>Edit</div>
+          </EditLink>
         </OptionsContainer>
         <RecipesContainer active={isActive}>
           {recipes.map(recipe => {

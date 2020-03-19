@@ -13,6 +13,7 @@ import About from './pages/About';
 import Profile from './pages/Profile';
 import MealPlans from './pages/MealPlans';
 import AddMealPlan from './pages/MealPlans/AddView';
+import ShoppingList from './pages/MealPlans/ShoppingList';
 import NotFound from './pages/NotFound';
 import Unauthorized from './pages/Unauthorized';
 import Subscribe from './pages/Subscribe';
@@ -127,6 +128,12 @@ class App extends Component {
             isPremium={IS_PREMIUM}
             exact
             component={AddMealPlan}
+          />
+          <PremiumRoute
+            path="/meal_plans/:id/shopping_list"
+            isPremium={IS_PREMIUM}
+            exact
+            component={ShoppingList}
           />
 
           <AuthRoute

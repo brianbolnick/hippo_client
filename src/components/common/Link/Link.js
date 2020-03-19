@@ -21,7 +21,11 @@ const StyledLink = styled(RouterLink)`
   }
 `;
 
-const Link = ({ children, to }) => <StyledLink to={to}>{children}</StyledLink>;
+const Link = ({ children, to, ...rest }) => (
+  <StyledLink to={to} {...rest}>
+    {children}
+  </StyledLink>
+);
 
 Link.propTypes = {
   children: PropTypes.any,

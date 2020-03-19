@@ -45,8 +45,8 @@ const StyledButton = styled.button`
   ${({ icon }) =>
     icon &&
     `
-		padding: 4px;
-		border-radius: 50%;
+padding-left: 10px 14px;
+	font-size: 12px;
 	`};
 
   ${({ secondary_DEPRECATED }) =>
@@ -112,6 +112,17 @@ const StyledButton = styled.button`
 		pointer-events: none;
 	`};
 
+  ${({ small, icon }) =>
+    small &&
+    `
+padding: 10px 14px;
+	font-size: 12px;
+	${icon &&
+    `
+		padding-left: 5px;
+	`}
+	`};
+
   & > span::before {
     ${({ loading }) => loading && loadingStyles};
   }
@@ -157,6 +168,9 @@ const Children = styled.span`
   text-decoration: none;
   padding: 0;
   margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 `;
 
 const FixedButton = styled.button`
@@ -187,7 +201,7 @@ const FixedButton = styled.button`
 
 class Button extends Component {
   render() {
-    const { children, asLink, fixed, icon } = this.props;
+    const { children, asLink, fixed, icon, small, secondary } = this.props;
 
     return asLink ? (
       <ButtonAsLink {...this.props}>{children}</ButtonAsLink>
@@ -199,11 +213,14 @@ class Button extends Component {
     ) : (
       <StyledButton {...this.props}>
         <Children>
-          {icon ? (
-            <Icon name={icon} color={colors.white} size="24px" />
-          ) : (
-            children
+          {icon && (
+            <Icon
+              name={icon}
+              color={secondary ? colors.black : colors.white}
+              size={small ? '16px' : '24px'}
+            />
           )}
+          {children}
         </Children>
       </StyledButton>
     );
