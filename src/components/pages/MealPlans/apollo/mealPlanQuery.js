@@ -12,6 +12,7 @@ export default gql`
       recipes {
         id
         title
+        rawIngredients
       }
     }
   }
