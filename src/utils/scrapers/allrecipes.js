@@ -39,10 +39,12 @@ const newAllRecipes = ($, Recipe) => {
       .children('.recipe-meta-item-header')
       .text()
       .replace(/\s*:|\s+(?=\s*)/g, '');
+
     const value = $(el)
       .children('.recipe-meta-item-body')
       .text()
       .replace(/\s\s+/g, '');
+
     switch (title) {
       case 'prep':
         Recipe.prepTime = value;
@@ -68,7 +70,9 @@ const newAllRecipes = ($, Recipe) => {
     Recipe.steps.push(instruction);
   });
 
-  Recipe.imageUrl = $('img.rec-photo').first()[0].attribs.src;
+  Recipe.imageUrl = $(
+    '.mdex-test.template-recipe .recipe-content .primary-media-section.primary-media-with-filmstrip .component.lazy-image'
+  ).first()[0].attribs['data-src'];
 };
 
 const oldAllRecipes = ($, Recipe) => {
