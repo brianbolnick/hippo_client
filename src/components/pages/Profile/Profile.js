@@ -6,6 +6,8 @@ import get from 'lodash/get';
 import Layout from 'components/common/Layout/Layout';
 import PageLoader from 'components/common/PageLoader';
 import { media, colors } from 'styles/css-variables';
+import ProfilePhoto from 'img/chef-profile.png';
+import { Tabs, Tab, TabPane } from 'components/common/Tabs';
 
 const Container = styled.div`
   display: flex;
@@ -20,40 +22,113 @@ const Container = styled.div`
 	`};
 `;
 
-const Group = styled.div`
-  font-size: 3rem;
-  margin: 24px auto;
-  font-weight: 600;
-`;
-
-const MetaDetails = styled.div`
-  font-size: 1.8rem;
-  margin-bottom: 8px;
-`;
-
-const Card = styled.div`
-  box-shadow: 0px 2px 9px 4px #2121211f;
+const SettingsContainer = styled.div`
+  min-height: 600px;
+  flex: 3;
+  margin-right: 40px;
+  //border: solid 1px ${colors.darkGray};
+	border: solid 1px ${colors.mutedGray};
   border-radius: 4px;
-  padding: 16px 24px;
-  width: 50%;
-  margin: 64px;
-  box-sizing: border-box;
+	padding: 32px;
 
-  ${media.tablet`
-		width: 100%;
-		margin: 16px;
+  ${media.smallDesktop`
+	margin-right: 0;
+	margin-bottom: 40px;
+	width: 88%;
+    box-sizing: border-box;
+	`};
+
+`;
+
+const UserCard = styled.div`
+  height: 26rem;
+  flex: 1;
+  margin-right: 40px;
+  border: solid 1px ${colors.mutedGray};
+  border-radius: 4px;
+  display: flex;
+  flex-flow: column;
+  //box-shadow: 0 0.3125rem 1rem 0 rgba(0, 0, 0, 0.21);
+  //
+  ${media.smallDesktop`
+	margin-right: 0;
+	margin-bottom: 40px;
+	width: 88%;
 	`};
 `;
 
-const Warning = styled.div`
-  font-size: 40px;
-  font-weight: 800;
-  color: ${colors.red};
-  text-align: center;
-  margin-bottom: 40px;
+const UserImageContainer = styled.div`
+  position: relative;
+  flex: 0.01;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
-const UsersContainer = styled.div``;
+const UserCardHeading = styled.div`
+  flex: 2.5;
+  background: white;
+  //height: 115px;
+`;
+
+const ProfileImage = styled.div`
+  position: absolute;
+  background-color: #fff;
+  border: 0.25rem solid #fff;
+  border-radius: 50%;
+  box-shadow: 0 0.25rem 0.5rem 0 #e6e6e6;
+  height: 8em;
+  width: 8em;
+  background-image: ${`url(${ProfilePhoto})`};
+  background-size: cover;
+`;
+
+const UserBody = styled.div`
+  flex: 8;
+  background-color: #f6f7f9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const UserName = styled.div`
+  font-size: 2rem;
+  font-weight: 600;
+`;
+
+const UserActions = styled.div`
+  flex: 1.5;
+  background-color: #fff;
+  border-top: 0.0625rem solid #e8ebf1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: ${colors.blue};
+  cursor: pointer;
+
+  &:hover {
+    background: ${colors.blue};
+    color: white;
+  }
+
+  font-weight: 600;
+`;
+
+const StyledTab = styled.div`
+  padding-bottom: 16px;
+  width: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2em;
+  font-weight: 500;
+`;
+
+const Navigation = styled.div`
+  display: flex;
+  margin-bottom: 16px;
+  border-bottom: solid 1px ${colors.mutedGray};
+`;
 
 const Family = () => {
   const { data, networkStatus, loading } = useQuery(GET_FAMILY_QUERY);
@@ -61,43 +136,72 @@ const Family = () => {
   const family = get(data, 'familyQuery', {});
   const users = get(family, 'users', []);
 
-  const renderUsers = () => {
-    return users.map(user => {
-      return (
-        <div>
-          - {user.name} ({user.email})
-        </div>
-      );
-    });
-  };
+  console.log(users);
+  //const renderUsers = () => {
+  //return users.map(user => {
+  //return (
+  //<div>
+  //- {user.name} ({user.email})
+  //</div>
+  //);
+  //});
+  //};
 
   return networkStatus !== 7 || loading ? (
     <PageLoader />
   ) : (
-    <Layout>
-      <Warning>PAGE UNDER CONSTRUCTION</Warning>
+    <Layout hideFooter>
       <Container>
-        <Card>
-          <Group>Family</Group>
-          <MetaDetails>Name: {family.displayName}</MetaDetails>
-          <MetaDetails>Family Code: {family.joinCode}</MetaDetails>
-          <MetaDetails>
-            Membership: {family.isPremium ? 'Master Class' : 'Free (Upgrade)'}
-          </MetaDetails>
+        <UserCard>
+          <UserCardHeading />
+          <UserImageContainer>
+            <ProfileImage />
+          </UserImageContainer>
+          <UserBody>
+            <UserName>Brian Bolnick</UserName>
+          </UserBody>
+          <UserActions>Edit Profile (Coming Soon)</UserActions>
+        </UserCard>
 
-          <div>
-            <MetaDetails>FAMILY MEMBERS:</MetaDetails>
-            <UsersContainer>{renderUsers()}</UsersContainer>
-          </div>
-        </Card>
-
-        <Card>
-          <Group>User</Group>
-          <MetaDetails> TODO: change password </MetaDetails>
-        </Card>
+        <SettingsContainer>
+          <Tabs
+            defaultActiveTab="family"
+            onTabChange={() => console.log('click')}
+          >
+            <Navigation>
+              <Tab name="family" profile>
+                <StyledTab>Family</StyledTab>
+              </Tab>
+              <Tab name="billing" profile>
+                <StyledTab>Billing</StyledTab>
+              </Tab>
+            </Navigation>
+            <TabPane name="family">Family Settings</TabPane>
+            <TabPane name="billing">Billing Settings</TabPane>
+          </Tabs>
+        </SettingsContainer>
       </Container>
     </Layout>
   );
 };
+
+//<Warning>PAGE UNDER CONSTRUCTION</Warning>
+//<Card>
+//<Group>{family.displayName} Family</Group>
+//<MetaDetails>Join Code: {family.joinCode}</MetaDetails>
+//<MetaDetails>
+//Membership: {family.isPremium ? 'Master Class' : 'Free (Upgrade)'}
+//</MetaDetails>
+
+//<div>
+//<MetaDetails>Family Members</MetaDetails>
+//<UsersContainer>{renderUsers()}</UsersContainer>
+//</div>
+//</Card>
+
+//<Card>
+//<Group>User Settings</Group>
+//<MetaDetails>Change Password (Coming Soon)</MetaDetails>
+//</Card>
 
 export default Family;

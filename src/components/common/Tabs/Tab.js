@@ -1,18 +1,31 @@
 import React from 'react';
-import styled from 'styled-components/macro';
+import styled, { css } from 'styled-components/macro';
 import PropTypes from 'prop-types';
 import { colors } from 'styles/css-variables';
+
+const originalCss = css`
+  border-bottom: solid 4px ${colors.red};
+  padding-bottom: 4px;
+`;
+
+const profileCss = css`
+  border-bottom: solid 2px ${colors.blue};
+  padding-bottom: 4px;
+  color: ${colors.black} !important;
+`;
 
 const StyledTab = styled.div`
   margin-right: 16px;
   cursor: pointer;
 
-  ${({ isActive }) =>
-    isActive &&
+  ${({ profile }) =>
+    profile &&
     `
-			border-bottom: solid 4px ${colors.red};
-			padding-bottom: 4px;
-		`};
+			color: ${colors.darkGray};
+	`};
+
+  ${({ isActive, profile }) =>
+    isActive ? (profile ? profileCss : originalCss) : ``};
 `;
 
 const Tab = ({ children, name, onClick, isActive, ...props }) => {
