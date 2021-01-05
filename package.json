@@ -11,7 +11,7 @@
     "apollo-link-context": "^1.0.19",
     "apollo-link-http": "^1.5.16",
     "apollo-link-rest": "^0.7.3",
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "cheerio": "^1.0.0-rc.3",
     "domain-parser": "^0.0.5",
     "graphql": "^14.5.8",
